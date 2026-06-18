@@ -1,24 +1,36 @@
+"use client";
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
 
-const credentials = ["Cambridge", "ACCA", "Careem", "Bolt", "Wise", "Tallinn"];
+const credentials = [
+  "Cambridge", "ACCA", "Careem", "Bolt", "Wise",
+  "Tallinn", "Anthropic Partner Network",
+];
 
 const principles = [
   {
-    num: "01",
-    title: "Clarity before systems",
-    body: "Before any tool, any automation, any workflow — what are we actually trying to do? Most teams skip this question. It costs them everything.",
+    title: "Clarity first",
+    body: "I don't touch tools until the problem is clear. Most projects fail here — not in execution.",
   },
   {
-    num: "02",
-    title: "Build to last, not to demo",
-    body: "A demo that impresses investors and a system that survives Monday morning are different things. I build the second one.",
+    title: "Build to own",
+    body: "No lock-in. No dependency on me. You get the system, the docs, and the ability to run it yourself.",
   },
   {
-    num: "03",
-    title: "Operator first, consultant second",
-    body: "I've run the ops. I've been on the floor at 2am when things break. That's the lens I bring — not a framework from a slide deck.",
+    title: "Operator, not theorist",
+    body: "Ten years of actual operations. I know what breaks at scale because I've watched it break.",
   },
+  {
+    title: "Taste matters",
+    body: "The systems I build are ones I'd want to use. That's not a soft thing — it's quality control.",
+  },
+];
+
+const socials = [
+  { label: "LinkedIn", handle: "@riz", href: "https://www.linkedin.com/in/riz" },
+  { label: "YouTube", handle: "@VibeWithRiz", href: "https://www.youtube.com/@VibeWithRiz" },
+  { label: "Instagram", handle: "@etz.riz", href: "https://www.instagram.com/etz.riz/" },
+  { label: "Substack", handle: "conversationswithriz", href: "https://conversationswithriz.substack.com/" },
 ];
 
 export default function About() {
@@ -28,41 +40,45 @@ export default function About() {
       <section style={{ paddingTop: 120, paddingBottom: 80 }}>
         <div className="max-w-site">
           <div className="grid md:grid-cols-2 gap-12 items-start">
-            {/* Photo placeholder */}
+
+            {/* Portrait placeholder */}
             <AnimateIn>
               <div
                 style={{
                   width: "100%",
                   aspectRatio: "4/5",
                   borderRadius: 16,
-                  background: "var(--cream)",
+                  background: "linear-gradient(160deg, var(--coral) 0%, var(--coral-d) 100%)",
                   border: "1px solid var(--line)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
-                <div style={{ textAlign: "center" }}>
-                  <div
+                {/* Grid overlay */}
+                <div
+                  style={{
+                    position: "absolute", inset: 0,
+                    backgroundImage:
+                      "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+                    backgroundSize: "40px 40px",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute", inset: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}
+                >
+                  <span
                     style={{
-                      width: 80,
-                      height: 80,
-                      borderRadius: "50%",
-                      background: "var(--line-2)",
-                      margin: "0 auto 1rem",
-                    }}
-                  />
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.72rem",
-                      color: "var(--muted)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.1em",
+                      fontFamily: "var(--font-playfair), serif",
+                      fontWeight: 700,
+                      fontSize: "4rem",
+                      color: "rgba(255,255,255,0.25)",
                     }}
                   >
-                    Photo
-                  </p>
+                    Riz
+                  </span>
                 </div>
               </div>
             </AnimateIn>
@@ -70,9 +86,9 @@ export default function About() {
             {/* Text */}
             <div>
               <AnimateIn>
-                <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>ABOUT RIZ</p>
+                <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>About Riz</p>
               </AnimateIn>
-              <AnimateIn delay={100}>
+              <AnimateIn delay={80}>
                 <h1
                   style={{
                     fontFamily: "var(--font-playfair), serif",
@@ -80,13 +96,14 @@ export default function About() {
                     lineHeight: 1.2,
                     color: "var(--ink)",
                     fontWeight: 700,
-                    marginBottom: "1.5rem",
+                    marginBottom: "1.75rem",
                   }}
                 >
-                  Ten years running operations. Now building what comes next.
+                  Operator. Builder.{" "}
+                  <em style={{ fontStyle: "italic" }}>Occasionally funny.</em>
                 </h1>
               </AnimateIn>
-              <AnimateIn delay={200}>
+              <AnimateIn delay={180}>
                 <p
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
@@ -96,10 +113,10 @@ export default function About() {
                     marginBottom: "1.25rem",
                   }}
                 >
-                  Cambridge. ACCA. Careem. Bolt. Wise. Four continents. A decade of watching what actually works at scale — and what looks good in a deck but breaks in the field.
+                  Ten years running operations across four continents. Cambridge. ACCA. Careem. Bolt. Wise.
                 </p>
               </AnimateIn>
-              <AnimateIn delay={300}>
+              <AnimateIn delay={260}>
                 <p
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
@@ -109,10 +126,10 @@ export default function About() {
                     marginBottom: "2rem",
                   }}
                 >
-                  Now based in Tallinn, I work with founders who are serious about using AI and automation to build operations that scale — without breaking at the seams.
+                  Now in Tallinn, building with AI and figuring out what actually changes when smart people get powerful tools.
                 </p>
               </AnimateIn>
-              <AnimateIn delay={400}>
+              <AnimateIn delay={340}>
                 <Link href="/services" className="btn-coral">See how I work →</Link>
               </AnimateIn>
             </div>
@@ -121,16 +138,23 @@ export default function About() {
       </section>
 
       {/* CREDENTIALS STRIP */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-        <div className="max-w-site" style={{ padding: "1.5rem 1.5rem" }}>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+      <section
+        style={{
+          background: "var(--cream)",
+          borderTop: "1px solid var(--line)",
+          borderBottom: "1px solid var(--line)",
+          padding: "1.5rem 0",
+        }}
+      >
+        <div className="max-w-site">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
             {credentials.map((c) => (
               <span
                 key={c}
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontWeight: 600,
-                  fontSize: "0.95rem",
+                  fontSize: "0.9rem",
                   color: "var(--muted)",
                   letterSpacing: "0.04em",
                 }}
@@ -142,7 +166,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* HOW I WORK */}
+      {/* PRINCIPLES */}
       <section style={{ padding: "5rem 0" }}>
         <div className="max-w-site">
           <AnimateIn>
@@ -155,56 +179,42 @@ export default function About() {
                 marginBottom: "3rem",
               }}
             >
-              How I work.
+              How I think about the work.
             </h2>
           </AnimateIn>
-          <div className="flex flex-col gap-8">
+          <div className="grid md:grid-cols-2 gap-5">
             {principles.map((p, i) => (
-              <AnimateIn key={p.num} delay={i * 150}>
+              <AnimateIn key={p.title} delay={i * 100}>
                 <div
                   style={{
-                    display: "flex",
-                    gap: "2rem",
-                    alignItems: "flex-start",
-                    paddingBottom: "2rem",
-                    borderBottom: i < principles.length - 1 ? "1px solid var(--line)" : "none",
+                    border: "1px solid var(--line)",
+                    borderRadius: 12,
+                    padding: "2rem",
+                    background: "#fff",
+                    boxShadow: "var(--shadow)",
                   }}
                 >
-                  <span
+                  <h3
                     style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.8rem",
-                      color: "var(--coral)",
-                      fontWeight: 500,
-                      flexShrink: 0,
-                      paddingTop: "0.2rem",
+                      fontFamily: "var(--font-playfair), serif",
+                      fontSize: "1.2rem",
+                      color: "var(--ink)",
+                      fontWeight: 700,
+                      marginBottom: "0.75rem",
                     }}
                   >
-                    {p.num}
-                  </span>
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.2rem",
-                        color: "var(--ink)",
-                        fontWeight: 600,
-                        marginBottom: "0.5rem",
-                      }}
-                    >
-                      {p.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.95rem",
-                        color: "var(--body)",
-                        lineHeight: 1.7,
-                      }}
-                    >
-                      {p.body}
-                    </p>
-                  </div>
+                    {p.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: "0.95rem",
+                      color: "var(--body)",
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {p.body}
+                  </p>
                 </div>
               </AnimateIn>
             ))}
@@ -212,30 +222,148 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ background: "var(--ink)", padding: "4rem 0" }}>
-        <div className="max-w-site text-center">
+      {/* PULL QUOTE */}
+      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "4rem 0" }}>
+        <div className="max-w-site">
+          <AnimateIn>
+            <div
+              style={{
+                maxWidth: 680,
+                margin: "0 auto",
+                textAlign: "center",
+                padding: "2rem",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-playfair), serif",
+                  fontSize: "clamp(1.3rem, 2.5vw, 1.65rem)",
+                  color: "var(--ink)",
+                  fontStyle: "italic",
+                  lineHeight: 1.65,
+                }}
+              >
+                &ldquo;I&apos;m not here to automate your job. I&apos;m here to automate the parts of it that are eating you alive.&rdquo;
+              </p>
+            </div>
+          </AnimateIn>
+        </div>
+      </section>
+
+      {/* SOCIALS */}
+      <section style={{ padding: "5rem 0" }}>
+        <div className="max-w-site">
           <AnimateIn>
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
-                color: "#fff",
+                fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
+                color: "var(--ink)",
                 fontWeight: 700,
-                marginBottom: "1rem",
+                marginBottom: "2rem",
               }}
             >
-              Ready to work together?
+              Find me elsewhere.
             </h2>
           </AnimateIn>
-          <AnimateIn delay={150}>
-            <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "1rem", color: "var(--faint)", marginBottom: "2rem" }}>
-              Available for consulting, builds, and select speaking engagements.
-            </p>
-          </AnimateIn>
-          <AnimateIn delay={250}>
-            <Link href="/services" className="btn-coral">See services →</Link>
-          </AnimateIn>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {socials.map((s, i) => (
+              <AnimateIn key={s.label} delay={i * 80}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: "none", display: "block" }}
+                >
+                  <div
+                    style={{
+                      border: "1px solid var(--line)",
+                      borderRadius: 12,
+                      padding: "1.5rem",
+                      background: "#fff",
+                      boxShadow: "var(--shadow)",
+                      transition: "box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-lg)";
+                      (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
+                      (e.currentTarget as HTMLDivElement).style.borderColor = "var(--coral)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow)";
+                      (e.currentTarget as HTMLDivElement).style.transform = "none";
+                      (e.currentTarget as HTMLDivElement).style.borderColor = "var(--line)";
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontWeight: 600,
+                        fontSize: "0.9rem",
+                        color: "var(--ink)",
+                        marginBottom: "0.25rem",
+                      }}
+                    >
+                      {s.label} ↗
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-dm-mono), monospace",
+                        fontSize: "0.72rem",
+                        color: "var(--muted)",
+                      }}
+                    >
+                      {s.handle}
+                    </p>
+                  </div>
+                </a>
+              </AnimateIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* COMPANY BLOCK */}
+      <section style={{ background: "var(--ink)", padding: "5rem 0" }}>
+        <div className="max-w-site">
+          <div style={{ maxWidth: 560 }}>
+            <AnimateIn>
+              <h2
+                style={{
+                  fontFamily: "var(--font-playfair), serif",
+                  fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                  color: "#fff",
+                  fontWeight: 700,
+                  marginBottom: "1rem",
+                }}
+              >
+                Working on something bigger?
+              </h2>
+            </AnimateIn>
+            <AnimateIn delay={100}>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "1.05rem",
+                  color: "var(--faint)",
+                  lineHeight: 1.7,
+                  marginBottom: "2rem",
+                }}
+              >
+                Soch is my company. We build AI workflow systems for founders and ops teams.
+              </p>
+            </AnimateIn>
+            <AnimateIn delay={200}>
+              <a
+                href="https://withsoch.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-coral"
+              >
+                Visit Soch →
+              </a>
+            </AnimateIn>
+          </div>
         </div>
       </section>
     </>

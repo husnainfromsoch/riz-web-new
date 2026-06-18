@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Work", href: "/case-studies" },
   { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
+  { label: "Case studies", href: "/case-studies" },
   { label: "Writing", href: "/blog" },
+  { label: "About", href: "/about" },
 ];
 
 export default function Navbar() {
@@ -35,7 +35,6 @@ export default function Navbar() {
       }}
     >
       <div className="max-w-site flex items-center justify-between" style={{ height: 68 }}>
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
           <span
             style={{
@@ -61,7 +60,6 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
             <Link
@@ -81,12 +79,15 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link href="/about" className="btn-coral" style={{ padding: "0.55rem 1.25rem", fontSize: "0.875rem" }}>
-            Work with me
+          <Link
+            href="/services/consulting"
+            className="btn-coral"
+            style={{ padding: "0.55rem 1.25rem", fontSize: "0.875rem" }}
+          >
+            Book a call
           </Link>
         </nav>
 
-        {/* Mobile hamburger */}
         <button
           className="flex md:hidden flex-col gap-1.5 p-2"
           onClick={() => setOpen((v) => !v)}
@@ -119,11 +120,10 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
       <div
         style={{
           overflow: "hidden",
-          maxHeight: open ? 320 : 0,
+          maxHeight: open ? 360 : 0,
           transition: "max-height 0.3s ease",
           background: "rgba(255,255,255,0.97)",
           backdropFilter: "blur(12px)",
@@ -148,8 +148,13 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link href="/about" className="btn-coral" style={{ marginTop: "0.5rem", textAlign: "center" }}>
-            Work with me
+          <Link
+            href="/services/consulting"
+            className="btn-coral"
+            onClick={() => setOpen(false)}
+            style={{ marginTop: "0.5rem", textAlign: "center" }}
+          >
+            Book a call
           </Link>
         </div>
       </div>

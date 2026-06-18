@@ -1,91 +1,121 @@
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
+import SubscribeBox from "@/components/SubscribeBox";
 
-const posts: Record<string, { title: string; date: string; readTime: string; tag: string; content: string }> = {
-  "why-automation-breaks": {
-    title: "Why your automation keeps breaking",
-    date: "January 2025",
-    readTime: "6 min",
-    tag: "Automation",
-    content: `The problem is never the tool.
-
-It's the process you encoded into the tool.
-
-I've watched companies spend six figures on automation platforms, hire consultants to implement them, run change management programmes — and still end up with systems that break every other week and cost more to maintain than the people they replaced.
-
-Every time, the diagnosis is the same. The automation was built to mirror an existing process. And the existing process was broken.
-
-**The map is not the territory**
-
-When you sit down to automate something, you typically start with a process document. Or someone describes the process to you. Or you watch someone do it once.
-
-None of these are the process.
-
-The process is what actually happens when things go wrong. When the exception occurs. When the third-party system is down. When the team is understaffed and someone takes a shortcut that became standard practice three years ago and nobody remembers why.
-
-Automating the documented process leaves all of those edge cases to be handled manually — or, worse, to surface as silent errors that nobody notices until three months of data is corrupted.
-
-**Fix the thinking before you automate it**
-
-The right approach is uncomfortable. It requires slowing down before you speed up.
-
-Map what actually happens, not what should happen. Interview the people doing the work. Follow the exceptions. Find the workarounds. Understand why they exist.
-
-Then — only then — design the process you want. And automate that.
-
-It takes longer. It feels less like progress. But it's the only kind of automation that survives contact with reality.`,
-  },
-  "careem-scaling-ops": {
-    title: "What Careem taught me about scaling ops",
-    date: "December 2024",
-    readTime: "8 min",
-    tag: "Operations",
-    content: `At 2am in Dubai, watching a system fail in ways nobody predicted, I learned more about operations than any MBA could teach.
-
-The system in question was designed to handle surge demand during Ramadan. We'd stress-tested it. We'd built redundancy. We'd run the numbers.
-
-What we hadn't accounted for was human behaviour at scale.
-
-**What the model missed**
-
-When demand spiked, drivers started clustering in high-demand areas — which was rational at the individual level and catastrophic at the system level. The algorithm was optimising for availability. The drivers were optimising for earnings. Neither model included the other.
-
-This is the thing about scaling: the gaps between your assumptions are where operations actually live.
-
-**The lesson I keep coming back to**
-
-Every time I work with a company on their operations, I ask: what's the thing your system assumes will always be true, that sometimes isn't?
-
-That's where you'll find the 2am problems. And if you find them before 2am, you can usually fix them before they matter.`,
-  },
-  "ai-adoption-playbook": {
-    title: "The AI adoption playbook I wish existed",
-    date: "November 2024",
+const posts: Record<string, {
+  title: string;
+  date: string;
+  tag: string;
+  readTime: string;
+  lead: string;
+  body: { type: "p" | "h2" | "blockquote"; text: string }[];
+}> = {
+  "just-add-ai": {
+    title: '"Just add AI" is the new "just add blockchain"',
+    date: "June 2026",
+    tag: "Opinion",
     readTime: "5 min",
-    tag: "AI",
-    content: `Most AI adoption fails at the same point. Not the technology. Not the budget. The point where someone has to change how they work.
-
-I've seen this pattern so many times it's almost boring to describe. A company invests in an AI tool. The tool works. Adoption is low. The investment is written off as a failed experiment.
-
-But the tool didn't fail. The change management did.
-
-**The mistake everyone makes**
-
-The standard playbook goes: buy tool → train team → measure results.
-
-The actual sequence should be: understand current behaviour → design new behaviour → buy tool that supports it → train team on new behaviour (tool is secondary) → measure results.
-
-Notice what's different? The tool is step three, not step one. And the thing you're training on is the new way of working, not the software.
-
-**What works instead**
-
-Find one team with a clear problem and a leader who's willing to change how they work. Not just willing to try a new tool — willing to change the process.
-
-Build the new process with them. Use the AI tool to support it. When it works, you have a proof point and a template.
-
-Then do it again.
-
-It's slower than a company-wide rollout. It's also the only thing that actually works.`,
+    lead: "Every few years, a technology arrives that everyone agrees will change everything. And every few years, the same mistake gets made with it.",
+    body: [
+      {
+        type: "p",
+        text: "The mistake isn't adopting the technology too early. It's bolting it onto a broken process and expecting it to fix things. AI is the latest victim of this pattern. You can hear it in every pitch deck: 'We're adding AI to our workflow.' Full stop. No mention of what the workflow is. No mention of what problem it's solving. Just: AI.",
+      },
+      {
+        type: "h2",
+        text: "The blockchain playbook, repeated",
+      },
+      {
+        type: "p",
+        text: "We watched this happen with blockchain. Every company was adding it — not because they had a problem that decentralised ledgers solved, but because it sounded like progress. Most of those implementations quietly died. The underlying processes were broken. Blockchain just made them harder to maintain.",
+      },
+      {
+        type: "blockquote",
+        text: "A slow, broken process with AI bolted on is just a faster, more expensive broken process.",
+      },
+      {
+        type: "h2",
+        text: "What actually works",
+      },
+      {
+        type: "p",
+        text: "The companies I've watched use AI well did something boring first: they got clear on what they were trying to do. Not 'add AI' — actually improve a specific outcome. Then they designed a process that made sense. Then, and only then, did they look at what tools could support it.",
+      },
+      {
+        type: "p",
+        text: "The order matters. Tool → process is backwards. Process → tool is how you build something that survives.",
+      },
+    ],
+  },
+  "automation-write-month": {
+    title: "I let an automation write for a month. Here's what broke.",
+    date: "May 2026",
+    tag: "Field notes",
+    readTime: "6 min",
+    lead: "The pipeline ran beautifully. The thinking behind it didn't. A story about where the human still matters.",
+    body: [
+      {
+        type: "p",
+        text: "In March I handed my content pipeline over entirely to automation. Five n8n workflows: research, draft, illustrate, format, publish. Monday to Friday, no human in the loop. By the end of April, I had learned something uncomfortable.",
+      },
+      {
+        type: "h2",
+        text: "What ran fine",
+      },
+      {
+        type: "p",
+        text: "The operational stuff worked perfectly. Posts went out on schedule. Images were generated and attached. The formatting was consistent. The pipeline did exactly what it was designed to do.",
+      },
+      {
+        type: "h2",
+        text: "What quietly broke",
+      },
+      {
+        type: "blockquote",
+        text: "The machine optimised for output. It had no way to optimise for truth.",
+      },
+      {
+        type: "p",
+        text: "Without a human in the loop, the content started to drift toward confident generality. Things that sounded right without being earned. The automation had no skin in the game. I did. And I'd removed myself from the process.",
+      },
+      {
+        type: "p",
+        text: "I'm back in the loop now. The automation handles the work I don't need to do. The judgment calls — what to say, whether it's honest, whether it's worth saying — those stay human.",
+      },
+    ],
+  },
+  "boring-part-matters": {
+    title: "The boring part is the part that matters",
+    date: "May 2026",
+    tag: "Operations",
+    readTime: "7 min",
+    lead: "Ten years of scaling ops taught me the unglamorous truth about what actually compounds.",
+    body: [
+      {
+        type: "p",
+        text: "Nobody writes about the boring parts of operations. They write about the launches, the pivots, the crises. But operations is mostly the boring stuff — and the boring stuff is where everything either holds or falls apart.",
+      },
+      {
+        type: "h2",
+        text: "What I mean by boring",
+      },
+      {
+        type: "p",
+        text: "Documentation. Consistent handoffs. The fifteen-minute standup that actually happens every day. The process for onboarding that takes three weeks to write and saves three months of confusion every time. None of this is interesting to talk about. All of it compounds.",
+      },
+      {
+        type: "blockquote",
+        text: "The unsexy stuff is the infrastructure. Everything exciting is built on top of it.",
+      },
+      {
+        type: "h2",
+        text: "Why teams skip it",
+      },
+      {
+        type: "p",
+        text: "Because it doesn't feel like progress. Writing the third version of an onboarding doc feels like admin, not momentum. But the teams I watched scale were the ones who treated the boring parts as first-class work. They hired for it, protected time for it, and refused to let 'we'll document it later' become the default.",
+      },
+    ],
   },
 };
 
@@ -96,7 +126,13 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     return (
       <section style={{ paddingTop: 140, paddingBottom: 80 }}>
         <div className="max-w-site text-center">
-          <h1 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "2rem", color: "var(--ink)" }}>
+          <h1
+            style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "2rem",
+              color: "var(--ink)",
+            }}
+          >
             Post not found.
           </h1>
           <Link href="/blog" className="btn-coral" style={{ display: "inline-block", marginTop: "2rem" }}>
@@ -109,6 +145,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      {/* HEADER */}
       <section style={{ paddingTop: 120, paddingBottom: 60, background: "var(--cream-2)" }}>
         <div className="max-w-site" style={{ maxWidth: 720 }}>
           <AnimateIn>
@@ -120,84 +157,124 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                 color: "var(--muted)",
                 textDecoration: "none",
                 display: "inline-block",
-                marginBottom: "1.5rem",
+                marginBottom: "1.75rem",
               }}
             >
               ← Writing
             </Link>
           </AnimateIn>
-          <AnimateIn delay={100}>
-            <span className="tag-pill" style={{ marginBottom: "1rem", display: "inline-block" }}>{post.tag}</span>
+          <AnimateIn delay={80}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+              <span className="tag-pill">{post.tag}</span>
+              <span
+                style={{
+                  fontFamily: "var(--font-dm-mono), monospace",
+                  fontSize: "0.72rem",
+                  color: "var(--faint)",
+                }}
+              >
+                {post.date} · {post.readTime} read
+              </span>
+            </div>
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 4vw, 2.6rem)",
-                lineHeight: 1.25,
+                fontSize: "clamp(1.8rem, 4vw, 2.75rem)",
+                lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
-                marginBottom: "1rem",
               }}
             >
               {post.title}
             </h1>
-            <div
-              style={{
-                display: "flex",
-                gap: "0.75rem",
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.75rem",
-                color: "var(--muted)",
-              }}
-            >
-              <span>{post.date}</span>
-              <span>·</span>
-              <span>{post.readTime} read</span>
-            </div>
           </AnimateIn>
         </div>
       </section>
 
-      <section style={{ padding: "4rem 0 6rem" }}>
+      {/* BODY */}
+      <section style={{ padding: "4rem 0 2rem" }}>
         <div className="max-w-site" style={{ maxWidth: 720 }}>
           <AnimateIn>
-            <div
+            {/* Lead paragraph */}
+            <p
               style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.05rem",
+                fontFamily: "var(--font-playfair), serif",
+                fontSize: "clamp(1.1rem, 1.8vw, 1.3rem)",
                 color: "var(--body)",
-                lineHeight: 1.85,
+                lineHeight: 1.8,
+                marginBottom: "2rem",
               }}
             >
-              {post.content.split("\n\n").map((para, i) => {
-                if (para.startsWith("**") && para.endsWith("**")) {
-                  return (
-                    <h2
-                      key={i}
+              {post.lead}
+            </p>
+
+            {/* Body blocks */}
+            {post.body.map((block, i) => {
+              if (block.type === "h2") {
+                return (
+                  <h2
+                    key={i}
+                    style={{
+                      fontFamily: "var(--font-playfair), serif",
+                      fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
+                      color: "var(--ink)",
+                      fontWeight: 700,
+                      margin: "2.5rem 0 1rem",
+                    }}
+                  >
+                    {block.text}
+                  </h2>
+                );
+              }
+              if (block.type === "blockquote") {
+                return (
+                  <blockquote
+                    key={i}
+                    style={{
+                      borderLeft: "3px solid var(--coral)",
+                      paddingLeft: "1.5rem",
+                      margin: "2rem 0",
+                    }}
+                  >
+                    <p
                       style={{
                         fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.3rem",
+                        fontSize: "clamp(1rem, 1.6vw, 1.15rem)",
+                        fontStyle: "italic",
                         color: "var(--ink)",
-                        fontWeight: 700,
-                        margin: "2.5rem 0 1rem",
+                        lineHeight: 1.7,
                       }}
                     >
-                      {para.replace(/\*\*/g, "")}
-                    </h2>
-                  );
-                }
-                return (
-                  <p key={i} style={{ marginBottom: "1.5rem" }}>
-                    {para}
-                  </p>
+                      {block.text}
+                    </p>
+                  </blockquote>
                 );
-              })}
-            </div>
+              }
+              return (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "1.05rem",
+                    color: "var(--body)",
+                    lineHeight: 1.85,
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  {block.text}
+                </p>
+              );
+            })}
           </AnimateIn>
 
           <AnimateIn delay={200}>
+            <SubscribeBox />
+          </AnimateIn>
+
+          <AnimateIn delay={300}>
             <div
               style={{
-                marginTop: "4rem",
+                marginTop: "3rem",
                 paddingTop: "2rem",
                 borderTop: "1px solid var(--line)",
                 display: "flex",
@@ -207,10 +284,22 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                 gap: "1rem",
               }}
             >
-              <Link href="/blog" style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "0.875rem", color: "var(--muted)", textDecoration: "none" }}>
+              <Link
+                href="/blog"
+                style={{
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "0.875rem",
+                  color: "var(--muted)",
+                  textDecoration: "none",
+                }}
+              >
                 ← Back to writing
               </Link>
-              <Link href="/about" className="btn-coral" style={{ fontSize: "0.875rem", padding: "0.6rem 1.25rem" }}>
+              <Link
+                href="/services/consulting"
+                className="btn-coral"
+                style={{ fontSize: "0.875rem", padding: "0.6rem 1.25rem" }}
+              >
                 Work with me →
               </Link>
             </div>
@@ -223,8 +312,8 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
 export function generateStaticParams() {
   return [
-    { slug: "why-automation-breaks" },
-    { slug: "careem-scaling-ops" },
-    { slug: "ai-adoption-playbook" },
+    { slug: "just-add-ai" },
+    { slug: "automation-write-month" },
+    { slug: "boring-part-matters" },
   ];
 }

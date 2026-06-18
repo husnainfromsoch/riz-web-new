@@ -5,33 +5,28 @@ import Link from "next/link";
 
 const cases = [
   {
-    tag: "Automation · Fintech",
-    title: "Cutting manual ops by 70% for a fintech scale-up",
-    stats: ["70% ops reduction", "3 months"],
-    detail:
-      "A Series B fintech processing 40,000+ transactions daily was drowning in manual reconciliation. We mapped the full ops flow, identified 12 automation opportunities, and built 6 of them. The result: two team members freed from full-time manual work, error rate dropped by 82%, and the ops team finally had headroom to think.",
-    outcome: "The team lead said it was the first time in two years she'd left work before 7pm on a Friday.",
+    tag: "Proof",
+    title: "Bug Catcher",
+    body: "I'd never written code. In 2024, I decided that was no longer an excuse. Built a browser arcade game you control with your hands — live hand-tracking, no controller, no install. Shipped in public on LinkedIn. 20k+ impressions on the launch post. The point wasn't the game. It was the proof.",
+    results: ["20k+ impressions", "Built in public", "Zero prior code"],
   },
   {
-    tag: "Consulting · E-commerce",
-    title: "Rebuilding the thinking before rebuilding the stack",
-    stats: ["4 week engagement", "Full ops redesign"],
-    detail:
-      "A D2C brand had spent £200k on automation tools that were making things slower. We spent four weeks doing the one thing nobody had done: understanding what was actually happening. No code. No tools. Just mapping, questioning, and redesigning the workflow logic.",
-    outcome: "The CTO cancelled three vendor contracts and saved £80k/year. The new process ran on tools they already owned.",
+    tag: "Automation",
+    title: "The content engine",
+    body: "Five connected n8n workflows. Research → draft → illustrate → format → publish. The whole pipeline runs without me. I set the brief on Monday. By Thursday, there's a post. By Friday, it's live.",
+    results: ["5 workflows", "Weekly publishing", "Zero human steps"],
   },
   {
-    tag: "Speaking · Leadership",
-    title: "AI literacy for a 200-person ops team",
-    stats: ["200 attendees", "4.9/5 rating"],
-    detail:
-      "A logistics company needed their operations team to understand AI — not as a threat, not as magic, but as a practical tool. Three workshops over two days. Real examples. No hype. By the end, the team had identified 40+ automation opportunities themselves.",
-    outcome: "Three months later, they'd shipped 8 of them. Without external help.",
+    tag: "Receipt",
+    title: "The Bolt case",
+    body: "I was wrongfully terminated by Bolt. I took them to the Estonian Labour Dispute Committee. I won. Then I published every document — the claim, the hearing notes, the decision — on LinkedIn, Substack, and YouTube. Transparency as a strategy.",
+    results: ["Case won", "All documents public", "LinkedIn · Substack · YouTube"],
   },
 ];
 
 function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
   const [open, setOpen] = useState(false);
+
   return (
     <AnimateIn delay={i * 150}>
       <div
@@ -40,42 +35,68 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
           borderRadius: 16,
           overflow: "hidden",
           background: "#fff",
-          transition: "box-shadow 0.2s",
+          boxShadow: "var(--shadow)",
+          transition: "box-shadow 0.2s ease",
         }}
       >
-        <div style={{ padding: "2rem" }}>
-          <span className="tag-pill" style={{ marginBottom: "1rem", display: "inline-block" }}>{c.tag}</span>
+        <div style={{ padding: "2.25rem" }}>
+          {/* Badge */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "1rem" }}>
+            <span
+              style={{
+                width: 6, height: 6, borderRadius: 1,
+                background: "var(--coral)", flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "var(--font-dm-mono), monospace",
+                fontSize: "0.68rem",
+                fontWeight: 500,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--coral)",
+              }}
+            >
+              {c.tag}
+            </span>
+          </div>
+
           <h2
             style={{
               fontFamily: "var(--font-playfair), serif",
-              fontSize: "1.3rem",
+              fontSize: "clamp(1.4rem, 2.5vw, 1.75rem)",
               color: "var(--ink)",
               fontWeight: 700,
               marginBottom: "1.25rem",
-              lineHeight: 1.3,
+              lineHeight: 1.25,
             }}
           >
             {c.title}
           </h2>
-          <div className="flex flex-wrap gap-3" style={{ marginBottom: "1.5rem" }}>
-            {c.stats.map((s) => (
+
+          {/* Results */}
+          <div className="flex flex-wrap gap-2" style={{ marginBottom: "1.5rem" }}>
+            {c.results.map((r) => (
               <span
-                key={s}
+                key={r}
                 style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "1.1rem",
-                  fontWeight: 700,
+                  fontFamily: "var(--font-dm-mono), monospace",
+                  fontSize: "0.72rem",
+                  fontWeight: 500,
                   color: "var(--coral)",
-                  background: "rgba(234,106,71,0.06)",
-                  padding: "0.25rem 0.75rem",
+                  background: "rgba(234,106,71,0.07)",
+                  padding: "0.3rem 0.8rem",
                   borderRadius: 6,
                   border: "1px solid rgba(234,106,71,0.15)",
+                  letterSpacing: "0.04em",
                 }}
               >
-                {s}
+                {r}
               </span>
             ))}
           </div>
+
           <button
             onClick={() => setOpen((v) => !v)}
             style={{
@@ -92,7 +113,7 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
               gap: "0.4rem",
             }}
           >
-            {open ? "Hide details ↑" : "Read case study ↓"}
+            {open ? "Hide details ↑" : "Read the story ↓"}
           </button>
         </div>
 
@@ -100,39 +121,20 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
           <div
             style={{
               borderTop: "1px solid var(--line)",
-              padding: "2rem",
+              padding: "2.25rem",
               background: "var(--cream-2)",
             }}
           >
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "0.95rem",
+                fontSize: "1rem",
                 color: "var(--body)",
-                lineHeight: 1.8,
-                marginBottom: "1.25rem",
+                lineHeight: 1.85,
               }}
             >
-              {c.detail}
+              {c.body}
             </p>
-            <div
-              style={{
-                borderLeft: "3px solid var(--coral)",
-                paddingLeft: "1rem",
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "1rem",
-                  fontStyle: "italic",
-                  color: "var(--ink)",
-                  lineHeight: 1.7,
-                }}
-              >
-                {c.outcome}
-              </p>
-            </div>
           </div>
         )}
       </div>
@@ -143,12 +145,13 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
 export default function CaseStudies() {
   return (
     <>
+      {/* HERO */}
       <section style={{ paddingTop: 120, paddingBottom: 80, background: "var(--cream-2)" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>CASE STUDIES</p>
+            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>Work</p>
           </AnimateIn>
-          <AnimateIn delay={100}>
+          <AnimateIn delay={80}>
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
@@ -159,10 +162,10 @@ export default function CaseStudies() {
                 marginBottom: "1.25rem",
               }}
             >
-              Work that shipped.
+              Things I&apos;ve shipped.
             </h1>
           </AnimateIn>
-          <AnimateIn delay={200}>
+          <AnimateIn delay={180}>
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
@@ -172,21 +175,23 @@ export default function CaseStudies() {
                 maxWidth: 540,
               }}
             >
-              Selected engagements across consulting, build, and operations.
+              Three projects. Different shapes. Same thesis underneath.
             </p>
           </AnimateIn>
         </div>
       </section>
 
+      {/* CASE STUDY CARDS */}
       <section style={{ padding: "5rem 0" }}>
-        <div className="max-w-site flex flex-col gap-6">
+        <div className="max-w-site flex flex-col gap-5">
           {cases.map((c, i) => (
             <CaseCard key={c.title} c={c} i={i} />
           ))}
         </div>
       </section>
 
-      <section style={{ background: "var(--ink)", padding: "4rem 0" }}>
+      {/* CTA */}
+      <section style={{ background: "var(--ink)", padding: "5rem 0" }}>
         <div className="max-w-site text-center">
           <AnimateIn>
             <h2
@@ -198,11 +203,26 @@ export default function CaseStudies() {
                 marginBottom: "1rem",
               }}
             >
-              Want results like these?
+              Want to build something like this?
             </h2>
           </AnimateIn>
-          <AnimateIn delay={150}>
-            <Link href="/services" className="btn-coral">See how I work →</Link>
+          <AnimateIn delay={100}>
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontSize: "1rem",
+                color: "var(--faint)",
+                marginBottom: "2rem",
+              }}
+            >
+              Tell me the problem. I&apos;ll tell you if it&apos;s worth automating.
+            </p>
+          </AnimateIn>
+          <AnimateIn delay={200}>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <Link href="/services/consulting" className="btn-coral">Book a call →</Link>
+              <a href="mailto:riz@withsoch.com" className="btn-ghost" style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}>riz@withsoch.com</a>
+            </div>
           </AnimateIn>
         </div>
       </section>

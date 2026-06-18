@@ -4,28 +4,22 @@ import Link from "next/link";
 const services = [
   {
     num: "01",
-    title: "Consulting",
-    icon: "🧠",
-    body: "I sit with your team, map what's broken, and tell you what to fix before you automate it. Most engagements start here.",
-    detail: "Typically a 2–4 week engagement. Deliverables: a clear ops map, prioritised automation opportunities, and a written action plan your team can execute.",
+    title: "Consulting & coaching",
+    body: "1:1 advisory on AI strategy, automation design, and ops clarity. Fractional product and ops available. From $160/hr.",
     href: "/services/consulting",
     cta: "Explore consulting →",
   },
   {
     num: "02",
-    title: "Build & Projects",
-    icon: "⚙️",
-    body: "I build the automation, the agent, or the internal tool. You keep the IP.",
-    detail: "From n8n workflows to custom AI agents to internal dashboards. Scoped projects with clear milestones and delivery dates.",
+    title: "Build a system",
+    body: "Custom AI workflow automations — n8n, Claude, and whatever connects your stack. That's what Soch does.",
     href: "/services/projects",
-    cta: "See projects →",
+    cta: "See the build →",
   },
   {
     num: "03",
-    title: "Speaking",
-    icon: "🎙️",
-    body: "Conference keynotes, leadership offsites, and founder dinners.",
-    detail: "Topics: AI operations, automation strategy, and what actually changes when you give smart people powerful tools.",
+    title: "Speaking & workshops",
+    body: "Keynotes and team sessions on AI leverage, the future of ops, and what actually changes when you give people powerful tools.",
     href: "/services/speaking",
     cta: "Speaking info →",
   },
@@ -38,9 +32,9 @@ export default function Services() {
       <section style={{ paddingTop: 120, paddingBottom: 80, background: "var(--cream-2)" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>SERVICES</p>
+            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>Services</p>
           </AnimateIn>
-          <AnimateIn delay={100}>
+          <AnimateIn delay={80}>
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
@@ -55,7 +49,7 @@ export default function Services() {
               Three ways to work together.
             </h1>
           </AnimateIn>
-          <AnimateIn delay={200}>
+          <AnimateIn delay={180}>
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
@@ -73,56 +67,60 @@ export default function Services() {
 
       {/* SERVICE CARDS */}
       <section style={{ padding: "5rem 0" }}>
-        <div className="max-w-site flex flex-col gap-8">
+        <div className="max-w-site flex flex-col gap-6">
           {services.map((s, i) => (
-            <AnimateIn key={s.num} delay={i * 150}>
+            <AnimateIn key={s.num} delay={i * 120}>
               <div
                 style={{
                   border: "1px solid var(--line)",
                   borderRadius: 16,
                   padding: "2.5rem",
                   background: "#fff",
-                  display: "grid",
-                  gridTemplateColumns: "auto 1fr auto",
-                  gap: "2rem",
-                  alignItems: "start",
+                  boxShadow: "var(--shadow)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "1rem",
                 }}
-                className="flex-col md:grid"
               >
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
-                  <span style={{ fontSize: "2rem" }}>{s.icon}</span>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: "1rem", flexWrap: "wrap" }}>
                   <span
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
                       fontSize: "0.72rem",
-                      color: "var(--faint)",
-                      fontWeight: 500,
+                      color: "var(--coral)",
+                      fontWeight: 600,
+                      letterSpacing: "0.06em",
+                      paddingTop: "0.2rem",
+                      flexShrink: 0,
                     }}
                   >
                     {s.num}
                   </span>
-                </div>
-                <div>
                   <h2
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.5rem",
+                      fontSize: "clamp(1.5rem, 2.5vw, 2rem)",
                       color: "var(--ink)",
                       fontWeight: 700,
-                      marginBottom: "0.75rem",
+                      lineHeight: 1.2,
                     }}
                   >
                     {s.title}
                   </h2>
-                  <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "1rem", color: "var(--body)", lineHeight: 1.7, marginBottom: "0.75rem" }}>
-                    {s.body}
-                  </p>
-                  <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "0.875rem", color: "var(--muted)", lineHeight: 1.7 }}>
-                    {s.detail}
-                  </p>
                 </div>
-                <div style={{ flexShrink: 0 }}>
-                  <Link href={s.href} className="btn-coral" style={{ whiteSpace: "nowrap" }}>
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "1.05rem",
+                    color: "var(--body)",
+                    lineHeight: 1.7,
+                    maxWidth: 620,
+                  }}
+                >
+                  {s.body}
+                </p>
+                <div>
+                  <Link href={s.href} className="btn-coral" style={{ fontSize: "0.9rem" }}>
                     {s.cta}
                   </Link>
                 </div>
@@ -133,7 +131,7 @@ export default function Services() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "var(--ink)", padding: "4rem 0" }}>
+      <section style={{ background: "var(--ink)", padding: "5rem 0" }}>
         <div className="max-w-site text-center">
           <AnimateIn>
             <h2
@@ -148,13 +146,20 @@ export default function Services() {
               Not sure where to start?
             </h2>
           </AnimateIn>
-          <AnimateIn delay={150}>
-            <p style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "1rem", color: "var(--faint)", marginBottom: "2rem" }}>
-              Most engagements start with a short discovery call.
+          <AnimateIn delay={100}>
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontSize: "1rem",
+                color: "var(--faint)",
+                marginBottom: "2rem",
+              }}
+            >
+              Most engagements start with a short call.
             </p>
           </AnimateIn>
-          <AnimateIn delay={250}>
-            <Link href="/about" className="btn-coral">Get in touch →</Link>
+          <AnimateIn delay={200}>
+            <Link href="/services/consulting" className="btn-coral">Book a call →</Link>
           </AnimateIn>
         </div>
       </section>

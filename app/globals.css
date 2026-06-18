@@ -10,9 +10,13 @@
   --faint: #B7B1A4;
   --coral: #EA6A47;
   --coral-d: #CE5430;
+  --amber: #D79A36;
   --line: #E7E0D2;
   --line-2: #D9D1C0;
-  --amber: #D79A36;
+  --shadow: 0 6px 22px rgba(34,51,44,.07);
+  --shadow-lg: 0 20px 48px rgba(34,51,44,.13);
+  --maxw: 1140px;
+  --ease: cubic-bezier(.2,.7,.2,1);
   --background: var(--bg);
   --foreground: var(--ink);
 }
@@ -62,6 +66,11 @@ h1, h2, h3, h4, h5, h6 {
   100% { background: var(--cream-2); }
 }
 
+@keyframes scrollX {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .animate-pulse-dot {
   animation: pulse-dot 1.5s ease-in-out infinite;
 }
@@ -73,6 +82,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .animate-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+[data-reveal].visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -143,4 +163,15 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--muted);
   font-weight: 500;
   letter-spacing: 0.05em;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 1rem;
+  animation: scrollX 38s linear infinite;
+  width: max-content;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
 }
