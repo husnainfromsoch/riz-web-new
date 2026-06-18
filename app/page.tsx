@@ -379,15 +379,15 @@ export default function Home() {
                 <h1
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(2.4rem, 5vw, 3.6rem)",
+                    fontSize: "clamp(2.8rem, 6vw, 5rem)",
                     lineHeight: 1.12,
                     color: "var(--ink)",
                     marginBottom: "1.5rem",
                     fontWeight: 700,
                   }}
                 >
-                  AI doesn&apos;t fix bad thinking.{" "}
-                  <em style={{ color: "var(--coral)", fontStyle: "italic" }}>It scales it.</em>
+                  AI doesn&apos;t fix bad thinking.
+                  <em style={{ color: "var(--coral)", fontStyle: "italic", display: "block" }}>It scales it.</em>
                 </h1>
               </AnimateIn>
               <AnimateIn delay={180}>
