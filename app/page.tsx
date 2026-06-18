@@ -304,6 +304,56 @@ export default function Home() {
 
   return (
     <>
+      {/* LEFT DECORATIVE RAIL */}
+      <div
+        className="hidden md:block"
+        style={{
+          position: "fixed",
+          left: 28,
+          top: 0,
+          width: 2,
+          height: "100vh",
+          zIndex: 10,
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: 2,
+            height: "100%",
+            background: "#EA6A47",
+            opacity: 0.3,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "20%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: "#EA6A47",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            background: "#EA6A47",
+          }}
+        />
+      </div>
+
       {/* SECTION 1 — HERO */}
       <section style={{ paddingTop: 120, paddingBottom: 80 }}>
         <div className="max-w-site">

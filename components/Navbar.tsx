@@ -14,7 +14,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -37,17 +37,6 @@ export default function Navbar() {
       <div className="max-w-site flex items-center justify-between" style={{ height: 68 }}>
         <Link href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
           <span
-            style={{
-              fontFamily: "var(--font-playfair), serif",
-              fontWeight: 700,
-              fontSize: "1.5rem",
-              color: "var(--ink)",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Riz
-          </span>
-          <span
             className="animate-pulse-dot"
             style={{
               width: 7,
@@ -58,6 +47,17 @@ export default function Navbar() {
               marginTop: 2,
             }}
           />
+          <span
+            style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontWeight: 700,
+              fontSize: "1.5rem",
+              color: "var(--ink)",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Riz
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
