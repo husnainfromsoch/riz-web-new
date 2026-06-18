@@ -15,7 +15,7 @@
   --line-2: #D9D1C0;
   --shadow: 0 6px 22px rgba(34,51,44,.07);
   --shadow-lg: 0 20px 48px rgba(34,51,44,.13);
-  --maxw: 1140px;
+  --maxw: 1200px;
   --ease: cubic-bezier(.2,.7,.2,1);
   --background: var(--bg);
   --foreground: var(--ink);
@@ -98,11 +98,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .max-w-site {
-  max-width: 1140px;
+  max-width: var(--maxw);
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 .btn-coral {

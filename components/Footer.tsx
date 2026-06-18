@@ -48,7 +48,7 @@ function FooterLink({ label, href, external }: { label: string; href: string; ex
 export default function Footer() {
   return (
     <footer style={{ background: "var(--cream)", borderTop: "1px solid var(--line)" }}>
-      <div className="max-w-site" style={{ padding: "4rem 1.5rem 0" }}>
+      <div className="max-w-site" style={{ paddingTop: "4rem", paddingBottom: 0 }}>
         <div
           style={{
             display: "grid",
