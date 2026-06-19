@@ -1,4 +1,5 @@
 import AnimateIn from "@/components/AnimateIn";
+import ServicesHubDiagram from "@/components/ServicesHubDiagram";
 import Link from "next/link";
 
 /* ─── shared micro-styles ─────────────────────────── */
@@ -587,48 +588,7 @@ export default function Services() {
               }}
             >
               <AnimateIn delay={300}>
-                <svg
-                  viewBox="0 0 420 320"
-                  style={{ width: "100%", maxWidth: 460, height: "auto" }}
-                >
-                  {/* dashed spokes */}
-                  <line
-                    x1="210" y1="175" x2="210" y2="45"
-                    stroke="#E7E0D2" strokeWidth="1.5" strokeDasharray="5 4"
-                  />
-                  <line
-                    x1="210" y1="175" x2="323" y2="243"
-                    stroke="#E7E0D2" strokeWidth="1.5" strokeDasharray="5 4"
-                  />
-                  <line
-                    x1="210" y1="175" x2="97" y2="243"
-                    stroke="#E7E0D2" strokeWidth="1.5" strokeDasharray="5 4"
-                  />
-
-                  {/* outer glow ring */}
-                  <circle cx="210" cy="175" r="90" fill="none" stroke="#F3ECDD" strokeWidth="20" />
-
-                  {/* center circle */}
-                  <circle cx="210" cy="175" r="72" fill="#22332C" />
-                  <text x="210" y="161" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="10.5" fill="rgba(255,255,255,0.55)" letterSpacing="0.03em">The clearest</text>
-                  <text x="210" y="176" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="10.5" fill="rgba(255,255,255,0.55)">ops in</text>
-                  <text x="210" y="191" textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="10.5" fill="rgba(255,255,255,0.55)">your space</text>
-
-                  {/* consulting node — coral, top */}
-                  <circle cx="210" cy="45" r="38" fill="#EA6A47" />
-                  <text x="210" y="45" textAnchor="middle" dominantBaseline="central" fontFamily="Playfair Display, serif" fontSize="20" fontWeight="700" fill="#fff">01</text>
-                  <text x="210" y="97" textAnchor="middle" fontFamily="DM Mono, monospace" fontSize="8.5" fontWeight="500" fill="var(--muted)" letterSpacing="0.1em">CONSULTING</text>
-
-                  {/* projects node — ink, bottom-right */}
-                  <circle cx="323" cy="243" r="38" fill="#22332C" stroke="#E7E0D2" strokeWidth="1.5" />
-                  <text x="323" y="243" textAnchor="middle" dominantBaseline="central" fontFamily="Playfair Display, serif" fontSize="20" fontWeight="700" fill="#fff">02</text>
-                  <text x="323" y="295" textAnchor="middle" fontFamily="DM Mono, monospace" fontSize="8.5" fontWeight="500" fill="var(--muted)" letterSpacing="0.1em">PROJECTS</text>
-
-                  {/* workshops node — amber, bottom-left */}
-                  <circle cx="97" cy="243" r="38" fill="#D79A36" />
-                  <text x="97" y="243" textAnchor="middle" dominantBaseline="central" fontFamily="Playfair Display, serif" fontSize="20" fontWeight="700" fill="#fff">03</text>
-                  <text x="97" y="295" textAnchor="middle" fontFamily="DM Mono, monospace" fontSize="8.5" fontWeight="500" fill="var(--muted)" letterSpacing="0.1em">WORKSHOPS</text>
-                </svg>
+                <ServicesHubDiagram />
               </AnimateIn>
             </div>
           </div>
