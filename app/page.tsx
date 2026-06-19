@@ -302,6 +302,7 @@ const blogPosts = [
 export default function Home() {
   const [hoveredRoute, setHoveredRoute] = useState<number | null>(null);
   const [hoveredWork, setHoveredWork] = useState<number | null>(null);
+  const [hoveredPortrait, setHoveredPortrait] = useState(false);
   const { isPlaying, toggle } = useAudio();
 
   return (
@@ -414,104 +415,67 @@ export default function Home() {
               </AnimateIn>
             </div>
 
-            {/* Right — Portrait placeholder */}
+            {/* Right — Portrait */}
             <AnimateIn delay={200}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
-                <button
-                  onClick={toggle}
-                  aria-label={isPlaying ? "Pause intro audio" : "Play intro audio"}
+              <button
+                onClick={toggle}
+                onMouseEnter={() => setHoveredPortrait(true)}
+                onMouseLeave={() => setHoveredPortrait(false)}
+                aria-label={isPlaying ? "Pause intro audio" : "Play intro audio"}
+                style={{
+                  display: "block",
+                  position: "relative",
+                  width: "100%",
+                  maxWidth: 480,
+                  minHeight: 500,
+                  borderRadius: 16,
+                  background: "linear-gradient(150deg, #EA6A47 0%, #CE5430 100%)",
+                  border: "none",
+                  cursor: "pointer",
+                  overflow: "hidden",
+                  padding: 0,
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/691d97efffebe375af48ce33_Remove%20GMNI.png"
+                  alt="Rizwan Mahmood"
                   style={{
-                    display: "block",
-                    position: "relative",
                     width: "100%",
-                    maxWidth: 320,
-                    aspectRatio: "4 / 5",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center top",
                     borderRadius: 16,
-                    background: "linear-gradient(150deg, #EA6A47 0%, #CE5430 100%)",
-                    border: "none",
-                    cursor: "pointer",
-                    overflow: "hidden",
-                    padding: 0,
+                    display: "block",
+                    transition: "transform 0.4s ease, box-shadow 0.4s ease",
+                    transform: hoveredPortrait ? "rotate(-3deg) scale(1.03)" : "rotate(0deg) scale(1)",
+                    boxShadow: hoveredPortrait ? "0 20px 40px rgba(0,0,0,0.15)" : "none",
                   }}
-                >
-                  {/* Dot grid overlay */}
-                  <svg
-                    aria-hidden="true"
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.22, pointerEvents: "none" }}
-                  >
-                    <defs>
-                      <pattern id="portrait-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <circle cx="2" cy="2" r="1.2" fill="#fff" />
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#portrait-dots)" />
-                  </svg>
+                />
 
-                  {/* Content: name + play/soundbar */}
-                  <div
-                    style={{
-                      position: "absolute", inset: 0,
-                      display: "flex", flexDirection: "column",
-                      alignItems: "center", justifyContent: "center", gap: "1.25rem",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-playfair), serif",
-                        fontSize: "clamp(3rem, 8vw, 4.5rem)",
-                        fontWeight: 700,
-                        fontStyle: "italic",
-                        color: "#fff",
-                        opacity: isPlaying ? 0.35 : 1,
-                        transition: "opacity 0.3s ease",
-                        lineHeight: 1,
-                      }}
-                    >
-                      Riz
-                    </span>
-
-                    {isPlaying ? (
-                      <div style={{ display: "flex", alignItems: "flex-end", gap: 4, height: 28 }}>
-                        {[0.55, 1, 0.7, 0.9, 0.45].map((h, i) => (
-                          <div
-                            key={i}
-                            style={{
-                              width: 4, borderRadius: 2,
-                              background: "rgba(255,255,255,0.85)",
-                              height: `${h * 100}%`,
-                              animation: `soundbar 0.85s ease-in-out ${i * 0.13}s infinite alternate`,
-                            }}
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div
-                        style={{
-                          width: 44, height: 44, borderRadius: "50%",
-                          background: "rgba(255,255,255,0.18)",
-                          border: "1.5px solid rgba(255,255,255,0.45)",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                        }}
-                      >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                          <polygon points="5,2 14,8 5,14" fill="white" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                </button>
-
-                <p
+                {/* Hover pill */}
+                <div
                   style={{
+                    position: "absolute",
+                    bottom: 20,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "#EA6A47",
+                    color: "#fff",
+                    borderRadius: 999,
+                    padding: "0.45rem 1.1rem",
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.65rem",
-                    color: "var(--muted)",
-                    letterSpacing: "0.1em",
+                    fontSize: "0.7rem",
+                    letterSpacing: "0.06em",
+                    whiteSpace: "nowrap",
+                    pointerEvents: "none",
+                    opacity: hoveredPortrait ? 1 : 0,
+                    transition: "opacity 0.3s ease",
                   }}
                 >
-                  {isPlaying ? "click to pause ▐▐" : "click to hear me →"}
-                </p>
-              </div>
+                  ♪ click to hear me
+                </div>
+              </button>
             </AnimateIn>
           </div>
         </div>
