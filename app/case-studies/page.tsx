@@ -24,105 +24,130 @@ const cases = [
   },
 ];
 
-function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
-  const [open, setOpen] = useState(false);
+function AccordionItem({
+  c,
+  i,
+  isOpen,
+  onToggle,
+}: {
+  c: (typeof cases)[0];
+  i: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const num = String(i + 1).padStart(2, "0");
+  const [hovered, setHovered] = useState(false);
 
   return (
-    <AnimateIn delay={i * 150}>
-      <div
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: "#fff",
+        borderLeft: "4px solid #EA6A47",
+        boxShadow: hovered || isOpen
+          ? "0 8px 32px rgba(0,0,0,0.10)"
+          : "0 2px 8px rgba(0,0,0,0.04)",
+        transition: "box-shadow 0.3s ease",
+        position: "relative",
+      }}
+    >
+      {/* Header — always visible */}
+      <button
+        onClick={onToggle}
+        aria-expanded={isOpen}
         style={{
-          border: "1px solid var(--line)",
-          borderRadius: 16,
-          overflow: "hidden",
-          background: "#fff",
-          boxShadow: "var(--shadow)",
-          transition: "box-shadow 0.2s ease",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: "1.25rem",
+          padding: "1.625rem 2rem",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          textAlign: "left",
         }}
       >
-        <div style={{ padding: "2.25rem" }}>
-          {/* Badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "1rem" }}>
-            <span
-              style={{
-                width: 6, height: 6, borderRadius: 1,
-                background: "var(--coral)", flexShrink: 0,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.68rem",
-                fontWeight: 500,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--coral)",
-              }}
-            >
-              {c.tag}
-            </span>
-          </div>
+        {/* Number */}
+        <span
+          style={{
+            fontFamily: "var(--font-dm-mono), monospace",
+            fontSize: "0.85rem",
+            fontWeight: 600,
+            color: "#EA6A47",
+            letterSpacing: "0.06em",
+            flexShrink: 0,
+            minWidth: "2rem",
+          }}
+        >
+          {num}
+        </span>
 
-          <h2
-            style={{
-              fontFamily: "var(--font-playfair), serif",
-              fontSize: "clamp(1.4rem, 2.5vw, 1.75rem)",
-              color: "var(--ink)",
-              fontWeight: 700,
-              marginBottom: "1.25rem",
-              lineHeight: 1.25,
-            }}
-          >
-            {c.title}
-          </h2>
+        {/* Title */}
+        <span
+          style={{
+            fontFamily: "var(--font-playfair), serif",
+            fontSize: "clamp(1.2rem, 2.2vw, 1.5rem)",
+            fontWeight: 700,
+            color: "var(--ink)",
+            flex: 1,
+            lineHeight: 1.3,
+          }}
+        >
+          {c.title}
+        </span>
 
-          {/* Results */}
-          <div className="flex flex-wrap gap-2" style={{ marginBottom: "1.5rem" }}>
-            {c.results.map((r) => (
-              <span
-                key={r}
-                style={{
-                  fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.72rem",
-                  fontWeight: 500,
-                  color: "var(--coral)",
-                  background: "rgba(234,106,71,0.07)",
-                  padding: "0.3rem 0.8rem",
-                  borderRadius: 6,
-                  border: "1px solid rgba(234,106,71,0.15)",
-                  letterSpacing: "0.04em",
-                }}
-              >
-                {r}
-              </span>
-            ))}
-          </div>
+        {/* Category tag — coral pill */}
+        <span
+          style={{
+            fontFamily: "var(--font-dm-mono), monospace",
+            fontSize: "0.65rem",
+            fontWeight: 600,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#fff",
+            background: "#EA6A47",
+            padding: "0.3rem 0.85rem",
+            borderRadius: 9999,
+            flexShrink: 0,
+          }}
+        >
+          {c.tag}
+        </span>
 
-          <button
-            onClick={() => setOpen((v) => !v)}
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "0.875rem",
-              fontWeight: 600,
-              color: "var(--ink)",
-              background: "none",
-              border: "none",
-              padding: 0,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.4rem",
-            }}
-          >
-            {open ? "Hide details ↑" : "Read the story ↓"}
-          </button>
-        </div>
+        {/* Toggle icon */}
+        <span
+          style={{
+            fontFamily: "var(--font-dm-sans), sans-serif",
+            fontSize: "1.75rem",
+            fontWeight: 700,
+            color: "#EA6A47",
+            lineHeight: 1,
+            flexShrink: 0,
+            transition: "transform 0.3s ease",
+            width: "2rem",
+            textAlign: "center",
+            transform: isOpen ? "rotate(0deg)" : "rotate(0deg)",
+          }}
+        >
+          {isOpen ? "×" : "+"}
+        </span>
+      </button>
 
-        {open && (
+      {/* Expandable body — grid trick for smooth height animation */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
+          transition: "grid-template-rows 0.3s ease",
+        }}
+      >
+        <div style={{ overflow: "hidden" }}>
           <div
             style={{
-              borderTop: "1px solid var(--line)",
-              padding: "2.25rem",
-              background: "var(--cream-2)",
+              borderTop: "1px solid rgba(234,106,71,0.15)",
+              padding: "2rem",
+              background: "#F3ECDD",
             }}
           >
             <p
@@ -131,25 +156,87 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
                 fontSize: "1rem",
                 color: "var(--body)",
                 lineHeight: 1.85,
+                marginBottom: "1.5rem",
+                maxWidth: 600,
               }}
             >
               {c.body}
             </p>
+
+            {/* Result tags */}
+            <div className="flex flex-wrap gap-2" style={{ marginBottom: "1.75rem" }}>
+              {c.results.map((r) => (
+                <span
+                  key={r}
+                  style={{
+                    fontFamily: "var(--font-dm-mono), monospace",
+                    fontSize: "0.68rem",
+                    fontWeight: 600,
+                    color: "#EA6A47",
+                    background: "transparent",
+                    padding: "0.3rem 0.8rem",
+                    border: "1.5px solid #EA6A47",
+                    borderRadius: 4,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {r}
+                </span>
+              ))}
+            </div>
+
+            {/* Read the story */}
+            <a
+              href="#"
+              onClick={(e) => e.preventDefault()}
+              style={{
+                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontSize: "0.9rem",
+                fontWeight: 700,
+                color: "#EA6A47",
+                textDecoration: "none",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.3rem",
+                letterSpacing: "0.01em",
+              }}
+            >
+              Read the story →
+            </a>
           </div>
-        )}
+        </div>
       </div>
-    </AnimateIn>
+    </div>
   );
 }
 
 export default function CaseStudies() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  function handleToggle(i: number) {
+    setOpenIndex((prev) => (prev === i ? null : i));
+  }
+
   return (
     <>
-      {/* HERO */}
-      <section style={{ paddingTop: 120, paddingBottom: 80, background: "var(--cream-2)" }}>
+      {/* HERO — dark forest green */}
+      <section
+        data-hero="dark"
+        style={{
+          paddingTop: 120,
+          paddingBottom: 120,
+          background: "#22332C",
+        }}
+      >
         <div className="max-w-site">
           <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>Work</p>
+            <p
+              className="section-eyebrow"
+              style={{ marginBottom: "1rem", color: "rgba(243,236,221,0.6)" }}
+            >
+              Work
+            </p>
           </AnimateIn>
           <AnimateIn delay={80}>
             <h1
@@ -157,7 +244,7 @@ export default function CaseStudies() {
                 fontFamily: "var(--font-playfair), serif",
                 fontSize: "clamp(2.2rem, 4vw, 3rem)",
                 lineHeight: 1.2,
-                color: "var(--ink)",
+                color: "#ffffff",
                 fontWeight: 700,
                 marginBottom: "1.25rem",
               }}
@@ -170,7 +257,7 @@ export default function CaseStudies() {
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontSize: "1.1rem",
-                color: "var(--body)",
+                color: "rgba(243,236,221,0.75)",
                 lineHeight: 1.7,
                 maxWidth: 540,
               }}
@@ -181,12 +268,37 @@ export default function CaseStudies() {
         </div>
       </section>
 
-      {/* CASE STUDY CARDS */}
-      <section style={{ padding: "5rem 0" }}>
-        <div className="max-w-site flex flex-col gap-5">
-          {cases.map((c, i) => (
-            <CaseCard key={c.title} c={c} i={i} />
-          ))}
+      {/* ACCORDION LIST */}
+      <section style={{ padding: "5rem 0", background: "#F8F4EE" }}>
+        <div
+          style={{
+            maxWidth: 900,
+            margin: "0 auto",
+            padding: "0 1.5rem",
+          }}
+        >
+          <AnimateIn>
+            <div
+              style={{
+                border: "1px solid rgba(234,106,71,0.18)",
+                overflow: "hidden",
+              }}
+            >
+              {cases.map((c, i) => (
+                <div key={c.title}>
+                  <AccordionItem
+                    c={c}
+                    i={i}
+                    isOpen={openIndex === i}
+                    onToggle={() => handleToggle(i)}
+                  />
+                  {i < cases.length - 1 && (
+                    <div style={{ height: 1, background: "#EA6A47", opacity: 0.35 }} />
+                  )}
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
@@ -221,7 +333,13 @@ export default function CaseStudies() {
           <AnimateIn delay={200}>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link href="/services/consulting" className="btn-coral">Book a call →</Link>
-              <a href="mailto:riz@withsoch.com" className="btn-ghost" style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}>riz@withsoch.com</a>
+              <a
+                href="mailto:riz@withsoch.com"
+                className="btn-ghost"
+                style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}
+              >
+                riz@withsoch.com
+              </a>
             </div>
           </AnimateIn>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 const navLinks = [
@@ -12,12 +13,32 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [darkHero, setDarkHero] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Re-detect dark hero whenever the route changes, after the new page renders
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      setDarkHero(!!document.querySelector('[data-hero="dark"]'));
+      // Also reset scroll state on navigation (page starts at top)
+      setScrolled(window.scrollY > 50);
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [pathname]);
+
+  // White text only when we're at the top of a dark-hero page
+  const light = darkHero && !scrolled;
+
+  const textColor = light ? "rgba(255,255,255,0.82)" : "var(--body)";
+  const textHover = light ? "#ffffff" : "var(--ink)";
+  const logoColor = light ? "#ffffff" : "var(--ink)";
+  const barColor = light ? "#ffffff" : "var(--ink)";
 
   return (
     <header
@@ -28,9 +49,9 @@ export default function Navbar() {
         right: 0,
         zIndex: 50,
         transition: "background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease",
-        background: scrolled ? "rgba(255,255,255,0.85)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+        background: scrolled ? "rgba(255,255,255,0.88)" : "transparent",
+        backdropFilter: scrolled ? "blur(14px)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(14px)" : "none",
         borderBottom: scrolled ? "1px solid var(--line)" : "1px solid transparent",
       }}
     >
@@ -42,7 +63,7 @@ export default function Navbar() {
               width: 7,
               height: 7,
               borderRadius: "50%",
-              background: "var(--coral)",
+              background: "#EA6A47",
               display: "inline-block",
               marginTop: 2,
             }}
@@ -52,8 +73,9 @@ export default function Navbar() {
               fontFamily: "var(--font-playfair), serif",
               fontWeight: 700,
               fontSize: "1.5rem",
-              color: "var(--ink)",
+              color: logoColor,
               letterSpacing: "-0.02em",
+              transition: "color 0.3s ease",
             }}
           >
             Riz
@@ -69,12 +91,12 @@ export default function Navbar() {
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontWeight: 500,
                 fontSize: "0.95rem",
-                color: "var(--body)",
+                color: textColor,
                 textDecoration: "none",
-                transition: "color 0.15s",
+                transition: "color 0.2s ease",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--ink)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--body)")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = textHover)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = textColor)}
             >
               {l.label}
             </Link>
@@ -88,6 +110,7 @@ export default function Navbar() {
           </Link>
         </nav>
 
+        {/* Hamburger */}
         <button
           className="flex md:hidden flex-col gap-1.5 p-2"
           onClick={() => setOpen((v) => !v)}
@@ -97,29 +120,31 @@ export default function Navbar() {
           <span
             style={{
               display: "block", width: 22, height: 2,
-              background: "var(--ink)", borderRadius: 2,
-              transition: "transform 0.2s",
+              background: barColor, borderRadius: 2,
+              transition: "transform 0.2s, background 0.3s ease",
               transform: open ? "translateY(6px) rotate(45deg)" : "none",
             }}
           />
           <span
             style={{
               display: "block", width: 22, height: 2,
-              background: "var(--ink)", borderRadius: 2,
-              opacity: open ? 0 : 1, transition: "opacity 0.2s",
+              background: barColor, borderRadius: 2,
+              opacity: open ? 0 : 1,
+              transition: "opacity 0.2s, background 0.3s ease",
             }}
           />
           <span
             style={{
               display: "block", width: 22, height: 2,
-              background: "var(--ink)", borderRadius: 2,
-              transition: "transform 0.2s",
+              background: barColor, borderRadius: 2,
+              transition: "transform 0.2s, background 0.3s ease",
               transform: open ? "translateY(-6px) rotate(-45deg)" : "none",
             }}
           />
         </button>
       </div>
 
+      {/* Mobile drawer */}
       <div
         style={{
           overflow: "hidden",
