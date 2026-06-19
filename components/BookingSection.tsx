@@ -15,6 +15,20 @@ const topics = [
   "Starting or sharpening a personal brand",
 ];
 
+const coralDot = (
+  <span
+    style={{
+      width: 8,
+      height: 8,
+      borderRadius: "50%",
+      background: "var(--coral)",
+      flexShrink: 0,
+      marginTop: "0.45rem",
+      display: "inline-block",
+    }}
+  />
+);
+
 export default function BookingSection() {
   return (
     <section
@@ -38,18 +52,56 @@ export default function BookingSection() {
           </p>
         </AnimateIn>
         <AnimateIn delay={80}>
-          <h2
+          {/* Section label above heading */}
+          <p
             style={{
-              fontFamily: "var(--font-playfair), serif",
-              fontSize: "clamp(2rem, 4vw, 3rem)",
-              fontWeight: 700,
-              color: "var(--ink)",
-              lineHeight: 1.2,
-              marginBottom: "1.25rem",
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "0.7rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--coral)",
+              marginBottom: "0.75rem",
             }}
           >
-            Book a 1:1 strategy session.
+            1:1 Strategy Session
+          </p>
+          {/* Main heading — DM Sans bold, 56px desktop */}
+          <h2
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "clamp(2rem, 5vw, 3.5rem)",
+              fontWeight: 700,
+              color: "var(--ink)",
+              lineHeight: 1.15,
+              marginBottom: "0.75rem",
+            }}
+          >
+            Book a{" "}
+            <span
+              style={{
+                background: "#F5C842",
+                padding: "2px 8px",
+                borderRadius: 4,
+                fontStyle: "normal",
+              }}
+            >
+              1:1 strategy
+            </span>{" "}
+            session.
           </h2>
+          {/* Sub-heading */}
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "2rem",
+              fontWeight: 700,
+              color: "#22332C",
+              marginBottom: "1.25rem",
+              lineHeight: 1.2,
+            }}
+          >
+            60 minutes, just you and me.
+          </p>
         </AnimateIn>
         <AnimateIn delay={160}>
           <p
@@ -62,8 +114,8 @@ export default function BookingSection() {
               margin: "0 auto",
             }}
           >
-            A focused 60 minutes, just you and me — personal guidance on AI,
-            operations, or building a system that works.
+            Personal guidance on AI, operations, or building a system that
+            works.
           </p>
         </AnimateIn>
       </div>
@@ -116,16 +168,7 @@ export default function BookingSection() {
                       key={i}
                       style={{ display: "flex", gap: "0.65rem", alignItems: "flex-start" }}
                     >
-                      <span
-                        style={{
-                          color: "var(--coral)",
-                          fontWeight: 700,
-                          flexShrink: 0,
-                          lineHeight: 1.65,
-                        }}
-                      >
-                        ✓
-                      </span>
+                      {coralDot}
                       <span
                         style={{
                           fontFamily: "var(--font-dm-sans), sans-serif",
@@ -170,16 +213,7 @@ export default function BookingSection() {
                       key={i}
                       style={{ display: "flex", gap: "0.65rem", alignItems: "flex-start" }}
                     >
-                      <span
-                        style={{
-                          color: "var(--coral)",
-                          fontWeight: 700,
-                          flexShrink: 0,
-                          lineHeight: 1.65,
-                        }}
-                      >
-                        ✓
-                      </span>
+                      {coralDot}
                       <span
                         style={{
                           fontFamily: "var(--font-dm-sans), sans-serif",
