@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
+import BookingSection from "@/components/BookingSection";
 import { useAudio } from "@/contexts/audio-context";
 
 // ─── FLOW CARD ──────────────────────────────────────────────────────────────
@@ -1264,7 +1265,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 9 — CTA */}
+      {/* SECTION 9 — BOOKING */}
+      <BookingSection />
+
+      {/* SECTION 10 — CTA */}
       <section style={{ padding: "6rem 0" }}>
         <div className="max-w-site" style={{ maxWidth: 680 }}>
           <AnimateIn>
