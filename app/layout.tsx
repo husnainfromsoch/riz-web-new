@@ -3,6 +3,8 @@ import { Playfair_Display, DM_Sans, DM_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { AudioProvider } from "@/contexts/audio-context";
+import { AudioPlayer } from "@/components/AudioPlayer";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -41,9 +43,12 @@ export default function RootLayout({
       className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AudioProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <AudioPlayer />
+        </AudioProvider>
       </body>
     </html>
   );

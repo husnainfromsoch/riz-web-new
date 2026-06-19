@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
+import { useAudio } from "@/contexts/audio-context";
 
 // ─── FLOW CARD ──────────────────────────────────────────────────────────────
 
@@ -301,6 +302,7 @@ const blogPosts = [
 export default function Home() {
   const [hoveredRoute, setHoveredRoute] = useState<number | null>(null);
   const [hoveredWork, setHoveredWork] = useState<number | null>(null);
+  const { isPlaying, toggle } = useAudio();
 
   return (
     <>
@@ -412,11 +414,131 @@ export default function Home() {
               </AnimateIn>
             </div>
 
-            {/* Right — Flow Card */}
+            {/* Right — Portrait placeholder */}
             <AnimateIn delay={200}>
-              <FlowCard />
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
+                <button
+                  onClick={toggle}
+                  aria-label={isPlaying ? "Pause intro audio" : "Play intro audio"}
+                  style={{
+                    display: "block",
+                    position: "relative",
+                    width: "100%",
+                    maxWidth: 320,
+                    aspectRatio: "4 / 5",
+                    borderRadius: 16,
+                    background: "linear-gradient(150deg, #EA6A47 0%, #CE5430 100%)",
+                    border: "none",
+                    cursor: "pointer",
+                    overflow: "hidden",
+                    padding: 0,
+                  }}
+                >
+                  {/* Dot grid overlay */}
+                  <svg
+                    aria-hidden="true"
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.22, pointerEvents: "none" }}
+                  >
+                    <defs>
+                      <pattern id="portrait-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="1.2" fill="#fff" />
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#portrait-dots)" />
+                  </svg>
+
+                  {/* Content: name + play/soundbar */}
+                  <div
+                    style={{
+                      position: "absolute", inset: 0,
+                      display: "flex", flexDirection: "column",
+                      alignItems: "center", justifyContent: "center", gap: "1.25rem",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-playfair), serif",
+                        fontSize: "clamp(3rem, 8vw, 4.5rem)",
+                        fontWeight: 700,
+                        fontStyle: "italic",
+                        color: "#fff",
+                        opacity: isPlaying ? 0.35 : 1,
+                        transition: "opacity 0.3s ease",
+                        lineHeight: 1,
+                      }}
+                    >
+                      Riz
+                    </span>
+
+                    {isPlaying ? (
+                      <div style={{ display: "flex", alignItems: "flex-end", gap: 4, height: 28 }}>
+                        {[0.55, 1, 0.7, 0.9, 0.45].map((h, i) => (
+                          <div
+                            key={i}
+                            style={{
+                              width: 4, borderRadius: 2,
+                              background: "rgba(255,255,255,0.85)",
+                              height: `${h * 100}%`,
+                              animation: `soundbar 0.85s ease-in-out ${i * 0.13}s infinite alternate`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <div
+                        style={{
+                          width: 44, height: 44, borderRadius: "50%",
+                          background: "rgba(255,255,255,0.18)",
+                          border: "1.5px solid rgba(255,255,255,0.45)",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                        }}
+                      >
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <polygon points="5,2 14,8 5,14" fill="white" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                </button>
+
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-mono), monospace",
+                    fontSize: "0.65rem",
+                    color: "var(--muted)",
+                    letterSpacing: "0.1em",
+                  }}
+                >
+                  {isPlaying ? "click to pause ▐▐" : "click to hear me →"}
+                </p>
+              </div>
             </AnimateIn>
           </div>
+        </div>
+      </section>
+
+      {/* SECTION 1.5 — WORKFLOW CARD */}
+      <section style={{ paddingBottom: 80 }}>
+        <div className="max-w-site">
+          <AnimateIn>
+            <p
+              style={{
+                fontFamily: "var(--font-dm-mono), monospace",
+                fontSize: "0.7rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                color: "var(--muted)",
+                marginBottom: "1.25rem",
+              }}
+            >
+              How a project runs
+            </p>
+          </AnimateIn>
+          <AnimateIn delay={80}>
+            <div style={{ maxWidth: 520 }}>
+              <FlowCard />
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
