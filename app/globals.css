@@ -5,7 +5,7 @@
   --cream: #F3ECDD;
   --cream-2: #F8F3E9;
   --ink: #22332C;
-  --body: #4A4A4A;
+  --body: var(--ink);
   --muted: #8A857B;
   --faint: #B7B1A4;
   --coral: #EA6A47;
@@ -151,7 +151,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'DM Sans', sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
-  border: 1.5px solid var(--line-2);
+  border: 1.5px solid var(--ink);
   transition: border-color 0.2s ease, color 0.2s ease;
   display: inline-block;
   text-decoration: none;

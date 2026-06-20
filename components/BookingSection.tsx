@@ -68,7 +68,7 @@ export default function BookingSection() {
           {/* Main heading — DM Sans bold, 56px desktop */}
           <h2
             style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontFamily: "var(--font-playfair), serif",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
               fontWeight: 700,
               color: "var(--ink)",
@@ -79,10 +79,11 @@ export default function BookingSection() {
             Book a{" "}
             <span
               style={{
-                background: "#F5C842",
-                padding: "2px 8px",
+                background: "var(--coral)",
+                color: "#fff",
+                padding: "2px 10px",
                 borderRadius: 4,
-                fontStyle: "normal",
+                fontStyle: "italic",
               }}
             >
               1:1 strategy

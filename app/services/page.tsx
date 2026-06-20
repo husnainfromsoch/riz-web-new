@@ -337,7 +337,7 @@ const ProjectsMockup = () => (
         />
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-        {wfNode("⟳", "Enrich", "rgba(215,154,54,0.18)", "rgba(215,154,54,0.35)", "rgba(255,255,255,0.85)", "#D79A36")}
+        {wfNode("⟳", "Enrich", "rgba(234,106,71,0.18)", "rgba(234,106,71,0.35)", "rgba(255,255,255,0.85)", "var(--coral)")}
         {wfArrow}
         {wfNode("□", "CRM Save", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)")}
       </div>
@@ -385,13 +385,13 @@ const WorkshopsMockup = () => (
       marginLeft: "auto",
     }}
   >
-    {/* amber header */}
-    <div style={{ background: "#D79A36", padding: "1.75rem 1.5rem" }}>
+    {/* coral header */}
+    <div style={{ background: "var(--coral)", padding: "1.75rem 1.5rem" }}>
       <span
         style={{
           fontFamily: "var(--font-dm-mono), monospace",
           fontSize: "0.68rem",
-          color: "rgba(34,51,44,0.55)",
+          color: "rgba(255,255,255,0.7)",
           textTransform: "uppercase",
           letterSpacing: "0.1em",
         }}
@@ -403,7 +403,7 @@ const WorkshopsMockup = () => (
           fontFamily: "var(--font-playfair), serif",
           fontSize: "1.3rem",
           fontWeight: 700,
-          color: "var(--ink)",
+          color: "#fff",
           lineHeight: 1.2,
           marginTop: "0.4rem",
           marginBottom: "0.3rem",
@@ -415,7 +415,7 @@ const WorkshopsMockup = () => (
         style={{
           fontFamily: "var(--font-dm-sans), sans-serif",
           fontSize: "0.85rem",
-          color: "rgba(34,51,44,0.6)",
+          color: "rgba(255,255,255,0.72)",
         }}
       >
         In-person or remote
@@ -440,7 +440,7 @@ const WorkshopsMockup = () => (
         >
           <span
             style={{
-              color: "#D79A36",
+              color: "var(--coral)",
               flexShrink: 0,
               fontSize: "1rem",
               marginTop: "0.1rem",
@@ -478,7 +478,7 @@ const WorkshopsMockup = () => (
       <div
         style={{
           marginTop: "0.5rem",
-          background: "#D79A36",
+          background: "var(--coral)",
           borderRadius: 8,
           padding: "0.8rem",
           textAlign: "center",
@@ -489,7 +489,7 @@ const WorkshopsMockup = () => (
             fontFamily: "var(--font-dm-sans), sans-serif",
             fontWeight: 600,
             fontSize: "0.9rem",
-            color: "var(--ink)",
+            color: "#fff",
           }}
         >
           Enquire about a session →
@@ -751,8 +751,8 @@ export default function Services() {
             {/* left: text */}
             <div style={{ flex: "1 1 280px" }}>
               <AnimateIn>
-                <p style={eyebrowStyle("#D79A36")}>Workshops</p>
-                <p style={sublineStyle("#D79A36")}>Your team, upskilled.</p>
+                <p style={eyebrowStyle("var(--coral)")}>Workshops</p>
+                <p style={sublineStyle("var(--coral)")}>Your team, upskilled.</p>
               </AnimateIn>
               <AnimateIn delay={100}>
                 <p style={bodyStyle}>
@@ -766,7 +766,7 @@ export default function Services() {
                     "Keynotes and conference talks",
                     "Team AI workshops",
                     "Executive education sessions",
-                  ].map((b) => checkBullet("#D79A36", b))}
+                  ].map((b) => checkBullet("var(--coral)", b))}
                 </ul>
               </AnimateIn>
               <AnimateIn delay={260}>
@@ -776,8 +776,8 @@ export default function Services() {
                     display: "inline-block",
                     padding: "0.75rem 1.75rem",
                     borderRadius: 6,
-                    background: "#D79A36",
-                    color: "var(--ink)",
+                    background: "var(--coral)",
+                    color: "#fff",
                     fontFamily: "var(--font-dm-sans), sans-serif",
                     fontWeight: 600,
                     fontSize: "0.95rem",

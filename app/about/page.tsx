@@ -207,7 +207,7 @@ export default function About() {
       </section>
 
       {/* SOCIAL PLATFORMS */}
-      <section style={{ padding: "5rem 0" }}>
+      <section style={{ padding: "5rem 0", background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <h2
