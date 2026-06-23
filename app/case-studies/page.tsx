@@ -269,7 +269,7 @@ export default function CaseStudies() {
       </section>
 
       {/* ACCORDION LIST */}
-      <section style={{ padding: "5rem 0", background: "var(--cream)" }}>
+      <section style={{ padding: "5rem 0", background: "#F8F4EE" }}>
         <div
           style={{
             maxWidth: 900,

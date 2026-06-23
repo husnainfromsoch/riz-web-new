@@ -13,7 +13,7 @@ const NR = 44;           // node circle radius
 const NODES = [
   { id: "consulting", cx: 210,                                          cy: CY - OR,       fill: "#EA6A47", num: "01", label: "CONSULTING" },
   { id: "projects",   cx: Math.round(CX + OR * Math.cos(Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(Math.PI / 6)),  fill: "#22332C", num: "02", label: "PROJECTS"   },
-  { id: "workshops",  cx: Math.round(CX + OR * Math.cos(5 * Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(5 * Math.PI / 6)), fill: "#EA6A47", num: "03", label: "WORKSHOPS"  },
+  { id: "workshops",  cx: Math.round(CX + OR * Math.cos(5 * Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(5 * Math.PI / 6)), fill: "#D79A36", num: "03", label: "WORKSHOPS"  },
 ] as const;
 // → consulting (210, 50)   projects (323, 245)   workshops (97, 245)
 
