@@ -57,15 +57,15 @@ const workCards = [
 
 // ─── VIDEO TILES ─────────────────────────────────────────────────────────────
 
-const videoTiles = [
-  { title: "Stand-up · AI bit", duration: "0:48", gradient: "linear-gradient(160deg, #1b2e24 0%, #0e1f17 100%)" },
-  { title: "Build session", duration: "3:12", gradient: "linear-gradient(160deg, #2c1a16 0%, #1c0d0a 100%)" },
-  { title: "The podcast", duration: "28:40", gradient: "linear-gradient(160deg, #191d2c 0%, #0e1220 100%)" },
-  { title: "Keynote · Tallinn", duration: "19:05", gradient: "linear-gradient(160deg, #2c2116 0%, #1c150c 100%)" },
-  { title: "n8n breakdown", duration: "5:30", gradient: "linear-gradient(160deg, #1b2e24 0%, #0e1f17 100%)" },
-  { title: "Stand-up · Urdu set", duration: "1:20", gradient: "linear-gradient(160deg, #2c1a16 0%, #1c0d0a 100%)" },
-  { title: "Reel · the thesis", duration: "0:59", gradient: "linear-gradient(160deg, #191d2c 0%, #0e1220 100%)" },
-  { title: "Workshop clip", duration: "4:15", gradient: "linear-gradient(160deg, #2c2116 0%, #1c150c 100%)" },
+const videoTiles: { title: string; duration: string; gradient: string; src?: string; poster?: string }[] = [
+  { title: "Stand-up · AI bit",   duration: "0:48",  gradient: "linear-gradient(160deg, #1b2e24 0%, #0e1f17 100%)", src: "", poster: "" },
+  { title: "Build session",       duration: "3:12",  gradient: "linear-gradient(160deg, #2c1a16 0%, #1c0d0a 100%)", src: "", poster: "" },
+  { title: "The podcast",         duration: "28:40", gradient: "linear-gradient(160deg, #191d2c 0%, #0e1220 100%)", src: "", poster: "" },
+  { title: "Keynote · Tallinn",   duration: "19:05", gradient: "linear-gradient(160deg, #2c2116 0%, #1c150c 100%)", src: "", poster: "" },
+  { title: "n8n breakdown",       duration: "5:30",  gradient: "linear-gradient(160deg, #1b2e24 0%, #0e1f17 100%)", src: "", poster: "" },
+  { title: "Stand-up · Urdu set", duration: "1:20",  gradient: "linear-gradient(160deg, #2c1a16 0%, #1c0d0a 100%)", src: "", poster: "" },
+  { title: "Reel · the thesis",   duration: "0:59",  gradient: "linear-gradient(160deg, #191d2c 0%, #0e1220 100%)", src: "", poster: "" },
+  { title: "Workshop clip",       duration: "4:15",  gradient: "linear-gradient(160deg, #2c2116 0%, #1c150c 100%)", src: "", poster: "" },
 ];
 const allTiles = [...videoTiles, ...videoTiles];
 
@@ -767,6 +767,15 @@ export default function Home() {
             {allTiles.map((tile, i) => (
               <div
                 key={i}
+                className="group"
+                onMouseEnter={(e) => {
+                  const video = e.currentTarget.querySelector("video");
+                  if (video && video.src) video.play().catch(() => {});
+                }}
+                onMouseLeave={(e) => {
+                  const video = e.currentTarget.querySelector("video");
+                  if (video) { video.pause(); video.currentTime = 0; }
+                }}
                 style={{
                   width: 230,
                   height: 330,
@@ -778,8 +787,42 @@ export default function Home() {
                   alignItems: "center",
                   justifyContent: "center",
                   overflow: "hidden",
+                  cursor: "pointer",
                 }}
               >
+                {/* Shimmer fallback — visible on hover when no video src is set */}
+                <div
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.09) 50%, transparent 80%)",
+                    backgroundSize: "200% 100%",
+                    animation: "card-shimmer 1.8s linear infinite",
+                    pointerEvents: "none",
+                    zIndex: 0,
+                  }}
+                />
+
+                {/* Video — fades in on hover and plays; covers shimmer when src is present */}
+                <video
+                  muted
+                  loop
+                  playsInline
+                  src={tile.src || undefined}
+                  poster={tile.poster || undefined}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    pointerEvents: "none",
+                    zIndex: 1,
+                  }}
+                />
+
                 {/* Play button */}
                 <div
                   style={{
@@ -787,6 +830,7 @@ export default function Home() {
                     background: "rgba(255,255,255,0.15)",
                     border: "1.5px solid rgba(255,255,255,0.3)",
                     display: "flex", alignItems: "center", justifyContent: "center",
+                    position: "relative", zIndex: 2,
                   }}
                 >
                   <span style={{ color: "#fff", fontSize: "1rem", marginLeft: 3 }}>▶</span>
@@ -802,6 +846,7 @@ export default function Home() {
                     display: "flex",
                     alignItems: "flex-end",
                     justifyContent: "space-between",
+                    zIndex: 2,
                   }}
                 >
                   <span
