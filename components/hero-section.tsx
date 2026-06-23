@@ -29,11 +29,6 @@ export default function HeroSection() {
   const [runCount,       setRunCount]       = useState(1);
   const [barIndex,       setBarIndex]       = useState(6);
 
-  // Hero stats
-  const [hStat1, setHStat1] = useState(0.0);
-  const [hStat2, setHStat2] = useState(0);
-  const [hStat3, setHStat3] = useState(0);
-
   // Card-2 stats
   const [c2s1, setC2s1] = useState(0);
   const [c2s2, setC2s2] = useState(0);
@@ -78,24 +73,6 @@ export default function HeroSection() {
 
     const init = setTimeout(step, 2500);
     return () => { canceled = true; clearTimeout(init); };
-  }, []);
-
-  // ─── Hero stats count-up ───────────────────────────────────────────────────
-  useEffect(() => {
-    const t = setTimeout(() => {
-      const dur = 1500;
-      const t0 = performance.now();
-      function tick(now: number) {
-        const p = Math.min((now - t0) / dur, 1);
-        const e = 1 - (1 - p) ** 3;
-        setHStat1(parseFloat((3.9 * e).toFixed(1)));
-        setHStat2(Math.round(92 * e));
-        setHStat3(Math.round(45 * e));
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }, 2000);
-    return () => clearTimeout(t);
   }, []);
 
   // ─── Card-2 stats count-up ─────────────────────────────────────────────────
@@ -273,39 +250,6 @@ export default function HeroSection() {
           display: inline-block;
         }
         .nh-btn-outline:hover { border-color: var(--ink); }
-
-        /* stats row */
-        .nh-stats {
-          margin-top: 48px;
-          padding-top: 22px;
-          border-top: 1px solid var(--line);
-          display: flex;
-          opacity: 0;
-          animation: nhFade .6s ease forwards 2s;
-        }
-        .nh-stat { flex: 1; }
-        .nh-stat:not(:last-child) {
-          border-right: 1px solid var(--line);
-          padding-right: 20px;
-          margin-right: 20px;
-        }
-        .nh-stat-num {
-          font-family: var(--font-bebas), sans-serif;
-          font-size: 32px;
-          color: var(--ink);
-          line-height: 1;
-          display: block;
-          margin-bottom: 4px;
-        }
-        .nh-stat-suf { font-size: 18px; color: var(--coral); }
-        .nh-stat-lbl {
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 9px;
-          text-transform: uppercase;
-          letter-spacing: .1em;
-          color: var(--muted);
-          display: block;
-        }
 
         /* cards stage */
         .cs {
@@ -602,26 +546,6 @@ export default function HeroSection() {
             >
               Read how I think
             </button>
-          </div>
-
-          {/* 5. Stats */}
-          <div className="nh-stats">
-            <div className="nh-stat">
-              <span className="nh-stat-num">
-                ${hStat1.toFixed(1)}<span className="nh-stat-suf">M</span>
-              </span>
-              <span className="nh-stat-lbl">saved · Careem</span>
-            </div>
-            <div className="nh-stat">
-              <span className="nh-stat-num">
-                {hStat2}<span className="nh-stat-suf">%</span>
-              </span>
-              <span className="nh-stat-lbl">STP · Wise</span>
-            </div>
-            <div className="nh-stat">
-              <span className="nh-stat-num">{hStat3}</span>
-              <span className="nh-stat-lbl">markets · Bolt</span>
-            </div>
           </div>
 
         </div>
