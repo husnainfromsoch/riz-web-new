@@ -201,16 +201,10 @@ export default function HeroSection() {
 
         /* subtext */
         .nh-sub {
-          font-family: var(--font-dm-sans), sans-serif;
-          font-size: 15px;
-          line-height: 1.68;
-          color: var(--ink2);
-          max-width: 380px;
           margin: 0 0 32px;
           opacity: 0;
           animation: nhFade .6s ease forwards 1.6s;
         }
-        .nh-sub strong { font-weight: 600; color: var(--ink); }
 
         /* ctas */
         .nh-ctas {
@@ -524,14 +518,38 @@ export default function HeroSection() {
           </h1>
 
           {/* 3. Subtext */}
-          <p className="nh-sub">
-            I help founders think clearly enough that automation actually works —
-            then I build the systems that prove it.
-            <br /><br />
-            Ten years in ops.{" "}
-            <strong>Careem</strong>. <strong>Bolt</strong>. <strong>Wise</strong>.
-            {" "}Cambridge. Tallinn.
-          </p>
+          <div className="nh-sub">
+            {/* Coral rule */}
+            <div style={{ width: 48, height: 2, background: "#EA6A47", marginBottom: 20 }} />
+
+            {/* First line */}
+            <p style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "clamp(1.25rem, 2.5vw, 1.6rem)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              color: "#22332C",
+              lineHeight: 1.5,
+              maxWidth: 520,
+              margin: "0 0 20px",
+            }}>
+              I help founders think clearly enough that automation actually works —
+              then I build the systems that prove it.
+            </p>
+
+            {/* Second line */}
+            <p style={{ margin: 0, lineHeight: 1.6 }}>
+              <span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", color: "#22332C", opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.12em" }}>Ten years in ops.</span>
+              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
+              <span style={{ fontFamily: "var(--font-playfair), serif", fontWeight: 700, fontStyle: "italic", color: "#EA6A47", fontSize: "1rem" }}>Careem</span>
+              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
+              <span style={{ fontFamily: "var(--font-playfair), serif", fontWeight: 700, fontStyle: "italic", color: "#EA6A47", fontSize: "1rem" }}>Bolt</span>
+              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
+              <span style={{ fontFamily: "var(--font-playfair), serif", fontWeight: 700, fontStyle: "italic", color: "#EA6A47", fontSize: "1rem" }}>Wise</span>
+              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
+              <span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", color: "#22332C", opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.12em" }}>Cambridge. Tallinn.</span>
+            </p>
+          </div>
 
           {/* 4. CTAs */}
           <div className="nh-ctas">
