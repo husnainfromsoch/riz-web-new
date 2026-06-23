@@ -4,6 +4,12 @@ import Link from "next/link";
 const credentials = ["Cambridge", "Careem", "Bolt", "Wise", "Anthropic Partner"];
 
 export default function HeroSection() {
+  function handleReadClick(e: React.MouseEvent) {
+    e.preventDefault();
+    const el = document.getElementById("what-i-believe");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <section
       data-hero="dark"
@@ -46,7 +52,10 @@ export default function HeroSection() {
           zIndex: 0,
         }}
       >
-        <source src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+        <source
+          src="https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4"
+          type="video/mp4"
+        />
       </video>
 
       {/* DARK OVERLAY */}
@@ -101,13 +110,7 @@ export default function HeroSection() {
           }}
         >
           AI doesn&apos;t fix bad thinking.
-          <em
-            style={{
-              color: "#EA6A47",
-              fontStyle: "italic",
-              display: "block",
-            }}
-          >
+          <em style={{ color: "#EA6A47", fontStyle: "italic", display: "block" }}>
             It scales it.
           </em>
         </h1>
@@ -130,14 +133,7 @@ export default function HeroSection() {
         </p>
 
         {/* Buttons */}
-        <div
-          style={{
-            display: "flex",
-            gap: "0.85rem",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
+        <div style={{ display: "flex", gap: "0.85rem", flexWrap: "wrap", justifyContent: "center" }}>
           <Link
             href="/case-studies"
             style={{
@@ -155,8 +151,8 @@ export default function HeroSection() {
           >
             See what I&apos;ve built →
           </Link>
-          <Link
-            href="#thesis"
+          <button
+            onClick={handleReadClick}
             style={{
               background: "transparent",
               border: "1.5px solid rgba(255,255,255,0.4)",
@@ -166,24 +162,16 @@ export default function HeroSection() {
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontWeight: 500,
               fontSize: "0.95rem",
-              textDecoration: "none",
               whiteSpace: "nowrap",
-              display: "inline-block",
+              cursor: "pointer",
             }}
           >
             Read how I think →
-          </Link>
+          </button>
         </div>
 
         {/* Credential chips */}
-        <div
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
+        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center" }}>
           {credentials.map((c) => (
             <span
               key={c}
@@ -230,14 +218,7 @@ export default function HeroSection() {
         >
           scroll
         </span>
-        <span
-          className="hero-scroll-arrow"
-          style={{
-            color: "rgba(255,255,255,0.35)",
-            fontSize: "1rem",
-            lineHeight: 1,
-          }}
-        >
+        <span className="hero-scroll-arrow" style={{ color: "rgba(255,255,255,0.35)", fontSize: "1rem", lineHeight: 1 }}>
           ↓
         </span>
       </div>

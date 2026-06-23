@@ -1,9 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
 import BookingSection from "@/components/BookingSection";
 import HeroSection from "@/components/hero-section";
+
+const PORTRAIT_URL =
+  "https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a3a46d312c6d02c8e46bab1_691d97efffebe375af48ce33_Remove_GMNI-removebg-preview.png";
 
 // ─── PROOF CARDS ────────────────────────────────────────────────────────────
 
@@ -145,9 +148,103 @@ const blogPosts = [
 export default function Home() {
   const [hoveredRoute, setHoveredRoute] = useState<number | null>(null);
   const [hoveredWork, setHoveredWork] = useState<number | null>(null);
+  const [musicPlaying, setMusicPlaying] = useState(false);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const gainNodesRef = useRef<GainNode[]>([]);
+
+  function startMusic() {
+    if (audioCtxRef.current) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Ctx = window.AudioContext || (window as any).webkitAudioContext;
+    if (!Ctx) return;
+    const ctx: AudioContext = new Ctx();
+    audioCtxRef.current = ctx;
+    const freqs = [261.63, 329.63, 392.0, 440.0, 587.33];
+    gainNodesRef.current = [];
+    freqs.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.07, ctx.currentTime + 0.6 + i * 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      gainNodesRef.current.push(gain);
+    });
+    setMusicPlaying(true);
+  }
+
+  function stopMusic() {
+    const ctx = audioCtxRef.current;
+    if (!ctx) return;
+    gainNodesRef.current.forEach((g) => {
+      g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
+    });
+    setTimeout(() => {
+      try { ctx.close(); } catch {}
+      audioCtxRef.current = null;
+      gainNodesRef.current = [];
+    }, 900);
+    setMusicPlaying(false);
+  }
+
+  function toggleMusic() {
+    if (musicPlaying) {
+      stopMusic();
+    } else {
+      startMusic();
+    }
+  }
+
+  useEffect(() => {
+    const el = document.getElementById("what-i-believe");
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startMusic();
+          } else {
+            stopMusic();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
+      {/* KEYFRAMES + THESIS GRID */}
+      <style>{`
+        @keyframes vinyl-spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        .thesis-grid {
+          display: grid;
+          grid-template-columns: 1fr 420px;
+          align-items: start;
+          gap: 0;
+        }
+        .portrait-col {
+          display: block;
+        }
+        @media (max-width: 768px) {
+          .thesis-grid {
+            grid-template-columns: 1fr;
+          }
+          .portrait-col {
+            display: none;
+          }
+        }
+      `}</style>
+
       {/* LEFT DECORATIVE RAIL */}
       <div
         className="hidden md:block"
@@ -254,8 +351,10 @@ export default function Home() {
 
       {/* SECTION 3 — THESIS */}
       <section id="thesis" style={{ padding: "6rem 0" }}>
-        <div className="max-w-site">
-          <div style={{ maxWidth: 720 }}>
+        <div id="what-i-believe" className="max-w-site thesis-grid">
+
+          {/* LEFT COL — text */}
+          <div style={{ maxWidth: 720, paddingRight: "2rem" }}>
             <AnimateIn>
               <p className="section-eyebrow" style={{ marginBottom: "1.5rem" }}>02 · What I believe</p>
             </AnimateIn>
@@ -353,6 +452,112 @@ export default function Home() {
               </div>
             </AnimateIn>
           </div>
+
+          {/* RIGHT COL — sticky portrait */}
+          <div
+            className="portrait-col"
+            onClick={toggleMusic}
+            style={{
+              position: "sticky",
+              top: 0,
+              height: "100vh",
+              overflow: "hidden",
+              background: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            {/* Portrait image */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={PORTRAIT_URL}
+              alt="Rizwan Mahmood"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                objectPosition: "center bottom",
+              }}
+            />
+
+            {/* Vinyl record — shown when music is playing */}
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: `translate(-50%, -50%) scale(${musicPlaying ? 1 : 0.8})`,
+                opacity: musicPlaying ? 1 : 0,
+                transition: "opacity 0.4s ease, transform 0.4s ease",
+                zIndex: 2,
+              }}
+            >
+              <div
+                style={{
+                  width: 200,
+                  height: 200,
+                  borderRadius: "50%",
+                  background:
+                    "radial-gradient(circle at center, #1a1a1a 0%, #2a2a2a 30%, #1a1a1a 31%, #333 60%, #1a1a1a 61%, #2a2a2a 80%, #1a1a1a 100%)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+                  animation: musicPlaying ? "vinyl-spin 3s linear infinite" : "none",
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 60,
+                    height: 60,
+                    borderRadius: "50%",
+                    background: "#EA6A47",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "var(--font-playfair), serif",
+                      fontSize: "0.7rem",
+                      fontWeight: 700,
+                      color: "#fff",
+                    }}
+                  >
+                    Riz
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Click-to-play label */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: 24,
+                left: 0,
+                right: 0,
+                textAlign: "center",
+                zIndex: 3,
+                pointerEvents: "none",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-mono), monospace",
+                  fontSize: "0.62rem",
+                  color: "rgba(0,0,0,0.35)",
+                  letterSpacing: "0.08em",
+                  margin: 0,
+                }}
+              >
+                {musicPlaying ? "click to pause ❚❚" : "♪ click to hear me"}
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 
