@@ -229,18 +229,29 @@ export default function Home() {
         .thesis-grid {
           display: grid;
           grid-template-columns: 1fr 420px;
-          align-items: start;
+          align-items: stretch;
           gap: 0;
         }
         .portrait-col {
           display: block;
+        }
+        .portrait-sticky {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          overflow: hidden;
         }
         @media (max-width: 768px) {
           .thesis-grid {
             grid-template-columns: 1fr;
           }
           .portrait-col {
-            display: none;
+            display: block;
+            height: 480px;
+          }
+          .portrait-sticky {
+            position: relative;
+            height: 100%;
           }
         }
       `}</style>
@@ -453,108 +464,113 @@ export default function Home() {
             </AnimateIn>
           </div>
 
-          {/* RIGHT COL — sticky portrait */}
-          <div
-            className="portrait-col"
-            onClick={toggleMusic}
-            style={{
-              position: "sticky",
-              top: 0,
-              height: "100vh",
-              overflow: "hidden",
-              background: "#fff",
-              cursor: "pointer",
-            }}
-          >
-            {/* Portrait image */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={PORTRAIT_URL}
-              alt="Rizwan Mahmood"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                objectPosition: "center bottom",
-              }}
-            />
-
-            {/* Vinyl record — shown when music is playing */}
+          {/* RIGHT COL — grid cell stretches to full text-column height */}
+          <div className="portrait-col">
+            {/* Inner sticky panel — viewport-anchored at 100vh */}
             <div
+              className="portrait-sticky"
+              onClick={toggleMusic}
               style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: `translate(-50%, -50%) scale(${musicPlaying ? 1 : 0.8})`,
-                opacity: musicPlaying ? 1 : 0,
-                transition: "opacity 0.4s ease, transform 0.4s ease",
-                zIndex: 2,
+                background: "#FFFFFF",
+                cursor: "pointer",
+                marginLeft: "auto",
+                paddingRight: "1.5rem",
+                borderRadius: 16,
               }}
             >
+              {/* Portrait — cover fills panel, face anchored at top */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={PORTRAIT_URL}
+                alt="Rizwan Mahmood"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "top center",
+                }}
+              />
+
+              {/* Vinyl record — decorative anchor always visible, glows when playing */}
               <div
                 style={{
-                  width: 200,
-                  height: 200,
-                  borderRadius: "50%",
-                  background:
-                    "radial-gradient(circle at center, #1a1a1a 0%, #2a2a2a 30%, #1a1a1a 31%, #333 60%, #1a1a1a 61%, #2a2a2a 80%, #1a1a1a 100%)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
-                  animation: musicPlaying ? "vinyl-spin 3s linear infinite" : "none",
-                  position: "relative",
+                  position: "absolute",
+                  bottom: 24,
+                  left: "50%",
+                  transform: `translateX(-50%) scale(${musicPlaying ? 1 : 0.85})`,
+                  opacity: musicPlaying ? 1 : 0.22,
+                  transition: "opacity 0.4s ease, transform 0.4s ease",
+                  zIndex: 2,
                 }}
               >
                 <div
                   style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: 60,
-                    height: 60,
+                    width: 200,
+                    height: 200,
                     borderRadius: "50%",
-                    background: "#EA6A47",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    background:
+                      "radial-gradient(circle at center, #1a1a1a 0%, #2a2a2a 30%, #1a1a1a 31%, #333 60%, #1a1a1a 61%, #2a2a2a 80%, #1a1a1a 100%)",
+                    boxShadow: musicPlaying ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 16px rgba(0,0,0,0.2)",
+                    animation: musicPlaying ? "vinyl-spin 3s linear infinite" : "none",
+                    position: "relative",
+                    transition: "box-shadow 0.4s ease",
                   }}
                 >
-                  <span
+                  <div
                     style={{
-                      fontFamily: "var(--font-playfair), serif",
-                      fontSize: "0.7rem",
-                      fontWeight: 700,
-                      color: "#fff",
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: 60,
+                      height: 60,
+                      borderRadius: "50%",
+                      background: "#EA6A47",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                     }}
                   >
-                    Riz
-                  </span>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-playfair), serif",
+                        fontSize: "0.7rem",
+                        fontWeight: 700,
+                        color: "#fff",
+                      }}
+                    >
+                      Riz
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Click-to-play label */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: 24,
-                left: 0,
-                right: 0,
-                textAlign: "center",
-                zIndex: 3,
-                pointerEvents: "none",
-              }}
-            >
-              <p
+              {/* Click hint — top-right corner, doesn't conflict with vinyl */}
+              <div
                 style={{
-                  fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.62rem",
-                  color: "rgba(0,0,0,0.35)",
-                  letterSpacing: "0.08em",
-                  margin: 0,
+                  position: "absolute",
+                  top: 16,
+                  right: 16,
+                  zIndex: 3,
+                  pointerEvents: "none",
                 }}
               >
-                {musicPlaying ? "click to pause ❚❚" : "♪ click to hear me"}
-              </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-mono), monospace",
+                    fontSize: "0.6rem",
+                    color: "rgba(0,0,0,0.35)",
+                    letterSpacing: "0.08em",
+                    margin: 0,
+                    textAlign: "right",
+                  }}
+                >
+                  {musicPlaying ? "click to pause ❚❚" : "♪ click to hear me"}
+                </p>
+              </div>
             </div>
           </div>
 
