@@ -135,7 +135,7 @@ export default function HeroSection() {
         {/* Buttons */}
         <div style={{ display: "flex", gap: "0.85rem", flexWrap: "wrap", justifyContent: "center" }}>
           <Link
-            href="/case-studies"
+            href="/services"
             style={{
               background: "#EA6A47",
               color: "#fff",

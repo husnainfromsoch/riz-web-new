@@ -238,6 +238,7 @@ export default function Home() {
         .portrait-sticky {
           position: sticky;
           top: 0;
+          width: 100%;
           height: 100vh;
           overflow: hidden;
         }
@@ -473,8 +474,6 @@ export default function Home() {
               style={{
                 background: "#FFFFFF",
                 cursor: "pointer",
-                marginLeft: "auto",
-                paddingRight: "1.5rem",
                 borderRadius: 16,
               }}
             >
