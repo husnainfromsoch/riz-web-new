@@ -1,483 +1,763 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
-// ─── TYPES ────────────────────────────────────────────────────────────────────
+// ─── DATA ─────────────────────────────────────────────────────────────────────
 
-type TLineType = "output" | "prompt" | "system" | "highlight" | "success" | "amber" | "gap";
-type KBLine = { type: TLineType; text?: string };
-type RenderedLine = { id: number; type: TLineType; text: string };
-
-// ─── KNOWLEDGE BASE ───────────────────────────────────────────────────────────
-
-const KB: Record<string, KBLine[]> = {
-  whoami: [
-    { type: "output", text: "Riz. Operator, builder, occasional comedian." },
-    { type: "output", text: "Ten years running operations across four continents." },
-    { type: "output", text: "Cambridge. ACCA. Careem → Bolt → Wise → own thing." },
-    { type: "output", text: "Based in Tallinn. Working globally." },
-    { type: "gap" },
-    { type: "output", text: "The short version: I fix the thinking, then I build the system." },
-    { type: "amber", text: "→ try: work, wins, soch, pricing, why" },
-  ],
-  work: [
-    { type: "amber", text: "Career timeline:" },
-    { type: "output", text: "2024–now  Soch · Co-founder · Tallinn" },
-    { type: "output", text: "2022–2024 Wise · Senior Ops Manager · London" },
-    { type: "output", text: "2020–2022 Bolt · Product Operations · Tallinn" },
-    { type: "output", text: "2018–2020 Careem · Ops Lead · Dubai" },
-    { type: "output", text: "2016–2018 Motive Technologies · Operations" },
-    { type: "gap" },
-    { type: "output", text: "Cambridge certificate in 2019. ACCA qualified." },
-    { type: "amber", text: "→ drill in: bolt, wise, careem, soch" },
-  ],
-  bolt: [
-    { type: "amber", text: "Bolt (2020–2022):" },
-    { type: "output", text: "Product Ops. Dispatch latency: 3 min → 20 sec." },
-    { type: "output", text: "Courier cost reduction: $3.9M annually." },
-    { type: "output", text: "Wrongful termination. Fought it. Won. Published everything." },
-    { type: "success", text: "→ put it on my LinkedIn headline. On purpose." },
-  ],
-  wise: [
-    { type: "amber", text: "Wise (2022–2024):" },
-    { type: "output", text: "92% straight-through matching on transfers." },
-    { type: "output", text: "Built the ops infrastructure for MENA expansion." },
-    { type: "output", text: "Left to start Soch. No regrets." },
-  ],
-  careem: [
-    { type: "amber", text: "Careem (2018–2020):" },
-    { type: "output", text: "Ops Lead across 4 countries." },
-    { type: "output", text: "Pre-Uber acquisition. Saw what scale actually looks like." },
-    { type: "output", text: "First time I realized ops is just thinking at speed." },
-  ],
-  soch: [
-    { type: "amber", text: "Soch — my company:" },
-    { type: "output", text: "We build AI workflow systems for founders and ops teams." },
-    { type: "output", text: "n8n automations, AI agents, internal tools." },
-    { type: "output", text: "Co-founded with Umair Shahzad." },
-    { type: "highlight", text: "→ withsoch.com" },
-  ],
-  wins: [
-    { type: "amber", text: "Things worth mentioning:" },
-    { type: "output", text: "✓ Bug Catcher — browser game built with zero prior code." },
-    { type: "output", text: "  Hand-tracking, no controller, shipped on LinkedIn." },
-    { type: "output", text: "  20k+ impressions on launch post." },
-    { type: "gap" },
-    { type: "output", text: "✓ Bolt case — wrongful termination. Won." },
-    { type: "output", text: "  Published every document. Became a case study in ops credibility." },
-    { type: "gap" },
-    { type: "output", text: "✓ Anthropic Claude Partner Network. Not applied, selected." },
-    { type: "amber", text: "→ see: bolt, soch" },
-  ],
-  pricing: [
-    { type: "amber", text: "How to work with me:" },
-    { type: "output", text: "Consulting / Advisory — from $160/hr." },
-    { type: "output", text: "Projects (system builds) — scoped fixed price via Soch." },
-    { type: "output", text: "Speaking / Workshops — ask." },
-    { type: "output", text: "Learn — just read the Substack. It's free." },
-    { type: "gap" },
-    { type: "highlight", text: "→ cal.com/riz — book a 30min scoping call" },
-  ],
-  stack: [
-    { type: "amber", text: "Tools I actually use:" },
-    { type: "output", text: "Automation  n8n, Make, Zapier" },
-    { type: "output", text: "AI          Anthropic API, OpenAI, Gemini" },
-    { type: "output", text: "Data        Airtable, Google Sheets, Supabase" },
-    { type: "output", text: "Comms       Slack, ClickUp" },
-    { type: "output", text: "Web         Next.js, Webflow, Framer" },
-    { type: "gap" },
-    { type: "output", text: "Not a developer. Never claimed to be." },
-    { type: "success", text: "Build with the best tool for the job. Full stop." },
-  ],
-  why: [
-    { type: "output", text: "Why do this at all?" },
-    { type: "gap" },
-    { type: "output", text: 'Because most "automation" doesn\'t fail at the tech level.' },
-    { type: "output", text: "It fails because the thinking underneath it is broken." },
-    { type: "gap" },
-    { type: "output", text: "AI scales what you already do." },
-    { type: "highlight", text: "If you think clearly, AI is leverage." },
-    { type: "highlight", text: "If you don't, AI is a faster way to make more mistakes." },
-    { type: "gap" },
-    { type: "output", text: "I fix the thinking first. Then we build." },
-  ],
-  contact: [
-    { type: "amber", text: "Get in touch:" },
-    { type: "highlight", text: "→ riz@withsoch.com" },
-    { type: "highlight", text: "→ cal.com/riz (book a call)" },
-    { type: "output", text: "→ linkedin.com/in/riz" },
-    { type: "output", text: "→ conversationswithriz.substack.com" },
-    { type: "output", text: "→ youtube.com/@VibeWithRiz" },
-  ],
-  education: [
-    { type: "amber", text: "Education:" },
-    { type: "output", text: "Cambridge Certificate in Finance — 2019." },
-    { type: "output", text: "ACCA qualified." },
-    { type: "output", text: "Real education: ten years in the room where decisions get made." },
-  ],
-  help: [
-    { type: "amber", text: "Available commands:" },
-    { type: "output", text: "whoami     — who is Riz" },
-    { type: "output", text: "work       — career timeline" },
-    { type: "output", text: "bolt       — the Bolt chapter" },
-    { type: "output", text: "wise       — the Wise chapter" },
-    { type: "output", text: "careem     — the Careem chapter" },
-    { type: "output", text: "soch       — the company" },
-    { type: "output", text: "wins       — things worth mentioning" },
-    { type: "output", text: "pricing    — how to work together" },
-    { type: "output", text: "stack      — tools I use" },
-    { type: "output", text: "why        — why any of this" },
-    { type: "output", text: "education  — Cambridge, ACCA" },
-    { type: "output", text: "contact    — get in touch" },
-    { type: "output", text: "clear      — reset terminal" },
-  ],
-};
-
-const ALIASES: Record<string, string> = {
-  "who are you": "whoami", "who is riz": "whoami", "about you": "whoami", "tell me about yourself": "whoami",
-  "experience": "work", "career": "work", "background": "work", "timeline": "work",
-  "what have you built": "wins", "achievements": "wins", "projects": "wins", "case studies": "wins",
-  "how much": "pricing", "rates": "pricing", "cost": "pricing", "hire": "pricing", "services": "pricing",
-  "tools": "stack", "tech": "stack", "technology": "stack",
-  "motivation": "why", "philosophy": "why", "point of view": "why", "pov": "why",
-  "company": "soch", "withsoch": "soch",
-  "email": "contact", "social": "contact", "reach out": "contact", "book": "contact", "calendly": "contact",
-  "cambridge": "education", "acca": "education", "university": "education",
-  "?": "help", "commands": "help", "ls": "help",
-};
-
-const BOOT_LINES: KBLine[] = [
-  { type: "system", text: "── riz.sh v1.0 ──────────────────────────────" },
-  { type: "system", text: "loading knowledge base..." },
-  { type: "gap" },
+const NODES = [
+  { icon: "📥", name: "New Lead",        org: "HubSpot", type: "Trigger" },
+  { icon: "🔍", name: "Enrich Profile",  org: "Apify",   type: "Action" },
+  { icon: "🧠", name: "Score & Qualify", org: "Claude",  type: "AI Step" },
+  { icon: "⚡", name: "Route to Sales",  org: "Slack",   type: "Notification" },
 ];
 
-const QUICK_CHIPS = ["whoami", "work", "wins", "pricing", "stack", "why"];
+const BAR_HEIGHTS = [40, 55, 48, 70, 52, 88, 72];
+
+const PROGRESS_ROWS = [
+  { icon: "📥", label: "Lead routing",   pct: 82 },
+  { icon: "📄", label: "Doc processing", pct: 91 },
+  { icon: "📊", label: "Reporting",      pct: 76 },
+  { icon: "✉️",  label: "Outreach",       pct: 68 },
+];
 
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 
 export default function HeroSection() {
-  const [lines, setLines] = useState<RenderedLine[]>([]);
-  const [inputValue, setInputValue] = useState("");
-  const [cmdHistory, setCmdHistory] = useState<string[]>([]);
-  const [histIdx, setHistIdx] = useState(-1);
+  const [activeNode,     setActiveNode]     = useState<number | null>(null);
+  const [doneNodes,      setDoneNodes]      = useState<Set<number>>(new Set());
+  const [activeConn,     setActiveConn]     = useState<number | null>(null);
+  const [runCount,       setRunCount]       = useState(1);
+  const [barIndex,       setBarIndex]       = useState(6);
 
-  const bodyRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const idRef = useRef(0);
-  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  // Hero stats
+  const [hStat1, setHStat1] = useState(0.0);
+  const [hStat2, setHStat2] = useState(0);
+  const [hStat3, setHStat3] = useState(0);
 
-  function addLine(type: TLineType, text: string) {
-    const id = idRef.current++;
-    setLines(prev => [...prev, { id, type, text }]);
-  }
+  // Card-2 stats
+  const [c2s1, setC2s1] = useState(0);
+  const [c2s2, setC2s2] = useState(0);
+  const [c2s3, setC2s3] = useState(0);
 
-  function typeLines(kbLines: KBLine[], startDelay = 0): number {
-    let delay = startDelay;
-    let increment = 30;
-    kbLines.forEach(line => {
-      delay += increment;
-      increment += 10;
-      const t = setTimeout(() => {
-        addLine(line.type, line.text ?? "");
-      }, delay);
-      timersRef.current.push(t);
-    });
-    return delay;
-  }
+  const [barsIn, setBarsIn] = useState(false);
 
+  // ─── Workflow loop ─────────────────────────────────────────────────────────
   useEffect(() => {
-    const bootEnd = typeLines(BOOT_LINES, 0);
-    const t1 = setTimeout(() => {
-      const whoamiEnd = typeLines(KB.whoami, 0);
-      const t2 = setTimeout(() => {
-        addLine("gap", "");
-        addLine("system", "Type a command or question. Tab to autocomplete.");
-        inputRef.current?.focus();
-      }, whoamiEnd + 400);
-      timersRef.current.push(t2);
-    }, Math.max(bootEnd, 400));
-    timersRef.current.push(t1);
-    return () => {
-      timersRef.current.forEach(clearTimeout);
-      timersRef.current = [];
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    let canceled = false;
+    let node = 0;
+
+    function step() {
+      if (canceled) return;
+      setActiveNode(node);
+      setActiveConn(node > 0 ? node - 1 : null);
+
+      const t = setTimeout(() => {
+        if (canceled) return;
+        const done = node;
+        setDoneNodes(prev => { const s = new Set(prev); s.add(done); return s; });
+        setActiveNode(null);
+        setActiveConn(null);
+        node++;
+
+        if (node < 4) {
+          setTimeout(step, 0);
+        } else {
+          setTimeout(() => {
+            if (canceled) return;
+            setDoneNodes(new Set());
+            setRunCount(prev => prev + 1);
+            setBarIndex(prev => (prev + 3) % 7);
+            node = 0;
+            step();
+          }, 1200);
+        }
+      }, 700);
+
+      return () => clearTimeout(t);
+    }
+
+    const init = setTimeout(step, 2500);
+    return () => { canceled = true; clearTimeout(init); };
   }, []);
 
+  // ─── Hero stats count-up ───────────────────────────────────────────────────
   useEffect(() => {
-    if (bodyRef.current) {
-      bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
-    }
-  }, [lines]);
+    const t = setTimeout(() => {
+      const dur = 1500;
+      const t0 = performance.now();
+      function tick(now: number) {
+        const p = Math.min((now - t0) / dur, 1);
+        const e = 1 - (1 - p) ** 3;
+        setHStat1(parseFloat((3.9 * e).toFixed(1)));
+        setHStat2(Math.round(92 * e));
+        setHStat3(Math.round(45 * e));
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }, 2000);
+    return () => clearTimeout(t);
+  }, []);
 
-  function runCommand(raw: string) {
-    const cmd = raw.trim().toLowerCase();
-    if (!cmd) return;
-    setCmdHistory(prev => [cmd, ...prev]);
-    setHistIdx(-1);
-    addLine("prompt", cmd);
-    if (cmd === "clear") {
-      setLines([]);
-      setInputValue("");
-      return;
-    }
-    const resolved =
-      KB[cmd] ??
-      KB[ALIASES[cmd]] ??
-      KB[ALIASES[Object.keys(ALIASES).find(k => cmd.includes(k)) ?? ""] ?? ""] ??
-      null;
-    if (resolved) {
-      typeLines(resolved);
-    } else {
-      addLine("output", "Unknown command. Try: help");
-      addLine("amber", "→ hint: whoami, work, wins, pricing, why");
-    }
-    setInputValue("");
+  // ─── Card-2 stats count-up ─────────────────────────────────────────────────
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const dur = 1200;
+      const t0 = performance.now();
+      function tick(now: number) {
+        const p = Math.min((now - t0) / dur, 1);
+        const e = 1 - (1 - p) ** 3;
+        setC2s1(Math.round(23 * e));
+        setC2s2(Math.round(847 * e));
+        setC2s3(Math.round(99 * e));
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }, 2400);
+    return () => clearTimeout(t);
+  }, []);
+
+  // ─── Bar animation trigger ─────────────────────────────────────────────────
+  useEffect(() => {
+    const t = setTimeout(() => setBarsIn(true), 2600);
+    return () => clearTimeout(t);
+  }, []);
+
+  // ─── Helpers ───────────────────────────────────────────────────────────────
+  function nodeBorder(i: number) {
+    if (activeNode === i) return "var(--coral)";
+    if (doneNodes.has(i)) return "#BBF7D0";
+    return "#ECEAE6";
   }
-
-  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter") {
-      runCommand(inputValue);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      const next = Math.min(histIdx + 1, cmdHistory.length - 1);
-      if (next >= 0) { setHistIdx(next); setInputValue(cmdHistory[next] ?? ""); }
-    } else if (e.key === "ArrowDown") {
-      e.preventDefault();
-      const next = histIdx - 1;
-      if (next < 0) { setHistIdx(-1); setInputValue(""); }
-      else { setHistIdx(next); setInputValue(cmdHistory[next] ?? ""); }
-    } else if (e.key === "Tab") {
-      e.preventDefault();
-      const match = Object.keys(KB).find(c => c.startsWith(inputValue));
-      if (match) setInputValue(match);
-    }
+  function nodeBg(i: number) {
+    if (activeNode === i) return "#FFF8F6";
+    if (doneNodes.has(i)) return "#F0FDF4";
+    return "#FAFAF9";
+  }
+  function nodeShadow(i: number) {
+    return activeNode === i ? "0 0 0 3px rgba(234,106,71,.15)" : "none";
+  }
+  function nodeStatus(i: number) {
+    if (activeNode === i) return "⏳";
+    if (doneNodes.has(i)) return "✅";
+    return "";
   }
 
   return (
     <>
+      {/* ── STYLES ── */}
       <style>{`
-        /* ── HERO LAYOUT ── */
-        .hero-grid {
+        /* hero grid */
+        .nh {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          min-height: 100vh;
-          gap: 0;
-        }
-
-        /* ── LEFT COLUMN ── */
-        .hero-left {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          padding: 100px 72px 80px 80px;
-          background: #fff;
-        }
-        .hero-kicker {
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 11px;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--coral);
-          margin-bottom: 28px;
-          margin: 0 0 28px 0;
-        }
-        .hero-h1 {
-          font-family: var(--font-playfair), serif;
-          font-size: clamp(40px, 4.5vw, 58px);
-          font-weight: 700;
-          line-height: 1.1;
-          color: var(--ink);
-          margin: 0 0 24px 0;
-        }
-        .hero-h1 em { font-style: italic; color: var(--coral); display: block; }
-        .hero-sub {
-          font-family: var(--font-dm-sans), sans-serif;
-          font-size: 17px;
-          line-height: 1.7;
-          color: var(--body);
-          max-width: 460px;
-          margin: 0 0 40px 0;
-        }
-        .hero-sub strong { color: var(--ink); font-weight: 500; }
-        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
-        .hero-btn-primary {
-          background: var(--coral);
-          color: #fff;
-          border: none;
-          padding: 14px 28px;
-          border-radius: 8px;
-          font-family: var(--font-dm-sans), sans-serif;
-          font-size: 15px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: background 0.2s;
-          text-decoration: none;
-          display: inline-block;
-        }
-        .hero-btn-primary:hover { background: var(--coral-d); }
-        .hero-btn-ghost {
-          background: transparent;
-          color: var(--ink);
-          border: 1.5px solid var(--line);
-          padding: 14px 28px;
-          border-radius: 8px;
-          font-family: var(--font-dm-sans), sans-serif;
-          font-size: 15px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: border-color 0.2s;
-        }
-        .hero-btn-ghost:hover { border-color: var(--ink); }
-
-        /* ── RIGHT COLUMN ── */
-        .hero-right {
-          background: #131f18;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 100px 56px 80px;
+          min-height: calc(100vh - 58px);
+          background: var(--paper);
           position: relative;
-          overflow: hidden;
-          min-height: 100vh;
         }
-        .hero-right::before {
+        .nh::before {
           content: '';
           position: absolute;
           inset: 0;
-          background-image:
-            linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-          background-size: 32px 32px;
+          background-image: radial-gradient(circle, rgba(28,28,28,.03) 1px, transparent 1px);
+          background-size: 22px 22px;
           pointer-events: none;
-        }
-        /* subtle coral gradient glow bottom */
-        .hero-right::after {
-          content: '';
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          height: 240px;
-          background: linear-gradient(to top, rgba(234,106,71,0.06), transparent);
-          pointer-events: none;
+          z-index: 0;
         }
 
-        /* ── TERMINAL ── */
-        .t-wrap {
-          background: #1C2B25;
-          border-radius: 14px;
-          overflow: hidden;
-          box-shadow:
-            0 0 0 1px rgba(255,255,255,0.07),
-            0 24px 64px rgba(0,0,0,0.45),
-            0 8px 24px rgba(0,0,0,0.3);
-          width: 100%;
-          max-width: 520px;
+        /* columns */
+        .nh-left {
+          padding: 72px 64px 72px 56px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
           position: relative;
           z-index: 1;
         }
-        .t-chrome {
+        .nh-right {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 13px 18px;
-          background: rgba(0,0,0,0.2);
-          border-bottom: 1px solid rgba(255,255,255,0.07);
+          justify-content: center;
+          padding: 48px 40px;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* meta tag */
+        .nh-meta {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 9px;
+          text-transform: uppercase;
+          letter-spacing: .18em;
+          color: var(--muted);
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin: 0 0 20px;
+          opacity: 0;
+          animation: nhFade .6s ease forwards .1s;
+        }
+        .nh-meta::before {
+          content: '';
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--coral);
           flex-shrink: 0;
         }
-        .t-chrome-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
-        .t-chrome-title {
-          flex: 1;
-          text-align: center;
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 12px;
-          color: #4a6658;
-          letter-spacing: 0.08em;
-        }
-        .t-body {
-          padding: 20px 24px 14px;
-          height: 440px;
-          overflow-y: auto;
+
+        /* h1 */
+        .nh-h1 {
+          font-family: var(--font-bebas), sans-serif;
+          font-size: clamp(68px, 8.5vw, 112px);
+          line-height: .94;
+          color: var(--ink);
+          margin: 0 0 28px;
           display: flex;
           flex-direction: column;
-          scroll-behavior: smooth;
         }
-        .t-body::-webkit-scrollbar { width: 3px; }
-        .t-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-
-        /* Line types */
-        .t-line {
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 13px;
-          line-height: 1.65;
-          color: #bdd0ca;
-          white-space: pre-wrap;
-          word-break: break-word;
-          min-height: 1px;
+        .nh-word {
+          display: block;
+          opacity: 0;
+          animation: nhWord .55s cubic-bezier(.36,.07,.19,.97) forwards;
         }
-        .t-line.prompt::before { content: '> '; color: #EA6A47; font-weight: 500; }
-        .t-line.system  { color: #4a6658; font-style: italic; }
-        .t-line.output  { color: #bdd0ca; padding-left: 14px; }
-        .t-line.highlight { color: #EA6A47; padding-left: 14px; }
-        .t-line.success { color: #5DB887; padding-left: 14px; }
-        .t-line.amber   { color: #D79A36; padding-left: 14px; }
-        .t-line.gap     { height: 10px; display: block; }
+        .nh-word.c { color: var(--coral); }
 
-        /* Chips row */
-        .t-chips {
-          padding: 10px 24px 12px;
+        /* subtext */
+        .nh-sub {
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 15px;
+          line-height: 1.68;
+          color: var(--ink2);
+          max-width: 380px;
+          margin: 0 0 32px;
+          opacity: 0;
+          animation: nhFade .6s ease forwards 1.6s;
+        }
+        .nh-sub strong { font-weight: 600; color: var(--ink); }
+
+        /* ctas */
+        .nh-ctas {
           display: flex;
-          gap: 7px;
+          gap: 12px;
           flex-wrap: wrap;
-          border-top: 1px solid rgba(255,255,255,0.06);
+          opacity: 0;
+          animation: nhFade .6s ease forwards 1.8s;
         }
-        .t-chip {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.09);
-          border-radius: 5px;
-          padding: 5px 12px;
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 11px;
-          color: #4a6658;
+        .nh-btn-ink {
+          background: var(--ink);
+          color: #fff;
+          padding: 13px 26px;
+          border-radius: 7px;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 14px;
+          font-weight: 600;
+          text-decoration: none;
+          display: inline-block;
+          transition: background .2s ease;
+          border: none;
           cursor: pointer;
-          transition: all 0.15s;
-          letter-spacing: 0.04em;
         }
-        .t-chip:hover {
-          background: rgba(234,106,71,0.15);
-          border-color: rgba(234,106,71,0.5);
-          color: #EA6A47;
+        .nh-btn-ink:hover { background: var(--coral); }
+        .nh-btn-outline {
+          background: transparent;
+          color: var(--ink);
+          padding: 13px 26px;
+          border-radius: 7px;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          border: 1.5px solid var(--line);
+          transition: border-color .2s ease;
+          cursor: pointer;
+          text-decoration: none;
+          display: inline-block;
+        }
+        .nh-btn-outline:hover { border-color: var(--ink); }
+
+        /* stats row */
+        .nh-stats {
+          margin-top: 48px;
+          padding-top: 22px;
+          border-top: 1px solid var(--line);
+          display: flex;
+          opacity: 0;
+          animation: nhFade .6s ease forwards 2s;
+        }
+        .nh-stat { flex: 1; }
+        .nh-stat:not(:last-child) {
+          border-right: 1px solid var(--line);
+          padding-right: 20px;
+          margin-right: 20px;
+        }
+        .nh-stat-num {
+          font-family: var(--font-bebas), sans-serif;
+          font-size: 32px;
+          color: var(--ink);
+          line-height: 1;
+          display: block;
+          margin-bottom: 4px;
+        }
+        .nh-stat-suf { font-size: 18px; color: var(--coral); }
+        .nh-stat-lbl {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 9px;
+          text-transform: uppercase;
+          letter-spacing: .1em;
+          color: var(--muted);
+          display: block;
         }
 
-        /* Input row */
-        .t-input-row {
+        /* cards stage */
+        .cs {
+          position: relative;
+          width: 100%;
+          max-width: 420px;
+          height: 500px;
+        }
+        .cf {
+          position: absolute;
+          background: #fff;
+          border-radius: 14px;
+          box-shadow: 0 8px 32px rgba(0,0,0,.1), 0 2px 8px rgba(0,0,0,.06);
+          overflow: hidden;
+        }
+        .cf1 {
+          width: 97%; left: 1.5%; top: 0; z-index: 3;
+          opacity: 0;
+          animation: cfIn1 .5s ease forwards 2.2s;
+        }
+        .cf2 {
+          width: 91%; left: 0; bottom: 24px; z-index: 2;
+          opacity: 0;
+          animation: cfIn2 .5s ease forwards 2.4s;
+        }
+        .cf3 {
+          width: 86%; right: 0; bottom: 0; z-index: 1;
+          opacity: 0;
+          animation: cfIn3 .5s ease forwards 2.6s;
+        }
+
+        /* card chrome */
+        .cch {
           display: flex;
           align-items: center;
-          padding: 11px 24px 14px;
-          border-top: 1px solid rgba(255,255,255,0.07);
-          gap: 0;
+          gap: 6px;
+          padding: 10px 12px;
+          border-bottom: 1px solid #F0EDE7;
         }
-        .t-prompt-sym {
-          color: #EA6A47;
+        .ccd {
+          width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+        }
+        .ccl {
           font-family: var(--font-dm-mono), monospace;
-          font-size: 13px;
-          margin-right: 10px;
-          user-select: none;
+          font-size: 9px;
+          color: #8A857B;
+          letter-spacing: .07em;
+          flex: 1;
+          margin-left: 2px;
+        }
+        .ccpill {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 8px;
+          padding: 2px 7px;
+          border-radius: 99px;
+          background: #DCFCE7;
+          color: #16A34A;
+          letter-spacing: .05em;
+          font-weight: 500;
+        }
+
+        /* workflow nodes */
+        .wn {
+          display: flex;
+          align-items: center;
+          border-radius: 10px;
+          padding: 9px 12px;
+          border-width: 1.5px;
+          border-style: solid;
+          margin: 0 12px;
+          transition: border-color .25s, background .25s, box-shadow .25s;
+        }
+        .wn-ico { font-size: 13px; margin-right: 8px; flex-shrink: 0; }
+        .wn-nm {
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          color: var(--ink);
+          flex: 1;
+        }
+        .wn-org {
+          font-size: 9px;
+          color: var(--muted);
+          font-family: var(--font-dm-sans), sans-serif;
+          margin-left: 3px;
+        }
+        .wn-type {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 7px;
+          color: var(--faint);
+          margin-right: 6px;
+          text-transform: uppercase;
+          letter-spacing: .05em;
+        }
+        .wn-st { font-size: 11px; width: 16px; text-align: center; flex-shrink: 0; }
+
+        /* connector */
+        .wconn {
+          width: 2px;
+          height: 14px;
+          background: #E8E5DF;
+          margin: 0 auto;
+          position: relative;
+        }
+        .wdot {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 6px; height: 6px;
+          border-radius: 50%;
+          background: var(--coral);
+          animation: dotGo 400ms linear infinite;
+          top: -2px;
+        }
+
+        /* card 1 footer */
+        .c1ft {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 7px 12px;
+          border-top: 1px solid #F0EDE7;
+          margin-top: 4px;
+        }
+        .c1lp {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 8px;
+          color: var(--coral);
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          letter-spacing: .05em;
+        }
+        .spin { display: inline-block; animation: spinIt 1.5s linear infinite; }
+        .c1rc {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 8px;
+          color: var(--muted);
+        }
+
+        /* card 2 stats */
+        .c2st {
+          display: flex;
+          border-bottom: 1px solid #F0EDE7;
+        }
+        .c2stile {
+          flex: 1;
+          padding: 9px 10px;
+          text-align: center;
+        }
+        .c2stile:not(:last-child) { border-right: 1px solid #F0EDE7; }
+        .c2num {
+          font-family: var(--font-bebas), sans-serif;
+          font-size: 22px;
+          color: var(--ink);
+          line-height: 1;
+          display: block;
+        }
+        .c2lbl {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 7px;
+          text-transform: uppercase;
+          letter-spacing: .07em;
+          color: var(--muted);
+          display: block;
+          margin-top: 2px;
+        }
+        .bars {
+          display: flex;
+          align-items: flex-end;
+          gap: 3px;
+          height: 28px;
+          padding: 0 10px 10px;
+        }
+        .bar { flex: 1; border-radius: 2px 2px 0 0; transition: background .3s; }
+
+        /* card 3 progress */
+        .pr {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          margin-bottom: 8px;
+        }
+        .pr-ico { font-size: 11px; width: 14px; flex-shrink: 0; text-align: center; }
+        .pr-lbl {
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 9px;
+          color: var(--ink);
+          width: 82px;
           flex-shrink: 0;
         }
-        .t-input {
+        .pr-track {
           flex: 1;
-          background: transparent;
-          border: none;
-          outline: none;
-          color: #bdd0ca;
-          font-family: var(--font-dm-mono), monospace;
-          font-size: 13px;
-          caret-color: #EA6A47;
+          height: 4px;
+          background: #F0EDE7;
+          border-radius: 99px;
+          overflow: hidden;
         }
-        .t-input::placeholder { color: #2e4840; }
+        .pr-fill {
+          height: 100%;
+          background: var(--coral);
+          border-radius: 99px;
+          width: 0;
+          transition: width 1s ease;
+        }
+        .pr-pct {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 8px;
+          color: var(--muted);
+          width: 22px;
+          text-align: right;
+          flex-shrink: 0;
+        }
 
-        /* ── VERSION TAG ── */
+        /* keyframes */
+        @keyframes nhFade {
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes nhWord {
+          0%   { opacity: 0; transform: translateY(-32px); }
+          70%  { transform: translateY(4px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cfIn1 {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes cfIn2 {
+          from { opacity: 0; transform: rotate(-2.5deg) translateY(28px); }
+          to   { opacity: 1; transform: rotate(-2.5deg) translateY(8px); }
+        }
+        @keyframes cfIn3 {
+          from { opacity: 0; transform: rotate(4deg) translateY(40px); }
+          to   { opacity: 1; transform: rotate(4deg) translateY(20px); }
+        }
+        @keyframes dotGo {
+          0%   { top: -2px; opacity: 0; }
+          15%  { opacity: 1; }
+          85%  { opacity: 1; }
+          100% { top: 12px; opacity: 0; }
+        }
+        @keyframes spinIt {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+
+        /* responsive */
+        @media (max-width: 960px) {
+          .nh { grid-template-columns: 1fr; }
+          .nh-left { padding: 56px 24px 36px; }
+          .nh-right { padding: 0 24px 56px; min-height: 460px; }
+        }
+      `}</style>
+
+      {/* ── HERO SECTION ── */}
+      <section className="nh">
+
+        {/* LEFT */}
+        <div className="nh-left">
+
+          {/* 1. Meta tag */}
+          <p className="nh-meta">Operator · Builder · Tallinn</p>
+
+          {/* 2. H1 */}
+          <h1 className="nh-h1">
+            <span className="nh-word"   style={{ animationDelay: "300ms" }}>AI</span>
+            <span className="nh-word"   style={{ animationDelay: "420ms" }}>DOESN&apos;T</span>
+            <span className="nh-word"   style={{ animationDelay: "540ms" }}>FIX BAD</span>
+            <span className="nh-word"   style={{ animationDelay: "680ms" }}>THINKING.</span>
+            <span className="nh-word c" style={{ animationDelay: "860ms" }}>IT SCALES IT.</span>
+          </h1>
+
+          {/* 3. Subtext */}
+          <p className="nh-sub">
+            I help founders think clearly enough that automation actually works —
+            then I build the systems that prove it.
+            <br /><br />
+            Ten years in ops.{" "}
+            <strong>Careem</strong>. <strong>Bolt</strong>. <strong>Wise</strong>.
+            {" "}Cambridge. Tallinn.
+          </p>
+
+          {/* 4. CTAs */}
+          <div className="nh-ctas">
+            <Link href="/services" className="nh-btn-ink">
+              See what I&apos;ve built →
+            </Link>
+            <button
+              className="nh-btn-outline"
+              onClick={() =>
+                document.getElementById("what-i-believe")?.scrollIntoView({ behavior: "smooth" })
+              }
+            >
+              Read how I think
+            </button>
+          </div>
+
+          {/* 5. Stats */}
+          <div className="nh-stats">
+            <div className="nh-stat">
+              <span className="nh-stat-num">
+                ${hStat1.toFixed(1)}<span className="nh-stat-suf">M</span>
+              </span>
+              <span className="nh-stat-lbl">saved · Careem</span>
+            </div>
+            <div className="nh-stat">
+              <span className="nh-stat-num">
+                {hStat2}<span className="nh-stat-suf">%</span>
+              </span>
+              <span className="nh-stat-lbl">STP · Wise</span>
+            </div>
+            <div className="nh-stat">
+              <span className="nh-stat-num">{hStat3}</span>
+              <span className="nh-stat-lbl">markets · Bolt</span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* RIGHT */}
+        <div className="nh-right">
+          <div className="cs">
+
+            {/* ─── CARD 3 (back, z-index 1) ─── */}
+            <div className="cf cf3">
+              <div className="cch">
+                <div className="ccd" style={{ background: "#FF5F56" }} />
+                <div className="ccd" style={{ background: "#FFBD2E" }} />
+                <div className="ccd" style={{ background: "#27C93F" }} />
+                <span className="ccl">Speed Gains</span>
+              </div>
+              <div style={{ padding: "10px 12px 12px" }}>
+                <p style={{
+                  fontFamily: "var(--font-dm-sans),sans-serif",
+                  fontSize: 9,
+                  fontWeight: 600,
+                  color: "var(--ink)",
+                  marginBottom: 9,
+                }}>
+                  Time saved per process
+                </p>
+                {PROGRESS_ROWS.map((row, i) => (
+                  <div key={i} className="pr">
+                    <span className="pr-ico">{row.icon}</span>
+                    <span className="pr-lbl">{row.label}</span>
+                    <div className="pr-track">
+                      <div
+                        className="pr-fill"
+                        style={{
+                          width: barsIn ? `${row.pct}%` : "0%",
+                          transitionDelay: `${i * 120}ms`,
+                        }}
+                      />
+                    </div>
+                    <span className="pr-pct">{row.pct}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* ─── CARD 2 (mid, z-index 2) ─── */}
+            <div className="cf cf2">
+              <div className="cch">
+                <div className="ccd" style={{ background: "#FF5F56" }} />
+                <div className="ccd" style={{ background: "#FFBD2E" }} />
+                <div className="ccd" style={{ background: "#27C93F" }} />
+                <span className="ccl">This Week</span>
+                <span className="ccpill">13 active</span>
+              </div>
+              <div className="c2st">
+                <div className="c2stile">
+                  <span className="c2num">{c2s1}h</span>
+                  <span className="c2lbl">HRS SAVED</span>
+                </div>
+                <div className="c2stile">
+                  <span className="c2num">{c2s2}</span>
+                  <span className="c2lbl">RUNS FIRED</span>
+                </div>
+                <div className="c2stile">
+                  <span className="c2num">{c2s3}%</span>
+                  <span className="c2lbl">SUCCESS</span>
+                </div>
+              </div>
+              <div className="bars">
+                {BAR_HEIGHTS.map((h, i) => (
+                  <div
+                    key={i}
+                    className="bar"
+                    style={{
+                      height: `${h}%`,
+                      background: i === barIndex ? "var(--coral)" : "var(--line)",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* ─── CARD 1 (front, z-index 3) ─── */}
+            <div className="cf cf1">
+              <div className="cch">
+                <div className="ccd" style={{ background: "#FF5F56" }} />
+                <div className="ccd" style={{ background: "#FFBD2E" }} />
+                <div className="ccd" style={{ background: "#27C93F" }} />
+                <span className="ccl">Lead Enrichment Pipeline</span>
+                <span className="ccpill">Live</span>
+              </div>
+
+              <div style={{ padding: "10px 0 4px" }}>
+                {NODES.map((node, i) => (
+                  <div key={i}>
+                    {i > 0 && (
+                      <div className="wconn">
+                        {activeConn === i - 1 && <div className="wdot" />}
+                      </div>
+                    )}
+                    <div
+                      className="wn"
+                      style={{
+                        borderColor: nodeBorder(i),
+                        background:  nodeBg(i),
+                        boxShadow:   nodeShadow(i),
+                      }}
+                    >
+                      <span className="wn-ico">{node.icon}</span>
+                      <div style={{ flex: 1 }}>
+                        <span className="wn-nm">{node.name}</span>
+                        <span className="wn-org">· {node.org}</span>
+                      </div>
+                      <span className="wn-type">{node.type}</span>
+                      <span className="wn-st">{nodeStatus(i)}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="c1ft">
+                <span className="c1lp">
+                  <span className="spin">↻</span>
+                  Looping
+                </span>
+                <span className="c1rc">Run #{runCount}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      {/* ── VERSION TAG ── */}
+      <style>{`
         .version-tag {
           position: fixed;
           bottom: 20px;
@@ -489,106 +769,11 @@ export default function HeroSection() {
           border: 1px solid var(--line);
           padding: 6px 12px;
           border-radius: 999px;
-          letter-spacing: 0.08em;
+          letter-spacing: .08em;
           z-index: 200;
           pointer-events: none;
         }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-          .hero-grid { grid-template-columns: 1fr; }
-          .hero-left { padding: 100px 28px 60px; }
-          .hero-right { display: none; }
-        }
       `}</style>
-
-      {/* ── HERO ── */}
-      <section className="hero-grid">
-
-        {/* LEFT */}
-        <div className="hero-left">
-          <p className="hero-kicker">Operator · Builder · Tallinn</p>
-
-          <h1 className="hero-h1">
-            AI doesn&apos;t fix bad thinking.
-            <em>It scales it.</em>
-          </h1>
-
-          <p className="hero-sub">
-            I&apos;m Riz. Ten years in ops at{" "}
-            <strong>Careem, Bolt and Wise</strong>.{" "}
-            Cambridge. ACCA. Wrongful termination win. Anthropic Partner.
-            <br /><br />
-            Now I help founders think clearly enough that automation actually works.
-          </p>
-
-          <div className="hero-btns">
-            <Link href="/services" className="hero-btn-primary">
-              See what I&apos;ve built →
-            </Link>
-            <button
-              className="hero-btn-ghost"
-              onClick={() =>
-                document.getElementById("what-i-believe")?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              Read how I think →
-            </button>
-          </div>
-        </div>
-
-        {/* RIGHT — TERMINAL PANEL */}
-        <div className="hero-right">
-          <div className="t-wrap">
-
-            {/* Window chrome */}
-            <div className="t-chrome">
-              <div className="t-chrome-dot" style={{ background: "#FF5F56" }} />
-              <div className="t-chrome-dot" style={{ background: "#FFBD2E" }} />
-              <div className="t-chrome-dot" style={{ background: "#27C93F" }} />
-              <span className="t-chrome-title">riz.sh — ask me anything</span>
-            </div>
-
-            {/* Terminal body */}
-            <div ref={bodyRef} className="t-body">
-              {lines.map(line => (
-                <div key={line.id} className={`t-line ${line.type}`}>
-                  {line.type !== "gap" ? line.text : null}
-                </div>
-              ))}
-            </div>
-
-            {/* Quick chips */}
-            <div className="t-chips">
-              {QUICK_CHIPS.map(chip => (
-                <button key={chip} className="t-chip" onClick={() => runCommand(chip)}>
-                  {chip}
-                </button>
-              ))}
-            </div>
-
-            {/* Input */}
-            <div className="t-input-row">
-              <span className="t-prompt-sym">&gt;</span>
-              <input
-                ref={inputRef}
-                className="t-input"
-                value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="type a command or question..."
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-              />
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── VERSION TAG ── */}
       <div className="version-tag">v2.1 · Operator&apos;s Board</div>
     </>
   );
