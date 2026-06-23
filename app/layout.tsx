@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, DM_Sans, DM_Mono } from "next/font/google";
+import { Playfair_Display, DM_Sans, DM_Mono, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -28,6 +28,13 @@ const dmMono = DM_Mono({
   display: "swap",
 });
 
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-bebas",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Rizwan Mahmood — Operator · Builder · Tallinn",
   description:
@@ -40,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} h-full`}
+      className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} ${bebasNeue.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
         <AudioProvider>

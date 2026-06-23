@@ -10,23 +10,11 @@ const PORTRAIT_URL =
 
 // ─── PROOF CARDS ────────────────────────────────────────────────────────────
 
-const proofCards = [
-  {
-    num: "01",
-    text: "10 years in operations across 4 continents — Careem, Bolt, Motive, Wise.",
-  },
-  {
-    num: "02",
-    text: "Shipped a hand-tracking arcade game with zero coding background.",
-  },
-  {
-    num: "03",
-    text: "Won a wrongful-termination case against Bolt — then published every document.",
-  },
-  {
-    num: "04",
-    text: "Member, Anthropic Claude Partner Network.",
-  },
+const metricCards = [
+  { verb: "Saved",         prefix: "$", target: 3.9,  suffix: "M", isFloat: true,  label: "Courier costs · Careem" },
+  { verb: "Achieved",      prefix: "",  target: 92,   suffix: "%", isFloat: false, label: "Straight-through processing · Wise" },
+  { verb: "Dispatch time", prefix: "",  target: 20,   suffix: "s", isFloat: false, label: "Down from 3 min · Careem" },
+  { verb: "Scaled across", prefix: "",  target: 45,   suffix: "",  isFloat: false, label: "Markets · Bolt" },
 ];
 
 // ─── WORK CARDS ─────────────────────────────────────────────────────────────
@@ -143,6 +131,75 @@ const blogPosts = [
   },
 ];
 
+// ─── PROOF CARD COMPONENT ────────────────────────────────────────────────────
+
+type MetricCard = { verb: string; prefix: string; target: number; suffix: string; isFloat: boolean; label: string };
+
+function ProofCard({ card, index, value, visible }: { card: MetricCard; index: number; value: number; visible: boolean }) {
+  const [hovered, setHovered] = useState(false);
+  const display = card.isFloat
+    ? `${card.prefix}${value.toFixed(1)}${card.suffix}`
+    : `${card.prefix}${Math.round(value)}${card.suffix}`;
+  return (
+    <div
+      style={{
+        background: "#ffffff",
+        border: `1px solid ${hovered ? "var(--coral)" : "var(--line)"}`,
+        borderRadius: 16,
+        overflow: "hidden",
+        display: "flex",
+        flexDirection: "column",
+        transition: "border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
+        transform: hovered ? "translateY(-3px)" : "none",
+        boxShadow: hovered ? "0 8px 24px rgba(234,106,71,0.12)" : "none",
+        cursor: "default",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div style={{ padding: "24px 24px 16px", flex: 1 }}>
+        <p style={{
+          fontFamily: "var(--font-dm-sans), sans-serif",
+          fontSize: 13,
+          fontWeight: 500,
+          color: "var(--muted)",
+          margin: "0 0 4px",
+        }}>
+          {card.verb}
+        </p>
+        <p style={{
+          fontFamily: "var(--font-bebas), var(--font-dm-sans), sans-serif",
+          fontSize: "clamp(52px, 6vw, 72px)",
+          color: "var(--ink)",
+          lineHeight: 1,
+          letterSpacing: "0.04em",
+          margin: 0,
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(8px)",
+          transition: `opacity .4s ease ${index * 150}ms, transform .4s ease ${index * 150}ms`,
+        }}>
+          {display}
+        </p>
+      </div>
+      <div style={{
+        background: "#EDE8DF",
+        borderTop: "1px solid var(--line)",
+        padding: "14px 24px",
+      }}>
+        <p style={{
+          fontFamily: "var(--font-dm-sans), sans-serif",
+          fontSize: 13,
+          fontWeight: 600,
+          color: "var(--ink)",
+          margin: 0,
+        }}>
+          {card.label}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -151,6 +208,11 @@ export default function Home() {
   const [musicPlaying, setMusicPlaying] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const gainNodesRef = useRef<GainNode[]>([]);
+
+  const proofSectionRef = useRef<HTMLElement | null>(null);
+  const proofTriggeredRef = useRef(false);
+  const [proofNums, setProofNums] = useState([0, 0, 0, 0]);
+  const [proofVisible, setProofVisible] = useState(false);
 
   function startMusic() {
     if (audioCtxRef.current) return;
@@ -199,6 +261,40 @@ export default function Home() {
   }
 
   useEffect(() => {
+    const el = proofSectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || proofTriggeredRef.current) return;
+        proofTriggeredRef.current = true;
+        setProofVisible(true);
+        const duration = 1400;
+        const stagger = 150;
+        metricCards.forEach(({ target }, i) => {
+          const startDelay = i * stagger;
+          const startTime = performance.now() + startDelay;
+          function tick(now: number) {
+            if (now < startTime) { requestAnimationFrame(tick); return; }
+            const p = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - p, 3);
+            setProofNums((prev) => {
+              const next = [...prev];
+              next[i] = target * eased;
+              return next;
+            });
+            if (p < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+        observer.disconnect();
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const el = document.getElementById("what-i-believe");
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -220,11 +316,22 @@ export default function Home() {
 
   return (
     <>
-      {/* KEYFRAMES + THESIS GRID */}
+      {/* KEYFRAMES + THESIS GRID + PROOF GRID */}
       <style>{`
         @keyframes vinyl-spin {
           from { transform: rotate(0deg); }
           to   { transform: rotate(360deg); }
+        }
+        .proof-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 14px;
+        }
+        @media (max-width: 768px) {
+          .proof-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+          .proof-grid { grid-template-columns: 1fr; }
         }
         .thesis-grid {
           display: grid;
@@ -257,105 +364,27 @@ export default function Home() {
         }
       `}</style>
 
-      {/* LEFT DECORATIVE RAIL */}
-      <div
-        className="hidden md:block"
-        style={{
-          position: "fixed",
-          left: 28,
-          top: 0,
-          width: 2,
-          height: "100vh",
-          zIndex: 10,
-          pointerEvents: "none",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: 2,
-            height: "100%",
-            background: "#EA6A47",
-            opacity: 0.3,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "20%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            background: "#EA6A47",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            background: "#EA6A47",
-          }}
-        />
-      </div>
-
       {/* SECTION 1 — HERO */}
       <HeroSection />
 
       {/* SECTION 2 — PROOF */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+      <section
+        ref={proofSectionRef}
+        style={{ background: "#F5F0E8", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}
+      >
         <div className="max-w-site">
           <AnimateIn>
             <p className="section-eyebrow" style={{ marginBottom: "1.5rem" }}>01 · Proof</p>
           </AnimateIn>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {proofCards.map((card, i) => (
-              <AnimateIn key={card.num} delay={i * 100}>
-                <div
-                  style={{
-                    background: "#fff",
-                    border: "1px solid var(--line)",
-                    borderRadius: 12,
-                    padding: "1.5rem",
-                    minHeight: 180,
-                    boxShadow: "var(--shadow)",
-                    position: "relative",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.75rem",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.75rem",
-                      fontWeight: 600,
-                      color: "var(--coral)",
-                      letterSpacing: "0.06em",
-                    }}
-                  >
-                    {card.num}
-                  </span>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
-                      color: "var(--body)",
-                      lineHeight: 1.65,
-                    }}
-                  >
-                    {card.text}
-                  </p>
-                </div>
-              </AnimateIn>
+          <div className="proof-grid">
+            {metricCards.map((card, i) => (
+              <ProofCard
+                key={i}
+                card={card}
+                index={i}
+                value={proofNums[i]}
+                visible={proofVisible}
+              />
             ))}
           </div>
         </div>
