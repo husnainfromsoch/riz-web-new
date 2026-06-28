@@ -11,10 +11,10 @@ const PORTRAIT_URL =
 // ─── PROOF CARDS ────────────────────────────────────────────────────────────
 
 const metricCards = [
-  { verb: "Saved",         prefix: "$", target: 3.9,  suffix: "M", isFloat: true,  label: "Courier costs · Careem" },
+  { verb: "Saved",         prefix: "$", target: 3.9,  suffix: "M", isFloat: true,  label: "Courier costs saved · Careem" },
   { verb: "Achieved",      prefix: "",  target: 92,   suffix: "%", isFloat: false, label: "Straight-through processing · Wise" },
   { verb: "Dispatch time", prefix: "",  target: 20,   suffix: "s", isFloat: false, label: "Down from 3 min · Careem" },
-  { verb: "Scaled across", prefix: "",  target: 45,   suffix: "",  isFloat: false, label: "Markets · Bolt" },
+  { verb: "Scaled across", prefix: "",  target: 4,    suffix: "",  isFloat: false, label: "Markets scaled across · Bolt" },
 ];
 
 // ─── WORK CARDS ─────────────────────────────────────────────────────────────
@@ -268,7 +268,7 @@ export default function Home() {
         if (!entries[0].isIntersecting || proofTriggeredRef.current) return;
         proofTriggeredRef.current = true;
         setProofVisible(true);
-        const duration = 1400;
+        const duration = 2000;
         const stagger = 150;
         metricCards.forEach(({ target }, i) => {
           const startDelay = i * stagger;

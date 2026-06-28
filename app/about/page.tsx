@@ -97,6 +97,14 @@ const socials = [
 export default function About() {
   return (
     <>
+      <style>{`
+        @keyframes termCursor {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0; }
+        }
+        .term-cursor { animation: termCursor 1s ease infinite; }
+      `}</style>
+
       {/* HERO */}
       <section style={{ paddingTop: 120, paddingBottom: 80 }}>
         <div className="max-w-site">
@@ -109,26 +117,58 @@ export default function About() {
             }}
             className="about-hero-grid"
           >
-            {/* Photo */}
+            {/* Terminal block */}
             <AnimateIn>
               <div
                 style={{
+                  background: "#22332C",
                   borderRadius: 12,
-                  overflow: "hidden",
+                  padding: "28px 32px",
                   minHeight: 480,
                   height: "100%",
+                  fontFamily: "var(--font-dm-mono), monospace",
+                  fontSize: "0.78rem",
+                  lineHeight: 1.8,
+                  display: "flex",
+                  flexDirection: "column",
+                  boxSizing: "border-box",
                 }}
               >
-                <img
-                  src="https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/691d97efffebe375af48ce33_Remove%20GMNI.png"
-                  alt="Rizwan Mahmood"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
+                {/* Traffic lights */}
+                <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#EA6A47", flexShrink: 0 }} />
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#D79A36", flexShrink: 0 }} />
+                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#4CAF50", flexShrink: 0 }} />
+                </div>
+
+                {/* Code lines */}
+                <div style={{ flex: 1 }}>
+                  <p style={{ color: "#D79A36", margin: 0 }}># Operator thinking, automated</p>
+                  <p style={{ margin: 0 }}>&nbsp;</p>
+                  <p style={{ margin: 0 }}>
+                    <span style={{ color: "#EA6A47" }}>trigger</span>
+                    <span style={{ color: "#F3ECDD" }}>: new_lead_from_linkedin</span>
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <span style={{ color: "#EA6A47" }}>enrich</span>
+                    <span style={{ color: "#F3ECDD" }}>: apify.scrape_profile()</span>
+                  </p>
+                  <p style={{ margin: 0 }}>
+                    <span style={{ color: "#EA6A47" }}>qualify</span>
+                    <span style={{ color: "#F3ECDD" }}>: claude.score(lead, rubric)</span>
+                  </p>
+                  <p style={{ color: "#D79A36", margin: 0 }}>if score &gt;= 8:</p>
+                  <p style={{ margin: 0 }}>
+                    <span style={{ color: "#F3ECDD" }}>&nbsp;&nbsp;</span>
+                    <span style={{ color: "#EA6A47" }}>route_to</span>
+                    <span style={{ color: "#F3ECDD" }}>: &ldquo;riz@withsoch.com&rdquo;</span>
+                  </p>
+                  <p style={{ margin: 0 }}>&nbsp;</p>
+                  <p style={{ color: "#4CAF50", margin: 0 }}>→ Running · 847 leads processed · 99% accuracy</p>
+                </div>
+
+                {/* Blinking cursor */}
+                <span className="term-cursor" style={{ color: "#F3ECDD", marginTop: 8 }}>_</span>
               </div>
             </AnimateIn>
 
