@@ -158,7 +158,6 @@ export default function HeroSection() {
           position: relative;
           z-index: 1;
         }
-
         /* meta tag */
         .nh-meta {
           font-family: var(--font-dm-mono), monospace;
@@ -490,7 +489,6 @@ export default function HeroSection() {
           from { transform: rotate(0deg); }
           to   { transform: rotate(360deg); }
         }
-
         /* responsive */
         @media (max-width: 960px) {
           .nh { grid-template-columns: 1fr; }
@@ -538,17 +536,27 @@ export default function HeroSection() {
             </p>
 
             {/* Credential line */}
-            <p style={{ margin: 0, lineHeight: 1.6 }}>
-              <span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", color: "#22332C", opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.12em" }}>Ten years in ops.</span>
-              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
-              <span style={{ fontFamily: "var(--font-playfair), serif", fontWeight: 700, fontStyle: "italic", color: "#EA6A47", fontSize: "1rem" }}>Careem</span>
-              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
-              <span style={{ fontFamily: "var(--font-playfair), serif", fontWeight: 700, fontStyle: "italic", color: "#EA6A47", fontSize: "1rem" }}>Bolt</span>
-              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
-              <span style={{ fontFamily: "var(--font-playfair), serif", fontWeight: 700, fontStyle: "italic", color: "#EA6A47", fontSize: "1rem" }}>Wise</span>
-              {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}
-              <span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", color: "#22332C", opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.12em" }}>Cambridge. Tallinn.</span>
-            </p>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "0",
+              margin: "16px 0",
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "11px",
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "#22332C",
+            }}>
+              {["10 YRS OPS", "CAREEM", "BOLT", "WISE", "CAMBRIDGE", "TALLINN"].map((label, i) => (
+                <span key={label} style={{ display: "inline-flex", alignItems: "center" }}>
+                  {i > 0 && (
+                    <span style={{ color: "#EA6A47", margin: "0 8px", fontSize: "13px", lineHeight: 1 }}>·</span>
+                  )}
+                  {label}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* 4. CTAs */}
