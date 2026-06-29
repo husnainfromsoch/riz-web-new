@@ -333,6 +333,15 @@ export default function Home() {
         @media (max-width: 480px) {
           .proof-grid { grid-template-columns: 1fr; }
         }
+        .chat-card {
+          display: grid;
+          grid-template-columns: 300px 1fr;
+        }
+        @media (max-width: 768px) {
+          .chat-card {
+            grid-template-columns: 1fr;
+          }
+        }
         .thesis-grid {
           display: grid;
           grid-template-columns: 1fr 420px;
@@ -1255,6 +1264,194 @@ export default function Home() {
 
       {/* SECTION 9 — BOOKING */}
       <BookingSection />
+
+      {/* SECTION — HAVE A CHAT */}
+      <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+        <div className="max-w-site">
+          <AnimateIn>
+            <div
+              className="chat-card"
+              style={{
+                background: "#ffffff",
+                borderRadius: 24,
+                overflow: "hidden",
+                boxShadow: "0 4px 40px rgba(0,0,0,0.08)",
+              }}
+            >
+              {/* Left col — photo */}
+              <div style={{ position: "relative", minHeight: 360, background: "#EDE8DF" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={PORTRAIT_URL}
+                  alt="Rizwan Mahmood"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "top center",
+                  }}
+                />
+                {/* Available badge */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 20,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    background: "rgba(255,255,255,0.92)",
+                    backdropFilter: "blur(6px)",
+                    borderRadius: 100,
+                    padding: "8px 16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      background: "#22C55E",
+                      flexShrink: 0,
+                      boxShadow: "0 0 6px #22C55E",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      color: "var(--ink)",
+                    }}
+                  >
+                    Available this week
+                  </span>
+                </div>
+              </div>
+
+              {/* Right col — content */}
+              <div
+                style={{
+                  padding: "3rem",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  gap: "1.5rem",
+                }}
+              >
+                {/* Pill label */}
+                <div>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "#22332C",
+                      color: "#ffffff",
+                      fontFamily: "var(--font-dm-mono), monospace",
+                      fontSize: "0.68rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      borderRadius: 100,
+                      padding: "6px 14px",
+                    }}
+                  >
+                    Direct Line
+                  </span>
+                </div>
+
+                {/* Heading */}
+                <h2
+                  style={{
+                    fontFamily: "var(--font-playfair), serif",
+                    fontSize: "clamp(1.9rem, 3.5vw, 2.75rem)",
+                    color: "var(--ink)",
+                    fontWeight: 700,
+                    lineHeight: 1.2,
+                    margin: 0,
+                  }}
+                >
+                  Have a chat{" "}
+                  <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me?</span>
+                </h2>
+
+                {/* Subtext */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "1rem",
+                    color: "var(--body)",
+                    lineHeight: 1.75,
+                    margin: 0,
+                    maxWidth: 440,
+                  }}
+                >
+                  Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
+                </p>
+
+                {/* Buttons */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem" }}>
+                  <Link
+                    href="/services/consulting"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      background: "#22332C",
+                      color: "#ffffff",
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: "0.9rem",
+                      fontWeight: 600,
+                      padding: "12px 22px",
+                      borderRadius: 8,
+                      textDecoration: "none",
+                      transition: "opacity 0.2s ease",
+                    }}
+                  >
+                    Book a call →
+                  </Link>
+                  <a
+                    href="mailto:riz@withsoch.com"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      background: "transparent",
+                      color: "var(--ink)",
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: "0.9rem",
+                      fontWeight: 600,
+                      padding: "12px 22px",
+                      borderRadius: 8,
+                      border: "1.5px solid var(--line)",
+                      textDecoration: "none",
+                      transition: "border-color 0.2s ease",
+                    }}
+                  >
+                    riz@withsoch.com
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Caption */}
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontSize: "0.8rem",
+                color: "var(--muted)",
+                textAlign: "center",
+                marginTop: "1.25rem",
+                letterSpacing: "0.04em",
+              }}
+            >
+              Rizwan Mahmood · Operator and AI Builder
+            </p>
+          </AnimateIn>
+        </div>
+      </section>
 
       {/* SECTION 10 — CTA */}
       <section style={{ padding: "6rem 0" }}>
