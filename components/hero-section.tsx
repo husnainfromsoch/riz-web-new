@@ -212,7 +212,7 @@ export default function HeroSection() {
           gap: 12px;
           flex-wrap: wrap;
           opacity: 0;
-          animation: nhFade .6s ease forwards 1.8s;
+          animation: nhFade .6s ease forwards 1.85s;
         }
         .nh-btn-ink {
           background: var(--ink);
@@ -537,7 +537,7 @@ export default function HeroSection() {
               then I build the systems that prove it.
             </p>
 
-            {/* Second line */}
+            {/* Credential line */}
             <p style={{ margin: 0, lineHeight: 1.6 }}>
               <span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", color: "#22332C", opacity: 0.5, textTransform: "uppercase", letterSpacing: "0.12em" }}>Ten years in ops.</span>
               {" "}<span style={{ fontFamily: "var(--font-dm-mono), monospace", fontSize: "0.8rem", opacity: 0.3 }}>·</span>{" "}

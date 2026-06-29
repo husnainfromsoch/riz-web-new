@@ -280,3 +280,72 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.13);
   border-color: var(--coral);
 }
+
+@keyframes ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+.ping-ring {
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.chat-card {
+  background: linear-gradient(135deg, #FFF0E8 0%, #F0E8FF 100%);
+  border-radius: 32px;
+  overflow: visible;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.14);
+}
+
+.chat-card-photo-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: -20px;
+}
+
+.chat-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  background: #22332C;
+  color: #ffffff;
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.chat-btn-primary:hover {
+  background: #EA6A47;
+  transform: scale(1.03);
+  color: #ffffff;
+}
+
+.chat-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 50px;
+  border: 1.5px solid var(--line);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.chat-btn-secondary:hover {
+  border-color: #EA6A47;
+  color: #EA6A47;
+}

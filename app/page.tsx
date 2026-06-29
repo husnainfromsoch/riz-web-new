@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Fragment } from "react";
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
 import BookingSection from "@/components/BookingSection";
@@ -41,6 +41,17 @@ const workCards = [
     footer: "LINKEDIN · SUBSTACK · YOUTUBE",
     link: "Read it →",
   },
+];
+
+// ─── BY THE NUMBERS ──────────────────────────────────────────────────────────
+
+const byTheNumbersRows = [
+  { num: "01", stat: "$3.9M",      subtitle: "Courier costs saved · Careem" },
+  { num: "02", stat: "92%",        subtitle: "Straight-through processing · Wise" },
+  { num: "03", stat: "20s",        subtitle: "Dispatch time, down from 3 min · Careem" },
+  { num: "04", stat: "4 Markets",  subtitle: "Scaled across · Bolt" },
+  { num: "05", stat: "Zero code",  subtitle: "Shipped a browser game anyway" },
+  { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc" },
 ];
 
 // ─── VIDEO TILES ─────────────────────────────────────────────────────────────
@@ -131,6 +142,142 @@ const blogPosts = [
   },
 ];
 
+// ─── WORKFLOW STEPS (before/after toggle) ───────────────────────────────────
+
+// ─── BEFORE ICONS (coral, 36px) ──────────────────────────────────────────────
+function BaBeforeInbox() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
+      <path d="M5.45 5.11L2 12v3a2 2 0 002 2h16a2 2 0 002-2v-3l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/>
+    </svg>
+  );
+}
+function BaBeforeHourglass() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 00-.586-1.414L12 12l-4.414 4.414A2 2 0 007 17.828V22M7 2v4.172a2 2 0 00.586 1.414L12 12l4.414-4.414A2 2 0 0017 6.172V2"/>
+    </svg>
+  );
+}
+function BaBeforeUser() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+  );
+}
+function BaBeforeWarn() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  );
+}
+// ─── AFTER ICONS (green, 36px) ────────────────────────────────────────────────
+function BaAfterInbox() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
+      <path d="M5.45 5.11L2 12v3a2 2 0 002 2h16a2 2 0 002-2v-3l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/>
+    </svg>
+  );
+}
+function BaAfterZap() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+  );
+}
+function BaAfterRoute() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="6" y1="3" x2="6" y2="15"/>
+      <circle cx="18" cy="6" r="3"/>
+      <circle cx="6" cy="18" r="3"/>
+      <path d="M18 9a9 9 0 01-9 9"/>
+    </svg>
+  );
+}
+function BaAfterCheck() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+  );
+}
+
+const workflowSteps = [
+  {
+    iconBefore: "📥", iconAfter: "⚡",
+    labelBefore: "Lead arrives",          subBefore: "New prospect",
+    badgeBefore: "MANUAL",  badgeBeforeOrange: false,
+    labelAfter:  "Lead arrives",          subAfter:  "New prospect",
+    badgeAfter:  "LIVE",    badgeAfterPulse: true,
+  },
+  {
+    iconBefore: "⏳", iconAfter: "🔍",
+    labelBefore: "Sits in inbox",         subBefore: "3 days later…",
+    badgeBefore: "3 DAYS",  badgeBeforeOrange: true,
+    labelAfter:  "Instantly enriched",    subAfter:  "Data filled in",
+    badgeAfter:  "0.3s",    badgeAfterPulse: false,
+  },
+  {
+    iconBefore: "👤", iconAfter: "🤖",
+    labelBefore: "You do it manually",    subBefore: "Hours of work",
+    badgeBefore: "YOU",     badgeBeforeOrange: false,
+    labelAfter:  "Auto-routed",           subAfter:  "Zero touch",
+    badgeAfter:  "AUTO",    badgeAfterPulse: false,
+  },
+  {
+    iconBefore: "🔴", iconAfter: "✅",
+    labelBefore: "You're the bottleneck", subBefore: "Everything stops",
+    badgeBefore: "STUCK",   badgeBeforeOrange: false,
+    labelAfter:  "System runs itself",    subAfter:  "No input needed",
+    badgeAfter:  "ALWAYS ON", badgeAfterPulse: false,
+  },
+];
+
+// ─── COMPANY LOGOS ──────────────────────────────────────────────────────────
+
+const LOGO_ITEMS = [
+  { name: "Careem", src: "/logos/careem.png" },
+  { name: "Bolt",   src: "/logos/bolt.png" },
+  { name: "Wise",   src: "/logos/wise.png" },
+];
+
+function CompanyBadges() {
+  const [hovered, setHovered] = useState<number | null>(null);
+  return (
+    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "32px", flexWrap: "wrap" as const }}>
+      {LOGO_ITEMS.map((logo, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={logo.name}
+          src={logo.src}
+          alt={logo.name}
+          onMouseEnter={() => setHovered(i)}
+          onMouseLeave={() => setHovered(null)}
+          style={{
+            height: 28,
+            width: "auto",
+            objectFit: "contain" as const,
+            filter: hovered === i ? "grayscale(0%) opacity(1)" : "grayscale(100%) opacity(0.5)",
+            transition: "filter 0.3s ease",
+            cursor: "default",
+            display: "block",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 // ─── PROOF CARD COMPONENT ────────────────────────────────────────────────────
 
 type MetricCard = { verb: string; prefix: string; target: number; suffix: string; isFloat: boolean; label: string };
@@ -206,6 +353,12 @@ export default function Home() {
   const [hoveredRoute, setHoveredRoute] = useState<number | null>(null);
   const [hoveredWork, setHoveredWork] = useState<number | null>(null);
   const [musicPlaying, setMusicPlaying] = useState(false);
+  const [isAfter, setIsAfter] = useState(false);
+  const [toggleAnimating, setToggleAnimating] = useState(false);
+  const [hoveredBACard, setHoveredBACard] = useState<number | null>(null);
+  const beforeAfterRef = useRef<HTMLElement>(null);
+  const beforeAfterTriggeredRef = useRef(false);
+  const loopCancelRef = useRef<(() => void) | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const gainNodesRef = useRef<GainNode[]>([]);
 
@@ -213,6 +366,11 @@ export default function Home() {
   const proofTriggeredRef = useRef(false);
   const [proofNums, setProofNums] = useState([0, 0, 0, 0]);
   const [proofVisible, setProofVisible] = useState(false);
+
+  const byTheNumbersRef = useRef<HTMLElement | null>(null);
+  const byTheNumbersTriggeredRef = useRef(false);
+  const [visibleNumberRows, setVisibleNumberRows] = useState([false, false, false, false, false, false]);
+  const [hoveredNumberRow, setHoveredNumberRow] = useState<number | null>(null);
 
   function startMusic() {
     if (audioCtxRef.current) return;
@@ -295,6 +453,83 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const el = byTheNumbersRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || byTheNumbersTriggeredRef.current) return;
+        byTheNumbersTriggeredRef.current = true;
+        byTheNumbersRows.forEach((_, i) => {
+          setTimeout(() => {
+            setVisibleNumberRows((prev) => {
+              const next = [...prev];
+              next[i] = true;
+              return next;
+            });
+          }, i * 150);
+        });
+        observer.disconnect();
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const el = beforeAfterRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0].isIntersecting || beforeAfterTriggeredRef.current) return;
+        beforeAfterTriggeredRef.current = true;
+        observer.disconnect();
+
+        let cancelled = false;
+        const timers = new Set<ReturnType<typeof setTimeout>>();
+
+        function schedule(fn: () => void, ms: number) {
+          const id = setTimeout(() => { timers.delete(id); fn(); }, ms);
+          timers.add(id);
+        }
+
+        function runCycle() {
+          if (cancelled) return;
+          // OFF state — wait 2s then flip ON
+          schedule(() => {
+            if (cancelled) return;
+            setIsAfter(true);
+            // ON state — wait 3s then flip OFF
+            schedule(() => {
+              if (cancelled) return;
+              setIsAfter(false);
+              // OFF again — wait 2s then loop
+              schedule(runCycle, 2000);
+            }, 3000);
+          }, 2000);
+        }
+
+        setToggleAnimating(true);
+        setIsAfter(false);
+        runCycle();
+
+        loopCancelRef.current = () => {
+          cancelled = true;
+          timers.forEach((id) => clearTimeout(id));
+        };
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      if (loopCancelRef.current) { loopCancelRef.current(); loopCancelRef.current = null; }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     const el = document.getElementById("what-i-believe");
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -334,12 +569,20 @@ export default function Home() {
           .proof-grid { grid-template-columns: 1fr; }
         }
         .chat-card {
-          display: grid;
-          grid-template-columns: 300px 1fr;
+          display: flex;
+          align-items: center;
+          gap: 48px;
+          padding: 48px;
         }
         @media (max-width: 768px) {
           .chat-card {
-            grid-template-columns: 1fr;
+            flex-direction: column;
+            text-align: center;
+            gap: 32px;
+            padding: 40px 28px;
+          }
+          .chat-card-photo-col {
+            margin-left: 0;
           }
         }
         .thesis-grid {
@@ -370,6 +613,53 @@ export default function Home() {
             position: relative;
             height: 100%;
           }
+        }
+        .by-numbers-grid {
+          display: grid;
+          grid-template-columns: 35% 65%;
+          gap: 0;
+          align-items: start;
+        }
+        @media (max-width: 768px) {
+          .by-numbers-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+        @keyframes ba-flow {
+          0%   { left: -4px; opacity: 0; }
+          10%  { opacity: 1; }
+          90%  { opacity: 1; }
+          100% { left: calc(100% + 4px); opacity: 0; }
+        }
+        .ba-row { display: flex; align-items: stretch; width: 100%; }
+        .ba-card { flex: 1; min-width: 0; }
+        .ba-arrow-h { display: flex; align-items: center; flex-shrink: 0; width: 44px; }
+        .ba-arrow-v { display: none; justify-content: center; align-items: center; }
+        @media (max-width: 640px) {
+          .ba-row { flex-direction: column; }
+          .ba-arrow-h { display: none; }
+          .ba-arrow-v { display: flex; padding: 6px 0; }
+        }
+        @keyframes timelineIn {
+          from { opacity: 0; transform: translateX(-14px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes pulseNode {
+          0%, 100% { box-shadow: 0 0 0 5px rgba(234,106,71,0.18); }
+          50%       { box-shadow: 0 0 0 11px rgba(234,106,71,0.06); }
+        }
+        @keyframes ba-dash-pulse {
+          0%, 100% { opacity: 0.35; }
+          50%       { opacity: 0.9; }
+        }
+        @keyframes ba-live-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.5); }
+          50%       { box-shadow: 0 0 0 4px rgba(22,163,74,0); }
+        }
+        @keyframes hand-wave {
+          0%, 60%, 100% { transform: rotate(0deg); }
+          10%           { transform: rotate(-12deg); }
+          30%           { transform: rotate(12deg); }
         }
       `}</style>
 
@@ -495,10 +785,69 @@ export default function Home() {
                     fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
                     color: "var(--coral)",
                     fontStyle: "italic",
+                    marginBottom: "2rem",
                   }}
                 >
                   Think first. Then automate.
                 </p>
+              </div>
+            </AnimateIn>
+
+            <AnimateIn delay={780}>
+              <div
+                style={{
+                  background: "#F3ECDD",
+                  border: "1px solid #E7E0D2",
+                  borderRadius: 12,
+                  padding: "20px 28px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: "1.5rem",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div>
+                  <p style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "0.78rem",
+                    color: "var(--muted)",
+                    margin: "0 0 4px",
+                    letterSpacing: "0.01em",
+                  }}>
+                    Want to know more about me?
+                  </p>
+                  <p style={{
+                    fontFamily: "var(--font-playfair), serif",
+                    fontSize: "1.05rem",
+                    fontWeight: 700,
+                    color: "var(--ink)",
+                    margin: 0,
+                  }}>
+                    The operator behind the thinking.
+                  </p>
+                </div>
+                <Link
+                  href="/about"
+                  style={{
+                    display: "inline-block",
+                    background: "#22332C",
+                    color: "#ffffff",
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                    padding: "11px 22px",
+                    borderRadius: 8,
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
+                    transition: "background 0.2s ease",
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.background = "#EA6A47")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "#22332C")}
+                >
+                  Meet Riz →
+                </Link>
               </div>
             </AnimateIn>
           </div>
@@ -611,6 +960,471 @@ export default function Home() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* BY THE NUMBERS */}
+      <section
+        ref={byTheNumbersRef}
+        style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "100px 0" }}
+      >
+        <div className="max-w-site by-numbers-grid">
+
+          {/* LEFT SIDE */}
+          <div style={{ paddingRight: "4rem", paddingBottom: "2.5rem", height: "fit-content" }}>
+            <p style={{
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "0.65rem",
+              fontWeight: 500,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase" as const,
+              color: "#C17A5A",
+              marginBottom: "1.5rem",
+            }}>
+              Track Record
+            </p>
+            <h2 style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontWeight: 700,
+              fontSize: "clamp(2.6rem, 5vw, 3.75rem)",
+              lineHeight: 1.08,
+              marginBottom: "1.75rem",
+            }}>
+              <span style={{ color: "#22332C", display: "block" }}>By the</span>
+              <span style={{ color: "#EA6A47", fontStyle: "italic", display: "block" }}>numbers.</span>
+            </h2>
+
+            {/* Animated career timeline */}
+            <div style={{ position: "relative", marginBottom: "2rem" }}>
+              <div style={{
+                position: "absolute",
+                left: 11,
+                top: 12,
+                bottom: 12,
+                width: 2,
+                background: "linear-gradient(to bottom, #C17A5A 0%, rgba(193,122,90,0.12) 100%)",
+              }} />
+              {([
+                { company: "Careem", year: "2015" },
+                { company: "Wise",   year: "2018" },
+                { company: "Bolt",   year: "2021" },
+                { company: "Now",    year: "2024", highlight: true },
+              ] as { company: string; year: string; highlight?: boolean }[]).map((item, i) => (
+                <div key={i} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.875rem",
+                  marginBottom: i < 3 ? "1.25rem" : 0,
+                  opacity: 0,
+                  animation: `timelineIn 0.5s ease forwards ${0.15 + i * 0.12}s`,
+                }}>
+                  <div style={{
+                    width: 24, height: 24,
+                    borderRadius: "50%",
+                    border: `2px solid ${item.highlight ? "#EA6A47" : "#C17A5A"}`,
+                    background: item.highlight ? "#EA6A47" : "#F3ECDD",
+                    flexShrink: 0,
+                    position: "relative",
+                    zIndex: 1,
+                    animation: item.highlight ? "pulseNode 2.2s ease-in-out infinite" : "none",
+                  }} />
+                  <div>
+                    <span style={{
+                      fontFamily: "var(--font-playfair), serif",
+                      fontSize: "0.98rem",
+                      fontWeight: 700,
+                      fontStyle: item.highlight ? "italic" : "normal",
+                      color: item.highlight ? "#EA6A47" : "#22332C",
+                    }}>{item.company}</span>
+                    <span style={{
+                      fontFamily: "var(--font-dm-mono), monospace",
+                      fontSize: "0.68rem",
+                      color: "#B0A898",
+                      marginLeft: "0.5rem",
+                    }}>{item.year}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "clamp(1.05rem, 1.5vw, 1.2rem)",
+              fontStyle: "italic",
+              color: "#4A5868",
+              lineHeight: 1.7,
+              maxWidth: 300,
+              marginBottom: "1.75rem",
+            }}>
+              What ten years inside high-growth operations actually adds up to. A track record, not a theory.
+            </p>
+
+            <div style={{
+              borderLeft: "3px solid #EA6A47",
+              paddingLeft: 16,
+              maxWidth: 300,
+            }}>
+              <p style={{
+                fontFamily: "var(--font-playfair), serif",
+                fontSize: 15,
+                fontStyle: "italic",
+                color: "#4A4A4A",
+                lineHeight: 1.65,
+                margin: 0,
+              }}>
+                Ten years. Four companies.<br />
+                One consistent result — systems that run without you.
+              </p>
+            </div>
+
+            {/* Company badges */}
+            <div style={{ borderTop: "1px solid #D8CFB8", marginTop: "1.75rem", paddingTop: "1.5rem" }}>
+              <p style={{
+                fontFamily: "var(--font-dm-mono), monospace",
+                fontSize: "10px",
+                fontWeight: 500,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase" as const,
+                color: "#C17A5A",
+                marginBottom: "1rem",
+              }}>
+                Worked With
+              </p>
+              <CompanyBadges />
+            </div>
+          </div>
+
+          {/* RIGHT SIDE */}
+          <div>
+            {byTheNumbersRows.map((row, i) => (
+              <div
+                key={i}
+                onMouseEnter={() => setHoveredNumberRow(i)}
+                onMouseLeave={() => setHoveredNumberRow(null)}
+                style={{
+                  padding: "28px 0",
+                  borderTop: "1px solid #D8D0C4",
+                  borderBottom: i === byTheNumbersRows.length - 1 ? "1px solid #D8D0C4" : "none",
+                  borderLeft: hoveredNumberRow === i ? "3px solid #EA6A47" : "3px solid transparent",
+                  paddingLeft: hoveredNumberRow === i ? "20px" : "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "1.5rem",
+                  cursor: "default",
+                  background: hoveredNumberRow === i ? "#F0E8DC" : "transparent",
+                  position: "relative",
+                  opacity: visibleNumberRows[i] ? 1 : 0,
+                  transform: visibleNumberRows[i] ? "translateY(0)" : "translateY(20px)",
+                  transition: `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s, background 0.3s ease, border-left-color 0.3s ease`,
+                  boxSizing: "border-box" as const,
+                }}
+              >
+                {/* Circled number — coral outline only */}
+                <div style={{
+                  width: 32, height: 32, borderRadius: "50%",
+                  border: "1.5px solid #C17A5A",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  flexShrink: 0,
+                }}>
+                  <span style={{
+                    fontFamily: "var(--font-dm-mono), monospace",
+                    fontSize: "0.58rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.04em",
+                    color: "#C17A5A",
+                  }}>{row.num}</span>
+                </div>
+
+                {/* Content */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{
+                    fontFamily: "var(--font-playfair), serif",
+                    fontSize: "56px",
+                    fontWeight: 700,
+                    color: hoveredNumberRow === i ? "#EA6A47" : "#22332C",
+                    lineHeight: 1,
+                    margin: "0 0 6px",
+                    transition: "color 0.3s ease",
+                  }}>{row.stat}</p>
+                  <p style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "0.82rem",
+                    color: "#9E9890",
+                    margin: 0,
+                    lineHeight: 1.5,
+                  }}>{row.subtitle}</p>
+                </div>
+
+                {/* Arrow — always visible, turns coral on hover */}
+                <div style={{ flexShrink: 0 }}>
+                  <span style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "1.25rem",
+                    color: hoveredNumberRow === i ? "#EA6A47" : "#C5BDB4",
+                    transition: "color 0.3s ease",
+                  }}>→</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* SECTION 1.5 — BEFORE / AFTER TOGGLE */}
+      <section
+        ref={beforeAfterRef}
+        style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}
+      >
+        <div className="max-w-site" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <AnimateIn>
+            <h2 style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "clamp(2rem, 4vw, 52px)",
+              color: "var(--ink)",
+              fontWeight: 700,
+              marginBottom: "0.5rem",
+              letterSpacing: "0.02em",
+              textAlign: "center",
+            }}>
+              What changes when you work{" "}
+              <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me.</span>
+            </h2>
+          </AnimateIn>
+          <AnimateIn delay={80}>
+            <p style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "1rem",
+              color: "var(--muted)",
+              marginBottom: "2.5rem",
+              textAlign: "center",
+            }}>
+              <span style={{ display: "inline-block", animation: "hand-wave 2s ease-in-out infinite", marginRight: "0.25rem" }}>👆</span>Flip it and see.
+            </p>
+          </AnimateIn>
+
+          {/* Toggle */}
+          <AnimateIn delay={140}>
+            <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", marginBottom: "2.5rem" }}>
+              <span style={{
+                fontFamily: "var(--font-dm-mono), monospace",
+                fontSize: "0.92rem",
+                fontWeight: 600,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase" as const,
+                color: !isAfter ? "var(--ink)" : "var(--muted)",
+                transition: "color 0.3s ease",
+              }}>Before</span>
+              <button
+                onClick={() => {
+                  if (loopCancelRef.current) { loopCancelRef.current(); loopCancelRef.current = null; }
+                  setToggleAnimating(true);
+                  setIsAfter((v) => !v);
+                }}
+                aria-label={isAfter ? "Switch to Before" : "Switch to After"}
+                style={{
+                  width: 72, height: 38, borderRadius: 100,
+                  background: isAfter ? "#EA6A47" : "#D4C9B5",
+                  border: "none", cursor: "pointer", position: "relative",
+                  transition: "background 0.3s ease", flexShrink: 0, outline: "none",
+                  boxShadow: isAfter ? "0 2px 12px rgba(234,106,71,0.35)" : "0 2px 8px rgba(0,0,0,0.1)",
+                }}
+              >
+                <span style={{
+                  position: "absolute", top: 4, left: isAfter ? 38 : 4,
+                  width: 30, height: 30, borderRadius: "50%",
+                  background: "#ffffff", boxShadow: "0 1px 6px rgba(0,0,0,0.2)",
+                  transition: "left 0.3s ease", display: "block",
+                }} />
+              </button>
+              <span style={{
+                fontFamily: "var(--font-dm-mono), monospace",
+                fontSize: "0.92rem",
+                fontWeight: 600,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase" as const,
+                color: isAfter ? "#EA6A47" : "var(--muted)",
+                transition: "color 0.3s ease",
+              }}>After</span>
+            </div>
+          </AnimateIn>
+
+          {/* Workflow board */}
+          <AnimateIn delay={200}>
+            <div style={{
+              width: "100%",
+              background: "#FFFFFF",
+              border: "1.5px solid #E7E0D2",
+              borderRadius: 20,
+              padding: "28px",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+            }}>
+              <div className="ba-row">
+                {workflowSteps.map((step, i) => {
+                  const staggerDelay = isAfter ? `${i * 0.15}s` : "0s";
+                  return (
+                    <Fragment key={i}>
+                      {/* Workflow card */}
+                      <div
+                        className="ba-card"
+                        onMouseEnter={() => setHoveredBACard(i)}
+                        onMouseLeave={() => setHoveredBACard(null)}
+                        style={{
+                          background: "#ffffff",
+                          border: "1.5px solid #E7E0D2",
+                          borderRadius: 16,
+                          padding: "20px 16px",
+                          minHeight: 160,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          textAlign: "center",
+                          gap: "0.5rem",
+                          position: "relative",
+                          boxShadow: hoveredBACard === i
+                            ? "0 8px 28px rgba(0,0,0,0.12)"
+                            : "0 2px 12px rgba(0,0,0,0.05)",
+                          transform: `translateY(${hoveredBACard === i ? -4 : 0}px)`,
+                          opacity: isAfter ? 1 : (i === 0 ? 0.8 : 0.9),
+                          transition: `transform 0.2s ease, box-shadow 0.2s ease, opacity 0.35s ease ${staggerDelay}`,
+                          cursor: "default",
+                        }}
+                      >
+                        {/* Badge top-right */}
+                        <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2 }}>
+                          {isAfter ? (
+                            <span style={{
+                              display: "inline-flex", alignItems: "center", gap: 4,
+                              background: "#22C55E", color: "#ffffff",
+                              fontFamily: "var(--font-dm-mono), monospace",
+                              fontSize: "9px", fontWeight: 700,
+                              letterSpacing: "0.08em",
+                              textTransform: "uppercase" as const,
+                              borderRadius: 50, padding: "3px 8px",
+                              lineHeight: 1.4,
+                            }}>
+                              {step.badgeAfterPulse && (
+                                <span style={{
+                                  width: 5, height: 5, borderRadius: "50%",
+                                  background: "#ffffff", flexShrink: 0,
+                                  animation: "ba-live-pulse 1.5s ease-in-out infinite",
+                                }} />
+                              )}
+                              {step.badgeAfter}
+                            </span>
+                          ) : (
+                            <span style={{
+                              display: "inline-block",
+                              background: "#FF6B6B",
+                              color: "#ffffff",
+                              fontFamily: "var(--font-dm-mono), monospace",
+                              fontSize: "9px", fontWeight: 700,
+                              letterSpacing: "0.08em",
+                              textTransform: "uppercase" as const,
+                              borderRadius: 50, padding: "3px 8px",
+                              lineHeight: 1.4,
+                            }}>
+                              {step.badgeBefore}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Icon with tinted background circle */}
+                        <div style={{
+                          width: 56, height: 56, borderRadius: "50%",
+                          background: isAfter ? "rgba(34,197,94,0.1)" : "rgba(234,106,71,0.1)",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          flexShrink: 0, marginBottom: "0.625rem",
+                          transition: `background 0.35s ease ${staggerDelay}`,
+                        }}>
+                          <span style={{ fontSize: 32, lineHeight: 1 }}>
+                            {isAfter ? step.iconAfter : step.iconBefore}
+                          </span>
+                        </div>
+
+                        {/* Label */}
+                        <p style={{
+                          fontFamily: "var(--font-dm-sans), sans-serif",
+                          fontSize: "16px", fontWeight: 600,
+                          color: "#22332C",
+                          lineHeight: 1.35, margin: 0,
+                        }}>
+                          {isAfter ? step.labelAfter : step.labelBefore}
+                        </p>
+
+                        {/* Subtitle mono */}
+                        <p style={{
+                          fontFamily: "var(--font-dm-mono), monospace",
+                          fontSize: "13px",
+                          color: "#4A4A4A",
+                          margin: 0, lineHeight: 1.4,
+                        }}>
+                          {isAfter ? step.subAfter : step.subBefore}
+                        </p>
+                      </div>
+
+                      {/* Horizontal arrow (desktop) */}
+                      {i < workflowSteps.length - 1 && (
+                        <div className="ba-arrow-h">
+                          <div style={{ flex: 1, height: 2, position: "relative" }}>
+                            {/* Dashed BEFORE line with slow pulse */}
+                            <div style={{
+                              position: "absolute", inset: 0,
+                              borderTop: "2px dashed #CCCCCC",
+                              opacity: isAfter ? 0 : 1,
+                              transition: "opacity 0.3s ease",
+                              animation: isAfter ? "none" : "ba-dash-pulse 2s ease-in-out infinite",
+                            }} />
+                            {/* Solid AFTER line + flowing dot */}
+                            <div style={{
+                              position: "absolute", inset: 0,
+                              background: "#EA6A47",
+                              opacity: isAfter ? 1 : 0,
+                              transition: "opacity 0.3s ease",
+                            }}>
+                              {isAfter && (
+                                <div style={{
+                                  position: "absolute",
+                                  top: "50%",
+                                  transform: "translateY(-50%)",
+                                  width: 7, height: 7,
+                                  borderRadius: "50%",
+                                  background: "#ffffff",
+                                  boxShadow: "0 0 0 1.5px #EA6A47",
+                                  animation: `ba-flow 1.4s linear ${i * 0.47}s infinite`,
+                                }} />
+                              )}
+                            </div>
+                          </div>
+                          {/* Arrowhead */}
+                          <div style={{
+                            width: 0, height: 0, flexShrink: 0,
+                            borderLeft: `8px solid ${isAfter ? "#EA6A47" : "#CCCCCC"}`,
+                            borderTop: "5px solid transparent",
+                            borderBottom: "5px solid transparent",
+                            transition: "border-left-color 0.3s ease",
+                          }} />
+                        </div>
+                      )}
+
+                      {/* Vertical arrow (mobile) */}
+                      {i < workflowSteps.length - 1 && (
+                        <div className="ba-arrow-v">
+                          <span style={{
+                            fontSize: "1.2rem",
+                            color: isAfter ? "#EA6A47" : "#CCCCCC",
+                            transition: "color 0.3s ease",
+                            lineHeight: 1,
+                          }}>↓</span>
+                        </div>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </div>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
@@ -1156,6 +1970,138 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SECTION — HAVE A CHAT */}
+      <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+        <div className="max-w-site">
+          <AnimateIn>
+            <div className="chat-card">
+              {/* Left col — circular photo + badge */}
+              <div className="chat-card-photo-col">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={PORTRAIT_URL}
+                  alt="Rizwan Mahmood"
+                  style={{
+                    width: 220,
+                    height: 220,
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    objectPosition: "top center",
+                    border: "4px solid #ffffff",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
+                    display: "block",
+                  }}
+                />
+                {/* Available badge */}
+                <div
+                  style={{
+                    background: "#ffffff",
+                    borderRadius: 100,
+                    padding: "8px 16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
+                    marginTop: 16,
+                  }}
+                >
+                  <span style={{ position: "relative", width: 10, height: 10, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                    <span className="ping-ring" style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#22C55E", opacity: 0.5 }} />
+                    <span style={{ position: "relative", width: 10, height: 10, borderRadius: "50%", background: "#22C55E", display: "block" }} />
+                  </span>
+                  <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "0.8rem", fontWeight: 600, color: "var(--ink)" }}>
+                    Available this week
+                  </span>
+                </div>
+              </div>
+
+              {/* Right col — content */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", flex: 1 }}>
+                {/* Pill label */}
+                <div>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "#22332C",
+                      color: "#ffffff",
+                      fontFamily: "var(--font-dm-mono), monospace",
+                      fontSize: "0.68rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      borderRadius: 100,
+                      padding: "6px 14px",
+                    }}
+                  >
+                    Direct Line
+                  </span>
+                </div>
+
+                {/* Heading */}
+                <h2
+                  style={{
+                    fontFamily: "var(--font-playfair), serif",
+                    fontSize: "clamp(2rem, 3.5vw, 3rem)",
+                    color: "#22332C",
+                    fontWeight: 700,
+                    lineHeight: 1.2,
+                    margin: 0,
+                  }}
+                >
+                  Have a chat{" "}
+                  <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me?</span>
+                </h2>
+
+                {/* Subtext */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "1rem",
+                    color: "#4A4A4A",
+                    lineHeight: 1.75,
+                    margin: 0,
+                    maxWidth: 440,
+                  }}
+                >
+                  Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
+                </p>
+
+                {/* Buttons */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem" }}>
+                  <Link href="/services/consulting" className="chat-btn-primary">
+                    Book a call →
+                  </Link>
+                  <a
+                    href="https://claude.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="chat-btn-secondary"
+                  >
+                    Ask Claude about Riz →
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Caption */}
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontSize: "0.8rem",
+                color: "var(--muted)",
+                textAlign: "center",
+                marginTop: "1.5rem",
+                letterSpacing: "0.04em",
+                fontStyle: "italic",
+              }}
+            >
+              Rizwan Mahmood · Operator and AI Builder
+            </p>
+          </AnimateIn>
+        </div>
+      </section>
+
       {/* SECTION 8 — WRITING */}
       <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
         <div className="max-w-site">
@@ -1264,233 +2210,6 @@ export default function Home() {
 
       {/* SECTION 9 — BOOKING */}
       <BookingSection />
-
-      {/* SECTION — HAVE A CHAT */}
-      <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
-        <div className="max-w-site">
-          <AnimateIn>
-            <div
-              className="chat-card"
-              style={{
-                background: "#ffffff",
-                borderRadius: 24,
-                overflow: "hidden",
-                boxShadow: "0 4px 40px rgba(0,0,0,0.08)",
-              }}
-            >
-              {/* Left col — photo */}
-              <div style={{ position: "relative", minHeight: 360, background: "#EDE8DF" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={PORTRAIT_URL}
-                  alt="Rizwan Mahmood"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "top center",
-                  }}
-                />
-                {/* Available badge */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 20,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    background: "rgba(255,255,255,0.92)",
-                    backdropFilter: "blur(6px)",
-                    borderRadius: 100,
-                    padding: "8px 16px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    whiteSpace: "nowrap",
-                    boxShadow: "0 2px 12px rgba(0,0,0,0.1)",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: "50%",
-                      background: "#22C55E",
-                      flexShrink: 0,
-                      boxShadow: "0 0 6px #22C55E",
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.8rem",
-                      fontWeight: 600,
-                      color: "var(--ink)",
-                    }}
-                  >
-                    Available this week
-                  </span>
-                </div>
-              </div>
-
-              {/* Right col — content */}
-              <div
-                style={{
-                  padding: "3rem",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  gap: "1.5rem",
-                }}
-              >
-                {/* Pill label */}
-                <div>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      background: "#22332C",
-                      color: "#ffffff",
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.68rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      borderRadius: 100,
-                      padding: "6px 14px",
-                    }}
-                  >
-                    Direct Line
-                  </span>
-                </div>
-
-                {/* Heading */}
-                <h2
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.9rem, 3.5vw, 2.75rem)",
-                    color: "var(--ink)",
-                    fontWeight: 700,
-                    lineHeight: 1.2,
-                    margin: 0,
-                  }}
-                >
-                  Have a chat{" "}
-                  <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me?</span>
-                </h2>
-
-                {/* Subtext */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1rem",
-                    color: "var(--body)",
-                    lineHeight: 1.75,
-                    margin: 0,
-                    maxWidth: 440,
-                  }}
-                >
-                  Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
-                </p>
-
-                {/* Buttons */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem" }}>
-                  <Link
-                    href="/services/consulting"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      background: "#22332C",
-                      color: "#ffffff",
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
-                      fontWeight: 600,
-                      padding: "12px 22px",
-                      borderRadius: 8,
-                      textDecoration: "none",
-                      transition: "opacity 0.2s ease",
-                    }}
-                  >
-                    Book a call →
-                  </Link>
-                  <a
-                    href="mailto:riz@withsoch.com"
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      background: "transparent",
-                      color: "var(--ink)",
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
-                      fontWeight: 600,
-                      padding: "12px 22px",
-                      borderRadius: 8,
-                      border: "1.5px solid var(--line)",
-                      textDecoration: "none",
-                      transition: "border-color 0.2s ease",
-                    }}
-                  >
-                    riz@withsoch.com
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Caption */}
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "0.8rem",
-                color: "var(--muted)",
-                textAlign: "center",
-                marginTop: "1.25rem",
-                letterSpacing: "0.04em",
-              }}
-            >
-              Rizwan Mahmood · Operator and AI Builder
-            </p>
-          </AnimateIn>
-        </div>
-      </section>
-
-      {/* SECTION 10 — CTA */}
-      <section style={{ padding: "6rem 0" }}>
-        <div className="max-w-site" style={{ maxWidth: 680 }}>
-          <AnimateIn>
-            <h2
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
-                color: "var(--ink)",
-                fontWeight: 700,
-                lineHeight: 1.25,
-                marginBottom: "1.25rem",
-              }}
-            >
-              Got a process that should run itself?
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={100}>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.05rem",
-                color: "var(--body)",
-                lineHeight: 1.75,
-                marginBottom: "2rem",
-              }}
-            >
-              Tell me what&apos;s eating your week. If it can be automated, I&apos;ll show you how — and if it shouldn&apos;t be, I&apos;ll tell you that too.
-            </p>
-          </AnimateIn>
-          <AnimateIn delay={200}>
-            <div className="flex flex-wrap gap-3">
-              <Link href="/services/consulting" className="btn-coral">Book a call →</Link>
-              <a href="mailto:riz@withsoch.com" className="btn-ghost">riz@withsoch.com</a>
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
     </>
   );
 }
