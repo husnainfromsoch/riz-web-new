@@ -366,3 +366,14 @@ p, li, td, th, label, input, textarea, select {
   border-color: #EA6A47;
   color: #EA6A47;
 }
+
+.hear-me-pill {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.portrait-wrapper:hover .hear-me-pill {
+  opacity: 1;
+  pointer-events: auto;
+}

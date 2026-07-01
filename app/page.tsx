@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef, Fragment } from "react";
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
@@ -46,12 +46,12 @@ const workCards = [
 // ─── BY THE NUMBERS ──────────────────────────────────────────────────────────
 
 const byTheNumbersRows = [
-  { num: "01", stat: "$3.9M",      subtitle: "Courier costs saved · Careem" },
-  { num: "02", stat: "92%",        subtitle: "Straight-through processing · Wise" },
-  { num: "03", stat: "20s",        subtitle: "Dispatch time, down from 3 min · Careem" },
-  { num: "04", stat: "4 Markets",  subtitle: "Scaled across · Bolt" },
-  { num: "05", stat: "Zero code",  subtitle: "Shipped a browser game anyway" },
-  { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc" },
+  { num: "01", stat: "$3.9M",      subtitle: "Courier costs saved · Careem",                         company: "Careem" },
+  { num: "02", stat: "92%",        subtitle: "Straight-through processing · Wise",                    company: "Wise" },
+  { num: "03", stat: "20s",        subtitle: "Dispatch time, down from 3 min · Careem",               company: "Careem" },
+  { num: "04", stat: "4 Markets",  subtitle: "Scaled across · Bolt",                                  company: "Bolt" },
+  { num: "05", stat: "Zero code",  subtitle: "Shipped a browser game anyway",                         company: "Now" },
+  { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc", company: "Now" },
 ];
 
 // ─── VIDEO TILES ─────────────────────────────────────────────────────────────
@@ -144,68 +144,66 @@ const blogPosts = [
 
 // ─── WORKFLOW STEPS (before/after toggle) ───────────────────────────────────
 
-// ─── BEFORE ICONS (coral, 36px) ──────────────────────────────────────────────
-function BaBeforeInbox() {
+// ─── BEFORE ICONS ──────────────────────────────────────────────
+function BaBeforeInbox({ stroke = "#EA6A47" }: { stroke?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
       <path d="M5.45 5.11L2 12v3a2 2 0 002 2h16a2 2 0 002-2v-3l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/>
     </svg>
   );
 }
-function BaBeforeHourglass() {
+function BaBeforeHourglass({ stroke = "#EA6A47" }: { stroke?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 00-.586-1.414L12 12l-4.414 4.414A2 2 0 007 17.828V22M7 2v4.172a2 2 0 00.586 1.414L12 12l4.414-4.414A2 2 0 0017 6.172V2"/>
     </svg>
   );
 }
-function BaBeforeUser() {
+function BaBeforeUser({ stroke = "#EA6A47" }: { stroke?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
       <circle cx="12" cy="7" r="4"/>
     </svg>
   );
 }
-function BaBeforeWarn() {
+function BaBeforeWarn({ stroke = "#EA6A47" }: { stroke?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
       <line x1="12" y1="9" x2="12" y2="13"/>
       <line x1="12" y1="17" x2="12.01" y2="17"/>
     </svg>
   );
 }
-// ─── AFTER ICONS (green, 36px) ────────────────────────────────────────────────
-function BaAfterInbox() {
+// ─── AFTER ICONS ──────────────────────────────────────────────
+function BaAfterZap({ stroke = "#EA6A47" }: { stroke?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
-      <path d="M5.45 5.11L2 12v3a2 2 0 002 2h16a2 2 0 002-2v-3l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/>
-    </svg>
-  );
-}
-function BaAfterZap() {
-  return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
     </svg>
   );
 }
-function BaAfterRoute() {
+function BaAfterSearch({ stroke = "#EA6A47" }: { stroke?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="6" y1="3" x2="6" y2="15"/>
-      <circle cx="18" cy="6" r="3"/>
-      <circle cx="6" cy="18" r="3"/>
-      <path d="M18 9a9 9 0 01-9 9"/>
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
   );
 }
-function BaAfterCheck() {
+function BaAfterArrowRight({ stroke = "#EA6A47" }: { stroke?: string }) {
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/>
+      <polyline points="12 5 19 12 12 19"/>
+    </svg>
+  );
+}
+function BaAfterCheck({ stroke = "#EA6A47" }: { stroke?: string }) {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
       <polyline points="22 4 12 14.01 9 11.01"/>
     </svg>
@@ -243,40 +241,11 @@ const workflowSteps = [
   },
 ];
 
+const beforeIconFns = [BaBeforeInbox, BaBeforeHourglass, BaBeforeUser, BaBeforeWarn];
+const afterIconFns = [BaAfterZap, BaAfterSearch, BaAfterArrowRight, BaAfterCheck];
+
 // ─── COMPANY LOGOS ──────────────────────────────────────────────────────────
 
-const LOGO_ITEMS = [
-  { name: "Careem", src: "/logos/careem.png" },
-  { name: "Bolt",   src: "/logos/bolt.png" },
-  { name: "Wise",   src: "/logos/wise.png" },
-];
-
-function CompanyBadges() {
-  const [hovered, setHovered] = useState<number | null>(null);
-  return (
-    <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "32px", flexWrap: "wrap" as const }}>
-      {LOGO_ITEMS.map((logo, i) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={logo.name}
-          src={logo.src}
-          alt={logo.name}
-          onMouseEnter={() => setHovered(i)}
-          onMouseLeave={() => setHovered(null)}
-          style={{
-            height: 28,
-            width: "auto",
-            objectFit: "contain" as const,
-            filter: hovered === i ? "grayscale(0%) opacity(1)" : "grayscale(100%) opacity(0.5)",
-            transition: "filter 0.3s ease",
-            cursor: "default",
-            display: "block",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
 
 // ─── PROOF CARD COMPONENT ────────────────────────────────────────────────────
 
@@ -352,7 +321,8 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
 export default function Home() {
   const [hoveredRoute, setHoveredRoute] = useState<number | null>(null);
   const [hoveredWork, setHoveredWork] = useState<number | null>(null);
-  const [musicPlaying, setMusicPlaying] = useState(false);
+  const [believeHovered, setBelieveHovered] = useState(false);
+  const [audioState, setAudioState] = useState<'idle' | 'playing' | 'paused'>('idle');
   const [isAfter, setIsAfter] = useState(false);
   const [toggleAnimating, setToggleAnimating] = useState(false);
   const [hoveredBACard, setHoveredBACard] = useState<number | null>(null);
@@ -371,11 +341,21 @@ export default function Home() {
   const byTheNumbersTriggeredRef = useRef(false);
   const [visibleNumberRows, setVisibleNumberRows] = useState([false, false, false, false, false, false]);
   const [hoveredNumberRow, setHoveredNumberRow] = useState<number | null>(null);
+  const [activeCompany, setActiveCompany] = useState<string | null>(null);
 
   const beliefParaRefs = useRef<Array<HTMLParagraphElement | null>>([]);
 
-  function startMusic() {
-    if (audioCtxRef.current) return;
+  function handleAudioClick() {
+    if (audioState === 'playing') {
+      audioCtxRef.current?.suspend();
+      setAudioState('paused');
+      return;
+    }
+    if (audioState === 'paused') {
+      audioCtxRef.current?.resume();
+      setAudioState('playing');
+      return;
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const Ctx = window.AudioContext || (window as any).webkitAudioContext;
     if (!Ctx) return;
@@ -395,29 +375,7 @@ export default function Home() {
       osc.start();
       gainNodesRef.current.push(gain);
     });
-    setMusicPlaying(true);
-  }
-
-  function stopMusic() {
-    const ctx = audioCtxRef.current;
-    if (!ctx) return;
-    gainNodesRef.current.forEach((g) => {
-      g.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
-    });
-    setTimeout(() => {
-      try { ctx.close(); } catch {}
-      audioCtxRef.current = null;
-      gainNodesRef.current = [];
-    }, 900);
-    setMusicPlaying(false);
-  }
-
-  function toggleMusic() {
-    if (musicPlaying) {
-      stopMusic();
-    } else {
-      startMusic();
-    }
+    setAudioState('playing');
   }
 
   useEffect(() => {
@@ -532,26 +490,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const el = document.getElementById("what-i-believe");
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startMusic();
-          } else {
-            stopMusic();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     const els = beliefParaRefs.current.filter(Boolean) as HTMLParagraphElement[];
     if (!els.length) return;
     const obs = new IntersectionObserver((entries) => {
@@ -572,6 +510,10 @@ export default function Home() {
         @keyframes vinyl-spin {
           from { transform: rotate(0deg); }
           to   { transform: rotate(360deg); }
+        }
+        @keyframes spin {
+          from { transform: translateX(-50%) rotate(0deg); }
+          to   { transform: translateX(-50%) rotate(360deg); }
         }
         .proof-grid {
           display: grid;
@@ -672,10 +614,18 @@ export default function Home() {
           0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.5); }
           50%       { box-shadow: 0 0 0 4px rgba(22,163,74,0); }
         }
+        @keyframes ba-card-enter {
+          from { opacity: 0; transform: translateY(-8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
         @keyframes hand-wave {
           0%, 60%, 100% { transform: rotate(0deg); }
           10%           { transform: rotate(-12deg); }
           30%           { transform: rotate(12deg); }
+        }
+        @keyframes statFlow {
+          0%   { background-position: 0% center }
+          100% { background-position: 300% center }
         }
 
         /* ===== BELIEVE SECTION ===== */
@@ -741,10 +691,11 @@ export default function Home() {
         .believe-photo-img {
           width: 100%; border-radius: 24px; display: block;
           filter: contrast(1.04) saturate(0.92);
-          transition: filter 0.4s ease;
+          transition: filter 0.4s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
         }
         .believe-photo-container:hover .believe-photo-img {
           filter: contrast(1.04) saturate(0.92) brightness(0.75);
+          transform: scale(0.97) translateY(-6px);
         }
         .believe-photo-overlay {
           position: absolute; inset: 0; border-radius: 24px;
@@ -752,73 +703,6 @@ export default function Home() {
           align-items: center; justify-content: center; gap: 16px;
           opacity: 0; transition: opacity 0.35s ease;
           background: rgba(12,12,11,0.15); z-index: 3;
-        }
-        .believe-photo-container:hover .believe-photo-overlay { opacity: 1; }
-        .believe-hover-vinyl {
-          width: 120px; height: 120px; border-radius: 50%;
-          background: conic-gradient(#1a1a18, #2a2a26, #1a1a18, #111, #222, #1a1a18);
-          display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 20px 60px rgba(12,12,11,.6);
-          transform: scale(0.8); transition: transform 0.35s ease;
-          animation: believeVinylSpin 3s linear infinite paused;
-        }
-        .believe-photo-container:hover .believe-hover-vinyl { transform: scale(1); }
-        .believe-hover-vinyl.spinning { animation-play-state: running; }
-        @keyframes believeVinylSpin {
-          from { transform: rotate(0deg) scale(1); }
-          to { transform: rotate(360deg) scale(1); }
-        }
-        .believe-hover-vinyl-center {
-          width: 42px; height: 42px; border-radius: 50%;
-          background: var(--coral);
-          display: flex; align-items: center; justify-content: center;
-        }
-        .believe-sound-bars {
-          display: flex; align-items: flex-end; gap: 2.5px; height: 16px;
-        }
-        .believe-sb { width: 3px; border-radius: 2px; background: #F3ECDD; }
-        .believe-sb:nth-child(1) { height: 7px; animation: believeBarA .7s ease-in-out infinite; }
-        .believe-sb:nth-child(2) { height: 12px; animation: believeBarA .7s ease-in-out infinite .15s; }
-        .believe-sb:nth-child(3) { height: 9px; animation: believeBarA .7s ease-in-out infinite .3s; }
-        @keyframes believeBarA {
-          0%, 100% { transform: scaleY(.4); }
-          50% { transform: scaleY(1); }
-        }
-        .believe-play-triangle { color: #F3ECDD; font-size: 18px; line-height: 1; }
-        .believe-hover-label {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 11px; font-weight: 500;
-          letter-spacing: .8px; text-transform: uppercase;
-          color: rgba(243,236,221,.85);
-          background: rgba(12,12,11,.5); backdrop-filter: blur(8px);
-          padding: 7px 14px; border-radius: 100px;
-          border: 1px solid rgba(243,236,221,.15);
-          transition: transform 0.35s ease; transform: translateY(8px);
-        }
-        .believe-photo-container:hover .believe-hover-label { transform: translateY(0); }
-        .believe-always-pill {
-          position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
-          z-index: 4;
-          background: rgba(243,236,221,.92); backdrop-filter: blur(10px);
-          padding: 8px 16px; border-radius: 100px;
-          display: flex; align-items: center; gap: 8px;
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 11px; font-weight: 500;
-          letter-spacing: .4px; color: var(--ink); white-space: nowrap;
-          box-shadow: 0 4px 14px rgba(12,12,11,.15);
-          transition: background .3s ease, color .3s ease;
-        }
-        .believe-ap-dot {
-          width: 6px; height: 6px; border-radius: 50%;
-          background: var(--coral); position: relative; flex-shrink: 0;
-        }
-        .believe-ap-dot::after {
-          content: ''; position: absolute; inset: 0; border-radius: 50%;
-          background: var(--coral); animation: believePing 2s ease-out infinite;
-        }
-        @keyframes believePing {
-          0% { transform: scale(1); opacity: .7; }
-          100% { transform: scale(2.4); opacity: 0; }
         }
         .believe-photo-nameplate {
           position: absolute; top: 20px; left: 20px; z-index: 4;
@@ -864,6 +748,24 @@ export default function Home() {
           .believe-photo-col { position: static; }
           .believe-section-title { font-size: 36px; }
           .believe-stat-chip { display: none; }
+        }
+        @keyframes terminalIn {
+          from { opacity: 0; transform: translateX(-8px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0; }
+        }
+        .terminal-line {
+          opacity: 0;
+          animation: terminalIn 0.3s ease forwards;
+        }
+        .terminal-cursor::after {
+          content: "█";
+          color: #EA6A47;
+          animation: blink 1s step-end infinite;
+          margin-left: 4px;
         }
       `}</style>
 
@@ -929,12 +831,30 @@ export default function Home() {
               <div className="believe-closing">
                 <div className="believe-closing-main">That&apos;s the whole game.</div>
                 <div className="believe-closing-italic">Think first. Then automate.</div>
+                <div style={{ marginTop: 32, display: "flex", flexDirection: "column", gap: 16 }}>
+                  <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", color: "#948D7E" }}>
+                    The operator behind the thinking.
+                  </span>
+                  <Link
+                    href="/about"
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#22332C", color: "#F3ECDD", padding: "16px 32px", borderRadius: 100, fontSize: 15, fontWeight: 600, textDecoration: "none", width: "fit-content", transition: "background 0.22s, transform 0.22s" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#EA6A47"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "#22332C"; e.currentTarget.style.transform = "translateY(0)"; }}
+                  >
+                    Meet Riz →
+                  </Link>
+                </div>
               </div>
             </div>
 
             {/* RIGHT — photo */}
             <div className="believe-photo-col">
-              <div className="believe-photo-container" onClick={toggleMusic}>
+              <div
+                className="believe-photo-container portrait-wrapper"
+                onMouseEnter={() => setBelieveHovered(true)}
+                onMouseLeave={() => setBelieveHovered(false)}
+                onClick={handleAudioClick}
+              >
 
                 <div className="believe-photo-nameplate">
                   <div className="believe-pn-name">Rizwan Mahmood</div>
@@ -947,32 +867,79 @@ export default function Home() {
                   alt="Rizwan Mahmood"
                 />
 
-                <div className="believe-photo-overlay">
-                  <div className={`believe-hover-vinyl${musicPlaying ? " spinning" : ""}`}>
-                    <div className="believe-hover-vinyl-center">
-                      {musicPlaying ? (
-                        <div className="believe-sound-bars">
-                          <div className="believe-sb" />
-                          <div className="believe-sb" />
-                          <div className="believe-sb" />
-                        </div>
-                      ) : (
-                        <div className="believe-play-triangle">▶</div>
-                      )}
-                    </div>
+                {/* Idle pill — hidden by default, appears on hover, disappears once audio starts */}
+                {audioState === 'idle' && (
+                  <div className="hear-me-pill" style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    background: "rgba(0,0,0,0.75)",
+                    backdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
+                    color: "#ffffff",
+                    padding: "10px 20px",
+                    borderRadius: "100px",
+                    fontSize: "13px",
+                    fontWeight: 600,
+                    letterSpacing: "0.05em",
+                    border: "1px solid rgba(255,255,255,0.15)",
+                    whiteSpace: "nowrap" as const,
+                    zIndex: 4,
+                    fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                  }}>
+                    ♪ Click to hear me
                   </div>
-                  <div className="believe-hover-label">
-                    {musicPlaying ? "Now playing — click to pause" : "Click to hear me"}
-                  </div>
-                </div>
+                )}
 
-                <div
-                  className="believe-always-pill"
-                  style={musicPlaying ? { background: "rgba(234,106,71,0.92)", color: "#fff" } : undefined}
-                >
-                  <span className="believe-ap-dot" />
-                  <span>{musicPlaying ? "⏸ Now playing" : "🎵 Click photo to play"}</span>
-                </div>
+                {/* Vinyl — shown when hovered+playing, or any paused state */}
+                {audioState !== 'idle' && (audioState === 'paused' || believeHovered) && (
+                  <div style={{
+                    position: "absolute",
+                    bottom: 60,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: 130,
+                    height: 130,
+                    zIndex: 3,
+                    animation: audioState === 'playing' ? "spin 3s linear infinite" : "none",
+                    pointerEvents: "none" as const,
+                  }}>
+                    <svg viewBox="0 0 130 130" width="130" height="130">
+                      <circle cx="65" cy="65" r="63" fill="#1a1a1a" />
+                      <circle cx="65" cy="65" r="56" fill="none" stroke="#2d2d2d" strokeWidth="1.5" />
+                      <circle cx="65" cy="65" r="50" fill="none" stroke="#2d2d2d" strokeWidth="1" />
+                      <circle cx="65" cy="65" r="44" fill="none" stroke="#2d2d2d" strokeWidth="1" />
+                      <circle cx="65" cy="65" r="37" fill="none" stroke="#2d2d2d" strokeWidth="1" />
+                      <circle cx="65" cy="65" r="30" fill="none" stroke="#2d2d2d" strokeWidth="1" />
+                      <circle cx="65" cy="65" r="23" fill="#EA6A47" />
+                      <circle cx="65" cy="65" r="5" fill="#111111" />
+                    </svg>
+                  </div>
+                )}
+
+                {/* Status bar — shown when hovered+playing, or any paused state */}
+                {audioState !== 'idle' && (audioState === 'paused' || believeHovered) && (
+                  <div style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    background: "rgba(0,0,0,0.75)",
+                    backdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
+                    color: "#ffffff",
+                    fontFamily: "'Geist Mono', monospace",
+                    fontSize: "12px",
+                    letterSpacing: "0.1em",
+                    padding: "12px 20px",
+                    textAlign: "center" as const,
+                    zIndex: 4,
+                    pointerEvents: "none" as const,
+                  }}>
+                    {audioState === 'playing' ? 'NOW PLAYING — CLICK TO PAUSE' : 'PAUSED — CLICK TO RESUME'}
+                  </div>
+                )}
 
                 <div className="believe-stat-chip" style={{ top: "28%", right: "-22px", animationDelay: ".4s" }}>
                   <div className="believe-chip-val">$3.9M</div>
@@ -1036,32 +1003,52 @@ export default function Home() {
                 { company: "Wise",   year: "2018" },
                 { company: "Bolt",   year: "2021" },
                 { company: "Now",    year: "2024", highlight: true },
-              ] as { company: string; year: string; highlight?: boolean }[]).map((item, i) => (
-                <div key={i} style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.875rem",
-                  marginBottom: i < 3 ? "1.25rem" : 0,
-                  opacity: 0,
-                  animation: `timelineIn 0.5s ease forwards ${0.15 + i * 0.12}s`,
-                }}>
+              ] as { company: string; year: string; highlight?: boolean }[]).map((item, i) => {
+                const isActive = activeCompany === item.company;
+                const isDefaultHighlight = !!item.highlight && activeCompany === null;
+                const showCoral = isActive || isDefaultHighlight;
+                return (
+                <div
+                  key={i}
+                  onClick={() => setActiveCompany(activeCompany === item.company ? null : item.company)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.875rem",
+                    marginBottom: i < 3 ? "1.25rem" : 0,
+                    opacity: 0,
+                    animation: `timelineIn 0.5s ease forwards ${0.15 + i * 0.12}s`,
+                    cursor: "pointer",
+                    userSelect: "none" as const,
+                  }}
+                >
                   <div style={{
                     width: 24, height: 24,
                     borderRadius: "50%",
-                    border: `2px solid ${item.highlight ? "#EA6A47" : "#C17A5A"}`,
-                    background: item.highlight ? "#EA6A47" : "#F3ECDD",
+                    border: `2px solid ${showCoral ? "#EA6A47" : "#C17A5A"}`,
+                    background: showCoral ? "#EA6A47" : "#F3ECDD",
                     flexShrink: 0,
                     position: "relative",
                     zIndex: 1,
-                    animation: item.highlight ? "pulseNode 2.2s ease-in-out infinite" : "none",
+                    transition: "background 0.3s ease, border-color 0.3s ease",
+                    animation: showCoral ? "pulseNode 2.2s ease-in-out infinite" : "none",
                   }} />
-                  <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    {({"Careem": "/logos/careem.png", "Bolt": "/logos/bolt.png", "Wise": "/logos/wise.png"} as Record<string, string>)[item.company] && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={({"Careem": "/logos/careem.png", "Bolt": "/logos/bolt.png", "Wise": "/logos/wise.png"} as Record<string, string>)[item.company]}
+                        alt={item.company}
+                        style={{ width: 32, height: 32, objectFit: "contain", filter: "brightness(0) opacity(0.7)", marginRight: 10, verticalAlign: "middle", flexShrink: 0 }}
+                      />
+                    )}
                     <span style={{
                       fontFamily: "var(--font-playfair), serif",
                       fontSize: "0.98rem",
                       fontWeight: 700,
-                      fontStyle: item.highlight ? "italic" : "normal",
-                      color: item.highlight ? "#EA6A47" : "#22332C",
+                      fontStyle: showCoral ? "italic" : "normal",
+                      color: showCoral ? "#EA6A47" : "#22332C",
+                      transition: "color 0.3s ease",
                     }}>{item.company}</span>
                     <span style={{
                       fontFamily: "var(--font-dm-mono), monospace",
@@ -1071,13 +1058,14 @@ export default function Home() {
                     }}>{item.year}</span>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
 
             <p style={{
               fontFamily: "var(--font-playfair), serif",
               fontSize: "clamp(1.05rem, 1.5vw, 1.2rem)",
-              fontStyle: "italic",
+              fontStyle: "normal",
               color: "#4A5868",
               lineHeight: 1.7,
               maxWidth: 300,
@@ -1094,7 +1082,7 @@ export default function Home() {
               <p style={{
                 fontFamily: "var(--font-playfair), serif",
                 fontSize: 15,
-                fontStyle: "italic",
+                fontStyle: "normal",
                 color: "#4A4A4A",
                 lineHeight: 1.65,
                 margin: 0,
@@ -1104,95 +1092,136 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Company badges */}
-            <div style={{ borderTop: "1px solid #D8CFB8", marginTop: "1.75rem", paddingTop: "1.5rem" }}>
-              <p style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "10px",
-                fontWeight: 500,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase" as const,
-                color: "#C17A5A",
-                marginBottom: "1rem",
-              }}>
-                Worked With
-              </p>
-              <CompanyBadges />
-            </div>
           </div>
 
           {/* RIGHT SIDE */}
           <div>
-            {byTheNumbersRows.map((row, i) => (
-              <div
-                key={i}
-                onMouseEnter={() => setHoveredNumberRow(i)}
-                onMouseLeave={() => setHoveredNumberRow(null)}
-                style={{
-                  padding: "28px 0",
-                  borderTop: "1px solid #D8D0C4",
-                  borderBottom: i === byTheNumbersRows.length - 1 ? "1px solid #D8D0C4" : "none",
-                  borderLeft: hoveredNumberRow === i ? "3px solid #EA6A47" : "3px solid transparent",
-                  paddingLeft: hoveredNumberRow === i ? "20px" : "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "1.5rem",
-                  cursor: "default",
-                  background: hoveredNumberRow === i ? "#F0E8DC" : "transparent",
-                  position: "relative",
-                  opacity: visibleNumberRows[i] ? 1 : 0,
-                  transform: visibleNumberRows[i] ? "translateY(0)" : "translateY(20px)",
-                  transition: `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s, background 0.3s ease, border-left-color 0.3s ease`,
-                  boxSizing: "border-box" as const,
-                }}
-              >
-                {/* Circled number — coral outline only */}
-                <div style={{
-                  width: 32, height: 32, borderRadius: "50%",
-                  border: "1.5px solid #C17A5A",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  flexShrink: 0,
-                }}>
-                  <span style={{
-                    fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.58rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.04em",
-                    color: "#C17A5A",
-                  }}>{row.num}</span>
-                </div>
+            {byTheNumbersRows.map((row, i) => {
+              const isRevealed = visibleNumberRows[i];
+              const isActiveMatch = activeCompany !== null && row.company === activeCompany;
+              const isDimmed = activeCompany !== null && row.company !== activeCompany;
+              const rowOpacity = !isRevealed ? 0 : isDimmed ? 0.35 : 1;
+              const rowFilter = isDimmed ? "grayscale(30%)" : "none";
+              const rowTransform = !isRevealed
+                ? "translateY(20px)"
+                : isActiveMatch
+                ? "translateX(6px)"
+                : "translateY(0)";
+              const rowTransition = !isRevealed
+                ? `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s, background 0.3s ease, border-left-color 0.3s ease, filter 0.3s ease`
+                : "opacity 0.35s ease, transform 0.35s ease, background 0.3s ease, border-left-color 0.3s ease, filter 0.3s ease";
+              const rowBorderLeft = isActiveMatch
+                ? "2px solid #EA6A47"
+                : hoveredNumberRow === i
+                ? "3px solid #EA6A47"
+                : "3px solid transparent";
+              const rowBackground = isActiveMatch
+                ? "rgba(234,106,71,0.04)"
+                : hoveredNumberRow === i
+                ? "#F0E8DC"
+                : "transparent";
+              return (
+                <div
+                  key={i}
+                  onMouseEnter={() => setHoveredNumberRow(i)}
+                  onMouseLeave={() => setHoveredNumberRow(null)}
+                  style={{
+                    padding: "28px 0",
+                    borderTop: "1px solid #D8D0C4",
+                    borderBottom:
+                      i === byTheNumbersRows.length - 1 ? "1px solid #D8D0C4" : "none",
+                    borderLeft: rowBorderLeft,
+                    paddingLeft: "20px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1.5rem",
+                    cursor: "default",
+                    background: rowBackground,
+                    position: "relative",
+                    opacity: rowOpacity,
+                    filter: rowFilter,
+                    transform: rowTransform,
+                    transition: rowTransition,
+                    boxSizing: "border-box" as const,
+                  }}
+                >
+                  {/* Circled number — coral outline only */}
+                  <div
+                    style={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: "50%",
+                      border: "1.5px solid #C17A5A",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-dm-mono), monospace",
+                        fontSize: "0.58rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.04em",
+                        color: "#C17A5A",
+                      }}
+                    >
+                      {row.num}
+                    </span>
+                  </div>
 
-                {/* Content */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "56px",
-                    fontWeight: 700,
-                    color: hoveredNumberRow === i ? "#EA6A47" : "#22332C",
-                    lineHeight: 1,
-                    margin: "0 0 6px",
-                    transition: "color 0.3s ease",
-                  }}>{row.stat}</p>
-                  <p style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.82rem",
-                    color: "#9E9890",
-                    margin: 0,
-                    lineHeight: 1.5,
-                  }}>{row.subtitle}</p>
-                </div>
+                  {/* Content */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-playfair), serif",
+                        fontSize: "56px",
+                        fontWeight: 700,
+                        lineHeight: 1,
+                        margin: "0 0 6px",
+                        background:
+                          "linear-gradient(90deg, #22332C, #EA6A47, #D79A36, #22332C)",
+                        backgroundSize: "300% auto",
+                        WebkitBackgroundClip: "text",
+                        backgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        animation: "statFlow 4s linear infinite",
+                        animationDelay: `${i * 0.4}s`,
+                      }}
+                    >
+                      {row.stat}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "0.82rem",
+                        color: "#22332C",
+                        opacity: 0.95,
+                        margin: 0,
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {row.subtitle}
+                    </p>
+                  </div>
 
-                {/* Arrow — always visible, turns coral on hover */}
-                <div style={{ flexShrink: 0 }}>
-                  <span style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.25rem",
-                    color: hoveredNumberRow === i ? "#EA6A47" : "#C5BDB4",
-                    transition: "color 0.3s ease",
-                  }}>→</span>
+                  {/* Arrow — always visible, turns coral on hover */}
+                  <div style={{ flexShrink: 0 }}>
+                    <span
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "1.25rem",
+                        color: hoveredNumberRow === i ? "#EA6A47" : "#C5BDB4",
+                        transition: "color 0.3s ease",
+                      }}
+                    >
+                      →
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
         </div>
@@ -1201,16 +1230,16 @@ export default function Home() {
       {/* SECTION 1.5 — BEFORE / AFTER TOGGLE */}
       <section
         ref={beforeAfterRef}
-        style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}
+        style={{ background: "#F3ECDD", padding: "80px 0" }}
       >
         <div className="max-w-site" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <AnimateIn>
             <h2 style={{
               fontFamily: "var(--font-playfair), serif",
               fontSize: "clamp(2rem, 4vw, 52px)",
-              color: "var(--ink)",
+              color: "#22332C",
               fontWeight: 700,
-              marginBottom: "0.5rem",
+              marginBottom: "2rem",
               letterSpacing: "0.02em",
               textAlign: "center",
             }}>
@@ -1218,237 +1247,223 @@ export default function Home() {
               <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me.</span>
             </h2>
           </AnimateIn>
+
+          {/* Split before/after comparison */}
           <AnimateIn delay={80}>
-            <p style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "1rem",
-              color: "var(--muted)",
-              marginBottom: "2.5rem",
-              textAlign: "center",
-            }}>
-              <span style={{ display: "inline-block", animation: "hand-wave 2s ease-in-out infinite", marginRight: "0.25rem" }}>👆</span>Flip it and see.
-            </p>
-          </AnimateIn>
+            <div style={{ width: "100%" }}>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr auto 1fr",
+                gap: 0,
+                borderRadius: 20,
+                overflow: "hidden",
+                minHeight: 420,
+              }}>
 
-          {/* Toggle */}
-          <AnimateIn delay={140}>
-            <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", marginBottom: "2.5rem" }}>
-              <span style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.92rem",
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase" as const,
-                color: !isAfter ? "var(--ink)" : "var(--muted)",
-                transition: "color 0.3s ease",
-              }}>Before</span>
-              <button
-                onClick={() => {
-                  if (loopCancelRef.current) { loopCancelRef.current(); loopCancelRef.current = null; }
-                  setToggleAnimating(true);
-                  setIsAfter((v) => !v);
-                }}
-                aria-label={isAfter ? "Switch to Before" : "Switch to After"}
-                style={{
-                  width: 72, height: 38, borderRadius: 100,
-                  background: isAfter ? "#EA6A47" : "#D4C9B5",
-                  border: "none", cursor: "pointer", position: "relative",
-                  transition: "background 0.3s ease", flexShrink: 0, outline: "none",
-                  boxShadow: isAfter ? "0 2px 12px rgba(234,106,71,0.35)" : "0 2px 8px rgba(0,0,0,0.1)",
-                }}
-              >
-                <span style={{
-                  position: "absolute", top: 4, left: isAfter ? 38 : 4,
-                  width: 30, height: 30, borderRadius: "50%",
-                  background: "#ffffff", boxShadow: "0 1px 6px rgba(0,0,0,0.2)",
-                  transition: "left 0.3s ease", display: "block",
-                }} />
-              </button>
-              <span style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.92rem",
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase" as const,
-                color: isAfter ? "#EA6A47" : "var(--muted)",
-                transition: "color 0.3s ease",
-              }}>After</span>
-            </div>
-          </AnimateIn>
+                {/* LEFT — BEFORE */}
+                <div style={{
+                  background: "rgba(34,51,44,0.04)",
+                  border: "1px solid #DDD3BF",
+                  borderRadius: "20px 0 0 20px",
+                  padding: "40px 36px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 28,
+                  opacity: isAfter ? 0.3 : 1,
+                  transition: "opacity 0.4s ease",
+                }}>
+                  <div>
+                    <p style={{
+                      fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                      fontSize: 12,
+                      color: "rgba(34,51,44,0.4)",
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase" as const,
+                      margin: "0 0 8px",
+                    }}>BEFORE</p>
+                    <p style={{ fontSize: 22, fontWeight: 700, color: "rgba(34,51,44,0.5)", margin: 0 }}>
+                      You&apos;re the bottleneck.
+                    </p>
+                  </div>
+                  {([
+                    { num: "01", title: "Lead arrives",       sub: "New prospect" },
+                    { num: "02", title: "Sits in inbox",      sub: "3 days later" },
+                    { num: "03", title: "You do it manually", sub: "Hours of work" },
+                    { num: "04", title: "You’re stuck",  sub: "Everything waits on you" },
+                  ] as { num: string; title: string; sub: string }[]).map((step) => (
+                    <div key={step.num} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                      <span style={{
+                        fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                        fontSize: 11,
+                        color: "rgba(34,51,44,0.2)",
+                        width: 20,
+                        flexShrink: 0,
+                      }}>{step.num}</span>
+                      <div>
+                        <p style={{ fontSize: 15, fontWeight: 600, color: "rgba(34,51,44,0.4)", margin: "0 0 2px" }}>
+                          {step.title}
+                        </p>
+                        <p style={{
+                          fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                          fontSize: 12,
+                          color: "rgba(34,51,44,0.25)",
+                          margin: 0,
+                        }}>{step.sub}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-          {/* Workflow board */}
-          <AnimateIn delay={200}>
-            <div style={{
-              width: "100%",
-              background: "#FFFFFF",
-              border: "1.5px solid #E7E0D2",
-              borderRadius: 20,
-              padding: "28px",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
-            }}>
-              <div className="ba-row">
-                {workflowSteps.map((step, i) => {
-                  const staggerDelay = isAfter ? `${i * 0.15}s` : "0s";
-                  return (
-                    <Fragment key={i}>
-                      {/* Workflow card */}
-                      <div
-                        className="ba-card"
-                        onMouseEnter={() => setHoveredBACard(i)}
-                        onMouseLeave={() => setHoveredBACard(null)}
-                        style={{
-                          background: "#ffffff",
-                          border: "1.5px solid #E7E0D2",
-                          borderRadius: 16,
-                          padding: "20px 16px",
-                          minHeight: 160,
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          textAlign: "center",
-                          gap: "0.5rem",
-                          position: "relative",
-                          boxShadow: hoveredBACard === i
-                            ? "0 8px 28px rgba(0,0,0,0.12)"
-                            : "0 2px 12px rgba(0,0,0,0.05)",
-                          transform: `translateY(${hoveredBACard === i ? -4 : 0}px)`,
-                          opacity: isAfter ? 1 : (i === 0 ? 0.8 : 0.9),
-                          transition: `transform 0.2s ease, box-shadow 0.2s ease, opacity 0.35s ease ${staggerDelay}`,
-                          cursor: "default",
-                        }}
-                      >
-                        {/* Badge top-right */}
-                        <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2 }}>
-                          {isAfter ? (
-                            <span style={{
-                              display: "inline-flex", alignItems: "center", gap: 4,
-                              background: "#22C55E", color: "#ffffff",
-                              fontFamily: "var(--font-dm-mono), monospace",
-                              fontSize: "9px", fontWeight: 700,
-                              letterSpacing: "0.08em",
-                              textTransform: "uppercase" as const,
-                              borderRadius: 50, padding: "3px 8px",
-                              lineHeight: 1.4,
-                            }}>
-                              {step.badgeAfterPulse && (
-                                <span style={{
-                                  width: 5, height: 5, borderRadius: "50%",
-                                  background: "#ffffff", flexShrink: 0,
-                                  animation: "ba-live-pulse 1.5s ease-in-out infinite",
-                                }} />
-                              )}
-                              {step.badgeAfter}
-                            </span>
-                          ) : (
-                            <span style={{
-                              display: "inline-block",
-                              background: "#FF6B6B",
-                              color: "#ffffff",
-                              fontFamily: "var(--font-dm-mono), monospace",
-                              fontSize: "9px", fontWeight: 700,
-                              letterSpacing: "0.08em",
-                              textTransform: "uppercase" as const,
-                              borderRadius: 50, padding: "3px 8px",
-                              lineHeight: 1.4,
-                            }}>
-                              {step.badgeBefore}
-                            </span>
+                {/* MIDDLE DIVIDER */}
+                <div style={{
+                  width: 60,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#F3ECDD",
+                  position: "relative",
+                }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+                    <span style={{
+                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                      fontSize: 11,
+                      color: "rgba(34,51,44,0.3)",
+                      letterSpacing: "0.1em",
+                    }}>vs</span>
+                    <button
+                      onClick={() => {
+                        if (loopCancelRef.current) { loopCancelRef.current(); loopCancelRef.current = null; }
+                        setToggleAnimating(true);
+                        setIsAfter((v) => !v);
+                      }}
+                      aria-label={isAfter ? "Switch to Before" : "Switch to After"}
+                      style={{
+                        width: 64,
+                        height: 36,
+                        borderRadius: 100,
+                        background: isAfter ? "#EA6A47" : "rgba(34,51,44,0.15)",
+                        border: "none",
+                        cursor: "pointer",
+                        position: "relative",
+                        transition: "background 0.3s ease",
+                        outline: "none",
+                      }}
+                    >
+                      <span style={{
+                        position: "absolute",
+                        top: 4,
+                        left: isAfter ? "calc(100% - 32px)" : 4,
+                        width: 28,
+                        height: 28,
+                        borderRadius: "50%",
+                        background: "#ffffff",
+                        boxShadow: "0 1px 6px rgba(0,0,0,0.2)",
+                        transition: "left 0.3s ease",
+                        display: "block",
+                      }} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* RIGHT — AFTER */}
+                <div style={{
+                  background: "transparent",
+                  border: "1px solid #DDD3BF",
+                  borderRadius: "0 20px 20px 0",
+                  padding: "40px 36px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0,
+                  opacity: isAfter ? 1 : 0.3,
+                  transition: "opacity 0.4s ease",
+                  position: "relative",
+                }}>
+                  <div style={{ marginBottom: 20 }}>
+                    <p style={{
+                      fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                      fontSize: 12,
+                      color: "#EA6A47",
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase" as const,
+                      margin: "0 0 8px",
+                    }}>AFTER</p>
+                    <p style={{ fontSize: 22, fontWeight: 700, color: "#22332C", margin: 0 }}>
+                      The system runs itself.
+                    </p>
+                  </div>
+                  {([
+                    { title: "Lead arrives",           sub: "Triggered instantly",       badge: "LIVE",      icon: "zap" },
+                    { title: "Enriched in 0.3s",       sub: "Data filled automatically", badge: "0.3S",      icon: "search" },
+                    { title: "Routed to right person",  sub: "Zero touch",               badge: "AUTO",      icon: "arrow" },
+                    { title: "System keeps running",    sub: "You’re not involved",      badge: "ALWAYS ON", icon: "check" },
+                  ] as { title: string; sub: string; badge: string; icon: string }[]).map((step, i) => (
+                    <div key={step.title}>
+                      <div style={{
+                        background: "#ffffff",
+                        border: "1px solid #DDD3BF",
+                        borderRadius: 14,
+                        padding: "14px 18px",
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 14,
+                      }}>
+                        <div style={{ flexShrink: 0, marginTop: 2 }}>
+                          {step.icon === "zap" && (
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                          )}
+                          {step.icon === "search" && (
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                          )}
+                          {step.icon === "arrow" && (
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                          )}
+                          {step.icon === "check" && (
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                            </svg>
                           )}
                         </div>
-
-                        {/* Icon with tinted background circle */}
-                        <div style={{
-                          width: 56, height: 56, borderRadius: "50%",
-                          background: isAfter ? "rgba(34,197,94,0.1)" : "rgba(234,106,71,0.1)",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                          flexShrink: 0, marginBottom: "0.625rem",
-                          transition: `background 0.35s ease ${staggerDelay}`,
-                        }}>
-                          <span style={{ fontSize: 32, lineHeight: 1 }}>
-                            {isAfter ? step.iconAfter : step.iconBefore}
-                          </span>
-                        </div>
-
-                        {/* Label */}
-                        <p style={{
-                          fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "16px", fontWeight: 600,
-                          color: "#22332C",
-                          lineHeight: 1.35, margin: 0,
-                        }}>
-                          {isAfter ? step.labelAfter : step.labelBefore}
-                        </p>
-
-                        {/* Subtitle mono */}
-                        <p style={{
-                          fontFamily: "var(--font-dm-mono), monospace",
-                          fontSize: "13px",
-                          color: "#4A4A4A",
-                          margin: 0, lineHeight: 1.4,
-                        }}>
-                          {isAfter ? step.subAfter : step.subBefore}
-                        </p>
-                      </div>
-
-                      {/* Horizontal arrow (desktop) */}
-                      {i < workflowSteps.length - 1 && (
-                        <div className="ba-arrow-h">
-                          <div style={{ flex: 1, height: 2, position: "relative" }}>
-                            {/* Dashed BEFORE line with slow pulse */}
-                            <div style={{
-                              position: "absolute", inset: 0,
-                              borderTop: "2px dashed #CCCCCC",
-                              opacity: isAfter ? 0 : 1,
-                              transition: "opacity 0.3s ease",
-                              animation: isAfter ? "none" : "ba-dash-pulse 2s ease-in-out infinite",
-                            }} />
-                            {/* Solid AFTER line + flowing dot */}
-                            <div style={{
-                              position: "absolute", inset: 0,
-                              background: "#EA6A47",
-                              opacity: isAfter ? 1 : 0,
-                              transition: "opacity 0.3s ease",
-                            }}>
-                              {isAfter && (
-                                <div style={{
-                                  position: "absolute",
-                                  top: "50%",
-                                  transform: "translateY(-50%)",
-                                  width: 7, height: 7,
-                                  borderRadius: "50%",
-                                  background: "#ffffff",
-                                  boxShadow: "0 0 0 1.5px #EA6A47",
-                                  animation: `ba-flow 1.4s linear ${i * 0.47}s infinite`,
-                                }} />
-                              )}
-                            </div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                            <p style={{ fontSize: 16, fontWeight: 700, color: "#22332C", margin: 0 }}>
+                              {step.title}
+                            </p>
+                            <span style={{
+                              background: "#22332C",
+                              color: "#F3ECDD",
+                              fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                              fontSize: 10,
+                              borderRadius: 4,
+                              padding: "3px 8px",
+                              flexShrink: 0,
+                            }}>{step.badge}</span>
                           </div>
-                          {/* Arrowhead */}
-                          <div style={{
-                            width: 0, height: 0, flexShrink: 0,
-                            borderLeft: `8px solid ${isAfter ? "#EA6A47" : "#CCCCCC"}`,
-                            borderTop: "5px solid transparent",
-                            borderBottom: "5px solid transparent",
-                            transition: "border-left-color 0.3s ease",
-                          }} />
+                          <p style={{
+                            fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                            fontSize: 12,
+                            color: "#948D7E",
+                            margin: 0,
+                          }}>{step.sub}</p>
+                        </div>
+                      </div>
+                      {i < 3 && (
+                        <div style={{ display: "flex", justifyContent: "center", padding: "5px 0" }}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+                          </svg>
                         </div>
                       )}
+                    </div>
+                  ))}
+                </div>
 
-                      {/* Vertical arrow (mobile) */}
-                      {i < workflowSteps.length - 1 && (
-                        <div className="ba-arrow-v">
-                          <span style={{
-                            fontSize: "1.2rem",
-                            color: isAfter ? "#EA6A47" : "#CCCCCC",
-                            transition: "color 0.3s ease",
-                            lineHeight: 1,
-                          }}>↓</span>
-                        </div>
-                      )}
-                    </Fragment>
-                  );
-                })}
               </div>
             </div>
           </AnimateIn>
@@ -1487,122 +1502,215 @@ export default function Home() {
             </p>
           </AnimateIn>
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {workCards.map((card, i) => (
-              <AnimateIn key={card.title} delay={i * 120}>
-                <div
+          {/* CARD 1 — Bug Catcher (featured, full width) */}
+          <AnimateIn delay={0}>
+            <div
+              style={{
+                background: "#22332C",
+                borderRadius: 16,
+                padding: "48px 52px 48px",
+                display: "grid",
+                gridTemplateColumns: "60% 40%",
+                gap: 48,
+                alignItems: "center",
+                overflow: "hidden",
+                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+                transform: hoveredWork === 0 ? "translateY(-4px)" : "none",
+                boxShadow: hoveredWork === 0 ? "0 20px 60px rgba(34,51,44,0.25)" : "none",
+                cursor: "default",
+              }}
+              onMouseEnter={() => setHoveredWork(0)}
+              onMouseLeave={() => setHoveredWork(null)}
+            >
+              {/* Left column */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                <span style={{
+                  fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase" as const,
+                  color: "#EA6A47",
+                }}>
+                  {workCards[0].badge}
+                </span>
+                <h3 style={{
+                  fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                  fontSize: 32,
+                  fontWeight: 800,
+                  color: "#F3ECDD",
+                  lineHeight: 1.1,
+                  margin: 0,
+                }}>
+                  {workCards[0].title}
+                </h3>
+                <p style={{
+                  fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                  fontSize: 16,
+                  color: "rgba(243,236,221,0.7)",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}>
+                  {workCards[0].body}
+                </p>
+                <p style={{
+                  fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                  fontSize: 11,
+                  color: "rgba(243,236,221,0.35)",
+                  letterSpacing: "0.1em",
+                  margin: 0,
+                }}>
+                  {workCards[0].footer}
+                </p>
+                <Link
+                  href="/case-studies"
                   style={{
-                    background: "#fff",
-                    border: "1px solid",
-                    borderColor: hoveredWork === i ? "var(--coral)" : "var(--line)",
-                    borderRadius: 12,
-                    padding: "2rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1rem",
-                    height: "100%",
-                    transition: "border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease",
-                    boxShadow: hoveredWork === i ? "0 8px 32px rgba(234,106,71,0.12)" : "var(--shadow)",
-                    transform: hoveredWork === i ? "translateY(-3px)" : "none",
-                    cursor: "default",
-                    position: "relative",
+                    fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: "#ffffff",
+                    textDecoration: "none",
+                    background: "#EA6A47",
+                    padding: "14px 28px",
+                    borderRadius: 100,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 8,
+                    transition: "all 0.22s ease",
+                    width: "fit-content",
                   }}
-                  onMouseEnter={() => setHoveredWork(i)}
-                  onMouseLeave={() => setHoveredWork(null)}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "#c85535"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "#EA6A47"; e.currentTarget.style.transform = "translateY(0)"; }}
                 >
-                  {/* Connector dot left */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: -5, top: "50%",
-                      width: 9, height: 9, borderRadius: "50%",
-                      background: "var(--line-2)", border: "1.5px solid #fff",
-                      transform: "translateY(-50%)",
-                    }}
-                  />
-                  {/* Connector dot right */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      right: -5, top: "50%",
-                      width: 9, height: 9, borderRadius: "50%",
-                      background: "var(--line-2)", border: "1.5px solid #fff",
-                      transform: "translateY(-50%)",
-                    }}
-                  />
+                  {workCards[0].link}
+                </Link>
+              </div>
 
-                  {/* Badge */}
-                  <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                    <span
-                      style={{
-                        width: 6, height: 6, borderRadius: 1,
-                        background: "var(--coral)", flexShrink: 0,
-                      }}
+              {/* Right column — image placeholder + terminal block */}
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80"
+                  alt="Game preview"
+                  style={{ width: "100%", height: 140, objectFit: "cover", borderRadius: 8, marginBottom: 12 }}
+                />
+                <div style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: 8,
+                  padding: "20px 24px",
+                  fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                  fontSize: 13,
+                  color: "#F3ECDD",
+                  opacity: 0.8,
+                  lineHeight: 1.9,
+                }}>
+                  <div className="terminal-line" style={{ animationDelay: "0.2s" }}>&gt; game.init()</div>
+                  <div className="terminal-line" style={{ animationDelay: "0.6s" }}>&gt; hand_tracking: ON</div>
+                  <div className="terminal-line" style={{ animationDelay: "1.0s" }}>&gt; score: 0</div>
+                  <div className="terminal-line terminal-cursor" style={{ animationDelay: "1.4s" }}>&gt; shipped: true ✓</div>
+                </div>
+              </div>
+            </div>
+          </AnimateIn>
+
+          {/* CARDS 2 & 3 — Content Engine + Bolt Case (50/50) */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 20 }}>
+            {workCards.slice(1).map((card, idx) => {
+              const i = idx + 1;
+              return (
+                <AnimateIn key={card.title} delay={i * 120}>
+                  <div
+                    style={{
+                      background: "white",
+                      border: "1px solid #DDD3BF",
+                      borderRadius: 16,
+                      padding: "36px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "0.75rem",
+                      height: "100%",
+                      transition: "transform 0.25s ease, box-shadow 0.25s ease",
+                      transform: hoveredWork === i ? "translateY(-4px)" : "none",
+                      boxShadow: hoveredWork === i ? "0 12px 40px rgba(34,51,44,0.1)" : "none",
+                      cursor: "default",
+                    }}
+                    onMouseEnter={() => setHoveredWork(i)}
+                    onMouseLeave={() => setHoveredWork(null)}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={idx === 0
+                        ? "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80"
+                        : "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80"}
+                      alt={idx === 0 ? "Automation workflow" : "Legal documents"}
+                      style={{ width: "100%", height: 180, objectFit: "cover", borderRadius: 10, marginBottom: 20 }}
                     />
-                    <span
-                      style={{
-                        fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.68rem",
-                        fontWeight: 500,
-                        letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color: "var(--coral)",
-                      }}
-                    >
-                      {card.badge}
-                    </span>
-                  </div>
-
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.2rem",
-                      color: "var(--ink)",
-                      fontWeight: 700,
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {card.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
-                      color: "var(--body)",
-                      lineHeight: 1.7,
-                      flex: 1,
-                    }}
-                  >
-                    {card.body}
-                  </p>
-
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.65rem",
+                    <span style={{
+                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                      fontSize: 11,
                       fontWeight: 500,
                       letterSpacing: "0.1em",
-                      color: "var(--faint)",
-                    }}
-                  >
-                    {card.footer}
-                  </p>
-
-                  <Link
-                    href="/case-studies"
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: "var(--coral)",
-                      textDecoration: "none",
-                    }}
-                  >
-                    {card.link}
-                  </Link>
-                </div>
-              </AnimateIn>
-            ))}
+                      textTransform: "uppercase" as const,
+                      color: "#EA6A47",
+                    }}>
+                      {card.badge}
+                    </span>
+                    <h3 style={{
+                      fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                      fontSize: 22,
+                      fontWeight: 800,
+                      color: "#22332C",
+                      lineHeight: 1.2,
+                      margin: 0,
+                    }}>
+                      {card.title}
+                    </h3>
+                    <p style={{
+                      fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                      fontSize: 15,
+                      color: "rgba(34,51,44,0.7)",
+                      lineHeight: 1.6,
+                      flex: 1,
+                      margin: 0,
+                    }}>
+                      {card.body}
+                    </p>
+                    <p style={{
+                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                      fontSize: 11,
+                      color: "#948D7E",
+                      letterSpacing: "0.1em",
+                      margin: 0,
+                    }}>
+                      {card.footer}
+                    </p>
+                    <Link
+                      href="/case-studies"
+                      style={{
+                        fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: "#F3ECDD",
+                        textDecoration: "none",
+                        background: "#22332C",
+                        padding: "14px 28px",
+                        borderRadius: 100,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 8,
+                        transition: "all 0.22s ease",
+                        width: "fit-content",
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "#EA6A47"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.background = "#22332C"; e.currentTarget.style.transform = "translateY(0)"; }}
+                    >
+                      {card.link}
+                    </Link>
+                  </div>
+                </AnimateIn>
+              );
+            })}
           </div>
         </div>
       </section>

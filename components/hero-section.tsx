@@ -631,9 +631,12 @@ export default function HeroSection() {
 
                 <div className="hz-social-strip">
                   <div className="hz-avatar-stack">
-                    <div className="hz-avatar hz-av1">C</div>
-                    <div className="hz-avatar hz-av2">B</div>
-                    <div className="hz-avatar hz-av3">W</div>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <div className="hz-avatar hz-av1"><img src="/logos/careem.png" alt="Careem" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <div className="hz-avatar hz-av2"><img src="/logos/bolt.png" alt="Bolt" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <div className="hz-avatar hz-av3"><img src="/logos/wise.png" alt="Wise" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
                     <div className="hz-avatar hz-av4">Cam</div>
                   </div>
                   <div className="hz-proof-text">
