@@ -21,6 +21,12 @@
   --ease: cubic-bezier(.2,.7,.2,1);
   --background: var(--bg);
   --foreground: var(--ink);
+
+  /* Typography — remap legacy font variables to new system */
+  --font-playfair: var(--font-inter-tight);
+  --font-dm-sans: var(--font-inter-tight);
+  --font-dm-mono: var(--font-geist-mono);
+  --font-bebas: var(--font-inter-tight);
 }
 
 @theme inline {
@@ -39,17 +45,27 @@ html {
 body {
   background: var(--bg);
   color: var(--body);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
   color: var(--ink);
+  font-weight: 500;
+}
+
+h1 { font-size: 80px; }
+h2 { font-size: 36px; }
+
+p, li, td, th, label, input, textarea, select {
+  font-size: max(16px, 1rem);
 }
 
 .font-mono-dm {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
 }
 
 @keyframes pulse-dot {
@@ -140,8 +156,8 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--coral);
   color: #fff;
   padding: 0.75rem 1.75rem;
-  border-radius: 6px;
-  font-family: 'DM Sans', sans-serif;
+  border-radius: 8px;
+  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
   transition: background 0.2s ease;
@@ -159,8 +175,8 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
   color: var(--ink);
   padding: 0.75rem 1.75rem;
-  border-radius: 6px;
-  font-family: 'DM Sans', sans-serif;
+  border-radius: 8px;
+  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
   border: 1.5px solid var(--line-2);
@@ -176,10 +192,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.75rem;
+  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--coral);
 }
@@ -189,11 +205,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.25rem 0.75rem;
   border-radius: 99px;
   background: var(--cream);
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72rem;
+  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+  font-size: 10px;
   color: var(--muted);
   font-weight: 500;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 767px) {
@@ -315,7 +332,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   background: #22332C;
   color: #ffffff;
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 14px 28px;
@@ -335,7 +352,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   background: transparent;
   color: var(--ink);
-  font-family: var(--font-dm-sans), sans-serif;
+  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
   padding: 14px 28px;

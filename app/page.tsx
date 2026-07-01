@@ -372,6 +372,8 @@ export default function Home() {
   const [visibleNumberRows, setVisibleNumberRows] = useState([false, false, false, false, false, false]);
   const [hoveredNumberRow, setHoveredNumberRow] = useState<number | null>(null);
 
+  const beliefParaRefs = useRef<Array<HTMLParagraphElement | null>>([]);
+
   function startMusic() {
     if (audioCtxRef.current) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -549,6 +551,20 @@ export default function Home() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const els = beliefParaRefs.current.filter(Boolean) as HTMLParagraphElement[];
+    if (!els.length) return;
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add("visible"), i * 110);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <>
       {/* KEYFRAMES + THESIS GRID + PROOF GRID */}
@@ -661,6 +677,194 @@ export default function Home() {
           10%           { transform: rotate(-12deg); }
           30%           { transform: rotate(12deg); }
         }
+
+        /* ===== BELIEVE SECTION ===== */
+        .believe-content-wrap {
+          display: grid;
+          grid-template-columns: 1fr 420px;
+          gap: 80px;
+          align-items: start;
+        }
+        .believe-eyebrow {
+          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-size: 11px; font-weight: 500;
+          letter-spacing: 1.2px; text-transform: uppercase;
+          color: var(--muted);
+          display: flex; align-items: center; gap: 10px;
+          margin-bottom: 52px;
+        }
+        .believe-eyebrow::before {
+          content: ''; width: 18px; height: 1.5px;
+          background: var(--coral); border-radius: 2px; flex-shrink: 0;
+        }
+        .believe-section-title {
+          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-size: 52px; font-weight: 900; letter-spacing: -2.5px;
+          line-height: 1.03; margin-bottom: 40px; color: var(--ink);
+        }
+        .belief-para {
+          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-size: 20px; line-height: 1.65; color: var(--ink);
+          padding-bottom: 24px; margin-bottom: 24px;
+          border-bottom: 1px solid var(--line);
+          opacity: 0; transform: translateY(14px);
+          transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .belief-para.visible { opacity: 1; transform: translateY(0); }
+        .belief-para:last-of-type { border-bottom: none; margin-bottom: 0; }
+        .belief-para.key-line {
+          font-size: 22px; font-weight: 800; letter-spacing: -.3px;
+        }
+        .coral-word { color: var(--coral); }
+        .believe-closing {
+          margin-top: 44px; padding-top: 36px;
+          border-top: 2px solid var(--ink);
+        }
+        .believe-closing-main {
+          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-size: 32px; font-weight: 900; letter-spacing: -1.2px;
+          margin-bottom: 8px; color: var(--ink);
+        }
+        .believe-closing-italic {
+          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-size: 22px; font-weight: 700; font-style: italic;
+          background: linear-gradient(90deg, var(--coral), var(--amber));
+          -webkit-background-clip: text; background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .believe-photo-col {
+          position: sticky; top: 40px;
+        }
+        .believe-photo-container {
+          position: relative; cursor: pointer; user-select: none;
+        }
+        .believe-photo-img {
+          width: 100%; border-radius: 24px; display: block;
+          filter: contrast(1.04) saturate(0.92);
+          transition: filter 0.4s ease;
+        }
+        .believe-photo-container:hover .believe-photo-img {
+          filter: contrast(1.04) saturate(0.92) brightness(0.75);
+        }
+        .believe-photo-overlay {
+          position: absolute; inset: 0; border-radius: 24px;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center; gap: 16px;
+          opacity: 0; transition: opacity 0.35s ease;
+          background: rgba(12,12,11,0.15); z-index: 3;
+        }
+        .believe-photo-container:hover .believe-photo-overlay { opacity: 1; }
+        .believe-hover-vinyl {
+          width: 120px; height: 120px; border-radius: 50%;
+          background: conic-gradient(#1a1a18, #2a2a26, #1a1a18, #111, #222, #1a1a18);
+          display: flex; align-items: center; justify-content: center;
+          box-shadow: 0 20px 60px rgba(12,12,11,.6);
+          transform: scale(0.8); transition: transform 0.35s ease;
+          animation: believeVinylSpin 3s linear infinite paused;
+        }
+        .believe-photo-container:hover .believe-hover-vinyl { transform: scale(1); }
+        .believe-hover-vinyl.spinning { animation-play-state: running; }
+        @keyframes believeVinylSpin {
+          from { transform: rotate(0deg) scale(1); }
+          to { transform: rotate(360deg) scale(1); }
+        }
+        .believe-hover-vinyl-center {
+          width: 42px; height: 42px; border-radius: 50%;
+          background: var(--coral);
+          display: flex; align-items: center; justify-content: center;
+        }
+        .believe-sound-bars {
+          display: flex; align-items: flex-end; gap: 2.5px; height: 16px;
+        }
+        .believe-sb { width: 3px; border-radius: 2px; background: #F3ECDD; }
+        .believe-sb:nth-child(1) { height: 7px; animation: believeBarA .7s ease-in-out infinite; }
+        .believe-sb:nth-child(2) { height: 12px; animation: believeBarA .7s ease-in-out infinite .15s; }
+        .believe-sb:nth-child(3) { height: 9px; animation: believeBarA .7s ease-in-out infinite .3s; }
+        @keyframes believeBarA {
+          0%, 100% { transform: scaleY(.4); }
+          50% { transform: scaleY(1); }
+        }
+        .believe-play-triangle { color: #F3ECDD; font-size: 18px; line-height: 1; }
+        .believe-hover-label {
+          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-size: 11px; font-weight: 500;
+          letter-spacing: .8px; text-transform: uppercase;
+          color: rgba(243,236,221,.85);
+          background: rgba(12,12,11,.5); backdrop-filter: blur(8px);
+          padding: 7px 14px; border-radius: 100px;
+          border: 1px solid rgba(243,236,221,.15);
+          transition: transform 0.35s ease; transform: translateY(8px);
+        }
+        .believe-photo-container:hover .believe-hover-label { transform: translateY(0); }
+        .believe-always-pill {
+          position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+          z-index: 4;
+          background: rgba(243,236,221,.92); backdrop-filter: blur(10px);
+          padding: 8px 16px; border-radius: 100px;
+          display: flex; align-items: center; gap: 8px;
+          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-size: 11px; font-weight: 500;
+          letter-spacing: .4px; color: var(--ink); white-space: nowrap;
+          box-shadow: 0 4px 14px rgba(12,12,11,.15);
+          transition: background .3s ease, color .3s ease;
+        }
+        .believe-ap-dot {
+          width: 6px; height: 6px; border-radius: 50%;
+          background: var(--coral); position: relative; flex-shrink: 0;
+        }
+        .believe-ap-dot::after {
+          content: ''; position: absolute; inset: 0; border-radius: 50%;
+          background: var(--coral); animation: believePing 2s ease-out infinite;
+        }
+        @keyframes believePing {
+          0% { transform: scale(1); opacity: .7; }
+          100% { transform: scale(2.4); opacity: 0; }
+        }
+        .believe-photo-nameplate {
+          position: absolute; top: 20px; left: 20px; z-index: 4;
+          background: rgba(243,236,221,.1); backdrop-filter: blur(8px);
+          border: 1px solid rgba(243,236,221,.15);
+          padding: 8px 14px; border-radius: 100px;
+        }
+        .believe-pn-name {
+          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-size: 13px; font-weight: 700; font-style: italic;
+          background: linear-gradient(110deg, #F3ECDD, #EA6A47, #D79A36, #F3ECDD);
+          background-size: 250% auto;
+          -webkit-background-clip: text; background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: believeNameFlow 7s ease-in-out infinite;
+        }
+        @keyframes believeNameFlow {
+          0%, 100% { background-position: 0%; }
+          50% { background-position: 100%; }
+        }
+        .believe-stat-chip {
+          position: absolute; z-index: 5;
+          background: #ffffff; border: 1px solid var(--line);
+          padding: 10px 14px; border-radius: 14px;
+          box-shadow: 0 8px 24px rgba(12,12,11,.1);
+          opacity: 0; animation: believeChipIn 0.6s ease forwards;
+        }
+        @keyframes believeChipIn {
+          from { opacity: 0; transform: translateX(8px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        .believe-chip-val {
+          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-size: 20px; font-weight: 900; letter-spacing: -0.8px; color: var(--coral);
+        }
+        .believe-chip-label {
+          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-size: 9.5px; font-weight: 500; color: var(--muted);
+          text-transform: uppercase; letter-spacing: .3px; margin-top: 2px;
+        }
+        @media (max-width: 960px) {
+          .believe-content-wrap { grid-template-columns: 1fr; gap: 48px; }
+          .believe-photo-col { position: static; }
+          .believe-section-title { font-size: 36px; }
+          .believe-stat-chip { display: none; }
+        }
       `}</style>
 
       {/* SECTION 1 — HERO */}
@@ -689,277 +893,100 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 3 — THESIS */}
-      <section id="thesis" style={{ padding: "6rem 0" }}>
-        <div id="what-i-believe" className="max-w-site thesis-grid">
+      {/* SECTION 3 — WHAT I BELIEVE */}
+      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "72px 60px 80px" }}>
+        <div style={{ maxWidth: 1360, margin: "0 auto" }}>
 
-          {/* LEFT COL — text */}
-          <div style={{ maxWidth: 720, paddingRight: "2rem" }}>
-            <AnimateIn>
-              <p className="section-eyebrow" style={{ marginBottom: "1.5rem" }}>02 · What I believe</p>
-            </AnimateIn>
-            <AnimateIn delay={80}>
-              <h2
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                  color: "var(--ink)",
-                  fontWeight: 700,
-                  marginBottom: "2.5rem",
-                }}
-              >
-                What I actually believe.
-              </h2>
-            </AnimateIn>
+          <div className="believe-eyebrow">02 · What I believe</div>
 
-            {[
-              "Everyone's selling AI like it's a brain you can rent. It isn't.",
-              "AI doesn't think for you. It thinks like you — faster, and at scale.",
-              "Feed it muddled thinking and you get muddled output. Just more of it.",
-            ].map((line, i) => (
-              <AnimateIn key={i} delay={100 + i * 80}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
-                    color: "var(--body)",
-                    lineHeight: 1.7,
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  {line}
+          <div className="believe-content-wrap">
+
+            {/* LEFT — text */}
+            <div>
+              <h2 className="believe-section-title">What I actually believe.</h2>
+
+              <div>
+                <p className="belief-para" ref={(el) => { beliefParaRefs.current[0] = el; }}>
+                  Everyone&apos;s selling AI like it&apos;s a brain you can rent. It isn&apos;t.
                 </p>
-              </AnimateIn>
-            ))}
-
-            <AnimateIn delay={400}>
-              <p
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
-                  color: "var(--ink)",
-                  lineHeight: 1.7,
-                  marginBottom: "1.5rem",
-                  fontWeight: 700,
-                }}
-              >
-                Feed it clarity and it becomes leverage.
-              </p>
-            </AnimateIn>
-
-            {[
-              "So the work was never 'add AI.' The work is: get clear on the actual problem, design the system, then let the machine run it.",
-              "The teams I watched scale weren't the ones with the best tools. They were the ones who thought clearly before they built.",
-            ].map((line, i) => (
-              <AnimateIn key={i} delay={480 + i * 80}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
-                    color: "var(--body)",
-                    lineHeight: 1.7,
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  {line}
+                <p className="belief-para" ref={(el) => { beliefParaRefs.current[1] = el; }}>
+                  AI doesn&apos;t think for you. It thinks <em>like</em> you — faster, and at scale.
                 </p>
-              </AnimateIn>
-            ))}
-
-            <AnimateIn delay={660}>
-              <div style={{ marginTop: "1rem" }}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.4rem, 2.5vw, 1.75rem)",
-                    color: "var(--ink)",
-                    fontWeight: 700,
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  That&apos;s the whole game.
+                <p className="belief-para" ref={(el) => { beliefParaRefs.current[2] = el; }}>
+                  Feed it muddled thinking and you get muddled output. Just more of it.
                 </p>
-                <p
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
-                    color: "var(--coral)",
-                    fontStyle: "italic",
-                    marginBottom: "2rem",
-                  }}
-                >
-                  Think first. Then automate.
+                <p className="belief-para key-line" ref={(el) => { beliefParaRefs.current[3] = el; }}>
+                  Feed it clarity and it becomes <span className="coral-word">leverage.</span>
+                </p>
+                <p className="belief-para" ref={(el) => { beliefParaRefs.current[4] = el; }}>
+                  So the work was never &quot;add AI.&quot; The work is: get clear on the actual problem, design the system, then let the machine run it.
+                </p>
+                <p className="belief-para" ref={(el) => { beliefParaRefs.current[5] = el; }}>
+                  The teams I watched scale weren&apos;t the ones with the best tools. They were the ones who thought clearly before they built.
                 </p>
               </div>
-            </AnimateIn>
 
-            <AnimateIn delay={780}>
-              <div
-                style={{
-                  background: "#F3ECDD",
-                  border: "1px solid #E7E0D2",
-                  borderRadius: 12,
-                  padding: "20px 28px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  gap: "1.5rem",
-                  flexWrap: "wrap",
-                }}
-              >
-                <div>
-                  <p style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.78rem",
-                    color: "var(--muted)",
-                    margin: "0 0 4px",
-                    letterSpacing: "0.01em",
-                  }}>
-                    Want to know more about me?
-                  </p>
-                  <p style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "1.05rem",
-                    fontWeight: 700,
-                    color: "var(--ink)",
-                    margin: 0,
-                  }}>
-                    The operator behind the thinking.
-                  </p>
-                </div>
-                <Link
-                  href="/about"
-                  style={{
-                    display: "inline-block",
-                    background: "#22332C",
-                    color: "#ffffff",
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.875rem",
-                    fontWeight: 600,
-                    padding: "11px 22px",
-                    borderRadius: 8,
-                    textDecoration: "none",
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
-                    transition: "background 0.2s ease",
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = "#EA6A47")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "#22332C")}
-                >
-                  Meet Riz →
-                </Link>
-              </div>
-            </AnimateIn>
-          </div>
-
-          {/* RIGHT COL — grid cell stretches to full text-column height */}
-          <div className="portrait-col">
-            {/* Inner sticky panel — viewport-anchored at 100vh */}
-            <div
-              className="portrait-sticky"
-              onClick={toggleMusic}
-              style={{
-                background: "#FFFFFF",
-                cursor: "pointer",
-                borderRadius: 16,
-              }}
-            >
-              {/* Portrait — cover fills panel, face anchored at top */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={PORTRAIT_URL}
-                alt="Rizwan Mahmood"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "top center",
-                }}
-              />
-
-              {/* Vinyl record — decorative anchor always visible, glows when playing */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 24,
-                  left: "50%",
-                  transform: `translateX(-50%) scale(${musicPlaying ? 1 : 0.85})`,
-                  opacity: musicPlaying ? 1 : 0.22,
-                  transition: "opacity 0.4s ease, transform 0.4s ease",
-                  zIndex: 2,
-                }}
-              >
-                <div
-                  style={{
-                    width: 200,
-                    height: 200,
-                    borderRadius: "50%",
-                    background:
-                      "radial-gradient(circle at center, #1a1a1a 0%, #2a2a2a 30%, #1a1a1a 31%, #333 60%, #1a1a1a 61%, #2a2a2a 80%, #1a1a1a 100%)",
-                    boxShadow: musicPlaying ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 16px rgba(0,0,0,0.2)",
-                    animation: musicPlaying ? "vinyl-spin 3s linear infinite" : "none",
-                    position: "relative",
-                    transition: "box-shadow 0.4s ease",
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: 60,
-                      height: 60,
-                      borderRadius: "50%",
-                      background: "#EA6A47",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-playfair), serif",
-                        fontSize: "0.7rem",
-                        fontWeight: 700,
-                        color: "#fff",
-                      }}
-                    >
-                      Riz
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Click hint — top-right corner, doesn't conflict with vinyl */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 16,
-                  right: 16,
-                  zIndex: 3,
-                  pointerEvents: "none",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.6rem",
-                    color: "rgba(0,0,0,0.35)",
-                    letterSpacing: "0.08em",
-                    margin: 0,
-                    textAlign: "right",
-                  }}
-                >
-                  {musicPlaying ? "click to pause ❚❚" : "♪ click to hear me"}
-                </p>
+              <div className="believe-closing">
+                <div className="believe-closing-main">That&apos;s the whole game.</div>
+                <div className="believe-closing-italic">Think first. Then automate.</div>
               </div>
             </div>
-          </div>
 
+            {/* RIGHT — photo */}
+            <div className="believe-photo-col">
+              <div className="believe-photo-container" onClick={toggleMusic}>
+
+                <div className="believe-photo-nameplate">
+                  <div className="believe-pn-name">Rizwan Mahmood</div>
+                </div>
+
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  className="believe-photo-img"
+                  src="/riz-photo-new.jpg"
+                  alt="Rizwan Mahmood"
+                />
+
+                <div className="believe-photo-overlay">
+                  <div className={`believe-hover-vinyl${musicPlaying ? " spinning" : ""}`}>
+                    <div className="believe-hover-vinyl-center">
+                      {musicPlaying ? (
+                        <div className="believe-sound-bars">
+                          <div className="believe-sb" />
+                          <div className="believe-sb" />
+                          <div className="believe-sb" />
+                        </div>
+                      ) : (
+                        <div className="believe-play-triangle">▶</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="believe-hover-label">
+                    {musicPlaying ? "Now playing — click to pause" : "Click to hear me"}
+                  </div>
+                </div>
+
+                <div
+                  className="believe-always-pill"
+                  style={musicPlaying ? { background: "rgba(234,106,71,0.92)", color: "#fff" } : undefined}
+                >
+                  <span className="believe-ap-dot" />
+                  <span>{musicPlaying ? "⏸ Now playing" : "🎵 Click photo to play"}</span>
+                </div>
+
+                <div className="believe-stat-chip" style={{ top: "28%", right: "-22px", animationDelay: ".4s" }}>
+                  <div className="believe-chip-val">$3.9M</div>
+                  <div className="believe-chip-label">saved · Careem</div>
+                </div>
+                <div className="believe-stat-chip" style={{ top: "55%", right: "-22px", animationDelay: ".7s" }}>
+                  <div className="believe-chip-val">92%</div>
+                  <div className="believe-chip-label">automation · Wise</div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
