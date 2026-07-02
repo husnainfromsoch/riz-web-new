@@ -17,29 +17,44 @@ const metricCards = [
   { verb: "Scaled across", prefix: "",  target: 4,    suffix: "",  isFloat: false, label: "Markets scaled across · Bolt" },
 ];
 
-// ─── WORK CARDS ─────────────────────────────────────────────────────────────
+// ─── SELECTED WORK ROWS ─────────────────────────────────────────────────────
 
-const workCards = [
+const selectedWorkRows = [
   {
-    badge: "Proof",
-    title: "Bug Catcher",
-    body: "I'd never written a line of code. So I built a browser arcade game you play with your hands — live hand-tracking, built in public.",
-    footer: "SHIPPED · PLAYABLE · POSTED ON LINKEDIN",
-    link: "Read the story →",
+    num: "01",
+    tag: "REAL ESTATE · SALES",
+    title: "AI Lead Qualification & Agent Routing",
+    result: "8 min first contact · 34% lead-to-appointment rate",
   },
   {
-    badge: "Automation",
-    title: "The content engine",
-    body: "Five connected n8n workflows that research, write, illustrate and publish — on their own. It runs without me.",
-    footer: "LIVE · PUBLISHING WEEKLY",
-    link: "See the build →",
+    num: "02",
+    tag: "LAW FIRM · OPERATIONS",
+    title: "Client Intake Automation & Case Routing",
+    result: "12 min response · 3 hrs/day saved · 100% urgent flagged",
   },
   {
-    badge: "Receipt",
-    title: "The Bolt case",
-    body: "I won. Then I published every document. A wrongful-termination case at the Estonian Labour Dispute Committee — turned into a transparent series.",
-    footer: "LINKEDIN · SUBSTACK · YOUTUBE",
-    link: "Read it →",
+    num: "03",
+    tag: "E-COMMERCE · SUPPORT",
+    title: "AI Support Triage & Auto-Resolution",
+    result: "67% tickets auto-resolved · 18 min first response",
+  },
+  {
+    num: "04",
+    tag: "B2B SAAS · SALES",
+    title: "Trial-to-Paid Conversion Workflow",
+    result: "2.1× conversion · 9% → 19% · 28 hrs/week saved",
+  },
+  {
+    num: "05",
+    tag: "MARKETING AGENCY · OPS",
+    title: "Automated Monthly Client Reporting",
+    result: "89% time reduction · delivered 1st of every month",
+  },
+  {
+    num: "06",
+    tag: "RECRUITMENT · HR",
+    title: "CV Screening & Candidate Ranking",
+    result: "Same-day shortlist · 75% less screening time",
   },
 ];
 
@@ -54,19 +69,31 @@ const byTheNumbersRows = [
   { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc", company: "Now" },
 ];
 
-// ─── VIDEO TILES ─────────────────────────────────────────────────────────────
+// ─── ON CAMERA CARDS ─────────────────────────────────────────────────────────
 
-const videoTiles: { title: string; duration: string; gradient: string; src?: string; poster?: string }[] = [
-  { title: "Stand-up · AI bit",   duration: "0:48",  gradient: "linear-gradient(160deg, #1b2e24 0%, #0e1f17 100%)", src: "", poster: "" },
-  { title: "Build session",       duration: "3:12",  gradient: "linear-gradient(160deg, #2c1a16 0%, #1c0d0a 100%)", src: "", poster: "" },
-  { title: "The podcast",         duration: "28:40", gradient: "linear-gradient(160deg, #191d2c 0%, #0e1220 100%)", src: "", poster: "" },
-  { title: "Keynote · Tallinn",   duration: "19:05", gradient: "linear-gradient(160deg, #2c2116 0%, #1c150c 100%)", src: "", poster: "" },
-  { title: "n8n breakdown",       duration: "5:30",  gradient: "linear-gradient(160deg, #1b2e24 0%, #0e1f17 100%)", src: "", poster: "" },
-  { title: "Stand-up · Urdu set", duration: "1:20",  gradient: "linear-gradient(160deg, #2c1a16 0%, #1c0d0a 100%)", src: "", poster: "" },
-  { title: "Reel · the thesis",   duration: "0:59",  gradient: "linear-gradient(160deg, #191d2c 0%, #0e1220 100%)", src: "", poster: "" },
-  { title: "Workshop clip",       duration: "4:15",  gradient: "linear-gradient(160deg, #2c2116 0%, #1c150c 100%)", src: "", poster: "" },
+const onCameraCards = [
+  {
+    num: "01",
+    href: "https://www.instagram.com/reel/DZx-_OHOqg4/",
+    thumb: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80",
+    title: "The thesis",
+    description: "AI doesn't fix bad thinking. It scales whatever you already have.",
+  },
+  {
+    num: "02",
+    href: "https://www.instagram.com/reel/DZr8EPSOkdB/",
+    thumb: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&q=80",
+    title: "Operator perspective",
+    description: "How an operator thinks about building systems. A live breakdown.",
+  },
+  {
+    num: "03",
+    href: "https://www.instagram.com/reel/DXltD2Ujl5s/",
+    thumb: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600&q=80",
+    title: "Stand-up · The AI bit",
+    description: "The bit about AI that landed. Live at the mic in Tallinn.",
+  },
 ];
-const allTiles = [...videoTiles, ...videoTiles];
 
 // ─── PROCESS STEPS ──────────────────────────────────────────────────────────
 
@@ -90,35 +117,6 @@ const processSteps = [
     num: "04",
     title: "Hand it over",
     body: "Documentation, training, no lock-in. You own the machine completely.",
-  },
-];
-
-// ─── ROUTES ─────────────────────────────────────────────────────────────────
-
-const routes = [
-  {
-    title: "Consulting & coaching",
-    sub: "1:1 advisory and fractional product / ops. From $160/hr.",
-    href: "/services/consulting",
-    rightLabel: null,
-  },
-  {
-    title: "A system built for you",
-    sub: "Custom AI workflow automations. That's what my company does.",
-    href: "/services/projects",
-    rightLabel: "Soch →",
-  },
-  {
-    title: "Speaking & workshops",
-    sub: "Talks and team sessions on AI leverage and the future of work.",
-    href: "/services/speaking",
-    rightLabel: null,
-  },
-  {
-    title: "Just want to learn?",
-    sub: "I write about this every week. Start reading.",
-    href: "/blog",
-    rightLabel: "Writing →",
   },
 ];
 
@@ -316,11 +314,134 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
   );
 }
 
+// ─── HOW I THINK — ANIMATED CHART ───────────────────────────────────────────
+
+const CHART_LINE_PATH = "M60,180 L300,150 L600,110 L900,70 L1140,30";
+const CHART_AREA_PATH = "M60,180 L300,150 L600,110 L900,70 L1140,30 L1140,220 L60,220 Z";
+const CHART_DOTS = [
+  { cx: 300, cy: 150, label: "01" },
+  { cx: 600, cy: 110, label: "02" },
+  { cx: 900, cy: 70, label: "03" },
+];
+
+function HowThinkChart() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const path = pathRef.current;
+    if (!path || !inView) return;
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = `${length}`;
+    path.style.strokeDashoffset = `${length}`;
+    path.getBoundingClientRect();
+    path.style.transition = "stroke-dashoffset 2s ease-out";
+    path.style.strokeDashoffset = "0";
+  }, [inView]);
+
+  return (
+    <div ref={containerRef} style={{ height: 220, position: "relative", marginBottom: 0 }}>
+      <svg viewBox="0 0 1200 220" width="100%" height="220" preserveAspectRatio="none" style={{ display: "block", overflow: "visible" }}>
+        {[40, 80, 120, 160].map((y) => (
+          <line key={y} x1={0} y1={y} x2={1200} y2={y} stroke="rgba(34,51,44,0.06)" strokeWidth={1} />
+        ))}
+        {[300, 600, 900].map((x) => (
+          <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(34,51,44,0.06)" strokeWidth={1} strokeDasharray="4,4" />
+        ))}
+        <text x={0} y={16} fontFamily="var(--font-geist-mono), monospace" fontSize={11} fill="rgba(34,51,44,0.5)">
+          Clarity &amp; leverage, compounding →
+        </text>
+        <text x={60} y={210} textAnchor="start" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(34,51,44,0.5)">
+          Vague idea
+        </text>
+        <text x={1140} y={210} textAnchor="end" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(34,51,44,0.5)">
+          Running system
+        </text>
+        <path d={CHART_AREA_PATH} fill="rgba(234,106,71,0.06)" stroke="none" />
+        <path ref={pathRef} d={CHART_LINE_PATH} fill="none" stroke="#EA6A47" strokeWidth={2.5} strokeLinecap="round" />
+        {CHART_DOTS.map((d) => (
+          <g key={d.label}>
+            <circle cx={d.cx} cy={d.cy} r={6} fill="white" stroke="#EA6A47" strokeWidth={2.5} />
+            <text x={d.cx} y={d.cy} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#22332C">
+              {d.label}
+            </text>
+          </g>
+        ))}
+        <g>
+          <circle cx={1140} cy={30} r={10} fill="#EA6A47" stroke="white" strokeWidth={3} className="think-chart-pulse" />
+          <text x={1140} y={30} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#22332C">
+            04
+          </text>
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function StepIcon({ index }: { index: number }) {
+  const props = {
+    width: 18,
+    height: 18,
+    viewBox: "0 0 24 24",
+    fill: "none" as const,
+    stroke: "#EA6A47",
+    strokeWidth: 1.8,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+  switch (index) {
+    case 0:
+      return (
+        <svg {...props}>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+      );
+    case 1:
+      return (
+        <svg {...props}>
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <line x1="3" y1="9" x2="21" y2="9" />
+          <line x1="9" y1="21" x2="9" y2="9" />
+        </svg>
+      );
+    case 2:
+      return (
+        <svg {...props}>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+      );
+    default:
+      return (
+        <svg {...props}>
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+          <polyline points="17 6 23 6 23 12" />
+        </svg>
+      );
+  }
+}
+
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
-  const [hoveredRoute, setHoveredRoute] = useState<number | null>(null);
-  const [hoveredWork, setHoveredWork] = useState<number | null>(null);
   const [believeHovered, setBelieveHovered] = useState(false);
   const [audioState, setAudioState] = useState<'idle' | 'playing' | 'paused'>('idle');
   const [isAfter, setIsAfter] = useState(false);
@@ -526,22 +647,222 @@ export default function Home() {
         @media (max-width: 480px) {
           .proof-grid { grid-template-columns: 1fr; }
         }
-        .chat-card {
-          display: flex;
+        .chat-hayat-card {
+          background: linear-gradient(135deg, #F5E6D3 0%, #EDD5C0 30%, #E8D0D8 65%, #DCC8E0 100%);
+          border-radius: 24px;
+          padding: 52px 48px;
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 52px;
           align-items: center;
-          gap: 48px;
-          padding: 48px;
+        }
+        .chat-hayat-photo-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+        }
+        .chat-hayat-photo {
+          width: 180px;
+          height: 180px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: center top;
+          border: 4px solid #ffffff;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+          display: block;
+        }
+        .chat-hayat-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          background: #ffffff;
+          border-radius: 100px;
+          padding: 6px 14px;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 13px;
+          font-weight: 500;
+          color: #22332C;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          white-space: nowrap;
+        }
+        .chat-hayat-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #22C55E;
+          flex-shrink: 0;
+        }
+        .chat-hayat-label {
+          display: inline-block;
+          background: #22332C;
+          color: #F3ECDD;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          padding: 6px 14px;
+          border-radius: 100px;
+          margin-bottom: 16px;
+        }
+        .chat-hayat-heading {
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 40px;
+          font-weight: 900;
+          color: #22332C;
+          line-height: 1.2;
+          margin: 0 0 16px;
+        }
+        .chat-hayat-heading-accent {
+          color: #EA6A47;
+          font-style: italic;
+        }
+        .chat-hayat-desc {
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 16px;
+          color: rgba(34,51,44,0.7);
+          line-height: 1.7;
+          margin: 0 0 28px;
+          max-width: 440px;
+        }
+        .chat-hayat-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px;
+        }
+        .chat-hayat-btn-primary {
+          display: inline-flex;
+          align-items: center;
+          background: #22332C;
+          color: #F3ECDD;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          padding: 14px 28px;
+          border-radius: 100px;
+          text-decoration: none;
+          transition: background 0.2s ease;
+        }
+        .chat-hayat-btn-primary:hover {
+          background: #EA6A47;
+        }
+        .chat-hayat-btn-secondary {
+          display: inline-flex;
+          align-items: center;
+          background: #ffffff;
+          color: #22332C;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 15px;
+          font-weight: 600;
+          padding: 14px 28px;
+          border-radius: 100px;
+          border: none;
+          text-decoration: none;
+          transition: background 0.2s ease;
+        }
+        .chat-hayat-btn-secondary:hover {
+          background: rgba(255,255,255,0.8);
+        }
+        .chat-hayat-credit {
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 13px;
+          color: rgba(34,51,44,0.7);
+          font-style: italic;
+          margin: 20px 0 0;
         }
         @media (max-width: 768px) {
-          .chat-card {
-            flex-direction: column;
+          .chat-hayat-card {
+            grid-template-columns: 1fr;
+            justify-items: center;
             text-align: center;
             gap: 32px;
             padding: 40px 28px;
           }
-          .chat-card-photo-col {
-            margin-left: 0;
+          .chat-hayat-buttons {
+            justify-content: center;
           }
+          .chat-hayat-desc {
+            max-width: none;
+          }
+        }
+        .route-hero {
+          transition: all 0.25s ease;
+        }
+        .route-hero:hover {
+          box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+          transform: translateY(-2px);
+        }
+        .route-hero-btn {
+          display: inline-block;
+          background: #EA6A47;
+          color: #ffffff;
+          padding: 14px 32px;
+          border-radius: 8px;
+          font-size: 15px;
+          font-weight: 700;
+          text-decoration: none;
+          white-space: nowrap;
+          transition: all 0.22s;
+        }
+        .route-hero-btn:hover {
+          background: #c85535;
+          transform: translateY(-2px);
+        }
+        .route-card {
+          transition: all 0.25s ease;
+        }
+        .route-card:hover {
+          border-color: #22332C;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 32px rgba(34,51,44,0.08);
+        }
+        .route-card-dark {
+          transition: all 0.25s ease;
+        }
+        .route-card-dark:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 32px rgba(34,51,44,0.08);
+        }
+        .route-mini-btn-solid {
+          display: inline-block;
+          background: #22332C;
+          color: #F3ECDD;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+        .route-mini-btn-outline {
+          display: inline-block;
+          background: #ffffff;
+          border: 1.5px solid #DDD3BF;
+          color: #22332C;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: border-color 0.2s ease;
+        }
+        .route-mini-btn-outline:hover {
+          border-color: #22332C;
+        }
+        .route-mini-btn-ghost {
+          display: inline-block;
+          background: rgba(255,255,255,0.1);
+          border: 1px solid rgba(255,255,255,0.15);
+          color: #F3ECDD;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: background 0.2s ease;
+        }
+        .route-mini-btn-ghost:hover {
+          background: rgba(255,255,255,0.15);
         }
         .thesis-grid {
           display: grid;
@@ -663,24 +984,49 @@ export default function Home() {
         .belief-para.visible { opacity: 1; transform: translateY(0); }
         .belief-para:last-of-type { border-bottom: none; margin-bottom: 0; }
         .belief-para.key-line {
+          font-family: var(--font-fraunces), serif;
           font-size: 22px; font-weight: 800; letter-spacing: -.3px;
         }
         .coral-word { color: var(--coral); }
         .believe-closing {
-          margin-top: 44px; padding-top: 36px;
-          border-top: 2px solid var(--ink);
+          background: transparent;
+          border-top: 1px solid #DDD3BF;
+          padding-top: 48px;
+          margin-top: 48px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
         }
         .believe-closing-main {
-          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
-          font-size: 32px; font-weight: 900; letter-spacing: -1.2px;
-          margin-bottom: 8px; color: var(--ink);
+          font-family: var(--font-fraunces), serif;
+          font-size: 28px; font-weight: 900;
+          color: #22332C;
         }
         .believe-closing-italic {
-          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
-          font-size: 22px; font-weight: 700; font-style: italic;
-          background: linear-gradient(90deg, var(--coral), var(--amber));
-          -webkit-background-clip: text; background-clip: text;
-          -webkit-text-fill-color: transparent;
+          font-family: var(--font-fraunces), serif;
+          font-size: 18px; font-weight: 700; font-style: italic;
+          color: #EA6A47;
+          margin-bottom: 16px;
+        }
+        .believe-closing-eyebrow {
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 11px; letter-spacing: 0.1em;
+          color: rgba(34,51,44,0.6);
+          margin-bottom: 20px;
+        }
+        .believe-closing-cta {
+          background: #22332C; color: #F3ECDD;
+          padding: 12px 24px; border-radius: 100px;
+          font-size: 14px; font-weight: 600;
+          text-decoration: none; white-space: nowrap;
+          display: inline-flex; align-items: center; gap: 8px;
+          width: fit-content;
+          transition: all 0.22s ease;
+        }
+        .believe-closing-cta:hover {
+          background: #EA6A47;
+          transform: translateY(-2px);
         }
         .believe-photo-col {
           position: sticky; top: 40px;
@@ -767,6 +1113,85 @@ export default function Home() {
           animation: blink 1s step-end infinite;
           margin-left: 4px;
         }
+
+        /* ===== SELECTED WORK — PROOF ROWS ===== */
+        .proof-row {
+          display: grid;
+          grid-template-columns: 60px 180px 1fr 1fr auto;
+          gap: 24px;
+          align-items: center;
+          padding: 28px 0;
+          border-bottom: 1px solid #DDD3BF;
+          transition: background 0.2s ease, padding-left 0.2s ease;
+          cursor: pointer;
+          text-decoration: none;
+        }
+        .proof-row:hover {
+          background: rgba(234,106,71,0.02);
+          padding-left: 8px;
+        }
+        .proof-row-num {
+          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-size: 12px;
+          color: #EA6A47;
+          letter-spacing: 0.1em;
+        }
+        .proof-row-tag {
+          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-size: 11px;
+          color: rgba(34,51,44,0.45);
+          letter-spacing: 0.08em;
+          line-height: 1.4;
+          text-transform: uppercase;
+        }
+        .proof-row-title {
+          font-size: 20px;
+          font-weight: 800;
+          color: #22332C;
+          font-family: var(--font-fraunces), serif;
+        }
+        .proof-row-result {
+          font-size: 14px;
+          color: rgba(34,51,44,0.6);
+          line-height: 1.5;
+        }
+        .proof-row-arrow {
+          color: #948D7E;
+          font-size: 16px;
+          transition: color 0.2s ease, transform 0.2s ease;
+          justify-self: end;
+        }
+        .proof-row:hover .proof-row-arrow {
+          color: #EA6A47;
+          transform: translate(2px, -2px);
+        }
+        .view-all-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          margin-top: 32px;
+          font-size: 15px;
+          font-weight: 600;
+          color: #22332C;
+          text-decoration: none;
+          border-bottom: 1.5px solid #DDD3BF;
+          padding-bottom: 2px;
+          transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .view-all-link:hover {
+          color: #EA6A47;
+          border-color: #EA6A47;
+        }
+        @media (max-width: 640px) {
+          .proof-row {
+            grid-template-columns: 32px 1fr auto;
+            row-gap: 6px;
+          }
+          .proof-row-tag,
+          .proof-row-result {
+            grid-column: 1 / -1;
+          }
+        }
       `}</style>
 
       {/* SECTION 1 — HERO */}
@@ -831,19 +1256,12 @@ export default function Home() {
               <div className="believe-closing">
                 <div className="believe-closing-main">That&apos;s the whole game.</div>
                 <div className="believe-closing-italic">Think first. Then automate.</div>
-                <div style={{ marginTop: 32, display: "flex", flexDirection: "column", gap: 16 }}>
-                  <span style={{ fontFamily: "var(--font-geist-mono), monospace", fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase", color: "#948D7E" }}>
-                    The operator behind the thinking.
-                  </span>
-                  <Link
-                    href="/about"
-                    style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#22332C", color: "#F3ECDD", padding: "16px 32px", borderRadius: 100, fontSize: 15, fontWeight: 600, textDecoration: "none", width: "fit-content", transition: "background 0.22s, transform 0.22s" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "#EA6A47"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "#22332C"; e.currentTarget.style.transform = "translateY(0)"; }}
-                  >
-                    Meet Riz →
-                  </Link>
+                <div className="believe-closing-eyebrow" style={{ textTransform: "uppercase" }}>
+                  The operator behind the thinking.
                 </div>
+                <Link href="/about" className="believe-closing-cta">
+                  Meet Riz →
+                </Link>
               </div>
             </div>
 
@@ -863,8 +1281,15 @@ export default function Home() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="believe-photo-img"
-                  src="/riz-photo-new.jpg"
+                  src="/Photos/riz-restaurant.jpg"
                   alt="Rizwan Mahmood"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    borderRadius: 16,
+                  }}
                 />
 
                 {/* Idle pill — hidden by default, appears on hover, disappears once audio starts */}
@@ -1063,7 +1488,7 @@ export default function Home() {
             </div>
 
             <p style={{
-              fontFamily: "var(--font-playfair), serif",
+              fontFamily: "var(--font-fraunces), serif",
               fontSize: "clamp(1.05rem, 1.5vw, 1.2rem)",
               fontStyle: "normal",
               color: "#4A5868",
@@ -1230,7 +1655,7 @@ export default function Home() {
       {/* SECTION 1.5 — BEFORE / AFTER TOGGLE */}
       <section
         ref={beforeAfterRef}
-        style={{ background: "#F3ECDD", padding: "80px 0" }}
+        style={{ background: "#ffffff", padding: "80px 0" }}
       >
         <div className="max-w-site" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <AnimateIn>
@@ -1262,56 +1687,81 @@ export default function Home() {
 
                 {/* LEFT — BEFORE */}
                 <div style={{
-                  background: "rgba(34,51,44,0.04)",
+                  background: "#ffffff",
                   border: "1px solid #DDD3BF",
                   borderRadius: "20px 0 0 20px",
                   padding: "40px 36px",
                   display: "flex",
                   flexDirection: "column",
-                  gap: 28,
+                  gap: 0,
                   opacity: isAfter ? 0.3 : 1,
                   transition: "opacity 0.4s ease",
                 }}>
-                  <div>
+                  <div style={{ marginBottom: 20 }}>
                     <p style={{
-                      fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
                       fontSize: 12,
-                      color: "rgba(34,51,44,0.4)",
+                      color: "rgba(34,51,44,0.6)",
                       letterSpacing: "0.12em",
                       textTransform: "uppercase" as const,
                       margin: "0 0 8px",
                     }}>BEFORE</p>
-                    <p style={{ fontSize: 22, fontWeight: 700, color: "rgba(34,51,44,0.5)", margin: 0 }}>
+                    <p style={{ fontSize: 22, fontWeight: 700, color: "#22332C", opacity: 1, margin: 0 }}>
                       You&apos;re the bottleneck.
                     </p>
                   </div>
-                  {([
-                    { num: "01", title: "Lead arrives",       sub: "New prospect" },
-                    { num: "02", title: "Sits in inbox",      sub: "3 days later" },
-                    { num: "03", title: "You do it manually", sub: "Hours of work" },
-                    { num: "04", title: "You’re stuck",  sub: "Everything waits on you" },
-                  ] as { num: string; title: string; sub: string }[]).map((step) => (
-                    <div key={step.num} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                      <span style={{
-                        fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
-                        fontSize: 11,
-                        color: "rgba(34,51,44,0.2)",
-                        width: 20,
-                        flexShrink: 0,
-                      }}>{step.num}</span>
-                      <div>
-                        <p style={{ fontSize: 15, fontWeight: 600, color: "rgba(34,51,44,0.4)", margin: "0 0 2px" }}>
-                          {step.title}
-                        </p>
-                        <p style={{
-                          fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
-                          fontSize: 12,
-                          color: "rgba(34,51,44,0.25)",
-                          margin: 0,
-                        }}>{step.sub}</p>
+                  {workflowSteps.map((step, i) => {
+                    const BeforeIcon = beforeIconFns[i];
+                    return (
+                      <div key={step.labelBefore}>
+                        <div style={{
+                          background: "#ffffff",
+                          border: "1px solid #DDD3BF",
+                          borderRadius: 14,
+                          padding: "14px 18px",
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: 14,
+                          opacity: 1,
+                        }}>
+                          <div style={{ flexShrink: 0, marginTop: 2 }}>
+                            <BeforeIcon stroke="#EA6A47" />
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                              <p style={{ fontSize: 16, fontWeight: 700, color: "#22332C", opacity: 1, margin: 0 }}>
+                                {step.labelBefore}
+                              </p>
+                              <span style={{
+                                background: "#22332C",
+                                color: "#F3ECDD",
+                                opacity: 1,
+                                fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                                fontSize: 10,
+                                borderRadius: 4,
+                                padding: "3px 8px",
+                                flexShrink: 0,
+                              }}>{step.badgeBefore}</span>
+                            </div>
+                            <p style={{
+                              fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                              fontSize: 12,
+                              color: "rgba(34,51,44,0.6)",
+                              opacity: 1,
+                              margin: 0,
+                            }}>{step.subBefore}</p>
+                          </div>
+                        </div>
+                        {i < 3 && (
+                          <div style={{ display: "flex", justifyContent: "center", padding: "5px 0" }}>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+                            </svg>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {/* MIDDLE DIVIDER */}
@@ -1321,14 +1771,14 @@ export default function Home() {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "#F3ECDD",
+                  background: "#ffffff",
                   position: "relative",
                 }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
                     <span style={{
                       fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
                       fontSize: 11,
-                      color: "rgba(34,51,44,0.3)",
+                      color: "rgba(34,51,44,0.5)",
                       letterSpacing: "0.1em",
                     }}>vs</span>
                     <button
@@ -1448,7 +1898,7 @@ export default function Home() {
                           <p style={{
                             fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
                             fontSize: 12,
-                            color: "#948D7E",
+                            color: "rgba(34,51,44,0.6)",
                             margin: 0,
                           }}>{step.sub}</p>
                         </div>
@@ -1470,8 +1920,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 4 — WORK */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+      {/* SECTION 4 — SELECTED WORK */}
+      <section style={{ background: "white", padding: "80px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>03 · Selected work</p>
@@ -1479,10 +1929,10 @@ export default function Home() {
           <AnimateIn delay={80}>
             <h2
               style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                color: "var(--ink)",
-                fontWeight: 700,
+                fontFamily: "inherit",
+                fontSize: 48,
+                color: "#22332C",
+                fontWeight: 900,
                 marginBottom: "0.75rem",
               }}
             >
@@ -1492,231 +1942,54 @@ export default function Home() {
           <AnimateIn delay={150}>
             <p
               style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1rem",
-                color: "var(--muted)",
-                marginBottom: "3rem",
+                fontFamily: "inherit",
+                fontSize: 16,
+                color: "rgba(34,51,44,0.72)",
+                fontWeight: 400,
+                lineHeight: 1.7,
+                margin: 0,
               }}
             >
               Not a claim. Evidence. Each one is the thesis in action.
             </p>
-          </AnimateIn>
-
-          {/* CARD 1 — Bug Catcher (featured, full width) */}
-          <AnimateIn delay={0}>
-            <div
+            <p
               style={{
-                background: "#22332C",
-                borderRadius: 16,
-                padding: "48px 52px 48px",
-                display: "grid",
-                gridTemplateColumns: "60% 40%",
-                gap: 48,
-                alignItems: "center",
-                overflow: "hidden",
-                transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                transform: hoveredWork === 0 ? "translateY(-4px)" : "none",
-                boxShadow: hoveredWork === 0 ? "0 20px 60px rgba(34,51,44,0.25)" : "none",
-                cursor: "default",
+                fontFamily: "inherit",
+                fontSize: 16,
+                color: "rgba(34,51,44,0.72)",
+                fontWeight: 400,
+                lineHeight: 1.7,
+                marginTop: 4,
+                marginBottom: 52,
               }}
-              onMouseEnter={() => setHoveredWork(0)}
-              onMouseLeave={() => setHoveredWork(null)}
             >
-              {/* Left column */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                <span style={{
-                  fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
-                  fontSize: 11,
-                  fontWeight: 500,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase" as const,
-                  color: "#EA6A47",
-                }}>
-                  {workCards[0].badge}
-                </span>
-                <h3 style={{
-                  fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
-                  fontSize: 32,
-                  fontWeight: 800,
-                  color: "#F3ECDD",
-                  lineHeight: 1.1,
-                  margin: 0,
-                }}>
-                  {workCards[0].title}
-                </h3>
-                <p style={{
-                  fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
-                  fontSize: 16,
-                  color: "rgba(243,236,221,0.7)",
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}>
-                  {workCards[0].body}
-                </p>
-                <p style={{
-                  fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
-                  fontSize: 11,
-                  color: "rgba(243,236,221,0.35)",
-                  letterSpacing: "0.1em",
-                  margin: 0,
-                }}>
-                  {workCards[0].footer}
-                </p>
-                <Link
-                  href="/case-studies"
-                  style={{
-                    fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    color: "#ffffff",
-                    textDecoration: "none",
-                    background: "#EA6A47",
-                    padding: "14px 28px",
-                    borderRadius: 100,
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: 8,
-                    transition: "all 0.22s ease",
-                    width: "fit-content",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "#c85535"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "#EA6A47"; e.currentTarget.style.transform = "translateY(0)"; }}
-                >
-                  {workCards[0].link}
-                </Link>
-              </div>
-
-              {/* Right column — image placeholder + terminal block */}
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=600&q=80"
-                  alt="Game preview"
-                  style={{ width: "100%", height: 140, objectFit: "cover", borderRadius: 8, marginBottom: 12 }}
-                />
-                <div style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: 8,
-                  padding: "20px 24px",
-                  fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
-                  fontSize: 13,
-                  color: "#F3ECDD",
-                  opacity: 0.8,
-                  lineHeight: 1.9,
-                }}>
-                  <div className="terminal-line" style={{ animationDelay: "0.2s" }}>&gt; game.init()</div>
-                  <div className="terminal-line" style={{ animationDelay: "0.6s" }}>&gt; hand_tracking: ON</div>
-                  <div className="terminal-line" style={{ animationDelay: "1.0s" }}>&gt; score: 0</div>
-                  <div className="terminal-line terminal-cursor" style={{ animationDelay: "1.4s" }}>&gt; shipped: true ✓</div>
-                </div>
-              </div>
-            </div>
+              Three builds. Real outcomes. No fluff.
+            </p>
           </AnimateIn>
 
-          {/* CARDS 2 & 3 — Content Engine + Bolt Case (50/50) */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 20 }}>
-            {workCards.slice(1).map((card, idx) => {
-              const i = idx + 1;
-              return (
-                <AnimateIn key={card.title} delay={i * 120}>
-                  <div
-                    style={{
-                      background: "white",
-                      border: "1px solid #DDD3BF",
-                      borderRadius: 16,
-                      padding: "36px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "0.75rem",
-                      height: "100%",
-                      transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                      transform: hoveredWork === i ? "translateY(-4px)" : "none",
-                      boxShadow: hoveredWork === i ? "0 12px 40px rgba(34,51,44,0.1)" : "none",
-                      cursor: "default",
-                    }}
-                    onMouseEnter={() => setHoveredWork(i)}
-                    onMouseLeave={() => setHoveredWork(null)}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={idx === 0
-                        ? "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80"
-                        : "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&q=80"}
-                      alt={idx === 0 ? "Automation workflow" : "Legal documents"}
-                      style={{ width: "100%", height: 180, objectFit: "cover", borderRadius: 10, marginBottom: 20 }}
-                    />
-                    <span style={{
-                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
-                      fontSize: 11,
-                      fontWeight: 500,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase" as const,
-                      color: "#EA6A47",
-                    }}>
-                      {card.badge}
-                    </span>
-                    <h3 style={{
-                      fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
-                      fontSize: 22,
-                      fontWeight: 800,
-                      color: "#22332C",
-                      lineHeight: 1.2,
-                      margin: 0,
-                    }}>
-                      {card.title}
-                    </h3>
-                    <p style={{
-                      fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
-                      fontSize: 15,
-                      color: "rgba(34,51,44,0.7)",
-                      lineHeight: 1.6,
-                      flex: 1,
-                      margin: 0,
-                    }}>
-                      {card.body}
-                    </p>
-                    <p style={{
-                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
-                      fontSize: 11,
-                      color: "#948D7E",
-                      letterSpacing: "0.1em",
-                      margin: 0,
-                    }}>
-                      {card.footer}
-                    </p>
-                    <Link
-                      href="/case-studies"
-                      style={{
-                        fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
-                        fontSize: 14,
-                        fontWeight: 600,
-                        color: "#F3ECDD",
-                        textDecoration: "none",
-                        background: "#22332C",
-                        padding: "14px 28px",
-                        borderRadius: 100,
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 8,
-                        transition: "all 0.22s ease",
-                        width: "fit-content",
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "#EA6A47"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.background = "#22332C"; e.currentTarget.style.transform = "translateY(0)"; }}
-                    >
-                      {card.link}
-                    </Link>
-                  </div>
-                </AnimateIn>
-              );
-            })}
-          </div>
+          <div style={{ width: "100%", height: 1, background: "#DDD3BF" }} />
+
+          {selectedWorkRows.map((row, i) => (
+            <AnimateIn key={row.num} delay={i * 60}>
+              <Link href="/case-studies" className="proof-row">
+                <span className="proof-row-num">{row.num}</span>
+                <span className="proof-row-tag">{row.tag}</span>
+                <span className="proof-row-title">{row.title}</span>
+                <span className="proof-row-result">{row.result}</span>
+                <span className="proof-row-arrow">↗</span>
+              </Link>
+            </AnimateIn>
+          ))}
+
+          <Link href="/case-studies" className="view-all-link">
+            <span>View all 20 case studies</span>
+            <span>→</span>
+          </Link>
         </div>
       </section>
 
       {/* SECTION 5 — ON CAMERA */}
-      <section style={{ padding: "5rem 0", overflow: "hidden" }}>
+      <section style={{ background: "white", padding: "80px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>04 · On camera</p>
@@ -1725,9 +1998,9 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "48px",
                 color: "var(--ink)",
-                fontWeight: 700,
+                fontWeight: 900,
                 marginBottom: "0.75rem",
               }}
             >
@@ -1737,145 +2010,230 @@ export default function Home() {
           <AnimateIn delay={150}>
             <p
               style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontFamily: "var(--font-fraunces), serif",
                 fontSize: "1rem",
-                color: "var(--muted)",
-                marginBottom: "2.5rem",
+                color: "rgba(34,51,44,0.7)",
+                lineHeight: 1.7,
+                opacity: 1,
+                marginBottom: "52px",
               }}
             >
               I don&apos;t just build the machines — I talk about them. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
             </p>
           </AnimateIn>
-        </div>
 
-        {/* Marquee */}
-        <div className="marquee-wrap" style={{ overflow: "hidden" }}>
-          <div className="marquee-track">
-            {allTiles.map((tile, i) => (
-              <div
-                key={i}
-                className="group"
-                onMouseEnter={(e) => {
-                  const video = e.currentTarget.querySelector("video");
-                  if (video && video.src) video.play().catch(() => {});
-                }}
-                onMouseLeave={(e) => {
-                  const video = e.currentTarget.querySelector("video");
-                  if (video) { video.pause(); video.currentTime = 0; }
-                }}
-                style={{
-                  width: 230,
-                  height: 330,
-                  borderRadius: 12,
-                  background: tile.gradient,
-                  flexShrink: 0,
-                  position: "relative",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  overflow: "hidden",
-                  cursor: "pointer",
-                }}
-              >
-                {/* Shimmer fallback — visible on hover when no video src is set */}
-                <div
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.09) 50%, transparent 80%)",
-                    backgroundSize: "200% 100%",
-                    animation: "card-shimmer 1.8s linear infinite",
-                    pointerEvents: "none",
-                    zIndex: 0,
-                  }}
-                />
+          {/* Horizontal rule above the grid */}
+          <div style={{ width: "100%", height: 1, background: "#DDD3BF", marginBottom: 0 }} />
 
-                {/* Video — fades in on hover and plays; covers shimmer when src is present */}
-                <video
-                  muted
-                  loop
-                  playsInline
-                  src={tile.src || undefined}
-                  poster={tile.poster || undefined}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    pointerEvents: "none",
-                    zIndex: 1,
-                  }}
-                />
-
-                {/* Play button */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr 1fr",
+              gap: 0,
+              borderBottom: "1px solid #DDD3BF",
+            }}
+            className="grid-cols-1 md:grid-cols-3"
+          >
+            {onCameraCards.map((card, i) => (
+              <AnimateIn key={card.href} delay={i * 100}>
                 <div
                   style={{
-                    width: 48, height: 48, borderRadius: "50%",
-                    background: "rgba(255,255,255,0.15)",
-                    border: "1.5px solid rgba(255,255,255,0.3)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    position: "relative", zIndex: 2,
+                    borderRight: i < onCameraCards.length - 1 ? "1px solid #DDD3BF" : "none",
+                    padding: "32px 32px 40px",
+                    transition: "background 0.2s ease",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(34,51,44,0.02)";
+                    const img = e.currentTarget.querySelector("img");
+                    if (img) img.style.transform = "scale(1.03)";
+                    const arrowBtn = e.currentTarget.querySelector<HTMLDivElement>(".on-camera-arrow-btn");
+                    if (arrowBtn) {
+                      arrowBtn.style.background = "#22332C";
+                      arrowBtn.style.transform = "scale(1.1)";
+                    }
+                    const arrowSvg = e.currentTarget.querySelector<SVGElement>(".on-camera-arrow-svg");
+                    if (arrowSvg) arrowSvg.style.stroke = "white";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    const img = e.currentTarget.querySelector("img");
+                    if (img) img.style.transform = "scale(1)";
+                    const arrowBtn = e.currentTarget.querySelector<HTMLDivElement>(".on-camera-arrow-btn");
+                    if (arrowBtn) {
+                      arrowBtn.style.background = "white";
+                      arrowBtn.style.transform = "scale(1)";
+                    }
+                    const arrowSvg = e.currentTarget.querySelector<SVGElement>(".on-camera-arrow-svg");
+                    if (arrowSvg) arrowSvg.style.stroke = "#22332C";
                   }}
                 >
-                  <span style={{ color: "#fff", fontSize: "1rem", marginLeft: 3 }}>▶</span>
-                </div>
+                  {/* Top row: number + watch link */}
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: 20,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: "var(--font-geist-mono), monospace",
+                        fontSize: "12px",
+                        color: "#EA6A47",
+                        letterSpacing: "0.1em",
+                        opacity: 1,
+                      }}
+                    >
+                      {card.num}
+                    </span>
+                    <a
+                      href={card.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontFamily: "var(--font-geist-mono), monospace",
+                        fontSize: "11px",
+                        color: "#22332C",
+                        letterSpacing: "0.1em",
+                        textDecoration: "none",
+                        transition: "color 0.2s ease, opacity 0.2s ease",
+                        opacity: 0.6,
+                      }}
+                      onMouseEnter={(e) => { e.currentTarget.style.color = "#EA6A47"; e.currentTarget.style.opacity = "1"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.color = "#22332C"; e.currentTarget.style.opacity = "0.6"; }}
+                    >
+                      WATCH ↗
+                    </a>
+                  </div>
 
-                {/* Bottom label */}
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 0, left: 0, right: 0,
-                    background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)",
-                    padding: "1.5rem 1rem 0.75rem",
-                    display: "flex",
-                    alignItems: "flex-end",
-                    justifyContent: "space-between",
-                    zIndex: 2,
-                  }}
-                >
-                  <span
+                  {/* Title */}
+                  <p
                     style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.78rem",
-                      fontWeight: 500,
-                      color: "rgba(255,255,255,0.9)",
+                      fontSize: "22px",
+                      fontWeight: 800,
+                      color: "#22332C",
+                      marginBottom: 10,
+                      fontFamily: "var(--font-fraunces), serif",
+                      lineHeight: 1.3,
+                      opacity: 1,
                     }}
                   >
-                    {tile.title}
-                  </span>
-                  <span
+                    {card.title}
+                  </p>
+
+                  {/* Description */}
+                  <p
                     style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.68rem",
-                      color: "rgba(255,255,255,0.6)",
+                      fontSize: "15px",
+                      color: "rgba(34,51,44,0.75)",
+                      lineHeight: 1.7,
+                      marginBottom: 28,
+                      fontFamily: "inherit",
+                      opacity: 1,
                     }}
                   >
-                    {tile.duration}
-                  </span>
+                    {card.description}
+                  </p>
+
+                  {/* Thumbnail */}
+                  <a
+                    href={card.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      aspectRatio: "3/4",
+                      minHeight: 320,
+                      borderRadius: 16,
+                      overflow: "hidden",
+                      position: "relative",
+                      background: "white",
+                      boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={card.thumb}
+                      alt={card.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        transition: "transform 0.4s ease",
+                      }}
+                    />
+
+                    {/* Arrow button overlay */}
+                    <div
+                      className="on-camera-arrow-btn"
+                      style={{
+                        position: "absolute",
+                        bottom: 14,
+                        right: 14,
+                        width: 44,
+                        height: 44,
+                        borderRadius: "50%",
+                        background: "white",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+                        transition: "all 0.2s ease",
+                      }}
+                    >
+                      <svg
+                        className="on-camera-arrow-svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#22332C"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        style={{ transition: "stroke 0.2s ease" }}
+                      >
+                        <path d="M7 17L17 7M7 7h10v10" />
+                      </svg>
+                    </div>
+                  </a>
                 </div>
-              </div>
+              </AnimateIn>
             ))}
           </div>
+
+          {/* Bottom rule below the grid */}
+          <div style={{ width: "100%", height: 1, background: "#DDD3BF" }} />
         </div>
       </section>
 
       {/* SECTION 6 — PROCESS */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+      <section style={{ background: "#F3ECDD", padding: "100px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>05 · How I think</p>
+            <p
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: 11,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: "#EA6A47",
+                marginBottom: 20,
+              }}
+            >
+              05 · How I think
+            </p>
           </AnimateIn>
           <AnimateIn delay={80}>
             <h2
               style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                color: "var(--ink)",
-                fontWeight: 700,
-                marginBottom: "0.75rem",
+                fontFamily: "var(--font-inter-tight), sans-serif",
+                fontSize: 52,
+                color: "#22332C",
+                fontWeight: 900,
+                marginBottom: 16,
               }}
             >
               Clarity is step zero.
@@ -1884,224 +2242,465 @@ export default function Home() {
           <AnimateIn delay={150}>
             <p
               style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1rem",
-                color: "var(--muted)",
-                marginBottom: "3rem",
-                maxWidth: 520,
+                fontFamily: "var(--font-fraunces), serif",
+                fontSize: 16,
+                color: "rgba(34,51,44,0.7)",
+                lineHeight: 1.7,
+                opacity: 1,
+                maxWidth: 440,
+                marginBottom: 48,
               }}
             >
               Most &apos;automation&apos; projects fail before a single tool is opened. This is the order that doesn&apos;t.
             </p>
           </AnimateIn>
 
-          {/* Steps row */}
+          {/* Animated chart */}
+          <AnimateIn delay={220}>
+            <HowThinkChart />
+          </AnimateIn>
+
+          {/* Steps */}
           <div
+            className="think-steps-grid"
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gap: "1.5rem",
-              alignItems: "start",
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              gap: 0,
+              borderTop: "1px solid #DDD3BF",
+              borderBottom: "1px solid #DDD3BF",
             }}
-            className="grid-cols-1 md:grid-cols-4"
           >
-            {processSteps.map((step, i) => (
-              <AnimateIn key={step.num} delay={i * 120}>
-                <div style={{ position: "relative" }}>
-                  {/* Arrow connector (desktop) */}
-                  {i < processSteps.length - 1 && (
-                    <div
-                      className="hidden md:block"
-                      style={{
-                        position: "absolute",
-                        right: -20,
-                        top: "1.25rem",
-                        color: "var(--faint)",
-                        fontSize: "1.1rem",
-                        fontWeight: 300,
-                        zIndex: 1,
-                      }}
-                    >
-                      →
-                    </div>
-                  )}
+            {processSteps.map((step, i) => {
+              const isLast = i === processSteps.length - 1;
+              return (
+                <AnimateIn key={step.num} delay={i * 80}>
                   <div
+                    className="think-step-col"
                     style={{
-                      background: "#fff",
-                      border: "1px solid var(--line)",
-                      borderRadius: 12,
-                      padding: "1.75rem",
+                      borderRight: isLast ? "none" : "1px solid #DDD3BF",
+                      padding: "32px 28px 40px",
                     }}
                   >
-                    <span
+                    <div
                       style={{
-                        fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "1.8rem",
-                        fontWeight: 600,
-                        color: "var(--coral)",
-                        opacity: 0.4,
-                        display: "block",
-                        marginBottom: "0.75rem",
-                        lineHeight: 1,
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        marginBottom: 12,
                       }}
                     >
-                      {step.num}
-                    </span>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-geist-mono), monospace",
+                          fontSize: 13,
+                          color: "rgba(34,51,44,0.5)",
+                          fontWeight: 500,
+                        }}
+                      >
+                        {step.num}
+                      </span>
+                      <StepIcon index={i} />
+                    </div>
                     <h3
                       style={{
-                        fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.1rem",
-                        color: "var(--ink)",
-                        fontWeight: 700,
-                        marginBottom: "0.65rem",
+                        fontFamily: "var(--font-fraunces), serif",
+                        fontSize: 20,
+                        fontWeight: 800,
+                        color: "#22332C",
+                        marginBottom: 10,
+                        lineHeight: 1.25,
                       }}
                     >
                       {step.title}
                     </h3>
                     <p
                       style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.875rem",
-                        color: "var(--body)",
+                        fontSize: 14,
+                        color: "rgba(34,51,44,0.75)",
                         lineHeight: 1.7,
+                        fontFamily: "inherit",
                       }}
                     >
                       {step.body}
                     </p>
                   </div>
-                  {/* Arrow (mobile) */}
-                  {i < processSteps.length - 1 && (
-                    <div
-                      className="flex md:hidden justify-center"
-                      style={{ padding: "0.75rem 0", color: "var(--faint)", fontSize: "1rem" }}
-                    >
-                      ↓
-                    </div>
-                  )}
-                </div>
-              </AnimateIn>
-            ))}
+                </AnimateIn>
+              );
+            })}
           </div>
+
+          {/* Closing line */}
+          <AnimateIn delay={480}>
+            <p
+              style={{
+                marginTop: 60,
+                paddingTop: 40,
+                borderTop: "1px solid #DDD3BF",
+                textAlign: "left",
+                fontSize: 18,
+                fontWeight: 700,
+                fontStyle: "italic",
+                color: "rgba(34,51,44,0.7)",
+                fontFamily: "var(--font-inter-tight), serif",
+              }}
+            >
+              In that order. Every time.
+            </p>
+          </AnimateIn>
         </div>
       </section>
 
       {/* SECTION 7 — ROUTES */}
-      <section style={{ padding: "5rem 0" }}>
+      <section style={{ background: "#F3ECDD", padding: "100px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>06 · Working with me</p>
+            <p
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "0.72rem",
+                color: "#EA6A47",
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                marginBottom: "1rem",
+              }}
+            >
+              06 · Working with me
+            </p>
           </AnimateIn>
           <AnimateIn delay={80}>
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                color: "var(--ink)",
-                fontWeight: 700,
-                marginBottom: "2.5rem",
+                fontSize: 48,
+                color: "#22332C",
+                fontWeight: 900,
+                marginBottom: 16,
               }}
             >
               How people work with me.
             </h2>
           </AnimateIn>
 
-          <AnimateIn delay={150}>
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.5rem" }}>
-              <span
-                style={{
-                  width: 8, height: 8, borderRadius: 1,
-                  background: "var(--amber)", flexShrink: 0,
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.72rem",
-                  color: "var(--muted)",
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Switch — pick a branch
-              </span>
-            </div>
+          <AnimateIn delay={130}>
+            <p
+              style={{
+                fontFamily: "inherit",
+                fontSize: 16,
+                color: "rgba(34,51,44,0.6)",
+                letterSpacing: "0.04em",
+                marginBottom: 56,
+              }}
+            >
+              Four ways in. Pick the one that fits.
+            </p>
           </AnimateIn>
 
-          <div className="flex flex-col">
-            {routes.map((route, i) => (
-              <AnimateIn key={route.title} delay={200 + i * 80}>
-                <Link
-                  href={route.href}
-                  style={{ textDecoration: "none" }}
-                  onMouseEnter={() => setHoveredRoute(i)}
-                  onMouseLeave={() => setHoveredRoute(null)}
-                >
-                  <div
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {/* ROW 1 — Consulting featured */}
+            <AnimateIn delay={200}>
+              <div
+                className="route-hero"
+                style={{
+                  background: "#22332C",
+                  borderRadius: 20,
+                  padding: "48px 52px",
+                  display: "grid",
+                  gridTemplateColumns: "1fr auto",
+                  gap: 48,
+                  alignItems: "center",
+                }}
+              >
+                <div>
+                  <span
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      padding: "1.5rem 1rem 1.5rem 1.5rem",
-                      borderLeft: "2px solid",
-                      borderLeftColor: hoveredRoute === i ? "var(--coral)" : "var(--line)",
-                      borderBottom: "1px solid var(--line)",
-                      transition: "all 0.2s var(--ease)",
-                      transform: hoveredRoute === i ? "translateX(6px)" : "none",
-                      gap: "1rem",
+                      display: "inline-block",
+                      background: "rgba(234,106,71,0.15)",
+                      color: "#EA6A47",
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 10,
+                      padding: "4px 12px",
+                      borderRadius: 4,
+                      letterSpacing: "0.1em",
+                      width: "fit-content",
+                      marginBottom: 16,
                     }}
                   >
-                    <div>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-playfair), serif",
-                          fontSize: "1.1rem",
-                          color: "var(--ink)",
-                          fontWeight: 600,
-                          marginBottom: "0.25rem",
-                        }}
-                      >
-                        {route.title}
-                      </p>
-                      <p
-                        style={{
-                          fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "0.875rem",
-                          color: "var(--muted)",
-                        }}
-                      >
-                        {route.sub}
-                      </p>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
-                      {route.rightLabel && (
-                        <span
-                          style={{
-                            fontFamily: "var(--font-dm-mono), monospace",
-                            fontSize: "0.72rem",
-                            color: "var(--coral)",
-                            letterSpacing: "0.06em",
-                          }}
-                        >
-                          {route.rightLabel}
-                        </span>
-                      )}
-                      <span
-                        style={{
-                          fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "0.875rem",
-                          fontWeight: 600,
-                          color: hoveredRoute === i ? "var(--coral)" : "var(--muted)",
-                          transition: "color 0.2s ease",
-                        }}
-                      >
-                        Details →
-                      </span>
-                    </div>
+                    1:1 ADVISORY
+                  </span>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontSize: 32,
+                      fontWeight: 800,
+                      color: "#F3ECDD",
+                      marginBottom: 10,
+                    }}
+                  >
+                    Consulting & coaching
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: 15,
+                      color: "rgba(243,236,221,0.7)",
+                      lineHeight: 1.7,
+                      maxWidth: 520,
+                    }}
+                  >
+                    1:1 advisory and fractional product / ops for early-stage teams. I come in, we get clear, we build the system.
+                  </p>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 16 }}>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 22,
+                      fontWeight: 700,
+                      color: "#F3ECDD",
+                    }}
+                  >
+                    From $160 / hr
+                  </p>
+                  <Link href="/services/consulting" className="route-hero-btn">
+                    Book a call
+                  </Link>
+                </div>
+              </div>
+            </AnimateIn>
+
+            {/* ROW 2 — 3 columns */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+              {/* CARD A — A system built for you */}
+              <AnimateIn delay={280}>
+                <div
+                  className="route-card"
+                  style={{
+                    background: "#fff",
+                    border: "1.5px solid #DDD3BF",
+                    borderRadius: 16,
+                    padding: "32px 28px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    height: "100%",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "rgba(34,51,44,0.06)",
+                      border: "1px solid rgba(34,51,44,0.1)",
+                      color: "#22332C",
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 10,
+                      padding: "4px 10px",
+                      borderRadius: 4,
+                      width: "fit-content",
+                    }}
+                  >
+                    FULL BUILD
+                  </span>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontSize: 20,
+                      fontWeight: 800,
+                      color: "#22332C",
+                    }}
+                  >
+                    A system built for you
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: 14,
+                      color: "rgba(34,51,44,0.72)",
+                      lineHeight: 1.65,
+                      flexGrow: 1,
+                    }}
+                  >
+                    Custom AI automations, end-to-end. That's what Soch does.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: "#22332C",
+                    }}
+                  >
+                    Via Soch
+                  </p>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <Link
+                      href="https://withsoch.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="route-mini-btn-solid"
+                    >
+                      Soch ↗
+                    </Link>
+                    <Link href="/services/projects" className="route-mini-btn-outline">
+                      Details
+                    </Link>
                   </div>
-                </Link>
+                </div>
               </AnimateIn>
-            ))}
+
+              {/* CARD B — Speaking & workshops */}
+              <AnimateIn delay={360}>
+                <div
+                  className="route-card"
+                  style={{
+                    background: "#fff",
+                    border: "1.5px solid #DDD3BF",
+                    borderRadius: 16,
+                    padding: "32px 28px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    height: "100%",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "rgba(34,51,44,0.06)",
+                      border: "1px solid rgba(34,51,44,0.1)",
+                      color: "#22332C",
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 10,
+                      padding: "4px 10px",
+                      borderRadius: 4,
+                      width: "fit-content",
+                    }}
+                  >
+                    LIVE & IN-PERSON
+                  </span>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontSize: 20,
+                      fontWeight: 800,
+                      color: "#22332C",
+                    }}
+                  >
+                    Speaking & workshops
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: 14,
+                      color: "rgba(34,51,44,0.72)",
+                      lineHeight: 1.65,
+                      flexGrow: 1,
+                    }}
+                  >
+                    Talks and workshops on AI leverage and operator thinking. Four continents so far.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: "#22332C",
+                    }}
+                  >
+                    Let's talk
+                  </p>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <Link href="/services/speaking" className="route-mini-btn-solid">
+                      Details
+                    </Link>
+                  </div>
+                </div>
+              </AnimateIn>
+
+              {/* CARD C — Just want to learn? */}
+              <AnimateIn delay={440}>
+                <div
+                  className="route-card-dark"
+                  style={{
+                    background: "#22332C",
+                    border: "none",
+                    borderRadius: 16,
+                    padding: "32px 28px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    height: "100%",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "rgba(74,222,128,0.1)",
+                      border: "none",
+                      color: "#4ADE80",
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 10,
+                      padding: "4px 10px",
+                      borderRadius: 4,
+                      width: "fit-content",
+                    }}
+                  >
+                    FREE
+                  </span>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontSize: 20,
+                      fontWeight: 800,
+                      color: "#F3ECDD",
+                    }}
+                  >
+                    Just want to learn?
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-dm-sans), sans-serif",
+                      fontSize: 14,
+                      color: "rgba(243,236,221,0.7)",
+                      lineHeight: 1.65,
+                      flexGrow: 1,
+                    }}
+                  >
+                    I write about automation and AI every week. Notes from the actual work, not theory.
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: "#4ADE80",
+                    }}
+                  >
+                    Free. Always.
+                  </p>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <Link href="/blog" className="route-mini-btn-ghost">
+                      Start reading
+                    </Link>
+                  </div>
+                </div>
+              </AnimateIn>
+            </div>
           </div>
+
+          <p
+            style={{
+              marginTop: 24,
+              textAlign: "center",
+              fontFamily: "var(--font-geist-mono), monospace",
+              fontSize: 11,
+              color: "rgba(34,51,44,0.35)",
+              letterSpacing: "0.06em",
+            }}
+          >
+            Heavy build work → Soch. This site is the person and the thinking.
+          </p>
         </div>
       </section>
 
@@ -2109,130 +2708,59 @@ export default function Home() {
       <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <div className="chat-card">
-              {/* Left col — circular photo + badge */}
-              <div className="chat-card-photo-col">
+            <div className="chat-hayat-card">
+              {/* Left col — photo + badge */}
+              <div className="chat-hayat-photo-col">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={PORTRAIT_URL}
+                  src="/Photos/riz-vespa.jpg"
                   alt="Rizwan Mahmood"
-                  style={{
-                    width: 220,
-                    height: 220,
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    objectPosition: "top center",
-                    border: "4px solid #ffffff",
-                    boxShadow: "0 8px 32px rgba(0,0,0,0.18)",
-                    display: "block",
-                  }}
+                  className="chat-hayat-photo"
                 />
                 {/* Available badge */}
-                <div
-                  style={{
-                    background: "#ffffff",
-                    borderRadius: 100,
-                    padding: "8px 16px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    whiteSpace: "nowrap",
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
-                    marginTop: 16,
-                  }}
-                >
-                  <span style={{ position: "relative", width: 10, height: 10, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                    <span className="ping-ring" style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#22C55E", opacity: 0.5 }} />
-                    <span style={{ position: "relative", width: 10, height: 10, borderRadius: "50%", background: "#22C55E", display: "block" }} />
-                  </span>
-                  <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "0.8rem", fontWeight: 600, color: "var(--ink)" }}>
-                    Available this week
-                  </span>
+                <div className="chat-hayat-badge">
+                  <span className="chat-hayat-dot" />
+                  Available this week
                 </div>
               </div>
 
               {/* Right col — content */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", flex: 1 }}>
+              <div>
                 {/* Pill label */}
-                <div>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      background: "#22332C",
-                      color: "#ffffff",
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.68rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      borderRadius: 100,
-                      padding: "6px 14px",
-                    }}
-                  >
-                    Direct Line
-                  </span>
-                </div>
+                <span className="chat-hayat-label">Direct Line</span>
 
                 {/* Heading */}
-                <h2
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(2rem, 3.5vw, 3rem)",
-                    color: "#22332C",
-                    fontWeight: 700,
-                    lineHeight: 1.2,
-                    margin: 0,
-                  }}
-                >
+                <h2 className="chat-hayat-heading">
                   Have a chat{" "}
-                  <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me?</span>
+                  <span className="chat-hayat-heading-accent">with me?</span>
                 </h2>
 
                 {/* Subtext */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1rem",
-                    color: "#4A4A4A",
-                    lineHeight: 1.75,
-                    margin: 0,
-                    maxWidth: 440,
-                  }}
-                >
+                <p className="chat-hayat-desc">
                   Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
                 </p>
 
                 {/* Buttons */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem" }}>
-                  <Link href="/services/consulting" className="chat-btn-primary">
+                <div className="chat-hayat-buttons">
+                  <Link href="/services/consulting" className="chat-hayat-btn-primary">
                     Book a call →
                   </Link>
                   <a
                     href="https://claude.ai"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="chat-btn-secondary"
+                    className="chat-hayat-btn-secondary"
                   >
                     Ask Claude about Riz →
                   </a>
                 </div>
+
+                {/* Bottom credit */}
+                <p className="chat-hayat-credit">
+                  Rizwan Mahmood · Operator and AI Builder
+                </p>
               </div>
             </div>
-
-            {/* Caption */}
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "0.8rem",
-                color: "var(--muted)",
-                textAlign: "center",
-                marginTop: "1.5rem",
-                letterSpacing: "0.04em",
-                fontStyle: "italic",
-              }}
-            >
-              Rizwan Mahmood · Operator and AI Builder
-            </p>
           </AnimateIn>
         </div>
       </section>

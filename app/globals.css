@@ -68,6 +68,10 @@ p, li, td, th, label, input, textarea, select {
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
 }
 
+.subheading {
+  font-family: var(--font-fraunces), serif;
+}
+
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.4); }
@@ -200,6 +204,17 @@ p, li, td, th, label, input, textarea, select {
   color: var(--coral);
 }
 
+/* ============================================================
+   GLOBAL TEXT VISIBILITY RULE
+   Body text / descriptions / subtitles — baseline readability
+   ============================================================ */
+.text-body {
+  color: rgba(34,51,44,0.75);
+  font-size: 15px;
+  line-height: 1.7;
+  opacity: 1;
+}
+
 .tag-pill {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -216,6 +231,35 @@ p, li, td, th, label, input, textarea, select {
 @media (max-width: 767px) {
   .about-hero-grid {
     grid-template-columns: 1fr !important;
+  }
+}
+
+.think-step-col {
+  transition: background 0.2s ease;
+}
+
+.think-step-col:hover {
+  background: rgba(234, 106, 71, 0.02);
+}
+
+@keyframes think-chart-pulse {
+  0%, 100% { r: 10; opacity: 1; }
+  50% { r: 14; opacity: 0.6; }
+}
+
+.think-chart-pulse {
+  animation: think-chart-pulse 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@media (max-width: 767px) {
+  .think-steps-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .think-step-col {
+    border-right: none !important;
+    border-bottom: 1px solid #DDD3BF;
   }
 }
 

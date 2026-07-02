@@ -1,486 +1,629 @@
 "use client";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
 
-const chips = [
+const pills = [
   "Cambridge", "Careem", "Bolt", "Wise", "Tallinn", "Anthropic Partner",
 ];
 
-const principles = [
+const timeline = [
   {
-    title: "Clarity first",
-    body: "I don't touch tools until the problem is clear. Most projects fail here — not in execution.",
+    year: "2013",
+    company: "Cambridge",
+    body: "Read Economics. Learned how systems break before they scale. First time I understood that clarity precedes everything else.",
+    active: false,
   },
   {
-    title: "Build to own",
-    body: "No lock-in. No dependency on me. You get the system, the docs, and the ability to run it yourself.",
+    year: "2015",
+    company: "Careem",
+    body: "Joined as one of the early ops hires. Scaled courier operations across multiple cities. Saved $3.9M in costs. Learned what real scale feels like.",
+    active: false,
   },
   {
-    title: "Operator, not theorist",
-    body: "Ten years of actual operations. I know what breaks at scale because I've watched it break.",
+    year: "2018",
+    company: "Wise",
+    body: "Ran operations for payments infrastructure. Achieved 92% straight-through processing. First time I saw automation done right.",
+    active: false,
   },
   {
-    title: "Taste matters",
-    body: "The systems I build are ones I'd want to use. That's not a soft thing — it's quality control.",
+    year: "2021",
+    company: "Bolt",
+    body: "Scaled across 4 markets. Won a wrongful termination case and published every document publicly. Some lessons cost more than others.",
+    active: false,
+  },
+  {
+    year: "2023",
+    company: "Tallinn",
+    body: "Landed in Estonia and stayed. Building toward citizenship. Learning Estonian. Running Soch with two people I trust.",
+    active: false,
+  },
+  {
+    year: "2024",
+    company: "Now",
+    body: "Building AI systems for founders who want to think clearly first, then automate. Recording a podcast. Shipping things I have no business building.",
+    active: true,
   },
 ];
 
-const socials = [
+const trackRecordStats = [
   {
-    label: "LinkedIn",
-    channel: "Riz",
-    description: "Weekly systems thinking for operators.",
-    href: "https://linkedin.com/in/riz",
-    icon: (
-      <svg viewBox="0 0 24 24" width={26} height={26} fill="#0077B5" aria-hidden="true">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-      </svg>
-    ),
+    target: 3.9,
+    prefix: "$",
+    suffix: "M",
+    decimals: 1,
+    label: "COURIER COSTS SAVED",
+    context: "Careem · Operations",
+    delay: "0s",
   },
   {
-    label: "YouTube",
-    channel: "Rizwan talks",
-    description: "Breakdowns, keynotes, and n8n builds.",
-    href: "https://youtube.com/@riz",
-    icon: (
-      <svg viewBox="0 0 24 24" width={26} height={26} fill="#FF0000" aria-hidden="true">
-        <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-      </svg>
-    ),
+    target: 92,
+    prefix: "",
+    suffix: "%",
+    decimals: 0,
+    label: "STRAIGHT-THROUGH PROCESSING",
+    context: "Wise · Finance",
+    delay: "0.5s",
   },
   {
-    label: "Instagram",
-    channel: "@riz.ai",
-    description: "Behind the automations.",
-    href: "https://instagram.com/riz.ai",
-    icon: (
-      <svg viewBox="0 0 24 24" width={26} height={26} fill="#C13584" aria-hidden="true">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-      </svg>
-    ),
+    target: 20,
+    prefix: "",
+    suffix: "s",
+    decimals: 0,
+    label: "DISPATCH TIME (WAS 3 MIN)",
+    context: "Careem · Logistics",
+    delay: "1s",
   },
   {
-    label: "Substack",
-    channel: "Systematic thinking",
-    description: "Long-form essays on AI and ops.",
-    href: "https://riz.substack.com",
-    icon: (
-      <svg viewBox="0 0 24 24" width={26} height={26} fill="#FF6719" aria-hidden="true">
-        <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Podcast",
-    channel: "The Riz Podcast",
-    description: "Conversations with builders.",
-    href: "#",
-    icon: (
-      <svg viewBox="0 0 24 24" width={26} height={26} fill="#8B5CF6" aria-hidden="true">
-        <path d="M12 1a4 4 0 014 4v6a4 4 0 01-8 0V5a4 4 0 014-4zm0 2a2 2 0 00-2 2v6a2 2 0 004 0V5a2 2 0 00-2-2zm6.5 6a1 1 0 011 1 7.5 7.5 0 01-15 0 1 1 0 112 0 5.5 5.5 0 0011 0 1 1 0 011-1zm-6.5 9a1 1 0 011 1v2h2a1 1 0 010 2H9a1 1 0 010-2h2v-2a1 1 0 011-1z" />
-      </svg>
-    ),
-  },
-  {
-    label: "Twitter / X",
-    channel: "@rizwanjavaid",
-    description: "Raw thoughts, faster.",
-    href: "https://twitter.com/rizwanjavaid",
-    icon: (
-      <svg viewBox="0 0 24 24" width={26} height={26} fill="#000" aria-hidden="true">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
+    target: 4,
+    prefix: "",
+    suffix: "",
+    decimals: 0,
+    label: "MARKETS SCALED",
+    context: "Bolt · Expansion",
+    delay: "1.5s",
   },
 ];
+
+const lessons = [
+  {
+    title: "Clarity before tools.",
+    body: "Every failed automation I've seen started with the wrong question. Fix the thinking first.",
+  },
+  {
+    title: "The bottleneck is usually the process.",
+    body: "Not the people. Not the tools. The process nobody wants to admit is broken.",
+  },
+  {
+    title: "Ship it, then improve it.",
+    body: "The best system is the one that runs. Perfect is the enemy of shipped.",
+  },
+  {
+    title: "Document everything.",
+    body: "The Bolt case taught me this the hard way. Write it down. Every time.",
+  },
+  {
+    title: "Automation amplifies what's already there.",
+    body: "Good thinking gets better. Muddled thinking gets louder. Choose which one to scale.",
+  },
+  {
+    title: "The human still matters.",
+    body: "The best automation I've built makes the human more human — not less necessary.",
+  },
+];
+
+function TimelineItem({
+  children,
+  index,
+}: {
+  children: ReactNode;
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateX(0)" : "translateX(-16px)",
+        transition: `opacity 0.5s ease ${index * 0.15}s, transform 0.5s ease ${index * 0.15}s`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function StatRow({
+  stat,
+  trigger,
+}: {
+  stat: (typeof trackRecordStats)[number];
+  trigger: boolean;
+}) {
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!trigger) return;
+    const duration = 2000;
+    let start: number | undefined;
+    let raf: number;
+
+    function tick(ts: number) {
+      if (start === undefined) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(stat.target * eased);
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    }
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [trigger, stat.target]);
+
+  return (
+    <div
+      style={{
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        padding: "20px 0",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <span
+        style={{
+          fontSize: 32,
+          fontWeight: 900,
+          fontFamily: "inherit",
+          background: "linear-gradient(90deg, #F3ECDD, #EA6A47, #D79A36, #F3ECDD)",
+          backgroundSize: "300% auto",
+          WebkitBackgroundClip: "text",
+          backgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          animation: "statGradient 4s linear infinite",
+          animationDelay: stat.delay,
+        }}
+      >
+        {stat.prefix}
+        {display.toFixed(stat.decimals)}
+        {stat.suffix}
+      </span>
+      <span style={{ textAlign: "right" }}>
+        <span
+          style={{
+            display: "block",
+            fontFamily: "var(--font-geist-mono), monospace",
+            fontSize: 10,
+            letterSpacing: "0.1em",
+            color: "rgba(243,236,221,0.5)",
+            textTransform: "uppercase",
+            lineHeight: 1.4,
+          }}
+        >
+          {stat.label}
+        </span>
+        <span
+          style={{
+            display: "block",
+            fontFamily: "var(--font-geist-mono), monospace",
+            fontSize: 9,
+            color: "rgba(243,236,221,0.4)",
+            letterSpacing: "0.08em",
+            marginTop: 2,
+          }}
+        >
+          {stat.context}
+        </span>
+      </span>
+    </div>
+  );
+}
+
+function TrackRecordPanel() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        background: "#22332C",
+        borderRadius: 20,
+        padding: "40px 36px",
+      }}
+    >
+      <p
+        style={{
+          fontFamily: "var(--font-geist-mono), monospace",
+          fontSize: 11,
+          color: "#EA6A47",
+          letterSpacing: "0.12em",
+          marginBottom: 32,
+        }}
+      >
+        TRACK RECORD
+      </p>
+
+      {trackRecordStats.map((stat) => (
+        <StatRow key={stat.label} stat={stat} trigger={inView} />
+      ))}
+
+      <div
+        style={{
+          marginTop: 28,
+          paddingTop: 20,
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <p
+          style={{
+            fontSize: 14,
+            fontStyle: "italic",
+            color: "rgba(243,236,221,0.65)",
+            lineHeight: 1.7,
+            fontFamily: "inherit",
+            margin: 0,
+          }}
+        >
+          Ten years. Four companies. One consistent result.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function About() {
   return (
     <>
-      <style>{`
-        @keyframes termCursor {
-          0%, 100% { opacity: 1; }
-          50%       { opacity: 0; }
-        }
-        .term-cursor { animation: termCursor 1s ease infinite; }
-      `}</style>
-
       {/* HERO */}
-      <section style={{ paddingTop: 120, paddingBottom: 80 }}>
-        <div className="max-w-site">
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "2fr 3fr",
-              gap: "3.5rem",
-              alignItems: "stretch",
-            }}
-            className="about-hero-grid"
-          >
-            {/* Terminal block */}
+      <section style={{ background: "#F3ECDD", padding: "80px 0" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 64,
+            alignItems: "center",
+            maxWidth: 1200,
+            margin: "0 auto",
+            padding: "0 60px",
+          }}
+          className="about-hero-grid"
+        >
+          {/* Photo */}
+          <AnimateIn>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Photos/riz-lake.jpg"
+              alt="Rizwan Mahmood"
+              style={{
+                width: "100%",
+                height: "auto",
+                minHeight: 500,
+                maxHeight: 700,
+                objectFit: "cover",
+                objectPosition: "center 20%",
+                borderRadius: 20,
+                display: "block",
+              }}
+            />
+          </AnimateIn>
+
+          {/* Text */}
+          <div>
             <AnimateIn>
-              <div
+              <p
                 style={{
-                  background: "#22332C",
-                  borderRadius: 12,
-                  padding: "28px 32px",
-                  minHeight: 480,
-                  height: "100%",
-                  fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.78rem",
-                  lineHeight: 1.8,
-                  display: "flex",
-                  flexDirection: "column",
-                  boxSizing: "border-box",
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  fontSize: 11,
+                  color: "#EA6A47",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  marginBottom: 20,
                 }}
               >
-                {/* Traffic lights */}
-                <div style={{ display: "flex", gap: 8, marginBottom: 20 }}>
-                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#EA6A47", flexShrink: 0 }} />
-                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#D79A36", flexShrink: 0 }} />
-                  <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#4CAF50", flexShrink: 0 }} />
-                </div>
+                About Riz
+              </p>
+            </AnimateIn>
 
-                {/* Code lines */}
-                <div style={{ flex: 1 }}>
-                  <p style={{ color: "#D79A36", margin: 0 }}># Operator thinking, automated</p>
-                  <p style={{ margin: 0 }}>&nbsp;</p>
-                  <p style={{ margin: 0 }}>
-                    <span style={{ color: "#EA6A47" }}>trigger</span>
-                    <span style={{ color: "#F3ECDD" }}>: new_lead_from_linkedin</span>
-                  </p>
-                  <p style={{ margin: 0 }}>
-                    <span style={{ color: "#EA6A47" }}>enrich</span>
-                    <span style={{ color: "#F3ECDD" }}>: apify.scrape_profile()</span>
-                  </p>
-                  <p style={{ margin: 0 }}>
-                    <span style={{ color: "#EA6A47" }}>qualify</span>
-                    <span style={{ color: "#F3ECDD" }}>: claude.score(lead, rubric)</span>
-                  </p>
-                  <p style={{ color: "#D79A36", margin: 0 }}>if score &gt;= 8:</p>
-                  <p style={{ margin: 0 }}>
-                    <span style={{ color: "#F3ECDD" }}>&nbsp;&nbsp;</span>
-                    <span style={{ color: "#EA6A47" }}>route_to</span>
-                    <span style={{ color: "#F3ECDD" }}>: &ldquo;riz@withsoch.com&rdquo;</span>
-                  </p>
-                  <p style={{ margin: 0 }}>&nbsp;</p>
-                  <p style={{ color: "#4CAF50", margin: 0 }}>→ Running · 847 leads processed · 99% accuracy</p>
-                </div>
+            <AnimateIn delay={60}>
+              <h1
+                style={{
+                  fontFamily: "var(--font-inter-tight), sans-serif",
+                  fontSize: 52,
+                  fontWeight: 900,
+                  color: "#22332C",
+                  lineHeight: 1.1,
+                  marginBottom: 8,
+                }}
+              >
+                Operator. Builder.
+              </h1>
+            </AnimateIn>
 
-                {/* Blinking cursor */}
-                <span className="term-cursor" style={{ color: "#F3ECDD", marginTop: 8 }}>_</span>
+            <AnimateIn delay={120}>
+              <p
+                style={{
+                  fontFamily: "var(--font-fraunces), serif",
+                  fontSize: 24,
+                  fontWeight: 600,
+                  fontStyle: "italic",
+                  color: "#EA6A47",
+                  marginBottom: 32,
+                }}
+              >
+                Occasionally funny.
+              </p>
+            </AnimateIn>
+
+            <AnimateIn delay={180}>
+              <p
+                style={{
+                  fontFamily: "var(--font-inter-tight), sans-serif",
+                  fontSize: 17,
+                  color: "rgba(34,51,44,0.75)",
+                  lineHeight: 1.7,
+                  marginBottom: 20,
+                }}
+              >
+                Ten years running operations across four continents. Cambridge. ACCA. Careem. Bolt. Wise.
+              </p>
+            </AnimateIn>
+
+            <AnimateIn delay={240}>
+              <p
+                style={{
+                  fontFamily: "var(--font-inter-tight), sans-serif",
+                  fontSize: 17,
+                  color: "rgba(34,51,44,0.75)",
+                  lineHeight: 1.7,
+                  marginBottom: 20,
+                }}
+              >
+                Now in Tallinn, building AI and figuring out what actually changes when smart people get powerful tools.
+              </p>
+            </AnimateIn>
+
+            <AnimateIn delay={300}>
+              <p
+                style={{
+                  fontFamily: "var(--font-inter-tight), sans-serif",
+                  fontSize: 17,
+                  color: "rgba(34,51,44,0.75)",
+                  lineHeight: 1.7,
+                  marginBottom: 20,
+                }}
+              >
+                I run Soch with two people I trust, record a podcast from my apartment, and I&apos;m slowly wrestling Estonian into submission.
+              </p>
+            </AnimateIn>
+
+            <AnimateIn delay={360}>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "28px 0" }}>
+                {pills.map((pill) => (
+                  <span key={pill} className="about-pill">
+                    {pill}
+                  </span>
+                ))}
               </div>
             </AnimateIn>
 
-            {/* Text */}
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: "1.25rem" }}>
-              <AnimateIn>
-                <h1
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(2.2rem, 4vw, 3.2rem)",
-                    lineHeight: 1.15,
-                    color: "var(--ink)",
-                    fontWeight: 700,
-                    margin: 0,
-                  }}
-                >
-                  Operator. Builder.
-                </h1>
-              </AnimateIn>
-
-              <AnimateIn delay={80}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.3rem, 2.5vw, 1.6rem)",
-                    color: "var(--coral)",
-                    fontStyle: "italic",
-                    margin: 0,
-                    lineHeight: 1.3,
-                  }}
-                >
-                  Occasionally funny.
-                </p>
-              </AnimateIn>
-
-              <AnimateIn delay={160}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.05rem",
-                    color: "var(--body)",
-                    lineHeight: 1.75,
-                    margin: 0,
-                  }}
-                >
-                  Ten years running operations across four continents. Cambridge. ACCA. Careem. Bolt. Wise.
-                </p>
-              </AnimateIn>
-
-              <AnimateIn delay={240}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.05rem",
-                    color: "var(--body)",
-                    lineHeight: 1.75,
-                    margin: 0,
-                  }}
-                >
-                  Now in Tallinn, building AI and figuring out what actually changes when smart people get powerful tools.
-                </p>
-              </AnimateIn>
-
-              <AnimateIn delay={320}>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                  {chips.map((chip) => (
-                    <span
-                      key={chip}
-                      style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.8rem",
-                        fontWeight: 500,
-                        color: "var(--ink)",
-                        background: "#FAF6EF",
-                        border: "1px solid #E7E0D2",
-                        borderRadius: 999,
-                        padding: "5px 14px",
-                        letterSpacing: "0.01em",
-                      }}
-                    >
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </AnimateIn>
-
-              <AnimateIn delay={400}>
-                <Link href="/services" className="btn-coral" style={{ alignSelf: "flex-start" }}>
-                  See how I work →
-                </Link>
-              </AnimateIn>
-            </div>
+            <AnimateIn delay={420}>
+              <Link href="/services" className="about-cta">
+                Have a chat with me?
+              </Link>
+            </AnimateIn>
           </div>
         </div>
       </section>
 
-      {/* FIND ME ELSEWHERE */}
-      <section style={{ paddingBottom: "5rem" }}>
-        <div className="max-w-site">
+      {/* TIMELINE */}
+      <section
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 80,
+          alignItems: "start",
+          padding: "80px 60px",
+          background: "white",
+          maxWidth: 1200,
+          margin: "0 auto",
+        }}
+        className="longer-version-grid"
+      >
+        {/* LEFT — timeline */}
+        <div>
+          <AnimateIn>
+            <h2
+              style={{
+                fontFamily: "var(--font-fraunces), serif",
+                fontSize: 36,
+                fontWeight: 900,
+                color: "#22332C",
+                opacity: 1,
+                marginBottom: 48,
+              }}
+            >
+              The longer version.
+            </h2>
+          </AnimateIn>
+
+          {timeline.map((item, i) => (
+            <TimelineItem key={item.year} index={i}>
+              <div
+                style={{
+                  borderLeft: "2px solid #DDD3BF",
+                  paddingLeft: 28,
+                  marginBottom: 36,
+                  position: "relative",
+                }}
+              >
+                <span
+                  style={{
+                    position: "absolute",
+                    left: -5,
+                    top: 6,
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: item.active ? "#EA6A47" : "#DDD3BF",
+                  }}
+                />
+                <p
+                  style={{
+                    fontFamily: "var(--font-geist-mono), monospace",
+                    fontSize: 11,
+                    color: "#EA6A47",
+                    letterSpacing: "0.12em",
+                    marginBottom: 6,
+                    opacity: 1,
+                  }}
+                >
+                  {item.year}
+                </p>
+                <h3
+                  style={{
+                    fontFamily: "var(--font-fraunces), serif",
+                    fontSize: 18,
+                    fontWeight: 800,
+                    color: "#22332C",
+                    opacity: 1,
+                    marginBottom: 6,
+                  }}
+                >
+                  {item.company}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "inherit",
+                    fontSize: 14,
+                    color: "rgba(34,51,44,0.72)",
+                    opacity: 1,
+                    lineHeight: 1.7,
+                    margin: 0,
+                  }}
+                >
+                  {item.body}
+                </p>
+              </div>
+            </TimelineItem>
+          ))}
+        </div>
+
+        {/* RIGHT — animated stats panel */}
+        <div style={{ position: "sticky", top: 100 }} className="track-record-sticky">
+          <TrackRecordPanel />
+        </div>
+      </section>
+
+      {/* SECTION — OPERATOR NOTES */}
+      <section style={{ background: "#22332C", padding: "80px 60px" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <AnimateIn>
             <p
               style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.72rem",
-                fontWeight: 500,
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: 11,
+                color: "#EA6A47",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: "var(--muted)",
-                marginBottom: "0.75rem",
+                marginBottom: 20,
               }}
             >
-              05 · FIND ME ELSEWHERE
-            </p>
-            <h2
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                color: "var(--ink)",
-                fontWeight: 700,
-                marginBottom: "0.6rem",
-                lineHeight: 1.2,
-              }}
-            >
-              I show up in a few places.
-            </h2>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1rem",
-                color: "var(--body)",
-                marginBottom: "2.5rem",
-                lineHeight: 1.6,
-              }}
-            >
-              Talks, essays, breakdowns, and the occasional hot take. Pick your platform.
+              Operator Notes
             </p>
           </AnimateIn>
-        </div>
 
-        <div className="social-ticker-wrap">
-          <div className="social-ticker-track">
-            {[...socials, ...socials].map((s, i) => (
-              <a
-                key={`${s.label}-${i}`}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-ticker-card"
-              >
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                  <div>{s.icon}</div>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "1rem",
-                      color: "var(--muted)",
-                      lineHeight: 1,
-                    }}
-                  >
-                    ↗
-                  </span>
-                </div>
-                <div>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontWeight: 700,
-                      fontSize: "0.9rem",
-                      color: "var(--ink)",
-                      margin: 0,
-                      marginBottom: "0.15rem",
-                    }}
-                  >
-                    {s.label}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.72rem",
-                      color: "var(--muted)",
-                      margin: 0,
-                      marginBottom: "0.35rem",
-                    }}
-                  >
-                    {s.channel}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.8rem",
-                      color: "var(--body)",
-                      margin: 0,
-                      lineHeight: 1.45,
-                    }}
-                  >
-                    {s.description}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
+          <AnimateIn delay={60}>
+            <h2
+              style={{
+                fontFamily: "var(--font-inter-tight), sans-serif",
+                fontSize: 36,
+                fontWeight: 900,
+                color: "#F3ECDD",
+                marginBottom: 48,
+              }}
+            >
+              Things I&apos;ve learned the hard way.
+            </h2>
+          </AnimateIn>
 
-        <div className="max-w-site">
-          <p
+          <div
             style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "0.88rem",
-              fontStyle: "italic",
-              color: "var(--muted)",
-              textAlign: "center",
-              marginTop: "2rem",
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: 20,
             }}
+            className="lessons-grid"
           >
-            Or just reply to one of my Substack emails. That works too.
-          </p>
-        </div>
-      </section>
-
-      {/* COMPANY BANNER */}
-      <section style={{ background: "#22332C", padding: "5rem 0" }}>
-        <div className="max-w-site">
-          <div style={{ maxWidth: 600 }}>
-            <AnimateIn>
-              <h2
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                  color: "#fff",
-                  fontWeight: 700,
-                  marginBottom: "1rem",
-                }}
-              >
-                Working on something bigger?
-              </h2>
-            </AnimateIn>
-            <AnimateIn delay={100}>
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "1.05rem",
-                  color: "rgba(255,255,255,0.65)",
-                  lineHeight: 1.75,
-                  marginBottom: "2rem",
-                }}
-              >
-                Soch is my company. We build AI workflow systems for founders and ops teams.
-              </p>
-            </AnimateIn>
-            <AnimateIn delay={200}>
-              <a
-                href="https://withsoch.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-coral"
-              >
-                Visit Soch →
-              </a>
-            </AnimateIn>
-          </div>
-        </div>
-      </section>
-
-      {/* HOW I THINK ABOUT THE WORK */}
-      <section style={{ padding: "5rem 0" }}>
-        <div className="max-w-site">
-          <AnimateIn>
-            <h2
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                color: "var(--ink)",
-                fontWeight: 700,
-                marginBottom: "3rem",
-              }}
-            >
-              How I think about the work.
-            </h2>
-          </AnimateIn>
-          <div className="grid md:grid-cols-2 gap-5">
-            {principles.map((p, i) => (
-              <AnimateIn key={p.title} delay={i * 100}>
-                <div
-                  style={{
-                    border: "1px solid var(--line)",
-                    borderRadius: 12,
-                    padding: "2rem",
-                    background: "#fff",
-                    boxShadow: "var(--shadow)",
-                  }}
-                >
+            {lessons.map((lesson, i) => (
+              <AnimateIn key={lesson.title} delay={i * 80}>
+                <div className="lesson-card">
+                  <p
+                    style={{
+                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontSize: 11,
+                      color: "rgba(234,106,71,0.6)",
+                      marginBottom: 12,
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
                   <h3
                     style={{
-                      fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.2rem",
-                      color: "var(--ink)",
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontSize: 16,
                       fontWeight: 700,
-                      marginBottom: "0.75rem",
+                      color: "#F3ECDD",
+                      marginBottom: 8,
                     }}
                   >
-                    {p.title}
+                    {lesson.title}
                   </h3>
                   <p
                     style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.95rem",
-                      color: "var(--body)",
+                      fontFamily: "var(--font-inter-tight), sans-serif",
+                      fontSize: 14,
+                      color: "rgba(243,236,221,0.75)",
                       lineHeight: 1.7,
                       margin: 0,
                     }}
                   >
-                    {p.body}
+                    {lesson.body}
                   </p>
                 </div>
               </AnimateIn>
@@ -489,34 +632,237 @@ export default function About() {
         </div>
       </section>
 
-      {/* PULL QUOTE */}
-      <section
-        style={{
-          background: "var(--cream)",
-          borderTop: "1px solid var(--line)",
-          borderBottom: "1px solid var(--line)",
-          padding: "4rem 0",
-        }}
-      >
+      {/* SECTION — HAVE A CHAT */}
+      <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <div style={{ maxWidth: 680, margin: "0 auto", textAlign: "center", padding: "2rem" }}>
-              <p
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.3rem, 2.5vw, 1.65rem)",
-                  color: "var(--ink)",
-                  fontStyle: "italic",
-                  lineHeight: 1.65,
-                  margin: 0,
-                }}
-              >
-                &ldquo;I&apos;m not here to automate your job. I&apos;m here to automate the parts of it that are eating you alive.&rdquo;
-              </p>
+            <div className="chat-card">
+              {/* Left col — photo + badge */}
+              <div className="chat-card-photo-col" style={{ width: "100%", maxWidth: 320, flexShrink: 0 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/riz-photo-new.jpg"
+                  alt="Rizwan Mahmood"
+                  style={{
+                    width: "100%",
+                    height: 420,
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    borderRadius: 16,
+                    display: "block",
+                  }}
+                />
+                {/* Available badge */}
+                <div
+                  style={{
+                    background: "#ffffff",
+                    borderRadius: 100,
+                    padding: "8px 16px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 8,
+                    whiteSpace: "nowrap",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
+                    marginTop: 16,
+                  }}
+                >
+                  <span style={{ position: "relative", width: 10, height: 10, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                    <span className="ping-ring" style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#22C55E", opacity: 0.5 }} />
+                    <span style={{ position: "relative", width: 10, height: 10, borderRadius: "50%", background: "#22C55E", display: "block" }} />
+                  </span>
+                  <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "0.8rem", fontWeight: 600, color: "var(--ink)" }}>
+                    Available this week
+                  </span>
+                </div>
+              </div>
+
+              {/* Right col — content */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", flex: 1 }}>
+                {/* Pill label */}
+                <div>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      background: "#22332C",
+                      color: "#ffffff",
+                      fontFamily: "var(--font-dm-mono), monospace",
+                      fontSize: "0.68rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      borderRadius: 100,
+                      padding: "6px 14px",
+                    }}
+                  >
+                    Direct Line
+                  </span>
+                </div>
+
+                {/* Heading */}
+                <h2
+                  style={{
+                    fontFamily: "var(--font-playfair), serif",
+                    fontSize: "clamp(2rem, 3.5vw, 3rem)",
+                    color: "#22332C",
+                    fontWeight: 700,
+                    lineHeight: 1.2,
+                    margin: 0,
+                  }}
+                >
+                  Have a chat{" "}
+                  <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me?</span>
+                </h2>
+
+                {/* Subtext */}
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "1rem",
+                    color: "#4A4A4A",
+                    lineHeight: 1.75,
+                    margin: 0,
+                    maxWidth: 440,
+                  }}
+                >
+                  Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
+                </p>
+
+                {/* Buttons */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem" }}>
+                  <Link href="/services/consulting" className="chat-btn-primary">
+                    Book a call →
+                  </Link>
+                  <a
+                    href="https://claude.ai"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="chat-btn-secondary"
+                  >
+                    Ask Claude about Riz →
+                  </a>
+                </div>
+              </div>
             </div>
+
+            {/* Caption */}
+            <p
+              style={{
+                fontFamily: "var(--font-dm-sans), sans-serif",
+                fontSize: "0.8rem",
+                color: "var(--muted)",
+                textAlign: "center",
+                marginTop: "1.5rem",
+                letterSpacing: "0.04em",
+                fontStyle: "italic",
+              }}
+            >
+              Rizwan Mahmood · Operator and AI Builder
+            </p>
           </AnimateIn>
         </div>
       </section>
+
+      <style>{`
+        .chat-card {
+          display: flex;
+          align-items: center;
+          gap: 48px;
+          padding: 48px;
+        }
+        @media (max-width: 768px) {
+          .chat-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 32px;
+            padding: 40px 28px;
+          }
+          .chat-card-photo-col {
+            margin-left: 0;
+          }
+        }
+        .about-pill {
+          background: #fff;
+          border: 1.5px solid #DDD3BF;
+          color: #22332C;
+          padding: 6px 16px;
+          border-radius: 100px;
+          font-size: 13px;
+          font-weight: 500;
+          font-family: var(--font-inter-tight), sans-serif;
+          transition: border-color 0.2s;
+        }
+        .about-pill:hover {
+          background: linear-gradient(90deg, #22332C, #EA6A47, #D79A36, #22332C);
+          background-size: 300% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: pillFlow 3s linear infinite;
+          border-color: #EA6A47;
+        }
+        @keyframes pillFlow {
+          0% { background-position: 0% center; }
+          100% { background-position: 300% center; }
+        }
+        .about-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: #22332C;
+          color: #F3ECDD;
+          padding: 18px 40px;
+          border-radius: 8px;
+          font-size: 15px;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+          font-family: var(--font-inter-tight), sans-serif;
+          text-decoration: none;
+          width: fit-content;
+          transition: all 0.22s ease;
+        }
+        .about-cta:hover {
+          background: #EA6A47;
+          transform: translateY(-2px);
+        }
+        @media (max-width: 860px) {
+          .about-hero-grid {
+            grid-template-columns: 1fr !important;
+            padding: 0 24px !important;
+          }
+        }
+        .lesson-card {
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 12px;
+          padding: 28px 24px;
+          height: 100%;
+          transition: all 0.25s ease;
+        }
+        .lesson-card:hover {
+          background: rgba(255,255,255,0.08);
+          transform: translateY(-4px);
+        }
+        @media (max-width: 860px) {
+          .lessons-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @keyframes statGradient {
+          0% { background-position: 0% center; }
+          100% { background-position: 300% center; }
+        }
+        @media (max-width: 860px) {
+          .longer-version-grid {
+            grid-template-columns: 1fr !important;
+            padding: 60px 24px !important;
+            gap: 48px !important;
+          }
+          .track-record-sticky {
+            position: static !important;
+            top: auto !important;
+          }
+        }
+      `}</style>
     </>
   );
 }

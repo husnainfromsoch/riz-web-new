@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter_Tight, Geist_Mono } from "next/font/google";
+import { Inter_Tight, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -21,6 +21,14 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "600", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Rizwan Mahmood — Operator · Builder · Tallinn",
   description:
@@ -33,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${interTight.variable} ${geistMono.variable} h-full`}
+      className={`${interTight.variable} ${geistMono.variable} ${fraunces.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
         <AudioProvider>
