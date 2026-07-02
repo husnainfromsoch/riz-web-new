@@ -1114,82 +1114,151 @@ export default function Home() {
           margin-left: 4px;
         }
 
-        /* ===== SELECTED WORK — PROOF ROWS ===== */
-        .proof-row {
-          display: grid;
-          grid-template-columns: 60px 180px 1fr 1fr auto;
-          gap: 24px;
+        /* ===== SELECTED WORK — SYSTEM ROWS ===== */
+        .work-rows-list {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .work-rows-list::before {
+          content: '';
+          position: absolute;
+          left: 21px;
+          top: 30px;
+          bottom: 30px;
+          width: 2px;
+          background: linear-gradient(to bottom, rgba(193,122,90,0.4) 0%, rgba(193,122,90,0.05) 100%);
+          z-index: 0;
+        }
+        .work-row {
+          position: relative;
+          z-index: 1;
+          display: flex;
           align-items: center;
-          padding: 28px 0;
-          border-bottom: 1px solid #DDD3BF;
-          transition: background 0.2s ease, padding-left 0.2s ease;
-          cursor: pointer;
+          gap: 24px;
+          background: #fff;
+          border: 1px solid #DDD3BF;
+          border-radius: 16px;
+          padding: 22px 26px;
           text-decoration: none;
+          cursor: pointer;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
-        .proof-row:hover {
-          background: rgba(234,106,71,0.02);
-          padding-left: 8px;
+        .work-row:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 14px 36px rgba(34,51,44,0.10);
+          border-color: #EA6A47;
         }
-        .proof-row-num {
+        .work-row-badge {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          border: 1.5px solid #C17A5A;
+          background: var(--cream);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 12px;
-          color: #EA6A47;
-          letter-spacing: 0.1em;
+          font-size: 13px;
+          font-weight: 700;
+          color: #C17A5A;
+          transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
-        .proof-row-tag {
+        .work-row:hover .work-row-badge {
+          background: #EA6A47;
+          border-color: #EA6A47;
+          color: #fff;
+        }
+        .work-row-body {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          flex: 1 1 42%;
+          min-width: 0;
+        }
+        .work-row-tag {
+          display: inline-flex;
+          width: fit-content;
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 11px;
-          color: rgba(34,51,44,0.45);
+          font-size: 10.5px;
+          font-weight: 600;
           letter-spacing: 0.08em;
-          line-height: 1.4;
           text-transform: uppercase;
+          color: #EA6A47;
+          background: rgba(234,106,71,0.08);
+          padding: 3px 10px;
+          border-radius: 100px;
         }
-        .proof-row-title {
-          font-size: 20px;
+        .work-row-title {
+          font-family: var(--font-fraunces), serif;
+          font-size: 19px;
           font-weight: 800;
           color: #22332C;
-          font-family: var(--font-fraunces), serif;
+          line-height: 1.3;
         }
-        .proof-row-result {
+        .work-row-result {
+          font-family: inherit;
           font-size: 14px;
-          color: rgba(34,51,44,0.6);
+          color: rgba(34,51,44,0.62);
           line-height: 1.5;
+          flex: 1 1 30%;
+          min-width: 0;
         }
-        .proof-row-arrow {
+        .work-row-arrow {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: 1.5px solid #DDD3BF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
           color: #948D7E;
-          font-size: 16px;
-          transition: color 0.2s ease, transform 0.2s ease;
-          justify-self: end;
+          font-size: 15px;
+          transition: all 0.25s ease;
         }
-        .proof-row:hover .proof-row-arrow {
-          color: #EA6A47;
+        .work-row:hover .work-row-arrow {
+          background: #EA6A47;
+          border-color: #EA6A47;
+          color: #fff;
           transform: translate(2px, -2px);
         }
-        .view-all-link {
+        .work-view-all {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          margin-top: 32px;
-          font-size: 15px;
+          margin-top: 28px;
+          background: #22332C;
+          color: #F3ECDD;
+          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-size: 14px;
           font-weight: 600;
-          color: #22332C;
+          padding: 12px 26px;
+          border-radius: 100px;
           text-decoration: none;
-          border-bottom: 1.5px solid #DDD3BF;
-          padding-bottom: 2px;
-          transition: color 0.2s ease, border-color 0.2s ease;
+          transition: background 0.22s ease, transform 0.22s ease;
         }
-        .view-all-link:hover {
-          color: #EA6A47;
-          border-color: #EA6A47;
+        .work-view-all:hover {
+          background: #EA6A47;
+          transform: translateY(-2px);
         }
         @media (max-width: 640px) {
-          .proof-row {
-            grid-template-columns: 32px 1fr auto;
-            row-gap: 6px;
+          .work-rows-list::before {
+            display: none;
           }
-          .proof-row-tag,
-          .proof-row-result {
-            grid-column: 1 / -1;
+          .work-row {
+            position: relative;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 20px 20px 24px;
+          }
+          .work-row-arrow {
+            position: absolute;
+            top: 20px;
+            right: 20px;
           }
         }
       `}</style>
@@ -1921,7 +1990,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 4 — SELECTED WORK */}
-      <section style={{ background: "white", padding: "80px 0" }}>
+      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "80px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>03 · Selected work</p>
@@ -1963,27 +2032,29 @@ export default function Home() {
                 marginBottom: 52,
               }}
             >
-              Three builds. Real outcomes. No fluff.
+              Six systems. Real outcomes. No fluff.
             </p>
           </AnimateIn>
 
-          <div style={{ width: "100%", height: 1, background: "#DDD3BF" }} />
+          <div className="work-rows-list">
+            {selectedWorkRows.map((row, i) => (
+              <AnimateIn key={row.num} delay={i * 60}>
+                <Link href="/case-studies" className="work-row">
+                  <span className="work-row-badge">{row.num}</span>
+                  <span className="work-row-body">
+                    <span className="work-row-tag">{row.tag}</span>
+                    <span className="work-row-title">{row.title}</span>
+                  </span>
+                  <span className="work-row-result">{row.result}</span>
+                  <span className="work-row-arrow">↗</span>
+                </Link>
+              </AnimateIn>
+            ))}
+          </div>
 
-          {selectedWorkRows.map((row, i) => (
-            <AnimateIn key={row.num} delay={i * 60}>
-              <Link href="/case-studies" className="proof-row">
-                <span className="proof-row-num">{row.num}</span>
-                <span className="proof-row-tag">{row.tag}</span>
-                <span className="proof-row-title">{row.title}</span>
-                <span className="proof-row-result">{row.result}</span>
-                <span className="proof-row-arrow">↗</span>
-              </Link>
-            </AnimateIn>
-          ))}
-
-          <Link href="/case-studies" className="view-all-link">
-            <span>View all 20 case studies</span>
-            <span>→</span>
+          <Link href="/case-studies" className="work-view-all">
+            View all 20 case studies
+            <span aria-hidden="true">→</span>
           </Link>
         </div>
       </section>
@@ -2521,7 +2592,7 @@ export default function Home() {
                       flexGrow: 1,
                     }}
                   >
-                    Custom AI automations, end-to-end. That's what Soch does.
+                    Custom AI automations, end-to-end. That&apos;s what Soch does.
                   </p>
                   <p
                     style={{
@@ -2608,7 +2679,7 @@ export default function Home() {
                       color: "#22332C",
                     }}
                   >
-                    Let's talk
+                    Let&apos;s talk
                   </p>
                   <div style={{ display: "flex", gap: 8 }}>
                     <Link href="/services/speaking" className="route-mini-btn-solid">
