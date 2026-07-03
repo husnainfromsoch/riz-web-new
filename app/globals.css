@@ -23,6 +23,7 @@
   --foreground: var(--ink);
 
   /* Typography — remap legacy font variables to new system */
+  --font-inter-tight: var(--font-montserrat);
   --font-playfair: var(--font-inter-tight);
   --font-dm-sans: var(--font-inter-tight);
   --font-dm-mono: var(--font-geist-mono);
@@ -45,23 +46,26 @@ html {
 body {
   background: var(--bg);
   color: var(--body);
-  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   font-size: 16px;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
   color: var(--ink);
-  font-weight: 500;
+  font-weight: 900;
+  line-height: 1.05;
 }
 
-h1 { font-size: 80px; }
-h2 { font-size: 36px; }
+h1, h2 { font-size: clamp(36px, 5vw, 56px); }
+h3 { font-size: clamp(22px, 3vw, 32px); line-height: 1.4; }
 
 p, li, td, th, label, input, textarea, select {
-  font-size: max(16px, 1rem);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.7;
 }
 
 .font-mono-dm {
@@ -75,6 +79,11 @@ p, li, td, th, label, input, textarea, select {
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+@keyframes talkGradient {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 @keyframes shimmer {
@@ -162,8 +171,8 @@ p, li, td, th, label, input, textarea, select {
   padding: 0.75rem 1.75rem;
   border-radius: 8px;
   font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 800;
+  font-size: 16px;
   transition: background 0.2s ease;
   display: inline-block;
   text-decoration: none;
@@ -181,8 +190,8 @@ p, li, td, th, label, input, textarea, select {
   padding: 0.75rem 1.75rem;
   border-radius: 8px;
   font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 800;
+  font-size: 16px;
   border: 1.5px solid var(--line-2);
   transition: border-color 0.2s ease, color 0.2s ease;
   display: inline-block;
@@ -197,8 +206,8 @@ p, li, td, th, label, input, textarea, select {
 
 .section-eyebrow {
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--coral);
@@ -221,9 +230,9 @@ p, li, td, th, label, input, textarea, select {
   border-radius: 99px;
   background: var(--cream);
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 10px;
+  font-size: 13px;
   color: var(--muted);
-  font-weight: 500;
+  font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -235,11 +244,28 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .think-step-col {
-  transition: background 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .think-step-col:hover {
-  background: rgba(234, 106, 71, 0.02);
+  background: rgba(234, 106, 71, 0.06) !important;
+}
+
+.think-step-col:hover svg {
+  stroke: #EA6A47;
+}
+
+.think-step-title {
+  color: #F3ECDD;
+  transition: color 0.3s ease;
+}
+
+.think-step-col:hover .think-step-title {
+  color: #EA6A47;
+}
+
+.think-step-animate.animate-in {
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 @keyframes think-chart-pulse {
@@ -259,7 +285,7 @@ p, li, td, th, label, input, textarea, select {
 
   .think-step-col {
     border-right: none !important;
-    border-bottom: 1px solid #DDD3BF;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -377,8 +403,8 @@ p, li, td, th, label, input, textarea, select {
   background: #22332C;
   color: #ffffff;
   font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 800;
   padding: 14px 28px;
   border-radius: 50px;
   text-decoration: none;
@@ -397,8 +423,8 @@ p, li, td, th, label, input, textarea, select {
   background: transparent;
   color: var(--ink);
   font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 800;
   padding: 14px 28px;
   border-radius: 50px;
   border: 1.5px solid var(--line);
@@ -420,4 +446,112 @@ p, li, td, th, label, input, textarea, select {
 .portrait-wrapper:hover .hear-me-pill {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* ─── On Camera cards ─────────────────────────────────────────────────── */
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.oc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 767px) {
+  .oc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.oc-card {
+  opacity: 0;
+  background: white;
+  border: 1.5px solid #E8E0D4;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 12px rgba(34, 51, 44, 0.06);
+}
+
+.oc-card.oc-inview {
+  animation: cardEntrance 0.5s ease forwards;
+}
+
+.oc-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(34, 51, 44, 0.12);
+  border-color: #EA6A47;
+}
+
+.oc-thumb {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+}
+
+.oc-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: brightness(0.92);
+}
+
+.oc-card:hover .oc-thumb img {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+.oc-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  opacity: 0;
+}
+
+.oc-card:hover .oc-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.oc-watch {
+  transition: color 0.2s ease;
+}
+
+.oc-card:hover .oc-watch {
+  color: #EA6A47;
+}
+
+.oc-watch-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.oc-card:hover .oc-watch-arrow {
+  transform: translate(2px, -2px);
 }

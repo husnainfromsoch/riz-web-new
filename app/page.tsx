@@ -75,25 +75,184 @@ const onCameraCards = [
   {
     num: "01",
     href: "https://www.instagram.com/reel/DZx-_OHOqg4/",
-    thumb: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&q=80",
+    thumb: "/Photos/riz-restaurant.jpg",
     title: "The thesis",
     description: "AI doesn't fix bad thinking. It scales whatever you already have.",
   },
   {
     num: "02",
     href: "https://www.instagram.com/reel/DZr8EPSOkdB/",
-    thumb: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&q=80",
+    thumb: "/Photos/riz-lake.jpg",
     title: "Operator perspective",
     description: "How an operator thinks about building systems. A live breakdown.",
   },
   {
     num: "03",
     href: "https://www.instagram.com/reel/DXltD2Ujl5s/",
-    thumb: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=600&q=80",
+    thumb: "/Photos/riz-vespa.jpg",
     title: "Stand-up · The AI bit",
     description: "The bit about AI that landed. Live at the mic in Tallinn.",
   },
 ];
+
+// ─── ON CAMERA GRID (scroll-triggered entrance) ─────────────────────────────
+
+function OnCameraGrid() {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="oc-grid" ref={gridRef}>
+      {onCameraCards.map((card, i) => (
+        <a
+          key={card.href}
+          href={card.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`oc-card${inView ? " oc-inview" : ""}`}
+          style={{ animationDelay: `${i * 0.1}s` }}
+        >
+          <div className="oc-thumb">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={card.thumb} alt={card.title} />
+
+            {/* Gradient overlay */}
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "linear-gradient(to top, rgba(34,51,44,0.7) 0%, rgba(34,51,44,0.1) 40%, transparent 70%)",
+              }}
+            />
+
+            {/* Number badge */}
+            <span
+              style={{
+                position: "absolute",
+                top: 14,
+                left: 14,
+                background: "rgba(0,0,0,0.55)",
+                backdropFilter: "blur(8px)",
+                color: "white",
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "11px",
+                fontWeight: 600,
+                padding: "5px 10px",
+                borderRadius: 100,
+              }}
+            >
+              {card.num}
+            </span>
+
+            {/* Instagram badge */}
+            <span
+              style={{
+                position: "absolute",
+                top: 14,
+                right: 14,
+                background: "rgba(0,0,0,0.55)",
+                backdropFilter: "blur(8px)",
+                color: "white",
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "9px",
+                letterSpacing: "0.1em",
+                padding: "5px 10px",
+                borderRadius: 100,
+              }}
+            >
+              INSTAGRAM
+            </span>
+
+            {/* Play button */}
+            <div className="oc-play">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#22332C">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Bottom info */}
+          <div
+            style={{
+              padding: "20px 22px 24px",
+              display: "flex",
+              flexDirection: "column",
+              gap: 6,
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  fontSize: "10px",
+                  color: "#EA6A47",
+                  letterSpacing: "0.12em",
+                  fontWeight: 600,
+                }}
+              >
+                REEL
+              </span>
+              <span
+                className="oc-watch"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  fontSize: "11px",
+                  color: "rgba(34,51,44,0.4)",
+                  letterSpacing: "0.06em",
+                }}
+              >
+                Watch on Instagram <span className="oc-watch-arrow" style={{ fontSize: "14px", fontWeight: 700 }}>↗</span>
+              </span>
+            </div>
+
+            <p
+              style={{
+                fontSize: "18px",
+                fontWeight: 800,
+                color: "#22332C",
+                fontFamily: "var(--font-fraunces), serif",
+                lineHeight: 1.3,
+                marginTop: 4,
+              }}
+            >
+              {card.title}
+            </p>
+
+            <p
+              style={{
+                fontSize: "13px",
+                color: "rgba(34,51,44,0.6)",
+                lineHeight: 1.6,
+              }}
+            >
+              {card.description}
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+  );
+}
 
 // ─── PROCESS STEPS ──────────────────────────────────────────────────────────
 
@@ -254,62 +413,64 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
   const display = card.isFloat
     ? `${card.prefix}${value.toFixed(1)}${card.suffix}`
     : `${card.prefix}${Math.round(value)}${card.suffix}`;
+  const [labelDesc, labelCompany] = card.label.split("·").map((s) => s.trim());
   return (
     <div
       style={{
         background: "#ffffff",
-        border: `1px solid ${hovered ? "var(--coral)" : "var(--line)"}`,
+        border: `1px solid ${hovered ? "#EA6A47" : "#DDD3BF"}`,
         borderRadius: 16,
-        overflow: "hidden",
+        padding: "28px 24px",
         display: "flex",
         flexDirection: "column",
-        transition: "border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
+        gap: 8,
+        transition: "all 0.25s ease",
         transform: hovered ? "translateY(-3px)" : "none",
-        boxShadow: hovered ? "0 8px 24px rgba(234,106,71,0.12)" : "none",
+        boxShadow: hovered ? "0 8px 32px rgba(234,106,71,0.1)" : "none",
         cursor: "default",
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <div style={{ padding: "24px 24px 16px", flex: 1 }}>
-        <p style={{
-          fontFamily: "var(--font-dm-sans), sans-serif",
-          fontSize: 13,
-          fontWeight: 500,
-          color: "var(--muted)",
-          margin: "0 0 4px",
-        }}>
-          {card.verb}
-        </p>
-        <p style={{
-          fontFamily: "var(--font-bebas), var(--font-dm-sans), sans-serif",
-          fontSize: "clamp(52px, 6vw, 72px)",
-          color: "var(--ink)",
-          lineHeight: 1,
-          letterSpacing: "0.04em",
-          margin: 0,
-          opacity: visible ? 1 : 0,
-          transform: visible ? "translateY(0)" : "translateY(8px)",
-          transition: `opacity .4s ease ${index * 150}ms, transform .4s ease ${index * 150}ms`,
-        }}>
-          {display}
-        </p>
-      </div>
-      <div style={{
-        background: "#EDE8DF",
-        borderTop: "1px solid var(--line)",
-        padding: "14px 24px",
+      <p style={{
+        fontFamily: "var(--font-geist-mono), 'Geist Mono', monospace",
+        fontSize: 10,
+        color: "rgba(34,51,44,0.4)",
+        letterSpacing: "0.1em",
+        textTransform: "uppercase",
+        margin: 0,
       }}>
-        <p style={{
-          fontFamily: "var(--font-dm-sans), sans-serif",
-          fontSize: 13,
-          fontWeight: 600,
-          color: "var(--ink)",
-          margin: 0,
-        }}>
-          {card.label}
-        </p>
-      </div>
+        {card.verb}
+      </p>
+      <p style={{
+        fontSize: 52,
+        fontWeight: 900,
+        color: "#22332C",
+        lineHeight: 1,
+        margin: 0,
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(8px)",
+        transition: `opacity .4s ease ${index * 150}ms, transform .4s ease ${index * 150}ms`,
+        backgroundImage: "linear-gradient(135deg, #22332C 0%, #EA6A47 100%)",
+        backgroundSize: "200% auto",
+        WebkitBackgroundClip: "text",
+        backgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        animation: `numGradient 4s ease infinite alternate ${index * 0.5}s`,
+      }}>
+        {display}
+      </p>
+      <div style={{ width: 32, height: 2, background: "#EA6A47", borderRadius: 2, margin: "4px 0" }} />
+      <p style={{
+        fontSize: 13,
+        fontWeight: 500,
+        color: "rgba(34,51,44,0.7)",
+        lineHeight: 1.4,
+        margin: 0,
+      }}>
+        {labelDesc}
+        {labelCompany ? <> · <span style={{ color: "#EA6A47", fontWeight: 600 }}>{labelCompany}</span></> : null}
+      </p>
     </div>
   );
 }
@@ -360,33 +521,33 @@ function HowThinkChart() {
     <div ref={containerRef} style={{ height: 220, position: "relative", marginBottom: 0 }}>
       <svg viewBox="0 0 1200 220" width="100%" height="220" preserveAspectRatio="none" style={{ display: "block", overflow: "visible" }}>
         {[40, 80, 120, 160].map((y) => (
-          <line key={y} x1={0} y1={y} x2={1200} y2={y} stroke="rgba(34,51,44,0.06)" strokeWidth={1} />
+          <line key={y} x1={0} y1={y} x2={1200} y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth={1} />
         ))}
         {[300, 600, 900].map((x) => (
-          <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(34,51,44,0.06)" strokeWidth={1} strokeDasharray="4,4" />
+          <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(255,255,255,0.05)" strokeWidth={1} strokeDasharray="4,4" />
         ))}
-        <text x={0} y={16} fontFamily="var(--font-geist-mono), monospace" fontSize={11} fill="rgba(34,51,44,0.5)">
+        <text x={0} y={16} fontFamily="var(--font-geist-mono), monospace" fontSize={11} fill="rgba(243,236,221,0.3)">
           Clarity &amp; leverage, compounding →
         </text>
-        <text x={60} y={210} textAnchor="start" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(34,51,44,0.5)">
+        <text x={60} y={210} textAnchor="start" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(243,236,221,0.3)">
           Vague idea
         </text>
-        <text x={1140} y={210} textAnchor="end" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(34,51,44,0.5)">
+        <text x={1140} y={210} textAnchor="end" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(243,236,221,0.3)">
           Running system
         </text>
-        <path d={CHART_AREA_PATH} fill="rgba(234,106,71,0.06)" stroke="none" />
+        <path d={CHART_AREA_PATH} fill="rgba(234,106,71,0.08)" stroke="none" />
         <path ref={pathRef} d={CHART_LINE_PATH} fill="none" stroke="#EA6A47" strokeWidth={2.5} strokeLinecap="round" />
         {CHART_DOTS.map((d) => (
           <g key={d.label}>
-            <circle cx={d.cx} cy={d.cy} r={6} fill="white" stroke="#EA6A47" strokeWidth={2.5} />
-            <text x={d.cx} y={d.cy} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#22332C">
+            <circle cx={d.cx} cy={d.cy} r={6} fill="#22332C" stroke="#EA6A47" strokeWidth={2.5} />
+            <text x={d.cx} y={d.cy} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#F3ECDD">
               {d.label}
             </text>
           </g>
         ))}
         <g>
-          <circle cx={1140} cy={30} r={10} fill="#EA6A47" stroke="white" strokeWidth={3} className="think-chart-pulse" />
-          <text x={1140} y={30} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#22332C">
+          <circle cx={1140} cy={30} r={10} fill="#EA6A47" stroke="#22332C" strokeWidth={3} className="think-chart-pulse" />
+          <text x={1140} y={30} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#F3ECDD">
             04
           </text>
         </g>
@@ -397,14 +558,15 @@ function HowThinkChart() {
 
 function StepIcon({ index }: { index: number }) {
   const props = {
-    width: 18,
-    height: 18,
+    width: 22,
+    height: 22,
     viewBox: "0 0 24 24",
     fill: "none" as const,
-    stroke: "#EA6A47",
+    stroke: "rgba(234,106,71,0.7)",
     strokeWidth: 1.8,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
+    style: { transition: "stroke 0.3s" },
   };
   switch (index) {
     case 0:
@@ -947,6 +1109,10 @@ export default function Home() {
         @keyframes statFlow {
           0%   { background-position: 0% center }
           100% { background-position: 300% center }
+        }
+        @keyframes numGradient {
+          0%   { background-position: 0% center }
+          100% { background-position: 200% center }
         }
 
         /* ===== BELIEVE SECTION ===== */
@@ -1669,6 +1835,7 @@ export default function Home() {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p
                       style={{
+                        display: "inline-block",
                         fontFamily: "var(--font-playfair), serif",
                         fontSize: "56px",
                         fontWeight: 700,
@@ -2060,275 +2227,192 @@ export default function Home() {
       </section>
 
       {/* SECTION 5 — ON CAMERA */}
-      <section style={{ background: "white", padding: "80px 0" }}>
+      <section style={{ background: "white", padding: "100px 0" }}>
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>04 · On camera</p>
-          </AnimateIn>
-          <AnimateIn delay={80}>
-            <h2
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "48px",
-                color: "var(--ink)",
-                fontWeight: 900,
-                marginBottom: "0.75rem",
-              }}
-            >
-              Where systems meet personality.
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={150}>
-            <p
-              style={{
-                fontFamily: "var(--font-fraunces), serif",
-                fontSize: "1rem",
-                color: "rgba(34,51,44,0.7)",
-                lineHeight: 1.7,
-                opacity: 1,
-                marginBottom: "52px",
-              }}
-            >
-              I don&apos;t just build the machines — I talk about them. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
-            </p>
-          </AnimateIn>
-
-          {/* Horizontal rule above the grid */}
-          <div style={{ width: "100%", height: 1, background: "#DDD3BF", marginBottom: 0 }} />
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr",
-              gap: 0,
-              borderBottom: "1px solid #DDD3BF",
-            }}
-            className="grid-cols-1 md:grid-cols-3"
-          >
-            {onCameraCards.map((card, i) => (
-              <AnimateIn key={card.href} delay={i * 100}>
-                <div
-                  style={{
-                    borderRight: i < onCameraCards.length - 1 ? "1px solid #DDD3BF" : "none",
-                    padding: "32px 32px 40px",
-                    transition: "background 0.2s ease",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = "rgba(34,51,44,0.02)";
-                    const img = e.currentTarget.querySelector("img");
-                    if (img) img.style.transform = "scale(1.03)";
-                    const arrowBtn = e.currentTarget.querySelector<HTMLDivElement>(".on-camera-arrow-btn");
-                    if (arrowBtn) {
-                      arrowBtn.style.background = "#22332C";
-                      arrowBtn.style.transform = "scale(1.1)";
-                    }
-                    const arrowSvg = e.currentTarget.querySelector<SVGElement>(".on-camera-arrow-svg");
-                    if (arrowSvg) arrowSvg.style.stroke = "white";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = "transparent";
-                    const img = e.currentTarget.querySelector("img");
-                    if (img) img.style.transform = "scale(1)";
-                    const arrowBtn = e.currentTarget.querySelector<HTMLDivElement>(".on-camera-arrow-btn");
-                    if (arrowBtn) {
-                      arrowBtn.style.background = "white";
-                      arrowBtn.style.transform = "scale(1)";
-                    }
-                    const arrowSvg = e.currentTarget.querySelector<SVGElement>(".on-camera-arrow-svg");
-                    if (arrowSvg) arrowSvg.style.stroke = "#22332C";
-                  }}
-                >
-                  {/* Top row: number + watch link */}
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginBottom: 20,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "var(--font-geist-mono), monospace",
-                        fontSize: "12px",
-                        color: "#EA6A47",
-                        letterSpacing: "0.1em",
-                        opacity: 1,
-                      }}
-                    >
-                      {card.num}
-                    </span>
-                    <a
-                      href={card.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontFamily: "var(--font-geist-mono), monospace",
-                        fontSize: "11px",
-                        color: "#22332C",
-                        letterSpacing: "0.1em",
-                        textDecoration: "none",
-                        transition: "color 0.2s ease, opacity 0.2s ease",
-                        opacity: 0.6,
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.color = "#EA6A47"; e.currentTarget.style.opacity = "1"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.color = "#22332C"; e.currentTarget.style.opacity = "0.6"; }}
-                    >
-                      WATCH ↗
-                    </a>
-                  </div>
-
-                  {/* Title */}
-                  <p
-                    style={{
-                      fontSize: "22px",
-                      fontWeight: 800,
-                      color: "#22332C",
-                      marginBottom: 10,
-                      fontFamily: "var(--font-fraunces), serif",
-                      lineHeight: 1.3,
-                      opacity: 1,
-                    }}
-                  >
-                    {card.title}
-                  </p>
-
-                  {/* Description */}
-                  <p
-                    style={{
-                      fontSize: "15px",
-                      color: "rgba(34,51,44,0.75)",
-                      lineHeight: 1.7,
-                      marginBottom: 28,
-                      fontFamily: "inherit",
-                      opacity: 1,
-                    }}
-                  >
-                    {card.description}
-                  </p>
-
-                  {/* Thumbnail */}
-                  <a
-                    href={card.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: "block",
-                      width: "100%",
-                      aspectRatio: "3/4",
-                      minHeight: 320,
-                      borderRadius: 16,
-                      overflow: "hidden",
-                      position: "relative",
-                      background: "white",
-                      boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
-                    }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={card.thumb}
-                      alt={card.title}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        transition: "transform 0.4s ease",
-                      }}
-                    />
-
-                    {/* Arrow button overlay */}
-                    <div
-                      className="on-camera-arrow-btn"
-                      style={{
-                        position: "absolute",
-                        bottom: 14,
-                        right: 14,
-                        width: 44,
-                        height: 44,
-                        borderRadius: "50%",
-                        background: "white",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-                        transition: "all 0.2s ease",
-                      }}
-                    >
-                      <svg
-                        className="on-camera-arrow-svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#22332C"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        style={{ transition: "stroke 0.2s ease" }}
-                      >
-                        <path d="M7 17L17 7M7 7h10v10" />
-                      </svg>
-                    </div>
-                  </a>
-                </div>
-              </AnimateIn>
-            ))}
+          {/* Heading area */}
+          <div style={{ marginBottom: "60px" }}>
+            <AnimateIn>
+              <p
+                style={{
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  fontSize: "11px",
+                  color: "#EA6A47",
+                  letterSpacing: "0.12em",
+                  marginBottom: "16px",
+                }}
+              >
+                04 · ON CAMERA
+              </p>
+            </AnimateIn>
+            <AnimateIn delay={80}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-playfair), serif",
+                  fontSize: "48px",
+                  fontWeight: 900,
+                  color: "#22332C",
+                  marginBottom: "12px",
+                }}
+              >
+                Where systems meet personality.
+              </h2>
+            </AnimateIn>
+            <AnimateIn delay={150}>
+              <p
+                style={{
+                  fontSize: "16px",
+                  color: "rgba(34,51,44,0.65)",
+                  maxWidth: 600,
+                }}
+              >
+                I don&apos;t just build the machines — I talk about them. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
+              </p>
+            </AnimateIn>
           </div>
 
-          {/* Bottom rule below the grid */}
-          <div style={{ width: "100%", height: 1, background: "#DDD3BF" }} />
+          <OnCameraGrid />
+
+          {/* CTA strip below grid */}
+          <div
+            style={{
+              marginTop: "40px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-geist-mono), monospace",
+                fontSize: "11px",
+                color: "rgba(34,51,44,0.3)",
+                letterSpacing: "0.06em",
+              }}
+            >
+              Real reel thumbnails pending from Riz
+            </p>
+            <a
+              href="https://www.instagram.com/rizautomates"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                background: "#22332C",
+                color: "#F3ECDD",
+                padding: "12px 24px",
+                borderRadius: 8,
+                fontSize: "14px",
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "all 0.22s ease",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#EA6A47"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#22332C"; }}
+            >
+              Follow on Instagram <span>↗</span>
+            </a>
+          </div>
         </div>
       </section>
 
       {/* SECTION 6 — PROCESS */}
-      <section style={{ background: "#F3ECDD", padding: "100px 0" }}>
-        <div className="max-w-site">
-          <AnimateIn>
-            <p
-              style={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontSize: 11,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: "#EA6A47",
-                marginBottom: 20,
-              }}
-            >
-              05 · How I think
-            </p>
-          </AnimateIn>
-          <AnimateIn delay={80}>
-            <h2
-              style={{
-                fontFamily: "var(--font-inter-tight), sans-serif",
-                fontSize: 52,
-                color: "#22332C",
-                fontWeight: 900,
-                marginBottom: 16,
-              }}
-            >
-              Clarity is step zero.
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={150}>
-            <p
-              style={{
-                fontFamily: "var(--font-fraunces), serif",
-                fontSize: 16,
-                color: "rgba(34,51,44,0.7)",
-                lineHeight: 1.7,
-                opacity: 1,
-                maxWidth: 440,
-                marginBottom: 48,
-              }}
-            >
-              Most &apos;automation&apos; projects fail before a single tool is opened. This is the order that doesn&apos;t.
-            </p>
-          </AnimateIn>
+      <section
+        style={{
+          background: "#22332C",
+          padding: "100px 0",
+          position: "relative",
+          overflow: "hidden",
+          backgroundImage:
+            "radial-gradient(circle, rgba(243,236,221,0.04) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      >
+        {/* Floating accent */}
+        <div
+          style={{
+            position: "absolute",
+            top: -100,
+            right: -100,
+            width: 400,
+            height: 400,
+            borderRadius: "50%",
+            background:
+              "radial-gradient(circle, rgba(234,106,71,0.06) 0%, transparent 70%)",
+            pointerEvents: "none",
+            zIndex: 0,
+          }}
+        />
+
+        <div className="max-w-site" style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ maxWidth: 680, marginBottom: 60 }}>
+            <AnimateIn>
+              <p
+                style={{
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  fontSize: 11,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "rgba(234,106,71,0.8)",
+                  marginBottom: 20,
+                }}
+              >
+                05 · How I think
+              </p>
+            </AnimateIn>
+            <AnimateIn delay={80}>
+              <h2
+                style={{
+                  fontFamily: "var(--font-inter-tight), sans-serif",
+                  fontSize: 64,
+                  color: "#F3ECDD",
+                  fontWeight: 900,
+                  lineHeight: 1.0,
+                  marginBottom: 16,
+                }}
+              >
+                Clarity is{" "}
+                <span
+                  style={{
+                    color: "#EA6A47",
+                    fontStyle: "italic",
+                    fontFamily: "var(--font-fraunces), serif",
+                  }}
+                >
+                  step zero
+                </span>
+                .
+              </h2>
+            </AnimateIn>
+            <AnimateIn delay={150}>
+              <p
+                style={{
+                  fontFamily: "var(--font-fraunces), serif",
+                  fontSize: 16,
+                  color: "rgba(243,236,221,0.55)",
+                  lineHeight: 1.7,
+                  maxWidth: 480,
+                }}
+              >
+                Most &apos;automation&apos; projects fail before a single tool is opened. This is the order that doesn&apos;t.
+              </p>
+            </AnimateIn>
+          </div>
 
           {/* Animated chart */}
           <AnimateIn delay={220}>
-            <HowThinkChart />
+            <div
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 20,
+                padding: "40px 40px 0",
+                marginBottom: 0,
+              }}
+            >
+              <HowThinkChart />
+            </div>
           </AnimateIn>
 
           {/* Steps */}
@@ -2338,19 +2422,24 @@ export default function Home() {
               display: "grid",
               gridTemplateColumns: "1fr 1fr 1fr 1fr",
               gap: 0,
-              borderTop: "1px solid #DDD3BF",
-              borderBottom: "1px solid #DDD3BF",
+              background: "transparent",
+              marginTop: 0,
+              padding: 0,
             }}
           >
             {processSteps.map((step, i) => {
               const isLast = i === processSteps.length - 1;
+              const isFirst = i === 0;
               return (
-                <AnimateIn key={step.num} delay={i * 80}>
+                <AnimateIn key={step.num} delay={i * 100} className="think-step-animate">
                   <div
                     className="think-step-col"
                     style={{
-                      borderRight: isLast ? "none" : "1px solid #DDD3BF",
-                      padding: "32px 28px 40px",
+                      borderRight: isLast ? "none" : "1px solid rgba(255,255,255,0.08)",
+                      borderTop: isFirst ? "2px solid #EA6A47" : "1px solid rgba(255,255,255,0.08)",
+                      background: isFirst ? "rgba(234,106,71,0.06)" : "transparent",
+                      padding: "32px 28px",
+                      transition: "all 0.3s ease",
                     }}
                   >
                     <div
@@ -2358,15 +2447,17 @@ export default function Home() {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
-                        marginBottom: 12,
+                        marginBottom: 20,
                       }}
                     >
                       <span
                         style={{
                           fontFamily: "var(--font-geist-mono), monospace",
-                          fontSize: 13,
-                          color: "rgba(34,51,44,0.5)",
+                          fontSize: 11,
+                          color: "rgba(234,106,71,0.6)",
+                          letterSpacing: "0.1em",
                           fontWeight: 500,
+                          display: "block",
                         }}
                       >
                         {step.num}
@@ -2374,13 +2465,13 @@ export default function Home() {
                       <StepIcon index={i} />
                     </div>
                     <h3
+                      className="think-step-title"
                       style={{
                         fontFamily: "var(--font-fraunces), serif",
                         fontSize: 20,
                         fontWeight: 800,
-                        color: "#22332C",
-                        marginBottom: 10,
-                        lineHeight: 1.25,
+                        marginBottom: 12,
+                        lineHeight: 1.2,
                       }}
                     >
                       {step.title}
@@ -2388,7 +2479,7 @@ export default function Home() {
                     <p
                       style={{
                         fontSize: 14,
-                        color: "rgba(34,51,44,0.75)",
+                        color: "rgba(243,236,221,0.55)",
                         lineHeight: 1.7,
                         fontFamily: "inherit",
                       }}
@@ -2405,15 +2496,14 @@ export default function Home() {
           <AnimateIn delay={480}>
             <p
               style={{
-                marginTop: 60,
-                paddingTop: 40,
-                borderTop: "1px solid #DDD3BF",
+                marginTop: 0,
+                padding: "32px 0 0",
+                borderTop: "1px solid rgba(255,255,255,0.08)",
                 textAlign: "left",
                 fontSize: 18,
-                fontWeight: 700,
                 fontStyle: "italic",
-                color: "rgba(34,51,44,0.7)",
-                fontFamily: "var(--font-inter-tight), serif",
+                color: "rgba(243,236,221,0.2)",
+                fontFamily: "var(--font-fraunces), serif",
               }}
             >
               In that order. Every time.
