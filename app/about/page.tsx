@@ -311,7 +311,13 @@ export default function About() {
   return (
     <>
       {/* HERO */}
-      <section style={{ background: "#F3ECDD", padding: "80px 0" }}>
+      <section
+        style={{
+          background: "#FFFFFF",
+          padding: "80px 0",
+          borderBottom: "1px solid #ECE6D9",
+        }}
+      >
         <div
           style={{
             display: "grid",
@@ -433,10 +439,17 @@ export default function About() {
             </AnimateIn>
 
             <AnimateIn delay={360}>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "28px 0" }}>
-                {pills.map((pill) => (
-                  <span key={pill} className="about-pill">
-                    {pill}
+              <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 10, margin: "28px 0" }}>
+                {pills.map((pill, i) => (
+                  <span key={pill} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    {i > 0 && (
+                      <span aria-hidden="true" style={{ color: "#EA6A47", fontSize: 13 }}>
+                        &middot;
+                      </span>
+                    )}
+                    <span className={pill === "Anthropic Partner" ? "about-pill about-pill-featured" : "about-pill"}>
+                      {pill}
+                    </span>
                   </span>
                 ))}
               </div>
@@ -781,28 +794,18 @@ export default function About() {
           }
         }
         .about-pill {
-          background: #fff;
-          border: 1.5px solid #DDD3BF;
-          color: #22332C;
-          padding: 6px 16px;
-          border-radius: 100px;
-          font-size: 13px;
+          background: transparent;
+          border: none;
+          color: #5A605A;
+          padding: 0;
+          font-size: 0.85rem;
           font-weight: 500;
-          font-family: var(--font-inter-tight), sans-serif;
-          transition: border-color 0.2s;
+          font-family: var(--font-geist-mono), monospace;
+          letter-spacing: 0.02em;
+          cursor: default;
         }
-        .about-pill:hover {
-          background: linear-gradient(90deg, #22332C, #EA6A47, #D79A36, #22332C);
-          background-size: 300% auto;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: pillFlow 3s linear infinite;
-          border-color: #EA6A47;
-        }
-        @keyframes pillFlow {
-          0% { background-position: 0% center; }
-          100% { background-position: 300% center; }
+        .about-pill-featured {
+          color: #EA6A47;
         }
         .about-cta {
           display: inline-flex;

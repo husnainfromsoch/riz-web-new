@@ -483,9 +483,10 @@ const CHART_DOTS = [
   { cx: 300, cy: 150, label: "01" },
   { cx: 600, cy: 110, label: "02" },
   { cx: 900, cy: 70, label: "03" },
+  { cx: 1140, cy: 30, label: "04" },
 ];
 
-function HowThinkChart() {
+function HowThinkChart({ activeStep }: { activeStep: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const [inView, setInView] = useState(false);
@@ -513,44 +514,85 @@ function HowThinkChart() {
     path.style.strokeDasharray = `${length}`;
     path.style.strokeDashoffset = `${length}`;
     path.getBoundingClientRect();
-    path.style.transition = "stroke-dashoffset 2s ease-out";
+    path.style.transition = "stroke-dashoffset 1.8s ease-out";
     path.style.strokeDashoffset = "0";
   }, [inView]);
 
   return (
-    <div ref={containerRef} style={{ height: 220, position: "relative", marginBottom: 0 }}>
-      <svg viewBox="0 0 1200 220" width="100%" height="220" preserveAspectRatio="none" style={{ display: "block", overflow: "visible" }}>
+    <div ref={containerRef} style={{ height: 240, position: "relative", marginBottom: 0 }}>
+      <svg viewBox="0 0 1200 240" width="100%" height="240" preserveAspectRatio="none" style={{ display: "block", overflow: "visible" }}>
+        <defs>
+          <linearGradient id="thinkAreaGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="rgba(234,106,71,0.22)" />
+            <stop offset="100%" stopColor="rgba(234,106,71,0)" />
+          </linearGradient>
+        </defs>
         {[40, 80, 120, 160].map((y) => (
-          <line key={y} x1={0} y1={y} x2={1200} y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth={1} />
+          <line key={y} x1={0} y1={y} x2={1200} y2={y} stroke="rgba(30,36,31,0.07)" strokeWidth={1} />
         ))}
         {[300, 600, 900].map((x) => (
-          <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(255,255,255,0.05)" strokeWidth={1} strokeDasharray="4,4" />
+          <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(30,36,31,0.07)" strokeWidth={1} strokeDasharray="4,4" />
         ))}
-        <text x={0} y={16} fontFamily="var(--font-geist-mono), monospace" fontSize={11} fill="rgba(243,236,221,0.3)">
+        <text x={0} y={16} fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(58,64,58,0.55)">
           Clarity &amp; leverage, compounding →
         </text>
-        <text x={60} y={210} textAnchor="start" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(243,236,221,0.3)">
+        <text x={60} y={228} textAnchor="start" fontFamily="var(--font-geist-mono), monospace" fontSize={13} fill="rgba(58,64,58,0.6)">
           Vague idea
         </text>
-        <text x={1140} y={210} textAnchor="end" fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(243,236,221,0.3)">
+        <text x={1140} y={228} textAnchor="end" fontFamily="var(--font-geist-mono), monospace" fontSize={13} fill="rgba(58,64,58,0.6)">
           Running system
         </text>
-        <path d={CHART_AREA_PATH} fill="rgba(234,106,71,0.08)" stroke="none" />
-        <path ref={pathRef} d={CHART_LINE_PATH} fill="none" stroke="#EA6A47" strokeWidth={2.5} strokeLinecap="round" />
-        {CHART_DOTS.map((d) => (
-          <g key={d.label}>
-            <circle cx={d.cx} cy={d.cy} r={6} fill="#22332C" stroke="#EA6A47" strokeWidth={2.5} />
-            <text x={d.cx} y={d.cy} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#F3ECDD">
-              {d.label}
-            </text>
-          </g>
-        ))}
-        <g>
-          <circle cx={1140} cy={30} r={10} fill="#EA6A47" stroke="#22332C" strokeWidth={3} className="think-chart-pulse" />
-          <text x={1140} y={30} dy={4} textAnchor="middle" fontFamily="var(--font-geist-mono), monospace" fontSize={9} fill="#F3ECDD">
-            04
-          </text>
-        </g>
+        <path d={CHART_AREA_PATH} fill="url(#thinkAreaGradient)" stroke="none" />
+        <path ref={pathRef} d={CHART_LINE_PATH} fill="none" stroke="#EA6A47" strokeWidth={3} strokeLinecap="round" />
+        {CHART_DOTS.map((d, i) => {
+          const isActive = activeStep === i;
+          const delayFrac = (d.cx - 60) / (1140 - 60);
+          const popDelay = inView ? 200 + delayFrac * 1500 : 0;
+          return (
+            <g
+              key={d.label}
+              style={{
+                opacity: inView ? 1 : 0,
+                transform: inView ? "scale(1)" : "scale(0.4)",
+                transformOrigin: `${d.cx}px ${d.cy}px`,
+                transition: `opacity 0.4s ease ${popDelay}ms, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) ${popDelay}ms`,
+              }}
+            >
+              {isActive && (
+                <circle
+                  cx={d.cx}
+                  cy={d.cy}
+                  r={16}
+                  fill="none"
+                  stroke="#EA6A47"
+                  strokeWidth={2}
+                  className="think-chart-pulse-ring"
+                />
+              )}
+              <circle
+                cx={d.cx}
+                cy={d.cy}
+                r={isActive ? 16 : 11}
+                fill="#EA6A47"
+                opacity={isActive ? 1 : 0.5}
+                style={{ transition: "r 0.3s ease, opacity 0.3s ease" }}
+              />
+              <text
+                x={d.cx}
+                y={d.cy}
+                dy={4}
+                textAnchor="middle"
+                fontFamily="var(--font-geist-mono), monospace"
+                fontSize={11}
+                fontWeight={700}
+                fill="#FFFFFF"
+                style={{ transition: "opacity 0.3s ease" }}
+              >
+                {d.label}
+              </text>
+            </g>
+          );
+        })}
       </svg>
     </div>
   );
@@ -562,7 +604,7 @@ function StepIcon({ index }: { index: number }) {
     height: 22,
     viewBox: "0 0 24 24",
     fill: "none" as const,
-    stroke: "rgba(234,106,71,0.7)",
+    stroke: "#EA6A47",
     strokeWidth: 1.8,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
@@ -627,6 +669,16 @@ export default function Home() {
   const [activeCompany, setActiveCompany] = useState<string | null>(null);
 
   const beliefParaRefs = useRef<Array<HTMLParagraphElement | null>>([]);
+
+  const [activeThinkStep, setActiveThinkStep] = useState(0);
+  const thinkChartContainerRef = useRef<HTMLDivElement>(null);
+
+  function handleThinkCardActivate(i: number) {
+    setActiveThinkStep(i);
+    if (typeof window !== "undefined" && window.innerWidth <= 640 && thinkChartContainerRef.current) {
+      thinkChartContainerRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
 
   function handleAudioClick() {
     if (audioState === 'playing') {
@@ -2319,14 +2371,15 @@ export default function Home() {
 
       {/* SECTION 6 — PROCESS */}
       <section
+        className="think-section"
         style={{
-          background: "#22332C",
-          padding: "100px 0",
+          background: "#F5EFE3",
           position: "relative",
           overflow: "hidden",
           backgroundImage:
-            "radial-gradient(circle, rgba(243,236,221,0.04) 1px, transparent 1px)",
+            "radial-gradient(circle, rgba(30,36,31,0.05) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
+          boxShadow: "inset 0 1px 0 rgba(30,36,31,0.06)",
         }}
       >
         {/* Floating accent */}
@@ -2339,7 +2392,7 @@ export default function Home() {
             height: 400,
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(234,106,71,0.06) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(234,106,71,0.08) 0%, transparent 70%)",
             pointerEvents: "none",
             zIndex: 0,
           }}
@@ -2354,7 +2407,7 @@ export default function Home() {
                   fontSize: 11,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "rgba(234,106,71,0.8)",
+                  color: "#EA6A47",
                   marginBottom: 20,
                 }}
               >
@@ -2366,7 +2419,7 @@ export default function Home() {
                 style={{
                   fontFamily: "var(--font-inter-tight), sans-serif",
                   fontSize: 64,
-                  color: "#F3ECDD",
+                  color: "#1E241F",
                   fontWeight: 900,
                   lineHeight: 1.0,
                   marginBottom: 16,
@@ -2390,7 +2443,7 @@ export default function Home() {
                 style={{
                   fontFamily: "var(--font-fraunces), serif",
                   fontSize: 16,
-                  color: "rgba(243,236,221,0.55)",
+                  color: "#3A403A",
                   lineHeight: 1.7,
                   maxWidth: 480,
                 }}
@@ -2403,60 +2456,50 @@ export default function Home() {
           {/* Animated chart */}
           <AnimateIn delay={220}>
             <div
+              ref={thinkChartContainerRef}
               style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.08)",
+                background: "#FFFFFF",
+                border: "1px solid #E2DACB",
                 borderRadius: 20,
                 padding: "40px 40px 0",
                 marginBottom: 0,
               }}
             >
-              <HowThinkChart />
+              <HowThinkChart activeStep={activeThinkStep} />
             </div>
           </AnimateIn>
 
           {/* Steps */}
-          <div
-            className="think-steps-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr 1fr",
-              gap: 0,
-              background: "transparent",
-              marginTop: 0,
-              padding: 0,
-            }}
-          >
+          <div className="think-cards-grid" style={{ marginTop: 48 }}>
             {processSteps.map((step, i) => {
-              const isLast = i === processSteps.length - 1;
-              const isFirst = i === 0;
+              const isActive = activeThinkStep === i;
               return (
-                <AnimateIn key={step.num} delay={i * 100} className="think-step-animate">
+                <AnimateIn key={step.num} delay={i * 100} className="think-card-animate">
                   <div
-                    className="think-step-col"
-                    style={{
-                      borderRight: isLast ? "none" : "1px solid rgba(255,255,255,0.08)",
-                      borderTop: isFirst ? "2px solid #EA6A47" : "1px solid rgba(255,255,255,0.08)",
-                      background: isFirst ? "rgba(234,106,71,0.06)" : "transparent",
-                      padding: "32px 28px",
-                      transition: "all 0.3s ease",
+                    className={`think-card${isActive ? " active" : ""}`}
+                    role="button"
+                    tabIndex={0}
+                    onMouseEnter={() => handleThinkCardActivate(i)}
+                    onClick={() => handleThinkCardActivate(i)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") handleThinkCardActivate(i);
                     }}
                   >
                     <div
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        alignItems: "center",
+                        alignItems: "flex-start",
                         marginBottom: 20,
                       }}
                     >
                       <span
                         style={{
                           fontFamily: "var(--font-geist-mono), monospace",
-                          fontSize: 11,
-                          color: "rgba(234,106,71,0.6)",
+                          fontSize: 12,
+                          color: "#EA6A47",
                           letterSpacing: "0.1em",
-                          fontWeight: 500,
+                          fontWeight: 700,
                           display: "block",
                         }}
                       >
@@ -2465,13 +2508,14 @@ export default function Home() {
                       <StepIcon index={i} />
                     </div>
                     <h3
-                      className="think-step-title"
+                      className="think-card-title"
                       style={{
                         fontFamily: "var(--font-fraunces), serif",
                         fontSize: 20,
                         fontWeight: 800,
                         marginBottom: 12,
                         lineHeight: 1.2,
+                        color: "#1E241F",
                       }}
                     >
                       {step.title}
@@ -2479,8 +2523,8 @@ export default function Home() {
                     <p
                       style={{
                         fontSize: 14,
-                        color: "rgba(243,236,221,0.55)",
-                        lineHeight: 1.7,
+                        color: "#3A403A",
+                        lineHeight: 1.6,
                         fontFamily: "inherit",
                       }}
                     >
@@ -2496,17 +2540,18 @@ export default function Home() {
           <AnimateIn delay={480}>
             <p
               style={{
-                marginTop: 0,
+                marginTop: 56,
                 padding: "32px 0 0",
-                borderTop: "1px solid rgba(255,255,255,0.08)",
+                borderTop: "1px solid #E2DACB",
                 textAlign: "left",
                 fontSize: 18,
                 fontStyle: "italic",
-                color: "rgba(243,236,221,0.2)",
+                color: "#1E241F",
                 fontFamily: "var(--font-fraunces), serif",
               }}
             >
-              In that order. Every time.
+              In that order. Every time
+              <span style={{ color: "#EA6A47", fontStyle: "normal" }}>.</span>
             </p>
           </AnimateIn>
         </div>
