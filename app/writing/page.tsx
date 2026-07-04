@@ -161,11 +161,6 @@ export default function WritingPage() {
     <>
       <section style={{ paddingTop: 120, paddingBottom: 60, background: "var(--cream-2)" }}>
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>
-              05 · WRITING
-            </p>
-          </AnimateIn>
           <AnimateIn delay={80}>
             <h1
               style={{

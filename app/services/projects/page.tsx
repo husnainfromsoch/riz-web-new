@@ -1,5 +1,19 @@
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
+import DirectLineCTA from "@/components/DirectLineCTA";
+import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
+
+const checkBullet = (text: string) => (
+  <li key={text} className="svc-check-item">
+    <span
+      className="svc-check-icon"
+      style={{ background: "color-mix(in srgb, var(--coral) 16%, transparent)", color: "var(--coral)" }}
+    >
+      ✓
+    </span>
+    <span>{text}</span>
+  </li>
+);
 
 const builds = [
   {
@@ -24,11 +38,9 @@ export default function ProjectsPage() {
   return (
     <>
       {/* HERO */}
-      <section style={{ paddingTop: 120, paddingBottom: 80, background: "var(--cream-2)" }}>
+      <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
+        <div className="svc-hero-texture" />
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>Build a system</p>
-          </AnimateIn>
           <AnimateIn delay={80}>
             <h1
               style={{
@@ -41,7 +53,11 @@ export default function ProjectsPage() {
                 maxWidth: 600,
               }}
             >
-              Custom AI workflow automations.
+              Custom AI{" "}
+              <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+                workflow
+              </span>
+              {" "}automations.
             </h1>
           </AnimateIn>
           <AnimateIn delay={180}>
@@ -57,11 +73,18 @@ export default function ProjectsPage() {
               This is what Soch does. We take your process, design the automation, build it in n8n, and hand it to you with documentation.
             </p>
           </AnimateIn>
+          <AnimateIn delay={240}>
+            <ProofChipRow>
+              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
+              <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
+              <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
+            </ProofChipRow>
+          </AnimateIn>
         </div>
       </section>
 
       {/* WHAT WE BUILD */}
-      <section style={{ padding: "5rem 0" }}>
+      <section style={{ padding: "96px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <h2
@@ -135,6 +158,13 @@ export default function ProjectsPage() {
               >
                 <strong style={{ color: "var(--ink)" }}>How it works:</strong> Every project starts with a scoping call. We quote a fixed price for a defined deliverable. No hourly billing, no scope creep. You own everything we build.
               </p>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.25rem" }}>
+                {[
+                  "Fixed price quoted before we start",
+                  "Built in n8n, documented, and handed over",
+                  "You own the automation completely — no lock-in",
+                ].map((t) => checkBullet(t))}
+              </ul>
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <span
                   style={{
@@ -153,7 +183,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* SOCH CTA */}
-      <section style={{ background: "var(--ink)", padding: "5rem 0" }}>
+      <section style={{ background: "var(--ink)", padding: "96px 0" }}>
         <div className="max-w-site">
           <div style={{ maxWidth: 560 }}>
             <AnimateIn>
@@ -197,6 +227,15 @@ export default function ProjectsPage() {
               </div>
             </AnimateIn>
           </div>
+        </div>
+      </section>
+
+      {/* DIRECT LINE */}
+      <section style={{ background: "var(--cream)", padding: "96px 0" }}>
+        <div className="max-w-site">
+          <AnimateIn>
+            <DirectLineCTA />
+          </AnimateIn>
         </div>
       </section>
     </>

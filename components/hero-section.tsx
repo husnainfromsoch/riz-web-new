@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import CalBookingButton from "@/components/CalModal";
 
 const PHOTO_URL = "/riz-photo-new.jpg";
 
@@ -617,7 +618,7 @@ export default function HeroSection() {
                 </ul>
 
                 <div className="hz-cta-row">
-                  <Link href="/services/consulting" className="hz-btn-primary">Book a 30-min call →</Link>
+                  <CalBookingButton className="hz-btn-primary">Book a 30-min call →</CalBookingButton>
                   <Link href="/case-studies" className="hz-btn-secondary">See what I&apos;ve built</Link>
                 </div>
 

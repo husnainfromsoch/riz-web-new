@@ -2,6 +2,21 @@
 import { useState } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
+import CalBookingButton from "@/components/CalModal";
+import DirectLineCTA from "@/components/DirectLineCTA";
+import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
+
+const checkBullet = (text: string) => (
+  <li key={text} className="svc-check-item">
+    <span
+      className="svc-check-icon"
+      style={{ background: "color-mix(in srgb, var(--coral) 16%, transparent)", color: "var(--coral)" }}
+    >
+      ✓
+    </span>
+    <span>{text}</span>
+  </li>
+);
 
 const formats = [
   {
@@ -27,11 +42,9 @@ export default function ConsultingPage() {
   return (
     <>
       {/* HERO */}
-      <section style={{ paddingTop: 120, paddingBottom: 80, background: "var(--cream-2)" }}>
+      <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
+        <div className="svc-hero-texture" />
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>Consulting &amp; coaching</p>
-          </AnimateIn>
           <AnimateIn delay={80}>
             <h1
               style={{
@@ -44,7 +57,11 @@ export default function ConsultingPage() {
                 maxWidth: 580,
               }}
             >
-              Clarity before systems.
+              Clarity before{" "}
+              <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+                systems
+              </span>
+              .
             </h1>
           </AnimateIn>
           <AnimateIn delay={180}>
@@ -60,11 +77,18 @@ export default function ConsultingPage() {
               I work with founders and ops leads who know something is wrong but can&apos;t quite name it. We name it together. Then we fix it.
             </p>
           </AnimateIn>
+          <AnimateIn delay={240}>
+            <ProofChipRow>
+              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
+              <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
+              <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
+            </ProofChipRow>
+          </AnimateIn>
         </div>
       </section>
 
       {/* FORMATS */}
-      <section style={{ padding: "5rem 0" }}>
+      <section style={{ padding: "96px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <h2
@@ -117,6 +141,16 @@ export default function ConsultingPage() {
             ))}
           </div>
 
+          <AnimateIn delay={350}>
+            <ul style={{ listStyle: "none", padding: 0, margin: "2.5rem 0 0", maxWidth: 460 }}>
+              {[
+                "Fixed intro call before anything is scoped",
+                "Direct access — no account managers, no hand-offs",
+                "Documentation and hand-over on everything we build",
+              ].map((t) => checkBullet(t))}
+            </ul>
+          </AnimateIn>
+
           <AnimateIn delay={400}>
             <div
               style={{
@@ -129,37 +163,41 @@ export default function ConsultingPage() {
                 alignItems: "center",
                 gap: "1rem",
                 flexWrap: "wrap",
+                justifyContent: "space-between",
               }}
             >
-              <span
-                style={{
-                  fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.75rem",
-                  color: "var(--coral)",
-                  fontWeight: 600,
-                  letterSpacing: "0.06em",
-                  textTransform: "uppercase",
-                }}
-              >
-                Pricing
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "1.1rem",
-                  color: "var(--ink)",
-                  fontWeight: 600,
-                }}
-              >
-                From $160/hr · Retainers from $2,400/mo
-              </span>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+                <span
+                  style={{
+                    fontFamily: "var(--font-dm-mono), monospace",
+                    fontSize: "0.75rem",
+                    color: "var(--coral)",
+                    fontWeight: 600,
+                    letterSpacing: "0.06em",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Pricing
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-playfair), serif",
+                    fontSize: "1.1rem",
+                    color: "var(--ink)",
+                    fontWeight: 600,
+                  }}
+                >
+                  From $160/hr · Retainers from $2,400/mo
+                </span>
+              </div>
+              <CalBookingButton className="btn-coral">Book a call →</CalBookingButton>
             </div>
           </AnimateIn>
         </div>
       </section>
 
       {/* BOOK */}
-      <section id="book" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+      <section id="book" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "96px 0" }}>
         <div className="max-w-site">
           <div style={{ maxWidth: 600 }}>
             <AnimateIn>
@@ -181,11 +219,16 @@ export default function ConsultingPage() {
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontSize: "1rem",
                   color: "var(--muted)",
-                  marginBottom: "2rem",
+                  marginBottom: "1.25rem",
                 }}
               >
-                I&apos;ll reply within 48 hours. If there&apos;s a fit, we&apos;ll book a call.
+                I&apos;ll reply within 48 hours. If there&apos;s a fit, we&apos;ll book a call. Or skip the form —
               </p>
+            </AnimateIn>
+            <AnimateIn delay={110}>
+              <CalBookingButton className="btn-ghost" style={{ marginBottom: "2rem" }}>
+                Book a call directly →
+              </CalBookingButton>
             </AnimateIn>
             <AnimateIn delay={150}>
               {submitted ? (
@@ -295,6 +338,15 @@ export default function ConsultingPage() {
               )}
             </AnimateIn>
           </div>
+        </div>
+      </section>
+
+      {/* DIRECT LINE */}
+      <section style={{ background: "var(--cream)", padding: "96px 0" }}>
+        <div className="max-w-site">
+          <AnimateIn>
+            <DirectLineCTA />
+          </AnimateIn>
         </div>
       </section>
     </>

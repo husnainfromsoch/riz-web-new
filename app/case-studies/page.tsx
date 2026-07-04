@@ -754,27 +754,23 @@ export default function CaseStudies() {
         }
 
         /* hero section */
+        .case-hero-band {
+          background: #F1EBDE;
+          border-bottom: 1px solid #E2DACB;
+        }
         .case-hero-section {
-          background: white;
-          padding: 80px 60px 0;
+          padding: 80px 60px 60px;
           max-width: 1360px;
           margin: 0 auto;
+        }
+        .case-hero-section.case-hero-section--list {
+          padding: 52px 60px 0;
         }
         .case-hero-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 80px;
           align-items: center;
-          padding-bottom: 60px;
-          border-bottom: 1px solid #DDD3BF;
-          margin-bottom: 52px;
-        }
-        .case-hero-eyebrow {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 11px;
-          color: #EA6A47;
-          letter-spacing: 0.12em;
-          margin-bottom: 20px;
         }
         .case-hero-heading {
           font-family: inherit;
@@ -822,8 +818,8 @@ export default function CaseStudies() {
           gap: 16px;
         }
         .case-stat-card {
-          background: white;
-          border: 1px solid #DDD3BF;
+          background: #FFFFFF;
+          border: 1px solid #E2DACB;
           border-radius: 16px;
           padding: 24px 20px;
           transition: all 0.25s ease;
@@ -871,7 +867,10 @@ export default function CaseStudies() {
 
         @media (max-width: 768px) {
           .case-hero-section {
-            padding: 60px 24px 0;
+            padding: 60px 24px 32px;
+          }
+          .case-hero-section.case-hero-section--list {
+            padding: 32px 24px 0;
           }
           .case-hero-grid {
             grid-template-columns: 1fr;
@@ -1061,49 +1060,52 @@ export default function CaseStudies() {
         }
       `}</style>
 
-      <section className="case-hero-section">
-        <div className="case-hero-grid">
-          <div>
-            <div className="case-hero-eyebrow">SOCH · AUTOMATION BUILDS</div>
-            <h1 className="case-hero-heading">
-              <span className="outline-num">20</span> systems.
-              <br />
-              Real problems.
-              <br />
-              Real outcomes.
-            </h1>
-            <p className="case-hero-subtitle">
-              Across 12 industries. Every one shipped.
-            </p>
-            <div className="case-hero-inline-stats">
-              <div className="case-hero-inline-stat">
-                <span className="case-hero-inline-stat-number">12</span>
-                <span className="case-hero-inline-stat-label">INDUSTRIES</span>
-              </div>
-              <div className="case-hero-inline-stat">
-                <span className="case-hero-inline-stat-number">20</span>
-                <span className="case-hero-inline-stat-label">SYSTEMS</span>
+      <div className="case-hero-band">
+        <section className="case-hero-section">
+          <div className="case-hero-grid">
+            <div>
+              <h1 className="case-hero-heading">
+                <span className="outline-num">20</span> systems.
+                <br />
+                Real problems.
+                <br />
+                Real outcomes.
+              </h1>
+              <p className="case-hero-subtitle">
+                Across 12 industries. Every one shipped.
+              </p>
+              <div className="case-hero-inline-stats">
+                <div className="case-hero-inline-stat">
+                  <span className="case-hero-inline-stat-number">12</span>
+                  <span className="case-hero-inline-stat-label">INDUSTRIES</span>
+                </div>
+                <div className="case-hero-inline-stat">
+                  <span className="case-hero-inline-stat-number">20</span>
+                  <span className="case-hero-inline-stat-label">SYSTEMS</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="case-stats-cards">
-            {STAT_CARDS.map((stat, i) => (
-              <div className="case-stat-card" key={stat.label}>
-                <div className="case-stat-card-label">{stat.label}</div>
-                <div
-                  className="case-stat-card-number"
-                  style={{ animationDelay: `${i * 0.5}s` }}
-                >
-                  {stat.number}
+            <div className="case-stats-cards">
+              {STAT_CARDS.map((stat, i) => (
+                <div className="case-stat-card" key={stat.label}>
+                  <div className="case-stat-card-label">{stat.label}</div>
+                  <div
+                    className="case-stat-card-number"
+                    style={{ animationDelay: `${i * 0.5}s` }}
+                  >
+                    {stat.number}
+                  </div>
+                  <div className="case-stat-card-divider" />
+                  <div className="case-stat-card-desc">{stat.desc}</div>
                 </div>
-                <div className="case-stat-card-divider" />
-                <div className="case-stat-card-desc">{stat.desc}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
+      </div>
 
+      <section className="case-hero-section case-hero-section--list">
         <div>
           <nav className="filter-tabs">
             {INDUSTRIES.map((industry) => (

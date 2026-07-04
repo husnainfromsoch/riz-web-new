@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import CalBookingButton from "@/components/CalModal";
 
 const navLinks = [
   { label: "Services", href: "/services" },
@@ -101,13 +102,12 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/services/consulting"
+          <CalBookingButton
             className="btn-coral"
             style={{ padding: "0.55rem 1.25rem", fontSize: "0.875rem" }}
           >
             Book a call
-          </Link>
+          </CalBookingButton>
         </nav>
 
         {/* Hamburger */}
@@ -173,14 +173,13 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <Link
-            href="/services/consulting"
+          <CalBookingButton
             className="btn-coral"
-            onClick={() => setOpen(false)}
             style={{ marginTop: "0.5rem", textAlign: "center" }}
+            onClick={() => setOpen(false)}
           >
             Book a call
-          </Link>
+          </CalBookingButton>
         </div>
       </div>
     </header>

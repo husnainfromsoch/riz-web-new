@@ -1,5 +1,7 @@
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
+import DirectLineCTA from "@/components/DirectLineCTA";
+import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
 
 const topics = [
   {
@@ -27,11 +29,9 @@ export default function SpeakingPage() {
   return (
     <>
       {/* HERO */}
-      <section style={{ paddingTop: 120, paddingBottom: 80, background: "var(--cream-2)" }}>
+      <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
+        <div className="svc-hero-texture" />
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>Speaking &amp; workshops</p>
-          </AnimateIn>
           <AnimateIn delay={80}>
             <h1
               style={{
@@ -43,7 +43,11 @@ export default function SpeakingPage() {
                 marginBottom: "1.25rem",
               }}
             >
-              On stages and in rooms.
+              On stages and{" "}
+              <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+                in rooms
+              </span>
+              .
             </h1>
           </AnimateIn>
           <AnimateIn delay={180}>
@@ -59,11 +63,18 @@ export default function SpeakingPage() {
               Talks and team sessions on AI leverage, the future of ops, and what actually changes when you give smart people powerful tools.
             </p>
           </AnimateIn>
+          <AnimateIn delay={240}>
+            <ProofChipRow>
+              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
+              <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
+              <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
+            </ProofChipRow>
+          </AnimateIn>
         </div>
       </section>
 
       {/* TOPICS + FORMATS */}
-      <section style={{ padding: "5rem 0" }}>
+      <section style={{ padding: "96px 0" }}>
         <div className="max-w-site grid md:grid-cols-2 gap-12">
           {/* Topics */}
           <div>
@@ -175,7 +186,7 @@ export default function SpeakingPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "var(--ink)", padding: "5rem 0" }}>
+      <section style={{ background: "var(--ink)", padding: "96px 0" }}>
         <div className="max-w-site">
           <div style={{ maxWidth: 560 }}>
             <AnimateIn>
@@ -217,6 +228,15 @@ export default function SpeakingPage() {
               </div>
             </AnimateIn>
           </div>
+        </div>
+      </section>
+
+      {/* DIRECT LINE */}
+      <section style={{ background: "var(--cream)", padding: "96px 0" }}>
+        <div className="max-w-site">
+          <AnimateIn>
+            <DirectLineCTA />
+          </AnimateIn>
         </div>
       </section>
     </>

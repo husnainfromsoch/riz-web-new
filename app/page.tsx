@@ -1,9 +1,14 @@
 ﻿"use client";
 import { useState, useEffect, useRef, Fragment } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import AnimateIn from "@/components/AnimateIn";
 import BookingSection from "@/components/BookingSection";
 import HeroSection from "@/components/hero-section";
+import DirectLineCTA from "@/components/DirectLineCTA";
+import TestimonialsSection from "@/components/Testimonials";
+import CalBookingButton from "@/components/CalModal";
 
 const PORTRAIT_URL =
   "https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a3a46d312c6d02c8e46bab1_691d97efffebe375af48ce33_Remove_GMNI-removebg-preview.png";
@@ -71,13 +76,21 @@ const byTheNumbersRows = [
 
 // ─── ON CAMERA CARDS ─────────────────────────────────────────────────────────
 
-const onCameraCards = [
+const onCameraCards: {
+  num: string;
+  href: string;
+  thumb: string;
+  alt?: string;
+  title: string;
+  description: string;
+}[] = [
   {
     num: "01",
-    href: "https://www.instagram.com/reel/DZx-_OHOqg4/",
-    thumb: "/Photos/riz-restaurant.jpg",
-    title: "The thesis",
-    description: "AI doesn't fix bad thinking. It scales whatever you already have.",
+    href: "https://www.instagram.com/reels/DZx-_OHOqg4/",
+    thumb: "/images/on-camera/ai-influencers-thumb.jpeg",
+    alt: "Riz on camera — a message to all AI influencers",
+    title: "A message to AI influencers",
+    description: "Calling out the hype — what actually ships vs what gets posted.",
   },
   {
     num: "02",
@@ -129,124 +142,37 @@ function OnCameraGrid() {
           style={{ animationDelay: `${i * 0.1}s` }}
         >
           <div className="oc-thumb">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={card.thumb} alt={card.title} />
-
-            {/* Gradient overlay */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(to top, rgba(34,51,44,0.7) 0%, rgba(34,51,44,0.1) 40%, transparent 70%)",
-              }}
+            <Image
+              src={card.thumb}
+              alt={card.alt ?? card.title}
+              fill
+              sizes="(max-width: 767px) 85vw, 33vw"
+              style={{ objectFit: "cover", objectPosition: "center top" }}
             />
 
-            {/* Number badge */}
-            <span
-              style={{
-                position: "absolute",
-                top: 14,
-                left: 14,
-                background: "rgba(0,0,0,0.55)",
-                backdropFilter: "blur(8px)",
-                color: "white",
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontSize: "11px",
-                fontWeight: 600,
-                padding: "5px 10px",
-                borderRadius: 100,
-              }}
-            >
-              {card.num}
-            </span>
+            <div className="oc-thumb-gradient" />
 
-            {/* Instagram badge */}
-            <span
-              style={{
-                position: "absolute",
-                top: 14,
-                right: 14,
-                background: "rgba(0,0,0,0.55)",
-                backdropFilter: "blur(8px)",
-                color: "white",
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontSize: "9px",
-                letterSpacing: "0.1em",
-                padding: "5px 10px",
-                borderRadius: 100,
-              }}
-            >
-              INSTAGRAM
-            </span>
+            <span className="oc-chip oc-chip-num">{card.num}</span>
+            <span className="oc-chip oc-chip-platform">INSTAGRAM</span>
 
-            {/* Play button */}
             <div className="oc-play">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="#22332C">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
                 <path d="M8 5v14l11-7z" />
               </svg>
             </div>
           </div>
 
           {/* Bottom info */}
-          <div
-            style={{
-              padding: "20px 22px 24px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 6,
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  fontSize: "10px",
-                  color: "#EA6A47",
-                  letterSpacing: "0.12em",
-                  fontWeight: 600,
-                }}
-              >
-                REEL
-              </span>
-              <span
-                className="oc-watch"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 4,
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  fontSize: "11px",
-                  color: "rgba(34,51,44,0.4)",
-                  letterSpacing: "0.06em",
-                }}
-              >
-                Watch on Instagram <span className="oc-watch-arrow" style={{ fontSize: "14px", fontWeight: 700 }}>↗</span>
+          <div className="oc-footer">
+            <div className="oc-footer-top">
+              <span className="oc-reel-tag">REEL</span>
+              <span className="oc-watch">
+                Watch on Instagram <span className="oc-watch-arrow">↗</span>
               </span>
             </div>
 
-            <p
-              style={{
-                fontSize: "18px",
-                fontWeight: 800,
-                color: "#22332C",
-                fontFamily: "var(--font-fraunces), serif",
-                lineHeight: 1.3,
-                marginTop: 4,
-              }}
-            >
-              {card.title}
-            </p>
-
-            <p
-              style={{
-                fontSize: "13px",
-                color: "rgba(34,51,44,0.6)",
-                lineHeight: 1.6,
-              }}
-            >
-              {card.description}
-            </p>
+            <p className="oc-card-title">{card.title}</p>
+            <p className="oc-card-desc">{card.description}</p>
           </div>
         </a>
       ))}
@@ -544,56 +470,30 @@ function HowThinkChart({ activeStep }: { activeStep: number }) {
         </text>
         <path d={CHART_AREA_PATH} fill="url(#thinkAreaGradient)" stroke="none" />
         <path ref={pathRef} d={CHART_LINE_PATH} fill="none" stroke="#EA6A47" strokeWidth={3} strokeLinecap="round" />
-        {CHART_DOTS.map((d, i) => {
-          const isActive = activeStep === i;
-          const delayFrac = (d.cx - 60) / (1140 - 60);
-          const popDelay = inView ? 200 + delayFrac * 1500 : 0;
-          return (
-            <g
-              key={d.label}
-              style={{
-                opacity: inView ? 1 : 0,
-                transform: inView ? "scale(1)" : "scale(0.4)",
-                transformOrigin: `${d.cx}px ${d.cy}px`,
-                transition: `opacity 0.4s ease ${popDelay}ms, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) ${popDelay}ms`,
-              }}
-            >
-              {isActive && (
-                <circle
-                  cx={d.cx}
-                  cy={d.cy}
-                  r={16}
-                  fill="none"
-                  stroke="#EA6A47"
-                  strokeWidth={2}
-                  className="think-chart-pulse-ring"
-                />
-              )}
-              <circle
-                cx={d.cx}
-                cy={d.cy}
-                r={isActive ? 16 : 11}
-                fill="#EA6A47"
-                opacity={isActive ? 1 : 0.5}
-                style={{ transition: "r 0.3s ease, opacity 0.3s ease" }}
-              />
-              <text
-                x={d.cx}
-                y={d.cy}
-                dy={4}
-                textAnchor="middle"
-                fontFamily="var(--font-geist-mono), monospace"
-                fontSize={11}
-                fontWeight={700}
-                fill="#FFFFFF"
-                style={{ transition: "opacity 0.3s ease" }}
-              >
-                {d.label}
-              </text>
-            </g>
-          );
-        })}
       </svg>
+      {/* Milestone dots rendered as real HTML circles (not SVG) so they stay
+          perfectly round even though the chart above is stretched via
+          preserveAspectRatio="none" on narrow viewports. */}
+      {CHART_DOTS.map((d, i) => {
+        const isActive = activeStep === i;
+        const delayFrac = (d.cx - 60) / (1140 - 60);
+        const popDelay = inView ? 200 + delayFrac * 1500 : 0;
+        return (
+          <div
+            key={d.label}
+            className={`think-chart-dot${isActive ? " active" : ""}`}
+            style={{
+              left: `${(d.cx / 1200) * 100}%`,
+              top: `${(d.cy / 240) * 100}%`,
+              opacity: inView ? 1 : 0,
+              transform: `translate(-50%, -50%) scale(${inView ? 1 : 0.4})`,
+              transitionDelay: `${popDelay}ms`,
+            }}
+          >
+            {d.label}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -643,6 +543,78 @@ function StepIcon({ index }: { index: number }) {
   }
 }
 
+// ─── ROUTE CARD ICONS (matches "How I think" icon style) ────────────────────
+
+const routeIconProps = {
+  width: 22,
+  height: 22,
+  viewBox: "0 0 24 24",
+  fill: "none" as const,
+  stroke: "#EA6A47",
+  strokeWidth: 1.8,
+  strokeLinecap: "round" as const,
+  strokeLinejoin: "round" as const,
+};
+
+function RouteBuildIcon() {
+  return (
+    <svg {...routeIconProps}>
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+    </svg>
+  );
+}
+
+function RouteMicIcon() {
+  return (
+    <svg {...routeIconProps}>
+      <rect x="9" y="2" width="6" height="12" rx="3" />
+      <path d="M5 10a7 7 0 0 0 14 0" />
+      <line x1="12" y1="19" x2="12" y2="22" />
+      <line x1="8" y1="22" x2="16" y2="22" />
+    </svg>
+  );
+}
+
+function RouteBookIcon() {
+  return (
+    <svg {...routeIconProps}>
+      <path d="M2 4.5A2.5 2.5 0 0 1 4.5 2H10a2 2 0 0 1 2 2v16a1.5 1.5 0 0 0-1.5-1.5H2z" />
+      <path d="M22 4.5A2.5 2.5 0 0 0 19.5 2H14a2 2 0 0 0-2 2v16a1.5 1.5 0 0 1 1.5-1.5H22z" />
+    </svg>
+  );
+}
+
+// ─── CLICKABLE CARD (whole card navigates, inner links/buttons still work) ──
+
+function ClickableCard({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  return (
+    <div
+      className={className}
+      role="link"
+      tabIndex={0}
+      onClick={(e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest("a, button")) return;
+        router.push(href);
+      }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") router.push(href);
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -654,8 +626,8 @@ export default function Home() {
   const beforeAfterRef = useRef<HTMLElement>(null);
   const beforeAfterTriggeredRef = useRef(false);
   const loopCancelRef = useRef<(() => void) | null>(null);
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const gainNodesRef = useRef<GainNode[]>([]);
+  const portraitAudioRef = useRef<HTMLAudioElement | null>(null);
+  const audioFadeRafRef = useRef<number | null>(null);
 
   const proofSectionRef = useRef<HTMLElement | null>(null);
   const proofTriggeredRef = useRef(false);
@@ -680,38 +652,79 @@ export default function Home() {
     }
   }
 
-  function handleAudioClick() {
-    if (audioState === 'playing') {
-      audioCtxRef.current?.suspend();
-      setAudioState('paused');
-      return;
+  const PORTRAIT_AUDIO_VOLUME = 0.5;
+  const PORTRAIT_FADE_IN_MS = 1000;
+  const PORTRAIT_FADE_OUT_MS = 500;
+
+  function fadePortraitAudio(audio: HTMLAudioElement, to: number, duration: number, onDone?: () => void) {
+    if (audioFadeRafRef.current !== null) {
+      cancelAnimationFrame(audioFadeRafRef.current);
+      audioFadeRafRef.current = null;
     }
-    if (audioState === 'paused') {
-      audioCtxRef.current?.resume();
-      setAudioState('playing');
-      return;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const Ctx = window.AudioContext || (window as any).webkitAudioContext;
-    if (!Ctx) return;
-    const ctx: AudioContext = new Ctx();
-    audioCtxRef.current = ctx;
-    const freqs = [261.63, 329.63, 392.0, 440.0, 587.33];
-    gainNodesRef.current = [];
-    freqs.forEach((freq, i) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sine";
-      osc.frequency.value = freq;
-      gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.07, ctx.currentTime + 0.6 + i * 0.3);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      gainNodesRef.current.push(gain);
-    });
-    setAudioState('playing');
+    const from = audio.volume;
+    const startTime = performance.now();
+    const step = (now: number) => {
+      const t = Math.min(1, (now - startTime) / duration);
+      audio.volume = from + (to - from) * t;
+      if (t < 1) {
+        audioFadeRafRef.current = requestAnimationFrame(step);
+      } else {
+        audioFadeRafRef.current = null;
+        onDone?.();
+      }
+    };
+    audioFadeRafRef.current = requestAnimationFrame(step);
   }
+
+  function handleAudioClick() {
+    if (!portraitAudioRef.current) {
+      const audio = new Audio("/audio/portrait-track.mp3");
+      audio.loop = true;
+      audio.volume = 0;
+      audio.addEventListener("error", () => {
+        setAudioState("idle");
+      });
+      portraitAudioRef.current = audio;
+    }
+    const audio = portraitAudioRef.current;
+
+    if (audioState === "playing") {
+      fadePortraitAudio(audio, 0, PORTRAIT_FADE_OUT_MS, () => audio.pause());
+      setAudioState("paused");
+      return;
+    }
+
+    audio
+      .play()
+      .then(() => {
+        fadePortraitAudio(audio, PORTRAIT_AUDIO_VOLUME, PORTRAIT_FADE_IN_MS);
+        setAudioState("playing");
+      })
+      .catch(() => {
+        // Fail silently — e.g. file missing or playback blocked.
+      });
+  }
+
+  useEffect(() => {
+    function handleVisibilityChange() {
+      const audio = portraitAudioRef.current;
+      if (document.hidden && audio && !audio.paused) {
+        fadePortraitAudio(audio, 0, PORTRAIT_FADE_OUT_MS, () => audio.pause());
+        setAudioState("idle");
+      }
+    }
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      if (audioFadeRafRef.current !== null) {
+        cancelAnimationFrame(audioFadeRafRef.current);
+      }
+      if (portraitAudioRef.current) {
+        portraitAudioRef.current.pause();
+        portraitAudioRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const el = proofSectionRef.current;
@@ -861,185 +874,208 @@ export default function Home() {
         @media (max-width: 480px) {
           .proof-grid { grid-template-columns: 1fr; }
         }
-        .chat-hayat-card {
-          background: linear-gradient(135deg, #F5E6D3 0%, #EDD5C0 30%, #E8D0D8 65%, #DCC8E0 100%);
+        /* ===== ROUTES — "How people work with me" ===== */
+        .route-hero-v2 {
+          position: relative;
+          overflow: hidden;
+          background: #F1EBDE;
+          border: 1px solid #E2DACB;
           border-radius: 24px;
-          padding: 52px 48px;
+          padding: 48px 52px;
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .route-hero-v2:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 24px 60px rgba(34,51,44,0.14);
+        }
+        .route-hero-texture {
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(34,51,44,0.05) 1.5px, transparent 1.5px);
+          background-size: 24px 24px;
+          pointer-events: none;
+          z-index: 0;
+        }
+        .route-hero-glow {
+          position: absolute;
+          top: 50%;
+          right: -10%;
+          width: 420px;
+          height: 420px;
+          transform: translateY(-50%);
+          background: radial-gradient(circle, rgba(234,106,71,0.12) 0%, transparent 70%);
+          pointer-events: none;
+          z-index: 0;
+        }
+        .route-hero-grid {
+          position: relative;
+          z-index: 1;
           display: grid;
-          grid-template-columns: auto 1fr;
-          gap: 52px;
+          grid-template-columns: 1fr auto;
+          gap: 48px;
           align-items: center;
         }
-        .chat-hayat-photo-col {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 16px;
-        }
-        .chat-hayat-photo {
-          width: 180px;
-          height: 180px;
-          border-radius: 50%;
-          object-fit: cover;
-          object-position: center top;
-          border: 4px solid #ffffff;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-          display: block;
-        }
-        .chat-hayat-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          background: #ffffff;
-          border-radius: 100px;
-          padding: 6px 14px;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 13px;
-          font-weight: 500;
-          color: #22332C;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-          white-space: nowrap;
-        }
-        .chat-hayat-dot {
-          width: 8px;
-          height: 8px;
-          border-radius: 50%;
-          background: #22C55E;
-          flex-shrink: 0;
-        }
-        .chat-hayat-label {
-          display: inline-block;
-          background: #22332C;
-          color: #F3ECDD;
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          padding: 6px 14px;
-          border-radius: 100px;
-          margin-bottom: 16px;
-        }
-        .chat-hayat-heading {
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 40px;
-          font-weight: 900;
-          color: #22332C;
-          line-height: 1.2;
-          margin: 0 0 16px;
-        }
-        .chat-hayat-heading-accent {
-          color: #EA6A47;
-          font-style: italic;
-        }
-        .chat-hayat-desc {
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 16px;
-          color: rgba(34,51,44,0.7);
-          line-height: 1.7;
-          margin: 0 0 28px;
-          max-width: 440px;
-        }
-        .chat-hayat-buttons {
+        .route-authority-row {
           display: flex;
           flex-wrap: wrap;
-          gap: 12px;
+          gap: 10px 20px;
+          margin-top: 24px;
         }
-        .chat-hayat-btn-primary {
+        .route-authority-chip {
           display: inline-flex;
           align-items: center;
-          background: #22332C;
-          color: #F3ECDD;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 15px;
-          font-weight: 600;
-          padding: 14px 28px;
-          border-radius: 100px;
-          text-decoration: none;
-          transition: background 0.2s ease;
+          gap: 8px;
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 11px;
+          color: rgba(34,51,44,0.6);
+          letter-spacing: 0.02em;
         }
-        .chat-hayat-btn-primary:hover {
-          background: #EA6A47;
-        }
-        .chat-hayat-btn-secondary {
-          display: inline-flex;
+        .route-authority-icon {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: rgba(234,106,71,0.16);
+          color: #EA6A47;
+          display: flex;
           align-items: center;
-          background: #ffffff;
+          justify-content: center;
+          flex-shrink: 0;
+        }
+        .route-price-block {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 6px;
+          text-align: right;
+        }
+        .route-price-from {
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 11px;
+          color: rgba(34,51,44,0.5);
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .route-price-value {
+          display: flex;
+          align-items: baseline;
+          gap: 6px;
+          margin-bottom: 6px;
+        }
+        .route-price-amount {
+          font-family: var(--font-fraunces), serif;
+          font-size: 44px;
+          font-weight: 800;
           color: #22332C;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 15px;
-          font-weight: 600;
-          padding: 14px 28px;
-          border-radius: 100px;
-          border: none;
-          text-decoration: none;
-          transition: background 0.2s ease;
+          line-height: 1;
         }
-        .chat-hayat-btn-secondary:hover {
-          background: rgba(255,255,255,0.8);
+        .route-price-suffix {
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 14px;
+          color: rgba(34,51,44,0.5);
         }
-        .chat-hayat-credit {
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 13px;
-          color: rgba(34,51,44,0.7);
-          font-style: italic;
-          margin: 20px 0 0;
-        }
-        @media (max-width: 768px) {
-          .chat-hayat-card {
-            grid-template-columns: 1fr;
-            justify-items: center;
-            text-align: center;
-            gap: 32px;
-            padding: 40px 28px;
-          }
-          .chat-hayat-buttons {
-            justify-content: center;
-          }
-          .chat-hayat-desc {
-            max-width: none;
-          }
-        }
-        .route-hero {
-          transition: all 0.25s ease;
-        }
-        .route-hero:hover {
-          box-shadow: 0 24px 60px rgba(0,0,0,0.15);
-          transform: translateY(-2px);
+        .route-trust-line {
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 10.5px;
+          color: rgba(34,51,44,0.45);
+          letter-spacing: 0.02em;
+          margin-top: 4px;
         }
         .route-hero-btn {
           display: inline-block;
           background: #EA6A47;
           color: #ffffff;
           padding: 14px 32px;
-          border-radius: 8px;
+          border-radius: 10px;
           font-size: 15px;
           font-weight: 700;
           text-decoration: none;
           white-space: nowrap;
+          border: none;
+          cursor: pointer;
+          font-family: inherit;
           transition: all 0.22s;
         }
         .route-hero-btn:hover {
           background: #c85535;
           transform: translateY(-2px);
         }
-        .route-card {
-          transition: all 0.25s ease;
+        .route-tag-chip {
+          display: inline-flex;
+          width: fit-content;
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          padding: 4px 12px;
+          border-radius: 4px;
         }
-        .route-card:hover {
+        .route-tag-chip--ink {
+          background: rgba(34,51,44,0.06);
+          color: #22332C;
+        }
+        .route-tag-chip--coral {
+          background: rgba(234,106,71,0.12);
+          color: #EA6A47;
+        }
+        .route-cards-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 16px;
+        }
+        .route-card-v2 {
+          position: relative;
+          background: #ffffff;
+          border: 1px solid #E2DACB;
+          border-radius: 20px;
+          padding: 32px 28px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          height: 100%;
+          cursor: pointer;
+          text-decoration: none;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .route-card-v2:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 14px 36px rgba(34,51,44,0.1);
           border-color: #22332C;
-          transform: translateY(-3px);
-          box-shadow: 0 8px 32px rgba(34,51,44,0.08);
         }
-        .route-card-dark {
-          transition: all 0.25s ease;
+        .route-card-v2:hover .route-card-title {
+          color: #EA6A47;
         }
-        .route-card-dark:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 32px rgba(34,51,44,0.08);
+        .route-card-icon {
+          position: absolute;
+          top: 28px;
+          right: 28px;
         }
-        .route-mini-btn-solid {
-          display: inline-block;
+        .route-card-title {
+          font-family: var(--font-fraunces), serif;
+          font-size: 20px;
+          font-weight: 800;
+          color: #22332C;
+          padding-right: 30px;
+          transition: color 0.25s ease;
+        }
+        .route-authority-line {
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 11px;
+          color: rgba(34,51,44,0.4);
+          letter-spacing: 0.02em;
+        }
+        .route-card-buttons {
+          display: flex;
+          gap: 8px;
+          margin-top: 4px;
+          position: relative;
+          z-index: 1;
+        }
+        .route-btn-primary {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
           background: #22332C;
           color: #F3ECDD;
           padding: 10px 20px;
@@ -1047,36 +1083,72 @@ export default function Home() {
           font-size: 13px;
           font-weight: 600;
           text-decoration: none;
+          border: none;
+          cursor: pointer;
+          font-family: inherit;
+          transition: background 0.22s ease;
         }
-        .route-mini-btn-outline {
+        .route-btn-primary:hover {
+          background: #EA6A47;
+        }
+        .route-btn-arrow {
           display: inline-block;
-          background: #ffffff;
-          border: 1.5px solid #DDD3BF;
+          transition: transform 0.22s ease;
+        }
+        .route-btn-primary:hover .route-btn-arrow {
+          transform: translateX(3px);
+        }
+        .route-btn-ghost {
+          display: inline-flex;
+          align-items: center;
+          background: transparent;
+          border: 1px solid #DDD3BF;
           color: #22332C;
           padding: 10px 20px;
           border-radius: 8px;
           font-size: 13px;
           font-weight: 600;
           text-decoration: none;
-          transition: border-color 0.2s ease;
+          cursor: pointer;
+          font-family: inherit;
+          transition: border-color 0.2s ease, background 0.2s ease;
         }
-        .route-mini-btn-outline:hover {
+        .route-btn-ghost:hover {
           border-color: #22332C;
+          background: rgba(34,51,44,0.04);
         }
-        .route-mini-btn-ghost {
-          display: inline-block;
-          background: rgba(255,255,255,0.1);
-          border: 1px solid rgba(255,255,255,0.15);
-          color: #F3ECDD;
-          padding: 10px 20px;
-          border-radius: 8px;
-          font-size: 13px;
-          font-weight: 600;
+        .route-footnote {
+          margin-top: 24px;
+          text-align: center;
+          font-family: var(--font-fraunces), serif;
+          font-style: italic;
+          font-size: 14px;
+          color: rgba(34,51,44,0.45);
+        }
+        .route-footnote a {
+          color: #EA6A47;
           text-decoration: none;
-          transition: background 0.2s ease;
         }
-        .route-mini-btn-ghost:hover {
-          background: rgba(255,255,255,0.15);
+        .route-footnote a:hover {
+          text-decoration: underline;
+        }
+        @media (max-width: 860px) {
+          .route-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 32px;
+          }
+          .route-price-block {
+            align-items: flex-start;
+            text-align: left;
+          }
+          .route-hero-glow {
+            right: -30%;
+          }
+        }
+        @media (max-width: 768px) {
+          .route-cards-row {
+            grid-template-columns: 1fr;
+          }
         }
         .thesis-grid {
           display: grid;
@@ -1173,18 +1245,6 @@ export default function Home() {
           grid-template-columns: 1fr 420px;
           gap: 80px;
           align-items: start;
-        }
-        .believe-eyebrow {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 11px; font-weight: 500;
-          letter-spacing: 1.2px; text-transform: uppercase;
-          color: var(--muted);
-          display: flex; align-items: center; gap: 10px;
-          margin-bottom: 52px;
-        }
-        .believe-eyebrow::before {
-          content: ''; width: 18px; height: 1.5px;
-          background: var(--coral); border-radius: 2px; flex-shrink: 0;
         }
         .believe-section-title {
           font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
@@ -1490,9 +1550,6 @@ export default function Home() {
         style={{ background: "#F5F0E8", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}
       >
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1.5rem" }}>01 · Proof</p>
-          </AnimateIn>
           <div className="proof-grid">
             {metricCards.map((card, i) => (
               <ProofCard
@@ -1508,10 +1565,8 @@ export default function Home() {
       </section>
 
       {/* SECTION 3 — WHAT I BELIEVE */}
-      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "72px 60px 80px" }}>
+      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "56px 60px 80px" }}>
         <div style={{ maxWidth: 1360, margin: "0 auto" }}>
-
-          <div className="believe-eyebrow">02 · What I believe</div>
 
           <div className="believe-content-wrap">
 
@@ -1578,6 +1633,16 @@ export default function Home() {
                     borderRadius: 16,
                   }}
                 />
+
+                {/* Equalizer badge — always visible while playing, independent of hover, so it reads as "sound is on" */}
+                {audioState === 'playing' && (
+                  <div className="portrait-eq-badge" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                )}
 
                 {/* Idle pill — hidden by default, appears on hover, disappears once audio starts */}
                 {audioState === 'idle' && (
@@ -1678,17 +1743,6 @@ export default function Home() {
 
           {/* LEFT SIDE */}
           <div style={{ paddingRight: "4rem", paddingBottom: "2.5rem", height: "fit-content" }}>
-            <p style={{
-              fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.65rem",
-              fontWeight: 500,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase" as const,
-              color: "#C17A5A",
-              marginBottom: "1.5rem",
-            }}>
-              Track Record
-            </p>
             <h2 style={{
               fontFamily: "var(--font-playfair), serif",
               fontWeight: 700,
@@ -2211,9 +2265,6 @@ export default function Home() {
       {/* SECTION 4 — SELECTED WORK */}
       <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "80px 0" }}>
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>03 · Selected work</p>
-          </AnimateIn>
           <AnimateIn delay={80}>
             <h2
               style={{
@@ -2279,30 +2330,25 @@ export default function Home() {
       </section>
 
       {/* SECTION 5 — ON CAMERA */}
-      <section style={{ background: "white", padding: "100px 0" }}>
+      <section
+        style={{
+          background: "#FFFFFF",
+          padding: "100px 0",
+          backgroundImage:
+            "radial-gradient(circle, rgba(30,36,31,0.05) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      >
         <div className="max-w-site">
           {/* Heading area */}
           <div style={{ marginBottom: "60px" }}>
             <AnimateIn>
-              <p
-                style={{
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  fontSize: "11px",
-                  color: "#EA6A47",
-                  letterSpacing: "0.12em",
-                  marginBottom: "16px",
-                }}
-              >
-                04 · ON CAMERA
-              </p>
-            </AnimateIn>
-            <AnimateIn delay={80}>
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
                   fontSize: "48px",
                   fontWeight: 900,
-                  color: "#22332C",
+                  color: "#1E241F",
                   marginBottom: "12px",
                 }}
               >
@@ -2312,9 +2358,10 @@ export default function Home() {
             <AnimateIn delay={150}>
               <p
                 style={{
-                  fontSize: "16px",
-                  color: "rgba(34,51,44,0.65)",
-                  maxWidth: 600,
+                  fontSize: "1.2rem",
+                  lineHeight: 1.7,
+                  color: "#4A524A",
+                  maxWidth: "60ch",
                 }}
               >
                 I don&apos;t just build the machines — I talk about them. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
@@ -2325,45 +2372,20 @@ export default function Home() {
           <OnCameraGrid />
 
           {/* CTA strip below grid */}
-          <div
-            style={{
-              marginTop: "40px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontSize: "11px",
-                color: "rgba(34,51,44,0.3)",
-                letterSpacing: "0.06em",
-              }}
-            >
-              Real reel thumbnails pending from Riz
-            </p>
+          <div style={{ marginTop: "48px", textAlign: "center" }}>
             <a
               href="https://www.instagram.com/rizautomates"
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                background: "#22332C",
-                color: "#F3ECDD",
-                padding: "12px 24px",
-                borderRadius: 8,
-                fontSize: "14px",
-                fontWeight: 600,
-                textDecoration: "none",
-                transition: "all 0.22s ease",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#EA6A47"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "#22332C"; }}
+              className="oc-ig-cta"
             >
-              Follow on Instagram <span>↗</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
+              More on Instagram
+              <span className="oc-ig-arrow" aria-hidden="true">↗</span>
             </a>
           </div>
         </div>
@@ -2400,20 +2422,6 @@ export default function Home() {
 
         <div className="max-w-site" style={{ position: "relative", zIndex: 1 }}>
           <div style={{ maxWidth: 680, marginBottom: 60 }}>
-            <AnimateIn>
-              <p
-                style={{
-                  fontFamily: "var(--font-geist-mono), monospace",
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "#EA6A47",
-                  marginBottom: 20,
-                }}
-              >
-                05 · How I think
-              </p>
-            </AnimateIn>
             <AnimateIn delay={80}>
               <h2
                 style={{
@@ -2558,22 +2566,8 @@ export default function Home() {
       </section>
 
       {/* SECTION 7 — ROUTES */}
-      <section style={{ background: "#F3ECDD", padding: "100px 0" }}>
+      <section style={{ background: "#FFFFFF", padding: "100px 0" }}>
         <div className="max-w-site">
-          <AnimateIn>
-            <p
-              style={{
-                fontFamily: "var(--font-geist-mono), monospace",
-                fontSize: "0.72rem",
-                color: "#EA6A47",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                marginBottom: "1rem",
-              }}
-            >
-              06 · Working with me
-            </p>
-          </AnimateIn>
           <AnimateIn delay={80}>
             <h2
               style={{
@@ -2605,119 +2599,91 @@ export default function Home() {
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {/* ROW 1 — Consulting featured */}
             <AnimateIn delay={200}>
-              <div
-                className="route-hero"
-                style={{
-                  background: "#22332C",
-                  borderRadius: 20,
-                  padding: "48px 52px",
-                  display: "grid",
-                  gridTemplateColumns: "1fr auto",
-                  gap: 48,
-                  alignItems: "center",
-                }}
-              >
-                <div>
-                  <span
-                    style={{
-                      display: "inline-block",
-                      background: "rgba(234,106,71,0.15)",
-                      color: "#EA6A47",
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 10,
-                      padding: "4px 12px",
-                      borderRadius: 4,
-                      letterSpacing: "0.1em",
-                      width: "fit-content",
-                      marginBottom: 16,
-                    }}
-                  >
-                    1:1 ADVISORY
-                  </span>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-fraunces), serif",
-                      fontSize: 32,
-                      fontWeight: 800,
-                      color: "#F3ECDD",
-                      marginBottom: 10,
-                    }}
-                  >
-                    Consulting & coaching
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: 15,
-                      color: "rgba(243,236,221,0.7)",
-                      lineHeight: 1.7,
-                      maxWidth: 520,
-                    }}
-                  >
-                    1:1 advisory and fractional product / ops for early-stage teams. I come in, we get clear, we build the system.
-                  </p>
-                </div>
+              <div className="route-hero-v2">
+                <div className="route-hero-texture" aria-hidden="true" />
+                <div className="route-hero-glow" aria-hidden="true" />
 
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 16 }}>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 22,
-                      fontWeight: 700,
-                      color: "#F3ECDD",
-                    }}
-                  >
-                    From $160 / hr
-                  </p>
-                  <Link href="/services/consulting" className="route-hero-btn">
-                    Book a call
-                  </Link>
+                <div className="route-hero-grid">
+                  {/* LEFT — tag, title, description, authority row */}
+                  <div>
+                    <span className="route-tag-chip route-tag-chip--coral" style={{ marginBottom: 16 }}>
+                      1:1 ADVISORY
+                    </span>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-fraunces), serif",
+                        fontSize: 32,
+                        fontWeight: 800,
+                        color: "#22332C",
+                        marginBottom: 10,
+                      }}
+                    >
+                      Consulting & coaching
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: 15,
+                        color: "rgba(34,51,44,0.65)",
+                        lineHeight: 1.7,
+                        maxWidth: 520,
+                      }}
+                    >
+                      1:1 advisory and fractional product / ops for early-stage teams. I come in, we get clear, we build the system.
+                    </p>
+
+                    <div className="route-authority-row">
+                      <span className="route-authority-chip">
+                        <span className="route-authority-icon">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z" />
+                          </svg>
+                        </span>
+                        10+ yrs ops — Careem · Bolt · Wise
+                      </span>
+                      <span className="route-authority-chip">
+                        <span className="route-authority-icon">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="2" y1="12" x2="22" y2="12" />
+                            <path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z" />
+                          </svg>
+                        </span>
+                        4 continents
+                      </span>
+                      <span className="route-authority-chip">
+                        <span className="route-authority-icon">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M20 6L9 17l-5-5" />
+                          </svg>
+                        </span>
+                        Anthropic Partner
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* RIGHT — pricing block */}
+                  <div className="route-price-block">
+                    <span className="route-price-from">From</span>
+                    <span className="route-price-value">
+                      <span className="route-price-amount">$160</span>
+                      <span className="route-price-suffix">/hr</span>
+                    </span>
+                    <CalBookingButton className="route-hero-btn">Book a call</CalBookingButton>
+                    <span className="route-trust-line">30-min intro call · no obligation</span>
+                  </div>
                 </div>
               </div>
             </AnimateIn>
 
             {/* ROW 2 — 3 columns */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
+            <div className="route-cards-row">
               {/* CARD A — A system built for you */}
               <AnimateIn delay={280}>
-                <div
-                  className="route-card"
-                  style={{
-                    background: "#fff",
-                    border: "1.5px solid #DDD3BF",
-                    borderRadius: 16,
-                    padding: "32px 28px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                    height: "100%",
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-block",
-                      background: "rgba(34,51,44,0.06)",
-                      border: "1px solid rgba(34,51,44,0.1)",
-                      color: "#22332C",
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 10,
-                      padding: "4px 10px",
-                      borderRadius: 4,
-                      width: "fit-content",
-                    }}
-                  >
-                    FULL BUILD
-                  </span>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-fraunces), serif",
-                      fontSize: 20,
-                      fontWeight: 800,
-                      color: "#22332C",
-                    }}
-                  >
-                    A system built for you
-                  </p>
+                <ClickableCard href="/services/projects" className="route-card-v2">
+                  <span className="route-card-icon"><RouteBuildIcon /></span>
+                  <span className="route-tag-chip route-tag-chip--ink">FULL BUILD</span>
+                  <p className="route-card-title">A system built for you</p>
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
@@ -2729,72 +2695,29 @@ export default function Home() {
                   >
                     Custom AI automations, end-to-end. That&apos;s what Soch does.
                   </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 14,
-                      fontWeight: 700,
-                      color: "#22332C",
-                    }}
-                  >
-                    Via Soch
-                  </p>
-                  <div style={{ display: "flex", gap: 8 }}>
+                  <p className="route-authority-line">Delivered via Soch — withsoch.com</p>
+                  <div className="route-card-buttons">
                     <Link
                       href="https://withsoch.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="route-mini-btn-solid"
+                      className="route-btn-primary"
                     >
-                      Soch ↗
+                      See Soch <span className="route-btn-arrow">↗</span>
                     </Link>
-                    <Link href="/services/projects" className="route-mini-btn-outline">
+                    <Link href="/services/projects" className="route-btn-ghost">
                       Details
                     </Link>
                   </div>
-                </div>
+                </ClickableCard>
               </AnimateIn>
 
               {/* CARD B — Speaking & workshops */}
               <AnimateIn delay={360}>
-                <div
-                  className="route-card"
-                  style={{
-                    background: "#fff",
-                    border: "1.5px solid #DDD3BF",
-                    borderRadius: 16,
-                    padding: "32px 28px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                    height: "100%",
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-block",
-                      background: "rgba(34,51,44,0.06)",
-                      border: "1px solid rgba(34,51,44,0.1)",
-                      color: "#22332C",
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 10,
-                      padding: "4px 10px",
-                      borderRadius: 4,
-                      width: "fit-content",
-                    }}
-                  >
-                    LIVE & IN-PERSON
-                  </span>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-fraunces), serif",
-                      fontSize: 20,
-                      fontWeight: 800,
-                      color: "#22332C",
-                    }}
-                  >
-                    Speaking & workshops
-                  </p>
+                <ClickableCard href="/services/speaking" className="route-card-v2">
+                  <span className="route-card-icon"><RouteMicIcon /></span>
+                  <span className="route-tag-chip route-tag-chip--ink">LIVE & IN-PERSON</span>
+                  <p className="route-card-title">Speaking & workshops</p>
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
@@ -2806,69 +2729,26 @@ export default function Home() {
                   >
                     Talks and workshops on AI leverage and operator thinking. Four continents so far.
                   </p>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 14,
-                      fontWeight: 700,
-                      color: "#22332C",
-                    }}
-                  >
-                    Let&apos;s talk
-                  </p>
-                  <div style={{ display: "flex", gap: 8 }}>
-                    <Link href="/services/speaking" className="route-mini-btn-solid">
-                      Details
+                  <p className="route-authority-line">Careem · Bolt · Wise alumni speaker</p>
+                  <div className="route-card-buttons">
+                    <Link href="/services/speaking" className="route-btn-primary">
+                      Details <span className="route-btn-arrow">→</span>
                     </Link>
                   </div>
-                </div>
+                </ClickableCard>
               </AnimateIn>
 
               {/* CARD C — Just want to learn? */}
               <AnimateIn delay={440}>
-                <div
-                  className="route-card-dark"
-                  style={{
-                    background: "#22332C",
-                    border: "none",
-                    borderRadius: 16,
-                    padding: "32px 28px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 12,
-                    height: "100%",
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "inline-block",
-                      background: "rgba(74,222,128,0.1)",
-                      border: "none",
-                      color: "#4ADE80",
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 10,
-                      padding: "4px 10px",
-                      borderRadius: 4,
-                      width: "fit-content",
-                    }}
-                  >
-                    FREE
-                  </span>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-fraunces), serif",
-                      fontSize: 20,
-                      fontWeight: 800,
-                      color: "#F3ECDD",
-                    }}
-                  >
-                    Just want to learn?
-                  </p>
+                <ClickableCard href="/blog" className="route-card-v2">
+                  <span className="route-card-icon"><RouteBookIcon /></span>
+                  <span className="route-tag-chip route-tag-chip--coral">FREE</span>
+                  <p className="route-card-title">Just want to learn?</p>
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
                       fontSize: 14,
-                      color: "rgba(243,236,221,0.7)",
+                      color: "rgba(34,51,44,0.72)",
                       lineHeight: 1.65,
                       flexGrow: 1,
                     }}
@@ -2877,106 +2757,52 @@ export default function Home() {
                   </p>
                   <p
                     style={{
-                      fontFamily: "var(--font-geist-mono), monospace",
+                      fontFamily: "var(--font-fraunces), serif",
+                      fontStyle: "italic",
                       fontSize: 14,
                       fontWeight: 700,
-                      color: "#4ADE80",
+                      color: "#EA6A47",
                     }}
                   >
                     Free. Always.
                   </p>
-                  <div style={{ display: "flex", gap: 8 }}>
-                    <Link href="/blog" className="route-mini-btn-ghost">
-                      Start reading
+                  <div className="route-card-buttons">
+                    <Link href="/blog" className="route-btn-primary">
+                      Start reading <span className="route-btn-arrow">→</span>
                     </Link>
                   </div>
-                </div>
+                </ClickableCard>
               </AnimateIn>
             </div>
           </div>
 
-          <p
-            style={{
-              marginTop: 24,
-              textAlign: "center",
-              fontFamily: "var(--font-geist-mono), monospace",
-              fontSize: 11,
-              color: "rgba(34,51,44,0.35)",
-              letterSpacing: "0.06em",
-            }}
-          >
-            Heavy build work → Soch. This site is the person and the thinking.
+          <p className="route-footnote">
+            Heavy build work → <a href="https://withsoch.com" target="_blank" rel="noopener noreferrer">Soch</a>. This site is the person and the thinking.
           </p>
         </div>
       </section>
+
+      {/* SECTION 8 — TESTIMONIALS */}
+      <TestimonialsSection
+        heading={
+          <>
+            Don&apos;t take <span style={{ color: "var(--coral)", fontStyle: "italic" }}>my word</span> for it.
+          </>
+        }
+      />
 
       {/* SECTION — HAVE A CHAT */}
       <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <div className="chat-hayat-card">
-              {/* Left col — photo + badge */}
-              <div className="chat-hayat-photo-col">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/Photos/riz-vespa.jpg"
-                  alt="Rizwan Mahmood"
-                  className="chat-hayat-photo"
-                />
-                {/* Available badge */}
-                <div className="chat-hayat-badge">
-                  <span className="chat-hayat-dot" />
-                  Available this week
-                </div>
-              </div>
-
-              {/* Right col — content */}
-              <div>
-                {/* Pill label */}
-                <span className="chat-hayat-label">Direct Line</span>
-
-                {/* Heading */}
-                <h2 className="chat-hayat-heading">
-                  Have a chat{" "}
-                  <span className="chat-hayat-heading-accent">with me?</span>
-                </h2>
-
-                {/* Subtext */}
-                <p className="chat-hayat-desc">
-                  Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
-                </p>
-
-                {/* Buttons */}
-                <div className="chat-hayat-buttons">
-                  <Link href="/services/consulting" className="chat-hayat-btn-primary">
-                    Book a call →
-                  </Link>
-                  <a
-                    href="https://claude.ai"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="chat-hayat-btn-secondary"
-                  >
-                    Ask Claude about Riz →
-                  </a>
-                </div>
-
-                {/* Bottom credit */}
-                <p className="chat-hayat-credit">
-                  Rizwan Mahmood · Operator and AI Builder
-                </p>
-              </div>
-            </div>
+            <DirectLineCTA />
           </AnimateIn>
         </div>
       </section>
 
-      {/* SECTION 8 — WRITING */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+      {/* SECTION 9 — WRITING */}
+      <section style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
         <div className="max-w-site">
-          <AnimateIn>
-            <p className="section-eyebrow" style={{ marginBottom: "1rem" }}>07 · Writing</p>
-          </AnimateIn>
           <AnimateIn delay={80}>
             <h2
               style={{
@@ -2987,7 +2813,8 @@ export default function Home() {
                 marginBottom: "0.75rem",
               }}
             >
-              I think out loud.
+              I think{" "}
+              <span style={{ color: "var(--coral)", fontStyle: "italic" }}>out loud.</span>
             </h2>
           </AnimateIn>
           <AnimateIn delay={150}>
@@ -2996,88 +2823,51 @@ export default function Home() {
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontSize: "1rem",
                 color: "var(--muted)",
-                marginBottom: "3rem",
+                marginBottom: "2.5rem",
               }}
             >
               Notes on automation, operations, and using AI without losing the plot. New stuff most weeks.
             </p>
           </AnimateIn>
 
-          <div className="grid md:grid-cols-3 gap-5">
-            {blogPosts.map((post, i) => (
-              <AnimateIn key={i} delay={i * 100}>
-                <div
-                  style={{
-                    background: "#fff",
-                    border: "1px solid var(--line)",
-                    borderRadius: 12,
-                    padding: "1.75rem",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.75rem",
-                    height: "100%",
-                    boxShadow: "var(--shadow)",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.68rem",
-                      color: "var(--faint)",
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {post.meta}
-                  </p>
-                  <h3
-                    style={{
-                      fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.05rem",
-                      fontWeight: 600,
-                      color: "var(--ink)",
-                      lineHeight: 1.4,
-                      flex: 1,
-                    }}
-                  >
-                    {post.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.875rem",
-                      color: "var(--body)",
-                      lineHeight: 1.65,
-                    }}
-                  >
-                    {post.excerpt}
-                  </p>
-                  <Link
-                    href="/blog"
-                    style={{
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.875rem",
-                      fontWeight: 600,
-                      color: "var(--coral)",
-                      textDecoration: "none",
-                    }}
-                  >
-                    Read →
+          <div className="writing-list">
+            {blogPosts.map((post, i) => {
+              const metaParts = post.meta.split(" · ");
+              const date = metaParts.slice(0, 2).join(" · ");
+              const category = metaParts[2] ?? "";
+              return (
+                <AnimateIn key={i} delay={i * 90} className="writing-row-animate">
+                  <Link href="/blog" className="writing-row">
+                    <span className="writing-row-index">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="writing-row-meta">
+                      <span className="writing-row-date">{date}</span>
+                      <span className="writing-row-chip">{category}</span>
+                    </span>
+                    <span className="writing-row-body">
+                      <span className="writing-row-title">
+                        {post.title}
+                        <span className="writing-row-title-mark">*</span>
+                      </span>
+                      <span className="writing-row-excerpt">{post.excerpt}</span>
+                    </span>
+                    <span className="writing-row-cta">Read →</span>
                   </Link>
-                </div>
-              </AnimateIn>
-            ))}
+                </AnimateIn>
+              );
+            })}
           </div>
 
           <AnimateIn delay={400}>
             <div style={{ marginTop: "2.5rem", textAlign: "center" }}>
-              <Link href="/blog" className="btn-ghost">Read everything →</Link>
+              <Link href="/blog" className="btn-ghost">
+                Read everything <span className="writing-cta-arrow">→</span>
+              </Link>
             </div>
           </AnimateIn>
         </div>
       </section>
 
-      {/* SECTION 9 — BOOKING */}
+      {/* SECTION 10 — BOOKING */}
       <BookingSection />
     </>
   );

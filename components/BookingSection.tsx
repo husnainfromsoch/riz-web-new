@@ -1,4 +1,5 @@
 import AnimateIn from "@/components/AnimateIn";
+import CalBookingButton from "@/components/CalModal";
 
 const included = [
   "60-minute deep dive over Zoom",
@@ -36,35 +37,8 @@ export default function BookingSection() {
       style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)" }}
     >
       {/* TOP BANNER */}
-      <div style={{ textAlign: "center", padding: "5rem 1.5rem 3rem" }}>
-        <AnimateIn>
-          <p
-            style={{
-              fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.72rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "var(--coral)",
-              marginBottom: "1.25rem",
-            }}
-          >
-            Work With Me
-          </p>
-        </AnimateIn>
+      <div style={{ textAlign: "center", padding: "3.5rem 1.5rem 3rem" }}>
         <AnimateIn delay={80}>
-          {/* Section label above heading */}
-          <p
-            style={{
-              fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.7rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "var(--coral)",
-              marginBottom: "0.75rem",
-            }}
-          >
-            1:1 Strategy Session
-          </p>
           {/* Main heading — DM Sans bold, 56px desktop */}
           <h2
             style={{
@@ -267,15 +241,9 @@ export default function BookingSection() {
                   $200 / session
                 </p>
               </div>
-              <a
-                href="https://calendly.com/riz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-coral"
-                style={{ flexShrink: 0 }}
-              >
-                Book on Calendly →
-              </a>
+              <CalBookingButton className="btn-coral" style={{ flexShrink: 0 }}>
+                Book a call →
+              </CalBookingButton>
             </div>
           </div>
         </AnimateIn>

@@ -1,6 +1,14 @@
+"use client";
+import { useEffect, useRef, useState } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import ServicesHubDiagram from "@/components/ServicesHubDiagram";
+import TestimonialsSection from "@/components/Testimonials";
+import DirectLineCTA from "@/components/DirectLineCTA";
+import DirectLineStrip from "@/components/DirectLineStrip";
 import Link from "next/link";
+import CalBookingButton from "@/components/CalModal";
+
+const SERVICE_IDS = ["consulting", "projects", "workshops"];
 
 /* ─── shared micro-styles ─────────────────────────── */
 const eyebrowStyle = (color: string): React.CSSProperties => ({
@@ -14,38 +22,22 @@ const eyebrowStyle = (color: string): React.CSSProperties => ({
 });
 
 const sublineStyle = (color: string): React.CSSProperties => ({
-  fontFamily: "var(--font-playfair), serif",
-  fontStyle: "italic",
-  fontSize: "clamp(1.4rem, 2.2vw, 1.75rem)",
   color,
-  lineHeight: 1.25,
-  marginBottom: "1.25rem",
 });
 
 const bodyStyle: React.CSSProperties = {
   fontFamily: "var(--font-dm-sans), sans-serif",
-  fontSize: "1.025rem",
   color: "var(--body)",
-  lineHeight: 1.78,
-  maxWidth: 480,
-  marginBottom: "1.75rem",
 };
 
 const checkBullet = (color: string, text: string) => (
-  <li
-    key={text}
-    style={{
-      display: "flex",
-      alignItems: "flex-start",
-      gap: "0.7rem",
-      marginBottom: "0.6rem",
-      fontFamily: "var(--font-dm-sans), sans-serif",
-      fontSize: "0.975rem",
-      color: "var(--body)",
-      lineHeight: 1.55,
-    }}
-  >
-    <span style={{ color, fontWeight: 700, flexShrink: 0, marginTop: "0.05rem" }}>✓</span>
+  <li key={text} className="svc-check-item">
+    <span
+      className="svc-check-icon"
+      style={{ background: `color-mix(in srgb, ${color} 16%, transparent)`, color }}
+    >
+      ✓
+    </span>
     <span>{text}</span>
   </li>
 );
@@ -54,484 +46,610 @@ const sectionDivider = (
   <div style={{ borderTop: "1px solid #E7E0D2", marginTop: 0 }} />
 );
 
+/* ─── shared hook: drives card animations from viewport + motion prefs ─── */
+function useCardAnimation<T extends HTMLElement>() {
+  const ref = useRef<T | null>(null);
+  const [inView, setInView] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setReducedMotion(mql.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.35 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, active: inView && !reducedMotion };
+}
+
 /* ─── mockup: Clarity Session booking widget ─────── */
-const ConsultingMockup = () => (
-  <div
-    style={{
-      border: "1px solid var(--line)",
-      borderRadius: 14,
-      overflow: "hidden",
-      boxShadow: "var(--shadow-lg)",
-      maxWidth: 420,
-      marginLeft: "auto",
-    }}
-  >
-    {/* coral header */}
+function ConsultingMockup() {
+  const { ref, active } = useCardAnimation<HTMLDivElement>();
+  const [slot, setSlot] = useState(1);
+
+  useEffect(() => {
+    if (!active) return;
+    const id = setInterval(() => setSlot((s) => (s + 1) % 3), 3000);
+    return () => clearInterval(id);
+  }, [active]);
+
+  const slots = [
+    { time: "Mon · 9:00 AM" },
+    { time: "Tue · 2:00 PM" },
+    { time: "Thu · 11:00 AM" },
+  ];
+
+  return (
     <div
+      ref={ref}
       style={{
-        background: "var(--coral)",
-        padding: "1.25rem 1.5rem",
-        display: "flex",
-        alignItems: "center",
-        gap: "1rem",
+        border: "1px solid var(--line)",
+        borderRadius: 14,
+        overflow: "hidden",
+        boxShadow: "var(--shadow-lg)",
+        maxWidth: 460,
+        marginLeft: "auto",
       }}
     >
+      {/* coral header */}
       <div
         style={{
-          width: 42,
-          height: 42,
-          borderRadius: "50%",
-          background: "rgba(255,255,255,0.2)",
+          background: "var(--coral)",
+          padding: "1.5rem 1.75rem",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-          fontSize: "1.1rem",
-          color: "#fff",
+          gap: "1rem",
         }}
       >
-        ◎
-      </div>
-      <div>
-        <p
+        <div
           style={{
-            fontFamily: "var(--font-dm-sans), sans-serif",
-            fontWeight: 600,
-            fontSize: "0.975rem",
+            width: 42,
+            height: 42,
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.2)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            fontSize: "1.1rem",
             color: "#fff",
           }}
         >
-          Clarity Session
-        </p>
+          <span className={`svc-anim-tick${active ? " is-active" : ""}`}>◎</span>
+        </div>
+        <div>
+          <p
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontWeight: 600,
+              fontSize: "1.05rem",
+              color: "#fff",
+            }}
+          >
+            Clarity Session
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "0.73rem",
+              color: "rgba(255,255,255,0.72)",
+              marginTop: "0.15rem",
+            }}
+          >
+            60 min · From $160
+          </p>
+        </div>
+      </div>
+
+      {/* body */}
+      <div style={{ padding: "1.75rem", background: "#fff" }}>
         <p
           style={{
             fontFamily: "var(--font-dm-mono), monospace",
-            fontSize: "0.73rem",
-            color: "rgba(255,255,255,0.72)",
-            marginTop: "0.15rem",
+            fontSize: "0.65rem",
+            color: "var(--muted)",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+            marginBottom: "0.85rem",
           }}
         >
-          60 min · From $160
+          Available this week
         </p>
-      </div>
-    </div>
 
-    {/* body */}
-    <div style={{ padding: "1.5rem", background: "#fff" }}>
-      <p
-        style={{
-          fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.65rem",
-          color: "var(--muted)",
-          textTransform: "uppercase",
-          letterSpacing: "0.1em",
-          marginBottom: "0.85rem",
-        }}
-      >
-        Available this week
-      </p>
+        {slots.map((slotItem, i) => {
+          const selected = i === slot;
+          return (
+            <div
+              key={slotItem.time}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "0.65rem 0.9rem",
+                borderRadius: 8,
+                marginBottom: "0.5rem",
+                background: selected ? "var(--coral)" : "var(--cream-2)",
+                border: selected ? "none" : "1px solid var(--line)",
+                transition: "background 0.5s ease, border-color 0.5s ease",
+              }}
+            >
+              <div
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: selected ? "#fff" : "var(--muted)",
+                  flexShrink: 0,
+                  transition: "background 0.5s ease",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "0.875rem",
+                  color: selected ? "#fff" : "var(--body)",
+                  flex: 1,
+                  transition: "color 0.5s ease",
+                }}
+              >
+                {slotItem.time}
+              </span>
+              {selected && (
+                <span
+                  style={{
+                    fontFamily: "var(--font-dm-mono), monospace",
+                    fontSize: "0.65rem",
+                    color: "rgba(255,255,255,0.78)",
+                  }}
+                >
+                  Selected
+                </span>
+              )}
+            </div>
+          );
+        })}
 
-      {[
-        { time: "Mon · 9:00 AM", selected: false },
-        { time: "Tue · 2:00 PM", selected: true },
-        { time: "Thu · 11:00 AM", selected: false },
-      ].map((slot) => (
         <div
-          key={slot.time}
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.75rem",
-            padding: "0.65rem 0.9rem",
+            marginTop: "1rem",
+            background: "var(--ink)",
             borderRadius: 8,
-            marginBottom: "0.5rem",
-            background: slot.selected ? "var(--coral)" : "var(--cream-2)",
-            border: slot.selected ? "none" : "1px solid var(--line)",
+            padding: "0.8rem",
+            textAlign: "center",
           }}
         >
-          <div
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              background: slot.selected ? "#fff" : "var(--muted)",
-              flexShrink: 0,
-            }}
-          />
           <span
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "0.875rem",
-              color: slot.selected ? "#fff" : "var(--body)",
-              flex: 1,
+              fontWeight: 600,
+              fontSize: "0.9rem",
+              color: "#fff",
             }}
           >
-            {slot.time}
+            Book this slot →
           </span>
-          {slot.selected && (
-            <span
-              style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.65rem",
-                color: "rgba(255,255,255,0.78)",
-              }}
-            >
-              Selected
-            </span>
-          )}
         </div>
-      ))}
-
-      <div
-        style={{
-          marginTop: "1rem",
-          background: "var(--ink)",
-          borderRadius: 8,
-          padding: "0.8rem",
-          textAlign: "center",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-dm-sans), sans-serif",
-            fontWeight: 600,
-            fontSize: "0.9rem",
-            color: "#fff",
-          }}
-        >
-          Book this slot →
-        </span>
       </div>
     </div>
-  </div>
-);
+  );
+}
 
 /* ─── mockup: workflow diagram (dark card) ───────── */
-const wfNode = (
+function wfNode(
   icon: string,
   label: string,
   accentBg: string,
   accentBorder: string,
   textColor: string,
-  iconColor: string
-) => (
-  <div
-    style={{
-      background: accentBg,
-      border: `1px solid ${accentBorder}`,
-      borderRadius: 6,
-      padding: "0.35rem 0.6rem",
-      display: "flex",
-      alignItems: "center",
-      gap: "0.35rem",
-      flexShrink: 0,
-    }}
-  >
-    <span style={{ fontSize: "0.72rem", color: iconColor }}>{icon}</span>
-    <span
+  iconColor: string,
+  isActive: boolean
+) {
+  return (
+    <div
       style={{
-        fontFamily: "var(--font-dm-mono), monospace",
-        fontSize: "0.65rem",
-        color: textColor,
-        whiteSpace: "nowrap",
+        position: "relative",
+        background: accentBg,
+        border: `1px solid ${isActive ? "var(--coral)" : accentBorder}`,
+        borderRadius: 7,
+        padding: "0.5rem 0.85rem",
+        display: "flex",
+        alignItems: "center",
+        gap: "0.4rem",
+        flexShrink: 0,
+        boxShadow: isActive
+          ? "0 0 0 3px rgba(234,106,71,0.18), 0 0 14px rgba(234,106,71,0.35)"
+          : "none",
+        transition: "border-color 0.4s ease, box-shadow 0.4s ease",
       }}
     >
-      {label}
-    </span>
-  </div>
-);
+      {isActive && (
+        <span
+          style={{
+            position: "absolute",
+            top: -4,
+            right: -4,
+            width: 7,
+            height: 7,
+            borderRadius: "50%",
+            background: "var(--coral)",
+            boxShadow: "0 0 6px rgba(234,106,71,0.85)",
+          }}
+        />
+      )}
+      <span style={{ fontSize: "0.85rem", color: isActive ? "var(--coral)" : iconColor }}>
+        {icon}
+      </span>
+      <span
+        style={{
+          fontFamily: "var(--font-dm-mono), monospace",
+          fontSize: "0.78rem",
+          color: textColor,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
 
 const wfArrow = (
-  <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.8rem", flexShrink: 0 }}>
+  <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.9rem", flexShrink: 0 }}>
     →
   </span>
 );
 
-const ProjectsMockup = () => (
-  <div
-    style={{
-      background: "var(--ink)",
-      borderRadius: 14,
-      padding: "1.75rem",
-      boxShadow: "var(--shadow-lg)",
-      maxWidth: 420,
-      marginLeft: "auto",
-    }}
-  >
-    {/* header */}
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginBottom: "1.5rem",
-      }}
-    >
-      <span
-        style={{
-          fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.68rem",
-          color: "var(--coral)",
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-        }}
-      >
-        Active Workflow
-      </span>
-      <span
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "0.4rem",
-          fontFamily: "var(--font-dm-sans), sans-serif",
-          fontSize: "0.75rem",
-          color: "#4ade80",
-        }}
-      >
-        <span
-          style={{
-            width: 6,
-            height: 6,
-            borderRadius: "50%",
-            background: "#4ade80",
-            display: "inline-block",
-          }}
-        />
-        Live
-      </span>
-    </div>
+function ProjectsMockup() {
+  const { ref, active } = useCardAnimation<HTMLDivElement>();
+  const [step, setStep] = useState(0);
+  const totalSteps = 7;
 
-    {/* row 1 */}
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "0.4rem",
-        marginBottom: "0.6rem",
-      }}
-    >
-      {wfNode("▶", "New Lead", "rgba(234,106,71,0.22)", "rgba(234,106,71,0.4)", "rgba(255,255,255,0.9)", "var(--coral)")}
-      {wfArrow}
-      {wfNode("⋯", "Tag Filter", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)")}
-      {wfArrow}
-      {wfNode("✉", "Notify", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)")}
-    </div>
+  useEffect(() => {
+    if (!active) return;
+    const id = setInterval(() => setStep((s) => (s + 1) % totalSteps), 800);
+    return () => clearInterval(id);
+  }, [active]);
 
-    {/* connector + row 2 */}
-    <div style={{ display: "flex", alignItems: "flex-start", gap: "0.4rem" }}>
-      <div
-        style={{
-          width: 28,
-          flexShrink: 0,
-          display: "flex",
-          justifyContent: "center",
-          paddingTop: "0.1rem",
-        }}
-      >
+  const isStep = (i: number) => active && step === i;
+
+  return (
+    <div ref={ref} className="wf-card">
+      <div className="wf-dotgrid" aria-hidden="true" />
+      <div className="wf-card-inner">
+        {/* header */}
         <div
-          style={{
-            width: 1,
-            height: 22,
-            background: "rgba(255,255,255,0.14)",
-          }}
-        />
-      </div>
-      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-        {wfNode("⟳", "Enrich", "rgba(215,154,54,0.18)", "rgba(215,154,54,0.35)", "rgba(255,255,255,0.85)", "#D79A36")}
-        {wfArrow}
-        {wfNode("□", "CRM Save", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)")}
-      </div>
-    </div>
-
-    {/* tech stack */}
-    <div
-      style={{
-        marginTop: "1.5rem",
-        paddingTop: "1rem",
-        borderTop: "1px solid rgba(255,255,255,0.07)",
-        display: "flex",
-        gap: "0.5rem",
-        flexWrap: "wrap",
-      }}
-    >
-      {["n8n", "Claude", "Airtable", "Slack"].map((t) => (
-        <span
-          key={t}
-          style={{
-            padding: "0.2rem 0.6rem",
-            borderRadius: 99,
-            background: "rgba(255,255,255,0.06)",
-            fontFamily: "var(--font-dm-mono), monospace",
-            fontSize: "0.67rem",
-            color: "rgba(255,255,255,0.38)",
-          }}
-        >
-          {t}
-        </span>
-      ))}
-    </div>
-  </div>
-);
-
-/* ─── mockup: workshop event card ────────────────── */
-const WorkshopsMockup = () => (
-  <div
-    style={{
-      border: "1px solid var(--line)",
-      borderRadius: 14,
-      overflow: "hidden",
-      boxShadow: "var(--shadow-lg)",
-      maxWidth: 420,
-      marginLeft: "auto",
-    }}
-  >
-    {/* amber header */}
-    <div style={{ background: "#D79A36", padding: "1.75rem 1.5rem" }}>
-      <span
-        style={{
-          fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.68rem",
-          color: "rgba(34,51,44,0.55)",
-          textTransform: "uppercase",
-          letterSpacing: "0.1em",
-        }}
-      >
-        Live Workshop
-      </span>
-      <h4
-        style={{
-          fontFamily: "var(--font-playfair), serif",
-          fontSize: "1.3rem",
-          fontWeight: 700,
-          color: "var(--ink)",
-          lineHeight: 1.2,
-          marginTop: "0.4rem",
-          marginBottom: "0.3rem",
-        }}
-      >
-        AI Leverage for Ops Teams
-      </h4>
-      <p
-        style={{
-          fontFamily: "var(--font-dm-sans), sans-serif",
-          fontSize: "0.85rem",
-          color: "rgba(34,51,44,0.6)",
-        }}
-      >
-        In-person or remote
-      </p>
-    </div>
-
-    {/* body */}
-    <div style={{ padding: "1.5rem", background: "#fff" }}>
-      {[
-        { icon: "⏱", label: "Duration", value: "Half-day or full-day" },
-        { icon: "◎", label: "Format", value: "Interactive sessions" },
-        { icon: "◈", label: "Audience", value: "Teams up to 30 people" },
-      ].map((row) => (
-        <div
-          key={row.label}
           style={{
             display: "flex",
-            gap: "0.75rem",
-            alignItems: "flex-start",
-            marginBottom: "0.9rem",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "1.5rem",
           }}
         >
           <span
             style={{
-              color: "#D79A36",
-              flexShrink: 0,
-              fontSize: "1rem",
-              marginTop: "0.1rem",
+              fontFamily: "var(--font-dm-mono), monospace",
+              fontSize: "0.8rem",
+              color: "var(--coral)",
+              letterSpacing: "0.12em",
+              textTransform: "uppercase",
             }}
           >
-            {row.icon}
+            Active Workflow
           </span>
-          <div>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.63rem",
-                color: "var(--muted)",
-                textTransform: "uppercase",
-                letterSpacing: "0.08em",
-                marginBottom: "0.1rem",
-              }}
-            >
-              {row.label}
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "0.875rem",
-                color: "var(--ink)",
-                lineHeight: 1.4,
-              }}
-            >
-              {row.value}
-            </p>
-          </div>
-        </div>
-      ))}
-
-      <div
-        style={{
-          marginTop: "0.5rem",
-          background: "#D79A36",
-          borderRadius: 8,
-          padding: "0.8rem",
-          textAlign: "center",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-dm-sans), sans-serif",
-            fontWeight: 600,
-            fontSize: "0.9rem",
-            color: "var(--ink)",
-          }}
-        >
-          Enquire about a session →
-        </span>
-      </div>
-    </div>
-  </div>
-);
-
-/* ─── page ────────────────────────────────────────── */
-export default function Services() {
-  return (
-    <>
-      {/* HERO */}
-      <section style={{ background: "#fff", paddingTop: 120, paddingBottom: 100 }}>
-        <div className="max-w-site">
-          <div
+          <span
             style={{
               display: "flex",
-              gap: "3rem",
               alignItems: "center",
+              gap: "0.4rem",
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontSize: "0.82rem",
+              color: "#4ade80",
+            }}
+          >
+            <span
+              className="animate-pulse-dot"
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: "#4ade80",
+                display: "inline-block",
+              }}
+            />
+            Live
+          </span>
+        </div>
+
+        {/* flow */}
+        <div className="wf-flow">
+          {/* row 1 */}
+          <div className="wf-flow-row">
+            {wfNode("▶", "New Lead", "rgba(234,106,71,0.22)", "rgba(234,106,71,0.4)", "rgba(255,255,255,0.9)", "var(--coral)", isStep(0))}
+            {wfArrow}
+            {wfNode("⋯", "Tag Filter", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(1))}
+            {wfArrow}
+            {wfNode("✳", "Enrich", "rgba(215,154,54,0.18)", "rgba(215,154,54,0.35)", "rgba(255,255,255,0.85)", "#D79A36", isStep(2))}
+          </div>
+
+          {/* connector: branch from Enrich down into row 2 */}
+          <div className="wf-elbow" />
+
+          {/* row 2 */}
+          <div className="wf-flow-row">
+            {wfNode("✦", "Claude Draft", "rgba(167,139,250,0.16)", "rgba(167,139,250,0.4)", "rgba(255,255,255,0.88)", "#A78BFA", isStep(3))}
+            {wfArrow}
+            {wfNode("◎", "Human Review", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(4))}
+          </div>
+
+          {/* connector: row 2 down into row 3 */}
+          <div className="wf-elbow" />
+
+          {/* row 3 */}
+          <div className="wf-flow-row">
+            {wfNode("□", "CRM Save", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(5))}
+            {wfArrow}
+            {wfNode("✉", "Notify", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(6))}
+          </div>
+        </div>
+
+        {/* status + tech stack */}
+        <div
+          style={{
+            marginTop: "1.75rem",
+            paddingTop: "1.25rem",
+            borderTop: "1px solid rgba(255,255,255,0.07)",
+          }}
+        >
+          <div className="wf-status-row">
+            <span>⏱ Last run · 2m ago</span>
+            <span>↻ 1,240 runs</span>
+            <span style={{ color: "#4ade80" }}>✓ 0 errors</span>
+          </div>
+
+          <div
+            style={{
+              marginTop: "0.9rem",
+              display: "flex",
+              gap: "0.5rem",
               flexWrap: "wrap",
             }}
           >
-            {/* left: text + pills */}
-            <div style={{ flex: "3 1 300px" }}>
-              <AnimateIn>
-                <h1
+            {["n8n", "Claude", "Airtable", "Slack"].map((t) => (
+              <span
+                key={t}
+                style={{
+                  padding: "0.3rem 0.75rem",
+                  borderRadius: 99,
+                  background: "rgba(255,255,255,0.06)",
+                  fontFamily: "var(--font-dm-mono), monospace",
+                  fontSize: "0.75rem",
+                  color: "rgba(255,255,255,0.38)",
+                }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── mockup: workshop event card ────────────────── */
+function WorkshopsMockup() {
+  const { ref, active } = useCardAnimation<HTMLDivElement>();
+  const [row, setRow] = useState(0);
+
+  useEffect(() => {
+    if (!active) return;
+    const id = setInterval(() => setRow((r) => (r + 1) % 3), 1333);
+    return () => clearInterval(id);
+  }, [active]);
+
+  const rows = [
+    { icon: "⏱", label: "Duration", value: "Half-day or full-day" },
+    { icon: "◎", label: "Format", value: "Interactive sessions" },
+    { icon: "◈", label: "Audience", value: "Teams up to 30 people" },
+  ];
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        border: "1px solid var(--line)",
+        borderRadius: 14,
+        overflow: "hidden",
+        boxShadow: "var(--shadow-lg)",
+        maxWidth: 460,
+        marginLeft: "auto",
+      }}
+    >
+      {/* amber header */}
+      <div style={{ background: "#D79A36", padding: "2rem 1.75rem", position: "relative" }}>
+        <span
+          style={{
+            fontFamily: "var(--font-dm-mono), monospace",
+            fontSize: "0.68rem",
+            color: "rgba(34,51,44,0.55)",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+          }}
+        >
+          Live Workshop
+        </span>
+        <h4
+          style={{
+            fontFamily: "var(--font-playfair), serif",
+            fontSize: "1.3rem",
+            fontWeight: 700,
+            color: "var(--ink)",
+            lineHeight: 1.2,
+            marginTop: "0.4rem",
+            marginBottom: "0.3rem",
+          }}
+        >
+          AI Leverage for Ops Teams
+        </h4>
+        <p
+          style={{
+            fontFamily: "var(--font-dm-sans), sans-serif",
+            fontSize: "0.85rem",
+            color: "rgba(34,51,44,0.6)",
+          }}
+        >
+          In-person or remote
+        </p>
+
+        <div
+          className="svc-anim-progress-track"
+          style={{ position: "absolute", left: 0, right: 0, bottom: 0, background: "rgba(34,51,44,0.18)" }}
+        >
+          <div className={`svc-anim-progress-fill${active ? " is-active" : ""}`} />
+        </div>
+      </div>
+
+      {/* body */}
+      <div style={{ padding: "1.75rem", background: "#fff" }}>
+        {rows.map((rowItem, i) => {
+          const isActive = active && row === i;
+          return (
+            <div
+              key={rowItem.label}
+              style={{
+                display: "flex",
+                gap: "0.75rem",
+                alignItems: "flex-start",
+                marginBottom: "0.9rem",
+              }}
+            >
+              <span
+                style={{
+                  color: "#D79A36",
+                  flexShrink: 0,
+                  fontSize: "1rem",
+                  marginTop: "0.1rem",
+                  display: "inline-block",
+                  transform: isActive ? "scale(1.3)" : "scale(1)",
+                  transition: "transform 0.4s ease",
+                }}
+              >
+                {rowItem.icon}
+              </span>
+              <div>
+                <p
                   style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(2.4rem, 5vw, 3.6rem)",
-                    lineHeight: 1.12,
-                    color: "var(--ink)",
-                    fontWeight: 700,
-                    marginBottom: "1.25rem",
-                    maxWidth: 560,
+                    fontFamily: "var(--font-dm-mono), monospace",
+                    fontSize: "0.63rem",
+                    color: "var(--muted)",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    marginBottom: "0.1rem",
                   }}
                 >
-                  Every way to work with Riz.
-                </h1>
+                  {rowItem.label}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "0.875rem",
+                    color: "var(--ink)",
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {rowItem.value}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+
+        <div
+          style={{
+            marginTop: "0.5rem",
+            background: "#D79A36",
+            borderRadius: 8,
+            padding: "0.8rem",
+            textAlign: "center",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-dm-sans), sans-serif",
+              fontWeight: 600,
+              fontSize: "0.9rem",
+              color: "var(--ink)",
+            }}
+          >
+            Enquire about a session →
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── page ────────────────────────────────────────── */
+export default function Services() {
+  const [active, setActive] = useState(SERVICE_IDS[0]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      for (let i = SERVICE_IDS.length - 1; i >= 0; i--) {
+        const el = document.getElementById(SERVICE_IDS[i]);
+        if (el && el.getBoundingClientRect().top <= 160) {
+          setActive(SERVICE_IDS[i]);
+          return;
+        }
+      }
+      setActive(SERVICE_IDS[0]);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <>
+      {/* HERO */}
+      <section className="svc-hero-section" style={{ background: "#F1EBDE", paddingTop: 120, paddingBottom: 100 }}>
+        <div className="svc-hero-texture svc-hero-texture--strong" />
+        <div className="max-w-site">
+          <div className="svc-hero-inner">
+            {/* left: text + pills */}
+            <div>
+              <AnimateIn>
+                <div className="svc-hero-brand">
+                  <span
+                    className="animate-pulse-dot"
+                    style={{
+                      width: 7,
+                      height: 7,
+                      borderRadius: "50%",
+                      background: "#EA6A47",
+                      display: "inline-block",
+                    }}
+                  />
+                  <span className="svc-hero-brand-word">Riz</span>
+                </div>
               </AnimateIn>
-              <AnimateIn delay={100}>
+              <AnimateIn delay={60}>
+                <h1 className="svc-hero-title">Every way to work with Riz.</h1>
+              </AnimateIn>
+              <AnimateIn delay={140}>
                 <p
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
@@ -539,37 +657,30 @@ export default function Services() {
                     color: "var(--body)",
                     lineHeight: 1.72,
                     maxWidth: 480,
-                    marginBottom: "2rem",
+                    marginBottom: "0.5rem",
                   }}
                 >
                   Each service is built around one goal: getting your operations
                   clear enough that AI actually works for you.
                 </p>
               </AnimateIn>
-              <AnimateIn delay={200}>
-                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              <AnimateIn delay={190}>
+                <p className="svc-signature">
+                  AI doesn&apos;t fix bad thinking. It scales it
+                  <span className="svc-signature-period">.</span>
+                </p>
+              </AnimateIn>
+              <AnimateIn delay={240}>
+                <div className="svc-tabs">
                   {[
-                    { label: "Consulting", href: "#consulting", active: true },
-                    { label: "Projects", href: "#projects", active: false },
-                    { label: "Workshops", href: "#workshops", active: false },
+                    { label: "Consulting", id: "consulting" },
+                    { label: "Projects", id: "projects" },
+                    { label: "Workshops", id: "workshops" },
                   ].map((pill) => (
                     <a
-                      key={pill.href}
-                      href={pill.href}
-                      style={{
-                        display: "inline-block",
-                        padding: "0.45rem 1.1rem",
-                        borderRadius: 99,
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontWeight: 500,
-                        fontSize: "0.875rem",
-                        textDecoration: "none",
-                        background: pill.active ? "var(--coral)" : "transparent",
-                        color: pill.active ? "#fff" : "var(--muted)",
-                        border: pill.active
-                          ? "none"
-                          : "1px solid var(--line-2)",
-                      }}
+                      key={pill.id}
+                      href={`#${pill.id}`}
+                      className={`svc-tab${active === pill.id ? " active" : ""}`}
                     >
                       {pill.label}
                     </a>
@@ -579,14 +690,7 @@ export default function Services() {
             </div>
 
             {/* right: hub diagram SVG */}
-            <div
-              style={{
-                flex: "2 1 280px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div className="svc-hero-diagram">
               <AnimateIn delay={300}>
                 <ServicesHubDiagram />
               </AnimateIn>
@@ -600,6 +704,7 @@ export default function Services() {
       {/* CONSULTING ── id for anchor */}
       <section
         id="consulting"
+        className="svc-section"
         style={{
           background: "#fff",
           padding: "100px 0",
@@ -607,25 +712,27 @@ export default function Services() {
         }}
       >
         <div className="max-w-site">
-          <div
-            style={{
-              display: "flex",
-              gap: "4rem",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="svc-row">
             {/* left: text */}
-            <div style={{ flex: "1 1 280px" }}>
+            <div className="svc-row-text">
               <AnimateIn>
-                <p style={eyebrowStyle("var(--coral)")}>Consulting</p>
-                <p style={sublineStyle("var(--coral)")}>Clarity before you build.</p>
+                <p className="svc-subline" style={sublineStyle("var(--coral)")}>Clarity before you build.</p>
               </AnimateIn>
               <AnimateIn delay={100}>
-                <p style={bodyStyle}>
+                <p className="svc-body" style={bodyStyle}>
                   Most founders automate broken processes. I fix the thinking
                   first. 1:1 advisory, fractional ops, and strategic clarity
                   sessions. From $160/hr.
+                </p>
+              </AnimateIn>
+              <AnimateIn delay={140}>
+                <p className="svc-body" style={bodyStyle}>
+                  Every engagement starts the same way: we diagnose the process
+                  before touching a single tool. A Clarity Session maps what&apos;s
+                  actually broken, what&apos;s worth automating, and what isn&apos;t.
+                  From there, fractional advisory is a standing monthly check-in
+                  — I stay close to the numbers and flag what&apos;s next before it
+                  becomes a fire.
                 </p>
               </AnimateIn>
               <AnimateIn delay={180}>
@@ -634,18 +741,20 @@ export default function Services() {
                     "Ops and process diagnosis",
                     "AI readiness assessment",
                     "Fractional advisory",
+                    "Tool stack audit",
+                    "Roadmap you can execute without me",
                   ].map((b) => checkBullet("var(--coral)", b))}
                 </ul>
               </AnimateIn>
               <AnimateIn delay={260}>
-                <Link href="/services/consulting" className="btn-coral">
+                <CalBookingButton className="btn-coral">
                   Book a call →
-                </Link>
+                </CalBookingButton>
               </AnimateIn>
             </div>
 
             {/* right: booking widget mockup */}
-            <div style={{ flex: "1 1 280px" }}>
+            <div className="svc-row-card">
               <AnimateIn delay={150}>
                 <ConsultingMockup />
               </AnimateIn>
@@ -660,6 +769,7 @@ export default function Services() {
       {/* PROJECTS */}
       <section
         id="projects"
+        className="svc-section"
         style={{
           background: "var(--cream)",
           padding: "100px 0",
@@ -667,24 +777,24 @@ export default function Services() {
         }}
       >
         <div className="max-w-site">
-          <div
-            style={{
-              display: "flex",
-              gap: "4rem",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="svc-row">
             {/* left: text */}
-            <div style={{ flex: "1 1 280px" }}>
+            <div className="svc-row-text">
               <AnimateIn>
-                <p style={eyebrowStyle("var(--ink)")}>Projects</p>
-                <p style={sublineStyle("var(--ink)")}>Systems that ship.</p>
+                <p className="svc-subline" style={sublineStyle("var(--ink)")}>Systems that ship.</p>
               </AnimateIn>
               <AnimateIn delay={100}>
-                <p style={bodyStyle}>
+                <p className="svc-body" style={bodyStyle}>
                   I build automations, agents, and internal tools. Through my
                   company Soch, we take it from idea to deployed.
+                </p>
+              </AnimateIn>
+              <AnimateIn delay={140}>
+                <p className="svc-body" style={bodyStyle}>
+                  Every build is scoped up front and delivered through Soch,
+                  with weekly demos so you&apos;re never guessing what&apos;s shipping.
+                  When it&apos;s done, you get full documentation and a proper
+                  handover — no retainer required to keep it running.
                 </p>
               </AnimateIn>
               <AnimateIn delay={180}>
@@ -693,6 +803,8 @@ export default function Services() {
                     "n8n workflow automations",
                     "AI agents and internal tools",
                     "End-to-end build and handover",
+                    "Claude/LLM agent integrations",
+                    "Docs, training & handover included",
                   ].map((b) => checkBullet("var(--ink)", b))}
                 </ul>
               </AnimateIn>
@@ -719,7 +831,7 @@ export default function Services() {
             </div>
 
             {/* right: workflow diagram mockup */}
-            <div style={{ flex: "1 1 280px" }}>
+            <div className="svc-row-card">
               <AnimateIn delay={150}>
                 <ProjectsMockup />
               </AnimateIn>
@@ -733,6 +845,7 @@ export default function Services() {
       {/* WORKSHOPS */}
       <section
         id="workshops"
+        className="svc-section"
         style={{
           background: "#fff",
           padding: "100px 0",
@@ -740,24 +853,23 @@ export default function Services() {
         }}
       >
         <div className="max-w-site">
-          <div
-            style={{
-              display: "flex",
-              gap: "4rem",
-              alignItems: "center",
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="svc-row">
             {/* left: text */}
-            <div style={{ flex: "1 1 280px" }}>
+            <div className="svc-row-text">
               <AnimateIn>
-                <p style={eyebrowStyle("#D79A36")}>Workshops</p>
-                <p style={sublineStyle("#D79A36")}>Your team, upskilled.</p>
+                <p className="svc-subline" style={sublineStyle("#D79A36")}>Your team, upskilled.</p>
               </AnimateIn>
               <AnimateIn delay={100}>
-                <p style={bodyStyle}>
+                <p className="svc-body" style={bodyStyle}>
                   Talks and sessions on AI leverage and the future of work.
                   In-person or remote.
+                </p>
+              </AnimateIn>
+              <AnimateIn delay={140}>
+                <p className="svc-body" style={bodyStyle}>
+                  No slide decks to sit through. Teams leave with a working
+                  automation they built themselves, live, in the room —
+                  something they can point to on Monday morning.
                 </p>
               </AnimateIn>
               <AnimateIn delay={180}>
@@ -766,6 +878,8 @@ export default function Services() {
                     "Keynotes and conference talks",
                     "Team AI workshops",
                     "Executive education sessions",
+                    "Hands-on, build-in-session format",
+                    "Tailored to your team's actual workflows",
                   ].map((b) => checkBullet("#D79A36", b))}
                 </ul>
               </AnimateIn>
@@ -790,7 +904,7 @@ export default function Services() {
             </div>
 
             {/* right: workshop event card mockup */}
-            <div style={{ flex: "1 1 280px" }}>
+            <div className="svc-row-card">
               <AnimateIn delay={150}>
                 <WorkshopsMockup />
               </AnimateIn>
@@ -801,48 +915,35 @@ export default function Services() {
 
       {sectionDivider}
 
-      {/* BOTTOM CTA */}
-      <section
-        style={{
-          background: "var(--ink)",
-          padding: "100px 0",
-          textAlign: "center",
+      {/* TESTIMONIALS */}
+      <TestimonialsSection
+        variant="compact"
+        heading={
+          <>
+            Don&apos;t take <span style={{ color: "var(--coral)", fontStyle: "italic" }}>my word</span> for it.
+          </>
+        }
+        headingStyle={{
+          fontFamily: "var(--font-playfair), serif",
+          fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+          fontWeight: 700,
+          color: "var(--ink)",
         }}
-      >
+      />
+
+      {sectionDivider}
+
+      {/* BOTTOM CTA — reused Direct Line component from the homepage */}
+      <section style={{ background: "var(--cream)", padding: "100px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <h2
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
-                color: "#fff",
-                fontWeight: 700,
-                marginBottom: "0.85rem",
-              }}
-            >
-              Not sure which fits?
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={80}>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.05rem",
-                color: "var(--cream)",
-                lineHeight: 1.7,
-                marginBottom: "2.25rem",
-              }}
-            >
-              Tell me what you&apos;re working on.
-            </p>
-          </AnimateIn>
-          <AnimateIn delay={160}>
-            <Link href="/services/consulting" className="btn-coral">
-              Book a call →
-            </Link>
+            <DirectLineCTA />
           </AnimateIn>
         </div>
       </section>
+
+      {/* DIRECT LINE — contact strip */}
+      <DirectLineStrip />
     </>
   );
 }

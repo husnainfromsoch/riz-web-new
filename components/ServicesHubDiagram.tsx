@@ -34,10 +34,14 @@ export default function ServicesHubDiagram() {
     animationPlayState: paused ? "paused" : "running",
   } as React.CSSProperties);
 
+  const goTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <svg
       viewBox="0 0 420 360"
-      style={{ width: "100%", maxWidth: 460, height: "auto" }}
+      style={{ width: "100%", maxWidth: 480, height: "auto" }}
     >
       {/* ── spokes (inside orbit group so they track the nodes) ───── */}
       <g style={orbitStyle}>
@@ -51,7 +55,7 @@ export default function ServicesHubDiagram() {
       </g>
 
       {/* ── glow ring (static, sits on top of spokes) ─────────────── */}
-      <circle cx={CX} cy={CY} r={CR + 20} fill="none" stroke="#F3ECDD" strokeWidth="22" />
+      <circle cx={CX} cy={CY} r={CR + 20} fill="none" stroke="#FFFFFF" strokeWidth="22" />
 
       {/* ── center circle — pulse only, does NOT rotate ───────────── */}
       <g style={{ transformOrigin: `${CX}px ${CY}px`, animation: "svc-pulse 3s ease-in-out infinite" } as React.CSSProperties}>
@@ -77,15 +81,24 @@ export default function ServicesHubDiagram() {
                 <g
                   style={{
                     transformOrigin: `${n.cx}px ${n.cy}px`,
-                    transform: isHovered ? "scale(1.1)" : "scale(1)",
+                    transform: isHovered ? "scale(1.08)" : "scale(1)",
                     transition: "transform 0.2s ease",
                     cursor: "pointer",
                   } as React.CSSProperties}
                   onMouseEnter={() => setHovered(n.id)}
                   onMouseLeave={() => setHovered(null)}
+                  onClick={() => goTo(n.id)}
                 >
                   {/* circle */}
-                  <circle cx={n.cx} cy={n.cy} r={NR} fill={n.fill} />
+                  <circle
+                    cx={n.cx}
+                    cy={n.cy}
+                    r={NR}
+                    fill={n.fill}
+                    stroke="#fff"
+                    strokeWidth={isHovered ? 2 : 0}
+                    style={{ transition: "stroke-width 0.2s ease" }}
+                  />
 
                   {/* number — Playfair, centered in circle */}
                   <text
@@ -103,8 +116,10 @@ export default function ServicesHubDiagram() {
                     x={n.cx} y={n.cy + 13}
                     textAnchor="middle" dominantBaseline="auto"
                     fontFamily="DM Mono, monospace"
-                    fontSize="7.5" fill="rgba(255,255,255,0.78)" letterSpacing="0.1em"
-                    style={{ pointerEvents: "none" } as React.CSSProperties}
+                    fontSize={isHovered ? "8" : "7.5"}
+                    fill={isHovered ? "#fff" : "rgba(255,255,255,0.78)"}
+                    letterSpacing="0.1em"
+                    style={{ pointerEvents: "none", transition: "fill 0.2s ease" } as React.CSSProperties}
                   >
                     {n.label}
                   </text>
