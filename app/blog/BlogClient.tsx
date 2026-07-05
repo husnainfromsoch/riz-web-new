@@ -1,6 +1,8 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import AnimateIn from "@/components/AnimateIn";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
+import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 import type { SubstackPost } from "@/lib/substack";
 
 function SearchIcon() {
@@ -62,6 +64,9 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
   const [search, setSearch] = useState("");
   const [kbdLabel, setKbdLabel] = useState("Ctrl K");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const quoteRef = useParallax<HTMLSpanElement>(0.15);
+  const dotsRef = useParallax<HTMLDivElement>(0.1);
+  const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
 
   useEffect(() => {
     if (typeof navigator !== "undefined" && /Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
@@ -230,7 +235,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           box-shadow: var(--shadow-lg);
           text-decoration: none;
           transform: rotate(-1deg);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .writing-featured-card:hover {
           transform: rotate(0deg) translateY(-4px);
@@ -299,6 +304,23 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           background: var(--coral);
         }
 
+        .blog-post-card {
+          border: 1px solid var(--line);
+          border-radius: 12px;
+          padding: 2rem;
+          background: #fff;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          height: 100%;
+          box-shadow: var(--shadow);
+          transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .blog-post-card:hover {
+          box-shadow: var(--shadow-lg);
+          transform: translateY(-5px);
+        }
+
         @media (max-width: 1024px) {
           .writing-hero-grid {
             grid-template-columns: 1fr;
@@ -323,10 +345,12 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         }
       `}</style>
 
+      <ScrollProgressBar />
+
       {/* HERO */}
       <section className="writing-hero">
         <div className="max-w-site">
-          <div className="writing-hero-grid">
+          <div className="writing-hero-grid" ref={heroFadeRef}>
             <div className="writing-hero-left">
               <AnimateIn delay={90}>
                 <h1 className="writing-hero-title">
@@ -364,8 +388,8 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
 
             <div className="writing-hero-right">
               <div className="writing-hero-decor" aria-hidden="true">
-                <span className="writing-hero-quote">&ldquo;</span>
-                <div className="writing-hero-dots" />
+                <span className="writing-hero-quote" ref={quoteRef} data-parallax>&ldquo;</span>
+                <div className="writing-hero-dots" ref={dotsRef} data-parallax />
               </div>
               {latest && (
                 <AnimateIn delay={220}>
@@ -416,28 +440,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
             <div className="grid md:grid-cols-2 gap-5">
               {filtered.map((p, i) => (
                 <AnimateIn key={p.link} delay={i * 80}>
-                <div
-                  style={{
-                    border: "1px solid var(--line)",
-                    borderRadius: 12,
-                    padding: "2rem",
-                    background: "#fff",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "0.75rem",
-                    height: "100%",
-                    boxShadow: "var(--shadow)",
-                    transition: "box-shadow 0.2s ease, transform 0.2s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-lg)";
-                    (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow)";
-                    (e.currentTarget as HTMLDivElement).style.transform = "none";
-                  }}
-                >
+                <div className="blog-post-card">
                   <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                     <span
                       style={{

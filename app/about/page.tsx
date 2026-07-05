@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
 import { Mic, Globe, Languages, Handshake, BadgeCheck } from "lucide-react";
@@ -328,6 +328,8 @@ function TrackRecordPanel() {
 }
 
 export default function About() {
+  const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
+
   return (
     <>
       {/* HERO */}
@@ -339,6 +341,7 @@ export default function About() {
         }}
       >
         <div
+          ref={heroFadeRef}
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -440,20 +443,24 @@ export default function About() {
               <div className="about-credentials">
                 <p className="about-credentials-label">TRACK RECORD</p>
                 <div className="about-credentials-row">
-                  {pills.map((pill, i) => {
+                  {pills.map((pill) => {
                     const featured = pill === "Anthropic Partner";
                     return (
-                      <span key={pill} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                        {i > 0 && (
-                          <span aria-hidden="true" className="about-credentials-dot">
-                            &middot;
-                          </span>
-                        )}
+                      <Fragment key={pill}>
+                        <span aria-hidden="true" className="about-credentials-dot">
+                          &middot;
+                        </span>
                         <span className={featured ? "about-pill about-pill-featured" : "about-pill"}>
-                          {featured && <BadgeCheck size={14} strokeWidth={2.25} className="about-pill-icon" />}
+                          {featured && (
+                            <BadgeCheck
+                              size={14}
+                              strokeWidth={2.25}
+                              className="about-pill-icon"
+                            />
+                          )}
                           {pill}
                         </span>
-                      </span>
+                      </Fragment>
                     );
                   })}
                 </div>
@@ -558,7 +565,7 @@ export default function About() {
                   {item.body}
                 </p>
               </div>
-            </TimelineItem>
+            </AnimateIn>
           ))}
         </div>
 
@@ -701,7 +708,7 @@ export default function About() {
               {beyondFacts.map((fact, i) => {
                 const Icon = fact.icon;
                 return (
-                  <AnimateIn key={fact.title} delay={i * 90} className="beyond-row-anim">
+                  <AnimateIn key={fact.title} delay={i * 80} className="beyond-row-anim">
                     <div className="beyond-row">
                       <Icon className="beyond-row-icon" size={20} strokeWidth={2} />
                       <div className="beyond-row-content">
@@ -982,31 +989,6 @@ export default function About() {
         .beyond-row-link:hover {
           text-decoration: underline;
         }
-        .beyond-photo-anim {
-          opacity: 0;
-          transform: translateX(-40px);
-          transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .beyond-photo-anim.visible {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        .beyond-row-anim {
-          opacity: 0;
-          transform: translateY(16px);
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .beyond-row-anim.visible {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .beyond-photo-anim,
-          .beyond-row-anim {
-            transition: opacity 0.3s ease;
-            transform: none !important;
-          }
-        }
         @media (max-width: 900px) {
           .beyond-grid {
             grid-template-columns: 1fr;
@@ -1034,7 +1016,7 @@ export default function About() {
         }
         .lesson-card:hover {
           background: rgba(255,255,255,0.08);
-          transform: translateY(-4px);
+          transform: translateY(-5px);
         }
         @media (max-width: 860px) {
           .lessons-grid {
