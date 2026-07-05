@@ -4,23 +4,13 @@ import AnimateIn from "@/components/AnimateIn";
 import ServicesHubDiagram from "@/components/ServicesHubDiagram";
 import TestimonialsSection from "@/components/Testimonials";
 import DirectLineCTA from "@/components/DirectLineCTA";
-import DirectLineStrip from "@/components/DirectLineStrip";
 import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
+import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const SERVICE_IDS = ["consulting", "projects", "workshops"];
 
 /* ─── shared micro-styles ─────────────────────────── */
-const eyebrowStyle = (color: string): React.CSSProperties => ({
-  fontFamily: "var(--font-dm-mono), monospace",
-  fontSize: "0.72rem",
-  fontWeight: 500,
-  letterSpacing: "0.14em",
-  textTransform: "uppercase",
-  color,
-  marginBottom: "0.75rem",
-});
-
 const sublineStyle = (color: string): React.CSSProperties => ({
   color,
 });
@@ -30,8 +20,8 @@ const bodyStyle: React.CSSProperties = {
   color: "var(--body)",
 };
 
-const checkBullet = (color: string, text: string) => (
-  <li key={text} className="svc-check-item">
+const checkBullet = (color: string, text: string, i: number) => (
+  <AnimateIn as="li" key={text} delay={i * 80} className="svc-check-item">
     <span
       className="svc-check-icon"
       style={{ background: `color-mix(in srgb, ${color} 16%, transparent)`, color }}
@@ -39,7 +29,7 @@ const checkBullet = (color: string, text: string) => (
       ✓
     </span>
     <span>{text}</span>
-  </li>
+  </AnimateIn>
 );
 
 const sectionDivider = (
@@ -605,6 +595,8 @@ function WorkshopsMockup() {
 /* ─── page ────────────────────────────────────────── */
 export default function Services() {
   const [active, setActive] = useState(SERVICE_IDS[0]);
+  const heroTextureRef = useParallax<HTMLDivElement>(0.1);
+  const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
 
   useEffect(() => {
     const onScroll = () => {
@@ -626,9 +618,9 @@ export default function Services() {
     <>
       {/* HERO */}
       <section className="svc-hero-section" style={{ background: "#F1EBDE", paddingTop: 120, paddingBottom: 100 }}>
-        <div className="svc-hero-texture svc-hero-texture--strong" />
+        <div className="svc-hero-texture svc-hero-texture--strong" ref={heroTextureRef} data-parallax />
         <div className="max-w-site">
-          <div className="svc-hero-inner">
+          <div className="svc-hero-inner" ref={heroFadeRef}>
             {/* left: text + pills */}
             <div>
               <AnimateIn>
@@ -708,7 +700,7 @@ export default function Services() {
         style={{
           background: "#fff",
           padding: "100px 0",
-          scrollMarginTop: 68,
+          scrollMarginTop: 96,
         }}
       >
         <div className="max-w-site">
@@ -735,17 +727,15 @@ export default function Services() {
                   becomes a fire.
                 </p>
               </AnimateIn>
-              <AnimateIn delay={180}>
-                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
-                  {[
-                    "Ops and process diagnosis",
-                    "AI readiness assessment",
-                    "Fractional advisory",
-                    "Tool stack audit",
-                    "Roadmap you can execute without me",
-                  ].map((b) => checkBullet("var(--coral)", b))}
-                </ul>
-              </AnimateIn>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
+                {[
+                  "Ops and process diagnosis",
+                  "AI readiness assessment",
+                  "Fractional advisory",
+                  "Tool stack audit",
+                  "Roadmap you can execute without me",
+                ].map((b, i) => checkBullet("var(--coral)", b, i))}
+              </ul>
               <AnimateIn delay={260}>
                 <CalBookingButton className="btn-coral">
                   Book a call →
@@ -773,7 +763,7 @@ export default function Services() {
         style={{
           background: "var(--cream)",
           padding: "100px 0",
-          scrollMarginTop: 68,
+          scrollMarginTop: 96,
         }}
       >
         <div className="max-w-site">
@@ -797,17 +787,15 @@ export default function Services() {
                   handover — no retainer required to keep it running.
                 </p>
               </AnimateIn>
-              <AnimateIn delay={180}>
-                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
-                  {[
-                    "n8n workflow automations",
-                    "AI agents and internal tools",
-                    "End-to-end build and handover",
-                    "Claude/LLM agent integrations",
-                    "Docs, training & handover included",
-                  ].map((b) => checkBullet("var(--ink)", b))}
-                </ul>
-              </AnimateIn>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
+                {[
+                  "n8n workflow automations",
+                  "AI agents and internal tools",
+                  "End-to-end build and handover",
+                  "Claude/LLM agent integrations",
+                  "Docs, training & handover included",
+                ].map((b, i) => checkBullet("var(--ink)", b, i))}
+              </ul>
               <AnimateIn delay={260}>
                 <a
                   href="https://withsoch.com"
@@ -849,7 +837,7 @@ export default function Services() {
         style={{
           background: "#fff",
           padding: "100px 0",
-          scrollMarginTop: 68,
+          scrollMarginTop: 96,
         }}
       >
         <div className="max-w-site">
@@ -872,17 +860,15 @@ export default function Services() {
                   something they can point to on Monday morning.
                 </p>
               </AnimateIn>
-              <AnimateIn delay={180}>
-                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
-                  {[
-                    "Keynotes and conference talks",
-                    "Team AI workshops",
-                    "Executive education sessions",
-                    "Hands-on, build-in-session format",
-                    "Tailored to your team's actual workflows",
-                  ].map((b) => checkBullet("#D79A36", b))}
-                </ul>
-              </AnimateIn>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
+                {[
+                  "Keynotes and conference talks",
+                  "Team AI workshops",
+                  "Executive education sessions",
+                  "Hands-on, build-in-session format",
+                  "Tailored to your team's actual workflows",
+                ].map((b, i) => checkBullet("#D79A36", b, i))}
+              </ul>
               <AnimateIn delay={260}>
                 <Link
                   href="/services/consulting"
@@ -941,9 +927,6 @@ export default function Services() {
           </AnimateIn>
         </div>
       </section>
-
-      {/* DIRECT LINE — contact strip */}
-      <DirectLineStrip />
     </>
   );
 }

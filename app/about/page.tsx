@@ -2,8 +2,8 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
-import CalBookingButton from "@/components/CalModal";
-import { Mic, Globe, Languages, Handshake } from "lucide-react";
+import { Mic, Globe, Languages, Handshake, BadgeCheck } from "lucide-react";
+import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const pills = [
   "Cambridge", "Careem", "Bolt", "Wise", "Tallinn", "Anthropic Partner",
@@ -87,26 +87,43 @@ const trackRecordStats = [
   },
 ];
 
-const beyondFacts = [
+type BeyondFact = {
+  icon: typeof Mic;
+  title: string;
+  body: string;
+  extra?: string;
+  linkText?: string;
+  linkHref?: string;
+};
+
+const beyondFacts: BeyondFact[] = [
   {
     icon: Mic,
     title: "The podcast",
     body: "Recorded from my apartment. Unscripted, mostly about work.",
+    extra: "Latest: AI didn't break my workflow. I did.",
+    linkText: "Listen →",
+    linkHref: "#",
   },
   {
     icon: Globe,
     title: "Four continents",
     body: "Lived and worked across them. Tallinn stuck.",
+    extra: "Cambridge · Dubai · Karachi · Tallinn. In that order.",
   },
   {
     icon: Languages,
     title: "Estonian, slowly",
     body: "Wrestling it into submission. It’s winning.",
+    extra: "B2 by end of 2025. Probably.",
   },
   {
     icon: Handshake,
     title: "Soch",
     body: "Built with two people I trust. Small on purpose.",
+    extra: "We build AI systems for ops-heavy teams.",
+    linkText: "withsoch.com →",
+    linkHref: "https://withsoch.com",
   },
 ];
 
@@ -137,41 +154,19 @@ const lessons = [
   },
 ];
 
-function TimelineItem({
+function ParallaxLayer({
   children,
-  index,
+  speed,
+  className = "",
 }: {
   children: ReactNode;
-  index: number;
+  speed: number;
+  className?: string;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const ref = useParallax<HTMLDivElement>(speed);
 
   return (
-    <div
-      ref={ref}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateX(0)" : "translateX(-16px)",
-        transition: `opacity 0.5s ease ${index * 0.15}s, transform 0.5s ease ${index * 0.15}s`,
-      }}
-    >
+    <div ref={ref} className={className} data-parallax>
       {children}
     </div>
   );
@@ -355,33 +350,15 @@ export default function About() {
           }}
           className="about-hero-grid"
         >
-          {/* Photo stack */}
+          {/* Photo */}
           <AnimateIn>
-            <div className="about-photo-stack">
-              <div className="about-polaroid about-polaroid-back-1">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/about/riz-italy-mussels.jpg"
-                  alt="Rizwan Mahmood in Italy, holding two bowls of fresh mussels on a rooftop terrace"
-                  style={{ objectPosition: "center 55%" }}
-                />
-              </div>
-              <div className="about-polaroid about-polaroid-back-2">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/about/riz-dinner.jpg"
-                  alt="Rizwan Mahmood laughing over dinner at a candlelit restaurant"
-                  style={{ objectPosition: "center 25%" }}
-                />
-              </div>
-              <div className="about-polaroid about-polaroid-main">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/Photos/riz-lake.jpg"
-                  alt="Rizwan Mahmood on a boat, sunglasses on, with the city skyline behind him"
-                  style={{ objectPosition: "center 20%" }}
-                />
-              </div>
+            <div className="about-photo-single">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/Photos/riz-lake.jpg"
+                alt="Rizwan Mahmood on a boat, sunglasses on, with the city skyline behind him"
+                style={{ objectPosition: "center 20%" }}
+              />
             </div>
           </AnimateIn>
 
@@ -460,19 +437,26 @@ export default function About() {
             </AnimateIn>
 
             <AnimateIn delay={360}>
-              <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 10, margin: "28px 0" }}>
-                {pills.map((pill, i) => (
-                  <span key={pill} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    {i > 0 && (
-                      <span aria-hidden="true" style={{ color: "#EA6A47", fontSize: 13 }}>
-                        &middot;
+              <div className="about-credentials">
+                <p className="about-credentials-label">TRACK RECORD</p>
+                <div className="about-credentials-row">
+                  {pills.map((pill, i) => {
+                    const featured = pill === "Anthropic Partner";
+                    return (
+                      <span key={pill} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        {i > 0 && (
+                          <span aria-hidden="true" className="about-credentials-dot">
+                            &middot;
+                          </span>
+                        )}
+                        <span className={featured ? "about-pill about-pill-featured" : "about-pill"}>
+                          {featured && <BadgeCheck size={14} strokeWidth={2.25} className="about-pill-icon" />}
+                          {pill}
+                        </span>
                       </span>
-                    )}
-                    <span className={pill === "Anthropic Partner" ? "about-pill about-pill-featured" : "about-pill"}>
-                      {pill}
-                    </span>
-                  </span>
-                ))}
+                    );
+                  })}
+                </div>
               </div>
             </AnimateIn>
 
@@ -517,7 +501,7 @@ export default function About() {
           </AnimateIn>
 
           {timeline.map((item, i) => (
-            <TimelineItem key={item.year} index={i}>
+            <AnimateIn key={item.year} delay={i * 80}>
               <div
                 style={{
                   borderLeft: "2px solid #DDD3BF",
@@ -668,45 +652,78 @@ export default function About() {
             </h2>
           </AnimateIn>
 
+          <AnimateIn delay={90}>
+            <div className="beyond-quote">
+              <span className="beyond-quote-bar" aria-hidden="true" />
+              <p>The work is serious. The rest of it — not always.</p>
+            </div>
+          </AnimateIn>
+
           <div className="beyond-grid">
             {/* LEFT — editorial photo pair */}
             <div className="beyond-photos">
               <AnimateIn className="beyond-photo-anim beyond-photo-slot-mussels">
-                <figure className="beyond-photo beyond-photo-mussels">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/about/riz-italy-mussels.jpg"
-                    alt="Rizwan Mahmood in Italy, holding two bowls of fresh mussels on a rooftop terrace"
-                    style={{ objectPosition: "center 24%" }}
-                  />
-                  <figcaption>Mussels in Italy. Research.</figcaption>
-                </figure>
+                <ParallaxLayer speed={0.04}>
+                  <figure className="beyond-photo beyond-photo-mussels">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/about/riz-italy-mussels.jpg"
+                      alt="Rizwan Mahmood in Italy, holding two bowls of fresh mussels on a rooftop terrace"
+                      style={{ objectPosition: "center 24%" }}
+                    />
+                  </figure>
+                  <p className="beyond-photo-caption">
+                    <span className="beyond-caption-dash" aria-hidden="true">—</span>
+                    Mussels in Italy. Research.
+                  </p>
+                </ParallaxLayer>
               </AnimateIn>
               <AnimateIn delay={90} className="beyond-photo-anim beyond-photo-slot-dinner">
-                <figure className="beyond-photo beyond-photo-dinner">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/about/riz-dinner.jpg"
-                    alt="Rizwan Mahmood laughing over dinner at a candlelit restaurant"
-                    style={{ objectPosition: "center 22%" }}
-                  />
-                  <figcaption>Tallinn dinners. Also research.</figcaption>
-                </figure>
+                <ParallaxLayer speed={0.07}>
+                  <figure className="beyond-photo beyond-photo-dinner">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/images/about/riz-dinner.jpg"
+                      alt="Rizwan Mahmood laughing over dinner at a candlelit restaurant"
+                      style={{ objectPosition: "center 22%" }}
+                    />
+                  </figure>
+                  <p className="beyond-photo-caption">
+                    <span className="beyond-caption-dash" aria-hidden="true">—</span>
+                    Tallinn dinners. Also research.
+                  </p>
+                </ParallaxLayer>
               </AnimateIn>
             </div>
 
-            {/* RIGHT — fact cards */}
-            <div className="beyond-facts">
+            {/* RIGHT — boxless editorial list */}
+            <div className="beyond-list">
               {beyondFacts.map((fact, i) => {
                 const Icon = fact.icon;
                 return (
-                  <AnimateIn key={fact.title} delay={i * 90} className="beyond-fact-anim">
-                    <div className="beyond-fact-card">
-                      <div className="beyond-fact-icon">
-                        <Icon size={20} strokeWidth={2} />
+                  <AnimateIn key={fact.title} delay={i * 90} className="beyond-row-anim">
+                    <div className="beyond-row">
+                      <Icon className="beyond-row-icon" size={20} strokeWidth={2} />
+                      <div className="beyond-row-content">
+                        <h3>{fact.title}</h3>
+                        <p>{fact.body}</p>
+                        {(fact.extra || (fact.linkText && fact.linkHref)) && (
+                          <p className="beyond-row-extra">
+                            {fact.extra}
+                            {fact.linkText && fact.linkHref && (
+                              <a
+                                href={fact.linkHref}
+                                className="beyond-row-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {" "}
+                                {fact.linkText}
+                              </a>
+                            )}
+                          </p>
+                        )}
                       </div>
-                      <h3>{fact.title}</h3>
-                      <p>{fact.body}</p>
                     </div>
                   </AnimateIn>
                 );
@@ -716,147 +733,51 @@ export default function About() {
         </div>
       </section>
 
-      {/* SECTION — HAVE A CHAT */}
-      <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
-        <div className="max-w-site">
-          <AnimateIn>
-            <div className="chat-card">
-              {/* Left col — photo + badge */}
-              <div className="chat-card-photo-col" style={{ width: "100%", maxWidth: 320, flexShrink: 0 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/riz-photo-new.jpg"
-                  alt="Rizwan Mahmood"
-                  style={{
-                    width: "100%",
-                    height: 420,
-                    objectFit: "cover",
-                    objectPosition: "center top",
-                    borderRadius: 16,
-                    display: "block",
-                  }}
-                />
-                {/* Available badge */}
-                <div
-                  style={{
-                    background: "#ffffff",
-                    borderRadius: 100,
-                    padding: "8px 16px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 8,
-                    whiteSpace: "nowrap",
-                    boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
-                    marginTop: 16,
-                  }}
-                >
-                  <span style={{ position: "relative", width: 10, height: 10, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                    <span className="ping-ring" style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#22C55E", opacity: 0.5 }} />
-                    <span style={{ position: "relative", width: 10, height: 10, borderRadius: "50%", background: "#22C55E", display: "block" }} />
-                  </span>
-                  <span style={{ fontFamily: "var(--font-dm-sans), sans-serif", fontSize: "0.8rem", fontWeight: 600, color: "var(--ink)" }}>
-                    Available this week
-                  </span>
-                </div>
-              </div>
-
-              {/* Right col — content */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", flex: 1 }}>
-                {/* Heading */}
-                <h2
-                  style={{
-                    fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(2rem, 3.5vw, 3rem)",
-                    color: "#22332C",
-                    fontWeight: 700,
-                    lineHeight: 1.2,
-                    margin: 0,
-                  }}
-                >
-                  Have a chat{" "}
-                  <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me?</span>
-                </h2>
-
-                {/* Subtext */}
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1rem",
-                    color: "#4A4A4A",
-                    lineHeight: 1.75,
-                    margin: 0,
-                    maxWidth: 440,
-                  }}
-                >
-                  Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
-                </p>
-
-                {/* Buttons */}
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem" }}>
-                  <CalBookingButton className="chat-btn-primary">
-                    Book a call →
-                  </CalBookingButton>
-                  <a
-                    href="https://claude.ai"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="chat-btn-secondary"
-                  >
-                    Ask Claude about Riz →
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Caption */}
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "0.8rem",
-                color: "var(--muted)",
-                textAlign: "center",
-                marginTop: "1.5rem",
-                letterSpacing: "0.04em",
-                fontStyle: "italic",
-              }}
-            >
-              Rizwan Mahmood · Operator and AI Builder
-            </p>
-          </AnimateIn>
-        </div>
-      </section>
-
       <style>{`
-        .chat-card {
+        .about-credentials {
+          margin: 28px 0;
+          padding-top: 24px;
+          border-top: 1px solid #E2DACB;
+        }
+        .about-credentials-label {
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          color: #EA6A47;
+          margin: 0 0 12px;
+        }
+        .about-credentials-row {
           display: flex;
           align-items: center;
-          gap: 48px;
-          padding: 48px;
+          flex-wrap: wrap;
+          gap: 10px;
         }
-        @media (max-width: 768px) {
-          .chat-card {
-            flex-direction: column;
-            text-align: center;
-            gap: 32px;
-            padding: 40px 28px;
-          }
-          .chat-card-photo-col {
-            margin-left: 0;
-          }
+        .about-credentials-dot {
+          color: #EA6A47;
+          font-size: 13px;
         }
         .about-pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
           background: transparent;
           border: none;
-          color: #5A605A;
+          color: #22332C;
           padding: 0;
-          font-size: 0.85rem;
+          font-size: 0.95rem;
           font-weight: 500;
-          font-family: var(--font-geist-mono), monospace;
+          font-variant: small-caps;
+          font-family: var(--font-inter-tight), sans-serif;
           letter-spacing: 0.02em;
           cursor: default;
         }
         .about-pill-featured {
           color: #EA6A47;
+        }
+        .about-pill-icon {
+          color: #EA6A47;
+          flex-shrink: 0;
         }
         .about-cta {
           display: inline-flex;
@@ -884,85 +805,19 @@ export default function About() {
             padding: 0 24px !important;
           }
         }
-        .about-photo-stack {
-          position: relative;
+        .about-photo-single {
           width: 100%;
           aspect-ratio: 3 / 4;
-          min-height: 460px;
           max-height: 640px;
-          margin: 0 auto;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 24px 48px rgba(120, 66, 30, 0.18), 0 8px 20px rgba(120, 66, 30, 0.12);
         }
-        .about-polaroid {
-          position: absolute;
-          box-sizing: border-box;
-          background: #FFFFFF;
-          padding: 10px 10px 30px;
-          border-radius: 4px;
-          box-shadow: 0 18px 36px rgba(120, 66, 30, 0.22), 0 4px 12px rgba(120, 66, 30, 0.14);
-          transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .about-polaroid img {
+        .about-photo-single img {
           display: block;
           width: 100%;
           height: 100%;
           object-fit: cover;
-          border-radius: 2px;
-        }
-        .about-polaroid-main {
-          width: 82%;
-          height: 88%;
-          left: 9%;
-          top: 3%;
-          z-index: 3;
-          transform: rotate(0deg);
-        }
-        .about-polaroid-back-1 {
-          width: 62%;
-          height: 62%;
-          left: -6%;
-          top: 12%;
-          z-index: 1;
-          transform: rotate(-3deg);
-        }
-        .about-polaroid-back-2 {
-          width: 58%;
-          height: 58%;
-          right: -7%;
-          bottom: 4%;
-          z-index: 2;
-          transform: rotate(2deg);
-        }
-        .about-photo-stack:hover .about-polaroid-main {
-          transform: rotate(1.5deg) translate(2px, -4px);
-        }
-        .about-photo-stack:hover .about-polaroid-back-1 {
-          transform: rotate(-5deg) translate(-10px, 6px);
-        }
-        .about-photo-stack:hover .about-polaroid-back-2 {
-          transform: rotate(4deg) translate(10px, -6px);
-        }
-        @media (max-width: 860px) {
-          .about-photo-stack {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 8px 4px 24px;
-            aspect-ratio: auto;
-            min-height: 0;
-            max-height: none;
-          }
-          .about-polaroid {
-            position: static;
-            flex: 0 0 auto;
-            width: 72vw;
-            max-width: 320px;
-            aspect-ratio: 3 / 4;
-            height: auto;
-            scroll-snap-align: center;
-            transform: none !important;
-          }
         }
         .beyond-heading {
           font-family: var(--font-fraunces), serif;
@@ -977,6 +832,27 @@ export default function About() {
           font-style: italic;
           font-weight: 800;
         }
+        .beyond-quote {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          margin: 0 0 48px;
+        }
+        .beyond-quote-bar {
+          width: 3px;
+          height: 30px;
+          flex-shrink: 0;
+          background: #EA6A47;
+          border-radius: 2px;
+        }
+        .beyond-quote p {
+          font-family: var(--font-fraunces), serif;
+          font-style: italic;
+          font-size: 17px;
+          color: rgba(34,51,44,0.6);
+          margin: 0;
+          text-align: left;
+        }
         .beyond-grid {
           display: grid;
           grid-template-columns: 0.9fr 1fr;
@@ -984,30 +860,22 @@ export default function About() {
           align-items: start;
         }
         .beyond-photos {
-          position: relative;
           display: flex;
           flex-direction: column;
-        }
-        .beyond-photo-slot-mussels {
-          width: 84%;
-          position: relative;
-          z-index: 1;
+          gap: 32px;
+          width: 100%;
         }
         .beyond-photo-slot-dinner {
-          width: 56%;
+          width: 70%;
           align-self: flex-end;
-          margin-top: -96px;
-          position: relative;
-          z-index: 2;
         }
         .beyond-photo {
           position: relative;
           display: block;
           margin: 0;
           width: 100%;
-          border-radius: 16px;
           overflow: hidden;
-          box-shadow: 0 20px 44px rgba(120,70,40,0.18), 0 6px 14px rgba(120,70,40,0.10);
+          box-shadow: 0 20px 44px rgba(120,70,40,0.14), 0 6px 14px rgba(120,70,40,0.08);
         }
         .beyond-photo img {
           display: block;
@@ -1015,73 +883,104 @@ export default function About() {
           height: 100%;
           object-fit: cover;
         }
-        .beyond-photo figcaption {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          padding: 24px 16px 14px;
-          background: linear-gradient(to top, rgba(20,16,10,0.72), rgba(20,16,10,0));
-          color: #F8F3E9;
-          font-family: var(--font-fraunces), serif;
-          font-style: italic;
-          font-size: 13px;
-          line-height: 1.4;
-        }
         .beyond-photo-mussels {
           aspect-ratio: 4 / 5;
+          border-radius: 120px 24px 24px 24px;
         }
         .beyond-photo-dinner {
           aspect-ratio: 4 / 3;
-          border: 6px solid #F1EBDE;
+          border-radius: 24px 24px 120px 24px;
         }
-        .beyond-facts {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 20px;
-        }
-        .beyond-fact-card {
-          height: 100%;
-          background: #FFFFFF;
-          border: 1px solid #E4DAC5;
-          border-radius: 14px;
-          padding: 24px 20px;
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .beyond-fact-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 14px 28px rgba(34,51,44,0.10);
-        }
-        .beyond-fact-icon {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+        .beyond-photo-caption {
           display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(234,106,71,0.10);
-          color: #EA6A47;
-          margin-bottom: 16px;
-          transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
-        }
-        .beyond-fact-card:hover .beyond-fact-icon {
-          background: #EA6A47;
-          color: #FFFFFF;
-          transform: scale(1.12);
-        }
-        .beyond-fact-card h3 {
+          align-items: baseline;
+          gap: 8px;
+          margin: 12px 0 0;
           font-family: var(--font-fraunces), serif;
-          font-size: 16px;
+          font-style: italic;
+          font-size: 13px;
+          color: rgba(34,51,44,0.5);
+        }
+        .beyond-photo-slot-dinner .beyond-photo-caption {
+          justify-content: flex-end;
+        }
+        .beyond-caption-dash {
+          color: #EA6A47;
+          font-style: normal;
+          font-weight: 700;
+        }
+        .beyond-list {
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid #E2DACB;
+          border-bottom: 1px solid #E2DACB;
+        }
+        .beyond-row-anim + .beyond-row-anim {
+          border-top: 1px solid #E2DACB;
+        }
+        .beyond-row {
+          position: relative;
+          display: flex;
+          gap: 20px;
+          padding: 30px 8px;
+          transition: padding-left 0.25s ease;
+        }
+        .beyond-row::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 0;
+          background: #EA6A47;
+          transition: width 0.25s ease;
+        }
+        .beyond-row:hover {
+          padding-left: 20px;
+        }
+        .beyond-row:hover::before {
+          width: 2px;
+        }
+        .beyond-row-icon {
+          flex-shrink: 0;
+          color: #EA6A47;
+          margin-top: 4px;
+          transition: transform 0.25s ease;
+        }
+        .beyond-row:hover .beyond-row-icon {
+          transform: scale(1.15);
+        }
+        .beyond-row-content h3 {
+          font-family: var(--font-fraunces), serif;
+          font-size: 1.3rem;
           font-weight: 800;
           color: #22332C;
-          margin: 0 0 6px;
+          margin: 0 0 8px;
+          transition: color 0.25s ease;
         }
-        .beyond-fact-card p {
+        .beyond-row:hover .beyond-row-content h3 {
+          color: #EA6A47;
+        }
+        .beyond-row-content p {
           font-family: var(--font-inter-tight), sans-serif;
-          font-size: 13.5px;
+          font-size: 14.5px;
           color: rgba(34,51,44,0.65);
-          line-height: 1.6;
+          line-height: 1.7;
           margin: 0;
+        }
+        .beyond-row-extra {
+          margin-top: 6px !important;
+          color: rgba(34,51,44,0.5) !important;
+        }
+        .beyond-row-link {
+          color: #EA6A47;
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 12px;
+          font-weight: 600;
+          text-decoration: none;
+        }
+        .beyond-row-link:hover {
+          text-decoration: underline;
         }
         .beyond-photo-anim {
           opacity: 0;
@@ -1092,18 +991,18 @@ export default function About() {
           opacity: 1;
           transform: translateX(0);
         }
-        .beyond-fact-anim {
+        .beyond-row-anim {
           opacity: 0;
-          transform: translateX(40px);
-          transition: opacity 0.6s ease, transform 0.6s ease;
+          transform: translateY(16px);
+          transition: opacity 0.5s ease, transform 0.5s ease;
         }
-        .beyond-fact-anim.visible {
+        .beyond-row-anim.visible {
           opacity: 1;
-          transform: translateX(0);
+          transform: translateY(0);
         }
         @media (prefers-reduced-motion: reduce) {
           .beyond-photo-anim,
-          .beyond-fact-anim {
+          .beyond-row-anim {
             transition: opacity 0.3s ease;
             transform: none !important;
           }
@@ -1113,29 +1012,16 @@ export default function About() {
             grid-template-columns: 1fr;
             gap: 44px;
           }
-          .beyond-photos {
-            flex-direction: row;
-            align-items: flex-end;
-            gap: 14px;
-          }
-          .beyond-photo-slot-mussels,
           .beyond-photo-slot-dinner {
-            width: 50%;
-            align-self: flex-end;
-            margin-top: 0;
-          }
-          .beyond-photo-dinner {
-            border-width: 4px;
+            width: 100%;
           }
         }
         @media (max-width: 700px) {
           .beyond-section {
             padding: 64px 24px !important;
           }
-        }
-        @media (max-width: 560px) {
-          .beyond-facts {
-            grid-template-columns: 1fr;
+          .beyond-row {
+            padding: 24px 4px;
           }
         }
         .lesson-card {

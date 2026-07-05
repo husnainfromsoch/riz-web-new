@@ -5,9 +5,10 @@ import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
+import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
-const checkBullet = (text: string) => (
-  <li key={text} className="svc-check-item">
+const checkBullet = (text: string, i: number) => (
+  <AnimateIn as="li" key={text} delay={i * 80} className="svc-check-item">
     <span
       className="svc-check-icon"
       style={{ background: "color-mix(in srgb, var(--coral) 16%, transparent)", color: "var(--coral)" }}
@@ -15,7 +16,7 @@ const checkBullet = (text: string) => (
       ✓
     </span>
     <span>{text}</span>
-  </li>
+  </AnimateIn>
 );
 
 const formats = [
@@ -38,13 +39,15 @@ export default function ConsultingPage() {
   const [email, setEmail] = useState("");
   const [problem, setProblem] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const heroTextureRef = useParallax<HTMLDivElement>(0.1);
+  const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
 
   return (
     <>
       {/* HERO */}
       <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
-        <div className="svc-hero-texture" />
-        <div className="max-w-site">
+        <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
+        <div className="max-w-site" ref={heroFadeRef}>
           <AnimateIn delay={80}>
             <h1
               style={{
@@ -105,7 +108,7 @@ export default function ConsultingPage() {
           </AnimateIn>
           <div className="grid md:grid-cols-3 gap-5">
             {formats.map((f, i) => (
-              <AnimateIn key={f.title} delay={i * 120}>
+              <AnimateIn key={f.title} delay={i * 80}>
                 <div
                   style={{
                     border: "1px solid var(--line)",
@@ -141,15 +144,13 @@ export default function ConsultingPage() {
             ))}
           </div>
 
-          <AnimateIn delay={350}>
-            <ul style={{ listStyle: "none", padding: 0, margin: "2.5rem 0 0", maxWidth: 460 }}>
-              {[
-                "Fixed intro call before anything is scoped",
-                "Direct access — no account managers, no hand-offs",
-                "Documentation and hand-over on everything we build",
-              ].map((t) => checkBullet(t))}
-            </ul>
-          </AnimateIn>
+          <ul style={{ listStyle: "none", padding: 0, margin: "2.5rem 0 0", maxWidth: 460 }}>
+            {[
+              "Fixed intro call before anything is scoped",
+              "Direct access — no account managers, no hand-offs",
+              "Documentation and hand-over on everything we build",
+            ].map((t, i) => checkBullet(t, i))}
+          </ul>
 
           <AnimateIn delay={400}>
             <div

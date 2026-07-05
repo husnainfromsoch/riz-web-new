@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
+import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const PHOTO_URL = "/riz-photo-new.jpg";
 
@@ -48,6 +49,8 @@ const MARQUEE_ITEMS = [
 export default function HeroSection() {
   const [proofIdx, setProofIdx] = useState(0);
   const [fading, setFading] = useState(false);
+  const dotGridRef = useParallax<HTMLDivElement>(0.1);
+  const fadeRef = useScrollFadeOut<HTMLDivElement>(420);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -106,7 +109,24 @@ export default function HeroSection() {
           z-index: 1;
         }
 
-        .hz-hero { padding: 68px 0 64px; }
+        .hz-hero { padding: 68px 0 64px; position: relative; }
+
+        .hz-dotgrid-wrap {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          z-index: -1;
+          pointer-events: none;
+        }
+        .hz-dotgrid {
+          position: absolute;
+          inset: -80px;
+          background-image: radial-gradient(rgba(34,51,44,0.08) 1.5px, transparent 1.5px);
+          background-size: 26px 26px;
+          opacity: 0.6;
+          -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+          mask-image: linear-gradient(to bottom, black, transparent);
+        }
 
         .hz-eyebrow {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
@@ -590,9 +610,13 @@ export default function HeroSection() {
       <div className="hz-root hz-section">
         <div className="hz-wrap">
           <div className="hz-hero">
+            <div className="hz-dotgrid-wrap" aria-hidden="true">
+              <div className="hz-dotgrid" ref={dotGridRef} data-parallax />
+            </div>
+
             <div className="hz-eyebrow">Operator · Builder · Tallinn, Estonia</div>
 
-            <div className="hz-grid">
+            <div className="hz-grid" ref={fadeRef}>
               {/* LEFT */}
               <div>
                 <p className="hz-intro">Hi, I&apos;m <span className="hz-intro-name">Riz</span>.</p>

@@ -1,10 +1,11 @@
+"use client";
 import AnimateIn from "@/components/AnimateIn";
-import Link from "next/link";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
+import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
-const checkBullet = (text: string) => (
-  <li key={text} className="svc-check-item">
+const checkBullet = (text: string, i: number) => (
+  <AnimateIn as="li" key={text} delay={i * 80} className="svc-check-item">
     <span
       className="svc-check-icon"
       style={{ background: "color-mix(in srgb, var(--coral) 16%, transparent)", color: "var(--coral)" }}
@@ -12,7 +13,7 @@ const checkBullet = (text: string) => (
       ✓
     </span>
     <span>{text}</span>
-  </li>
+  </AnimateIn>
 );
 
 const builds = [
@@ -35,12 +36,15 @@ const builds = [
 ];
 
 export default function ProjectsPage() {
+  const heroTextureRef = useParallax<HTMLDivElement>(0.1);
+  const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
+
   return (
     <>
       {/* HERO */}
       <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
-        <div className="svc-hero-texture" />
-        <div className="max-w-site">
+        <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
+        <div className="max-w-site" ref={heroFadeRef}>
           <AnimateIn delay={80}>
             <h1
               style={{
@@ -101,7 +105,7 @@ export default function ProjectsPage() {
           </AnimateIn>
           <div className="grid md:grid-cols-2 gap-5">
             {builds.map((b, i) => (
-              <AnimateIn key={b.title} delay={i * 100}>
+              <AnimateIn key={b.title} delay={i * 80}>
                 <div
                   style={{
                     border: "1px solid var(--line)",
@@ -163,7 +167,7 @@ export default function ProjectsPage() {
                   "Fixed price quoted before we start",
                   "Built in n8n, documented, and handed over",
                   "You own the automation completely — no lock-in",
-                ].map((t) => checkBullet(t))}
+                ].map((t, i) => checkBullet(t, i))}
               </ul>
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <span
@@ -179,54 +183,6 @@ export default function ProjectsPage() {
               </div>
             </div>
           </AnimateIn>
-        </div>
-      </section>
-
-      {/* SOCH CTA */}
-      <section style={{ background: "var(--ink)", padding: "96px 0" }}>
-        <div className="max-w-site">
-          <div style={{ maxWidth: 560 }}>
-            <AnimateIn>
-              <h2
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
-                  color: "#fff",
-                  fontWeight: 700,
-                  marginBottom: "1rem",
-                }}
-              >
-                Have a project in mind?
-              </h2>
-            </AnimateIn>
-            <AnimateIn delay={100}>
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "1rem",
-                  color: "var(--faint)",
-                  lineHeight: 1.7,
-                  marginBottom: "2rem",
-                }}
-              >
-                Tell me what you&apos;re trying to build. Alternatively, visit Soch directly.
-              </p>
-            </AnimateIn>
-            <AnimateIn delay={200}>
-              <div className="flex flex-wrap gap-3">
-                <Link href="/services/consulting#book" className="btn-coral">Get in touch →</Link>
-                <a
-                  href="https://withsoch.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost"
-                  style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}
-                >
-                  Visit withsoch.com ↗
-                </a>
-              </div>
-            </AnimateIn>
-          </div>
         </div>
       </section>
 

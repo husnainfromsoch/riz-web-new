@@ -43,6 +43,10 @@ html {
   scroll-behavior: smooth;
 }
 
+[id] {
+  scroll-margin-top: 96px;
+}
+
 body {
   background: var(--bg);
   color: var(--body);
@@ -136,8 +140,9 @@ p, li, td, th, label, input, textarea, select {
 
 .animate-in {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  will-change: transform, opacity;
 }
 
 .animate-in.visible {
@@ -145,22 +150,45 @@ p, li, td, th, label, input, textarea, select {
   transform: translateY(0);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .animate-in {
-    transition: opacity 0.3s ease;
-    transform: none;
-  }
-}
-
 [data-reveal] {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transform: translateY(24px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  will-change: transform, opacity;
 }
 
 [data-reveal].visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ============================================================
+   MOTION SYSTEM — global reduced-motion kill switch.
+   Every scroll-reveal, parallax and hover transition on the
+   site keys off .animate-in / [data-reveal] / [data-parallax],
+   so disabling them here disables all of it in one place.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-in,
+  [data-reveal],
+  .think-card-animate,
+  .writing-row-animate,
+  .belief-para,
+  .oc-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-parallax] {
+    transform: none !important;
+  }
 }
 
 .max-w-site {
@@ -209,15 +237,6 @@ p, li, td, th, label, input, textarea, select {
 .btn-ghost:hover {
   border-color: var(--ink);
   color: var(--ink);
-}
-
-.section-eyebrow {
-  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--coral);
 }
 
 /* ============================================================
@@ -271,17 +290,13 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .think-card.active {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   box-shadow: 0 16px 36px rgba(30, 36, 31, 0.1);
   border-top-color: #EA6A47;
 }
 
 .think-card-title {
-  transition: color 0.3s ease;
-}
-
-.think-card-animate.animate-in {
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: color 0.25s ease;
 }
 
 .think-chart-dot {
@@ -410,82 +425,13 @@ p, li, td, th, label, input, textarea, select {
   justify-content: space-between;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .social-ticker-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.13);
   border-color: var(--coral);
-}
-
-@keyframes ping {
-  75%, 100% { transform: scale(2.2); opacity: 0; }
-}
-
-.ping-ring {
-  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-.chat-card {
-  background: linear-gradient(135deg, #FFF0E8 0%, #F0E8FF 100%);
-  border-radius: 32px;
-  overflow: visible;
-  box-shadow: 0 8px 48px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.chat-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.14);
-}
-
-.chat-card-photo-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-  margin-left: -20px;
-}
-
-.chat-btn-primary {
-  display: inline-flex;
-  align-items: center;
-  background: #22332C;
-  color: #ffffff;
-  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  padding: 14px 28px;
-  border-radius: 50px;
-  text-decoration: none;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.chat-btn-primary:hover {
-  background: #EA6A47;
-  transform: scale(1.03);
-  color: #ffffff;
-}
-
-.chat-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  background: transparent;
-  color: var(--ink);
-  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  padding: 14px 28px;
-  border-radius: 50px;
-  border: 1.5px solid var(--line);
-  text-decoration: none;
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-.chat-btn-secondary:hover {
-  border-color: #EA6A47;
-  color: #EA6A47;
 }
 
 .hear-me-pill {
@@ -594,7 +540,7 @@ p, li, td, th, label, input, textarea, select {
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   box-shadow: 0 12px 32px rgba(120, 90, 50, 0.1);
 }
 
@@ -610,7 +556,7 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .oc-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
   box-shadow: 0 20px 48px rgba(120, 90, 50, 0.18);
   border-color: #EA6A47;
 }
@@ -1271,11 +1217,11 @@ p, li, td, th, label, input, textarea, select {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .testimonials-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-5px);
   box-shadow: 0 16px 40px rgba(30, 42, 34, 0.10);
   border-color: rgba(234, 106, 71, 0.45);
 }
@@ -1286,7 +1232,7 @@ p, li, td, th, label, input, textarea, select {
   font-size: 26px;
   color: var(--coral);
   line-height: 1;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease;
 }
 
 .testimonials-card:hover .testimonials-card-mark {
@@ -1586,34 +1532,6 @@ p, li, td, th, label, input, textarea, select {
 .writing-row:hover .writing-row-cta {
   color: var(--coral);
   transform: translateX(4px);
-}
-
-.writing-row-animate.animate-in {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
-}
-
-.writing-row-animate.animate-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .writing-row-animate {
-    transition: none !important;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-  .writing-row,
-  .writing-row::before,
-  .writing-row-index,
-  .writing-row-title,
-  .writing-row-title-mark,
-  .writing-row-excerpt,
-  .writing-row-cta {
-    transition: none !important;
-  }
 }
 
 @media (max-width: 900px) {

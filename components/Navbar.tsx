@@ -13,14 +13,32 @@ const navLinks = [
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const [darkHero, setDarkHero] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    let lastY = window.scrollY;
+    let raf = 0;
+
+    const apply = () => {
+      raf = 0;
+      const y = window.scrollY;
+      const pastThreshold = y > 80;
+      setScrolled(pastThreshold);
+      setHidden(pastThreshold && y > lastY);
+      lastY = y;
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(apply);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   // Re-detect dark hero whenever the route changes, after the new page renders
@@ -28,10 +46,16 @@ export default function Navbar() {
     const raf = requestAnimationFrame(() => {
       setDarkHero(!!document.querySelector('[data-hero="dark"]'));
       // Also reset scroll state on navigation (page starts at top)
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 80);
+      setHidden(false);
     });
     return () => cancelAnimationFrame(raf);
   }, [pathname]);
+
+  // Keep the nav visible whenever the mobile drawer is open
+  useEffect(() => {
+    if (open) setHidden(false);
+  }, [open]);
 
   // White text only when we're at the top of a dark-hero page
   const light = darkHero && !scrolled;
@@ -49,14 +73,20 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 50,
-        transition: "background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease",
+        transition:
+          "background 0.25s ease, backdrop-filter 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease",
+        transform: hidden && !open ? "translateY(-100%)" : "translateY(0)",
         background: scrolled ? "rgba(255,255,255,0.88)" : "transparent",
         backdropFilter: scrolled ? "blur(14px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(14px)" : "none",
         borderBottom: scrolled ? "1px solid var(--line)" : "1px solid transparent",
+        boxShadow: scrolled ? "0 8px 24px rgba(34,51,44,0.08)" : "none",
       }}
     >
-      <div className="max-w-site flex items-center justify-between" style={{ height: 68 }}>
+      <div
+        className="max-w-site flex items-center justify-between"
+        style={{ height: scrolled ? 60 : 68, transition: "height 0.25s ease" }}
+      >
         <Link href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
           <span
             className="animate-pulse-dot"

@@ -9,6 +9,13 @@ import HeroSection from "@/components/hero-section";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import TestimonialsSection from "@/components/Testimonials";
 import CalBookingButton from "@/components/CalModal";
+import { type SubstackPost, FALLBACK_POSTS } from "@/lib/substack";
+
+function formatRowDate(pubDate: string): string {
+  const parsed = new Date(pubDate);
+  if (Number.isNaN(parsed.getTime())) return "";
+  return `${parsed.getFullYear()} · ${String(parsed.getMonth() + 1).padStart(2, "0")}`;
+}
 
 const PORTRAIT_URL =
   "https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a3a46d312c6d02c8e46bab1_691d97efffebe375af48ce33_Remove_GMNI-removebg-preview.png";
@@ -205,26 +212,6 @@ const processSteps = [
   },
 ];
 
-// ─── BLOG POSTS ─────────────────────────────────────────────────────────────
-
-const blogPosts = [
-  {
-    meta: "2026 · 06 · Opinion",
-    title: '"Just add AI" is the new "just add blockchain"',
-    excerpt: "Bolting AI onto a broken process doesn't fix the process. It just makes the mess faster.",
-  },
-  {
-    meta: "2026 · 05 · Field notes",
-    title: "I let an automation write for a month. Here's what broke.",
-    excerpt: "The pipeline ran beautifully. The thinking behind it didn't. A story about where the human still matters.",
-  },
-  {
-    meta: "2026 · 05 · Operations",
-    title: "The boring part is the part that matters",
-    excerpt: "Ten years of scaling ops taught me the unglamorous truth about what actually compounds.",
-  },
-];
-
 // ─── WORKFLOW STEPS (before/after toggle) ───────────────────────────────────
 
 // ─── BEFORE ICONS ──────────────────────────────────────────────
@@ -351,7 +338,7 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
         flexDirection: "column",
         gap: 8,
         transition: "all 0.25s ease",
-        transform: hovered ? "translateY(-3px)" : "none",
+        transform: hovered ? "translateY(-5px)" : "none",
         boxShadow: hovered ? "0 8px 32px rgba(234,106,71,0.1)" : "none",
         cursor: "default",
       }}
@@ -618,6 +605,17 @@ function ClickableCard({
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  const [blogPosts, setBlogPosts] = useState<SubstackPost[]>(FALLBACK_POSTS);
+
+  useEffect(() => {
+    fetch("/api/writing-posts")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((posts: SubstackPost[] | null) => {
+        if (posts && posts.length > 0) setBlogPosts(posts);
+      })
+      .catch(() => {});
+  }, []);
+
   const [believeHovered, setBelieveHovered] = useState(false);
   const [audioState, setAudioState] = useState<'idle' | 'playing' | 'paused'>('idle');
   const [isAfter, setIsAfter] = useState(false);
@@ -1039,7 +1037,7 @@ export default function Home() {
           transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
         .route-card-v2:hover {
-          transform: translateY(-4px);
+          transform: translateY(-5px);
           box-shadow: 0 14px 36px rgba(34,51,44,0.1);
           border-color: #22332C;
         }
@@ -1424,7 +1422,7 @@ export default function Home() {
           transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
         .work-row:hover {
-          transform: translateY(-3px);
+          transform: translateY(-5px);
           box-shadow: 0 14px 36px rgba(34,51,44,0.10);
           border-color: #EA6A47;
         }
@@ -2308,7 +2306,7 @@ export default function Home() {
 
           <div className="work-rows-list">
             {selectedWorkRows.map((row, i) => (
-              <AnimateIn key={row.num} delay={i * 60}>
+              <AnimateIn key={row.num} delay={i * 80}>
                 <Link href="/case-studies" className="work-row">
                   <span className="work-row-badge">{row.num}</span>
                   <span className="work-row-body">
@@ -2482,7 +2480,7 @@ export default function Home() {
             {processSteps.map((step, i) => {
               const isActive = activeThinkStep === i;
               return (
-                <AnimateIn key={step.num} delay={i * 100} className="think-card-animate">
+                <AnimateIn key={step.num} delay={i * 80} className="think-card-animate">
                   <div
                     className={`think-card${isActive ? " active" : ""}`}
                     role="button"
@@ -2831,30 +2829,25 @@ export default function Home() {
           </AnimateIn>
 
           <div className="writing-list">
-            {blogPosts.map((post, i) => {
-              const metaParts = post.meta.split(" · ");
-              const date = metaParts.slice(0, 2).join(" · ");
-              const category = metaParts[2] ?? "";
-              return (
-                <AnimateIn key={i} delay={i * 90} className="writing-row-animate">
-                  <Link href="/blog" className="writing-row">
-                    <span className="writing-row-index">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="writing-row-meta">
-                      <span className="writing-row-date">{date}</span>
-                      <span className="writing-row-chip">{category}</span>
+            {blogPosts.slice(0, 3).map((post, i) => (
+              <AnimateIn key={post.link} delay={i * 80} className="writing-row-animate">
+                <a href={post.link} target="_blank" rel="noopener noreferrer" className="writing-row">
+                  <span className="writing-row-index">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="writing-row-meta">
+                    <span className="writing-row-date">{formatRowDate(post.pubDate)}</span>
+                    {post.categories[0] && <span className="writing-row-chip">{post.categories[0]}</span>}
+                  </span>
+                  <span className="writing-row-body">
+                    <span className="writing-row-title">
+                      {post.title}
+                      <span className="writing-row-title-mark">*</span>
                     </span>
-                    <span className="writing-row-body">
-                      <span className="writing-row-title">
-                        {post.title}
-                        <span className="writing-row-title-mark">*</span>
-                      </span>
-                      <span className="writing-row-excerpt">{post.excerpt}</span>
-                    </span>
-                    <span className="writing-row-cta">Read →</span>
-                  </Link>
-                </AnimateIn>
-              );
-            })}
+                    <span className="writing-row-excerpt">{post.excerpt}</span>
+                  </span>
+                  <span className="writing-row-cta">Read →</span>
+                </a>
+              </AnimateIn>
+            ))}
           </div>
 
           <AnimateIn delay={400}>

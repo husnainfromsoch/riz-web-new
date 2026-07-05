@@ -167,14 +167,14 @@ export default function TestimonialsSection({
 
         <div className={`testimonials-grid${variant === "compact" ? " compact" : ""}`}>
           {gridItems.map((t, i) => (
-            <AnimateIn key={t.id} delay={gridBaseDelay + i * 100}>
+            <AnimateIn key={t.id} delay={gridBaseDelay + i * 80}>
               <TestimonialCard t={t} />
             </AnimateIn>
           ))}
         </div>
 
         {variant === "full" && (
-          <AnimateIn delay={gridBaseDelay + gridItems.length * 100}>
+          <AnimateIn delay={gridBaseDelay + gridItems.length * 80}>
             <div className="testimonials-strip">
               <p className="testimonials-strip-label">
                 Trusted by operators from{" "}

@@ -1,8 +1,10 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Rss } from "lucide-react";
 import AnimateIn from "@/components/AnimateIn";
 import CalBookingButton from "@/components/CalModal";
+import { useParallax } from "@/hooks/useParallax";
 
 function LinkedInIcon({ size = 16 }: { size?: number }) {
   return (
@@ -69,7 +71,11 @@ function FooterNavLink({ href, external, children }: { href: string; external?: 
   );
 }
 
-export default function Footer() {
+export default function Footer({ showCta }: { showCta?: boolean } = {}) {
+  const pathname = usePathname();
+  const shouldShowCta = showCta ?? pathname !== "/";
+  const watermarkRef = useParallax<HTMLDivElement>(0.15);
+
   return (
     <footer className="ftr-root">
       <style>{`
@@ -337,27 +343,31 @@ export default function Footer() {
 
       <div className="ftr-dotgrid" />
       <div className="ftr-glow" />
-      <div className="ftr-watermark" aria-hidden="true">RIZWAN</div>
+      <div className="ftr-watermark" aria-hidden="true" ref={watermarkRef} data-parallax>RIZWAN</div>
 
       <div className="ftr-inner">
-        {/* CTA band */}
-        <AnimateIn>
-          <div className="ftr-cta-row">
-            <div>
-              <h2 className="ftr-cta-headline">
-                Got a process <span className="ftr-cta-accent">worth fixing?</span>
-              </h2>
-            </div>
-            <div className="ftr-cta-actions">
-              <CalBookingButton className="ftr-btn-primary">Book a call</CalBookingButton>
-              <a href="mailto:riz@withsoch.com" className="ftr-btn-ghost">
-                Email me
-              </a>
-            </div>
-          </div>
-        </AnimateIn>
+        {shouldShowCta && (
+          <>
+            {/* CTA band */}
+            <AnimateIn>
+              <div className="ftr-cta-row">
+                <div>
+                  <h2 className="ftr-cta-headline">
+                    Got a process <span className="ftr-cta-accent">worth fixing?</span>
+                  </h2>
+                </div>
+                <div className="ftr-cta-actions">
+                  <CalBookingButton className="ftr-btn-primary">Book a call</CalBookingButton>
+                  <a href="mailto:riz@withsoch.com" className="ftr-btn-ghost">
+                    Email me
+                  </a>
+                </div>
+              </div>
+            </AnimateIn>
 
-        <div className="ftr-divider" />
+            <div className="ftr-divider" />
+          </>
+        )}
 
         {/* Main grid */}
         <div className="ftr-grid">

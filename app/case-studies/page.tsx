@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import AnimateIn from "@/components/AnimateIn";
+import ScrollProgressBar from "@/components/ScrollProgressBar";
 
 /* ─── data ──────────────────────────────────────────────────────────────────── */
 
@@ -710,7 +712,7 @@ export default function CaseStudies() {
         .proof-row-arrow {
           color: #948D7E;
           font-size: 16px;
-          transition: color 0.2s ease, transform 0.2s ease;
+          transition: color 0.25s ease, transform 0.25s ease;
           justify-self: end;
         }
         .proof-row:hover .proof-row-arrow {
@@ -732,16 +734,16 @@ export default function CaseStudies() {
           align-items: center;
           padding: 8px 4px;
           margin-right: 24px;
-          font-size: 14px;
+          font-size: 1rem;
           font-weight: 500;
-          color: rgba(34,51,44,0.45);
+          color: #4A4A45;
           cursor: pointer;
           background: none;
           border: none;
           border-bottom: 2px solid transparent;
           border-radius: 0;
           white-space: nowrap;
-          transition: all 0.2s ease;
+          transition: all 0.25s ease;
         }
         .filter-tab:hover {
           color: #22332C;
@@ -825,7 +827,7 @@ export default function CaseStudies() {
           transition: all 0.25s ease;
         }
         .case-stat-card:hover {
-          transform: translateY(-4px);
+          transform: translateY(-5px);
           border-color: #EA6A47;
           box-shadow: 0 8px 32px rgba(234,106,71,0.1);
         }
@@ -895,6 +897,12 @@ export default function CaseStudies() {
         .case-row-wrap {
           transition: opacity 0.2s ease;
         }
+        .case-row-wrap.dimmed {
+          opacity: 0.7;
+        }
+        .case-row-wrap.dimmed:hover {
+          opacity: 1;
+        }
 
         /* expanded case panel */
         .case-panel {
@@ -936,7 +944,7 @@ export default function CaseStudies() {
           padding: 6px 14px;
           border-radius: 100px;
           cursor: pointer;
-          transition: background 0.2s ease;
+          transition: background 0.25s ease;
         }
         .case-panel-close:hover {
           background: rgba(255,255,255,0.2);
@@ -970,13 +978,14 @@ export default function CaseStudies() {
         }
         .case-panel-label-sm {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 10px;
-          color: rgba(34,51,44,0.4);
-          letter-spacing: 0.12em;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #E8603C;
+          letter-spacing: 0.08em;
           margin-bottom: 12px;
         }
         .case-panel-label-sm.after {
-          color: #EA6A47;
+          color: #E8603C;
         }
         .case-panel-list-v2 {
           list-style: none;
@@ -985,7 +994,7 @@ export default function CaseStudies() {
         }
         .case-panel-list-v2 li {
           font-size: 13px;
-          color: rgba(34,51,44,0.65);
+          color: #4A4A45;
           line-height: 1.7;
         }
         .case-panel-list-v2.after li {
@@ -1060,35 +1069,39 @@ export default function CaseStudies() {
         }
       `}</style>
 
+      <ScrollProgressBar />
+
       <div className="case-hero-band">
         <section className="case-hero-section">
           <div className="case-hero-grid">
             <div>
-              <h1 className="case-hero-heading">
-                <span className="outline-num">20</span> systems.
-                <br />
-                Real problems.
-                <br />
-                Real outcomes.
-              </h1>
-              <p className="case-hero-subtitle">
-                Across 12 industries. Every one shipped.
-              </p>
-              <div className="case-hero-inline-stats">
-                <div className="case-hero-inline-stat">
-                  <span className="case-hero-inline-stat-number">12</span>
-                  <span className="case-hero-inline-stat-label">INDUSTRIES</span>
+              <AnimateIn>
+                <h1 className="case-hero-heading">
+                  <span className="outline-num">20</span> systems.
+                  <br />
+                  Real problems.
+                  <br />
+                  Real outcomes.
+                </h1>
+                <p className="case-hero-subtitle">
+                  Across 12 industries. Every one shipped.
+                </p>
+                <div className="case-hero-inline-stats">
+                  <div className="case-hero-inline-stat">
+                    <span className="case-hero-inline-stat-number">12</span>
+                    <span className="case-hero-inline-stat-label">INDUSTRIES</span>
+                  </div>
+                  <div className="case-hero-inline-stat">
+                    <span className="case-hero-inline-stat-number">20</span>
+                    <span className="case-hero-inline-stat-label">SYSTEMS</span>
+                  </div>
                 </div>
-                <div className="case-hero-inline-stat">
-                  <span className="case-hero-inline-stat-number">20</span>
-                  <span className="case-hero-inline-stat-label">SYSTEMS</span>
-                </div>
-              </div>
+              </AnimateIn>
             </div>
 
             <div className="case-stats-cards">
               {STAT_CARDS.map((stat, i) => (
-                <div className="case-stat-card" key={stat.label}>
+                <AnimateIn as="div" className="case-stat-card" key={stat.label} delay={i * 80}>
                   <div className="case-stat-card-label">{stat.label}</div>
                   <div
                     className="case-stat-card-number"
@@ -1098,7 +1111,7 @@ export default function CaseStudies() {
                   </div>
                   <div className="case-stat-card-divider" />
                   <div className="case-stat-card-desc">{stat.desc}</div>
-                </div>
+                </AnimateIn>
               ))}
             </div>
           </div>
@@ -1119,14 +1132,15 @@ export default function CaseStudies() {
             ))}
           </nav>
 
-          {visibleRows.map((row) => {
+          {visibleRows.map((row, i) => {
             const isActive = activeCase === row.id;
             const isDimmed = activeCase !== null && !isActive;
             return (
-              <div
+              <AnimateIn
+                as="div"
                 key={row.id}
-                className="case-row-wrap"
-                style={{ opacity: isDimmed ? 0.5 : 1 }}
+                delay={Math.min(i, 6) * 80}
+                className={`case-row-wrap${isDimmed ? " dimmed" : ""}`}
               >
                 <div
                   className={`proof-row${isActive ? " active" : ""}`}
@@ -1205,7 +1219,7 @@ export default function CaseStudies() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </AnimateIn>
             );
           })}
         </div>

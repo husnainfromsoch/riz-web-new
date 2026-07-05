@@ -138,8 +138,10 @@ export default function BookingSection() {
                   }}
                 >
                   {included.map((item, i) => (
-                    <li
+                    <AnimateIn
+                      as="li"
                       key={i}
+                      delay={i * 80}
                       style={{ display: "flex", gap: "0.65rem", alignItems: "flex-start" }}
                     >
                       {coralDot}
@@ -153,7 +155,7 @@ export default function BookingSection() {
                       >
                         {item}
                       </span>
-                    </li>
+                    </AnimateIn>
                   ))}
                 </ul>
               </div>
@@ -183,8 +185,10 @@ export default function BookingSection() {
                   }}
                 >
                   {topics.map((item, i) => (
-                    <li
+                    <AnimateIn
+                      as="li"
                       key={i}
+                      delay={i * 80}
                       style={{ display: "flex", gap: "0.65rem", alignItems: "flex-start" }}
                     >
                       {coralDot}
@@ -198,7 +202,7 @@ export default function BookingSection() {
                       >
                         {item}
                       </span>
-                    </li>
+                    </AnimateIn>
                   ))}
                 </ul>
               </div>

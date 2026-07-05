@@ -1,7 +1,30 @@
 import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
 
-export default function DirectLineCTA() {
+type DirectLineCTAProps = {
+  heading?: React.ReactNode;
+  description?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  secondaryExternal?: boolean;
+};
+
+export default function DirectLineCTA({
+  heading = (
+    <>
+      Have a chat{" "}
+      <span className="chat-hayat-heading-accent">with me?</span>
+    </>
+  ),
+  description = "Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.",
+  primaryLabel,
+  primaryHref,
+  secondaryLabel = "Ask Claude about Riz →",
+  secondaryHref = "https://claude.ai",
+  secondaryExternal = true,
+}: DirectLineCTAProps) {
   return (
     <>
       <style>{`
@@ -25,7 +48,7 @@ export default function DirectLineCTA() {
           height: 180px;
           border-radius: 50%;
           object-fit: cover;
-          object-position: center top;
+          object-position: center 15%;
           border: 4px solid #ffffff;
           box-shadow: 0 8px 32px rgba(0,0,0,0.12);
           display: block;
@@ -87,7 +110,7 @@ export default function DirectLineCTA() {
           padding: 14px 28px;
           border-radius: 100px;
           text-decoration: none;
-          transition: background 0.2s ease;
+          transition: background 0.25s ease;
         }
         .chat-hayat-btn-primary:hover {
           background: #EA6A47;
@@ -108,7 +131,7 @@ export default function DirectLineCTA() {
           border-radius: 100px;
           border: none;
           text-decoration: none;
-          transition: background 0.2s ease;
+          transition: background 0.25s ease;
         }
         .chat-hayat-btn-secondary:hover {
           background: rgba(255,255,255,0.8);
@@ -142,7 +165,7 @@ export default function DirectLineCTA() {
         <div className="chat-hayat-photo-col">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/Photos/riz-vespa.jpg"
+            src="/riz-photo-new.jpg"
             alt="Rizwan Mahmood"
             className="chat-hayat-photo"
           />
@@ -154,27 +177,34 @@ export default function DirectLineCTA() {
 
         {/* Right col — content */}
         <div>
-          <h2 className="chat-hayat-heading">
-            Have a chat{" "}
-            <span className="chat-hayat-heading-accent">with me?</span>
-          </h2>
+          <h2 className="chat-hayat-heading">{heading}</h2>
 
-          <p className="chat-hayat-desc">
-            Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.
-          </p>
+          <p className="chat-hayat-desc">{description}</p>
 
           <div className="chat-hayat-buttons">
-            <CalBookingButton className="chat-hayat-btn-primary">
-              Book a call →
-            </CalBookingButton>
-            <a
-              href="https://claude.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="chat-hayat-btn-secondary"
-            >
-              Ask Claude about Riz →
-            </a>
+            {primaryHref ? (
+              <a href={primaryHref} className="chat-hayat-btn-primary">
+                {primaryLabel}
+              </a>
+            ) : (
+              <CalBookingButton className="chat-hayat-btn-primary">
+                {primaryLabel ?? "Book a call →"}
+              </CalBookingButton>
+            )}
+            {secondaryExternal ? (
+              <a
+                href={secondaryHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="chat-hayat-btn-secondary"
+              >
+                {secondaryLabel}
+              </a>
+            ) : (
+              <Link href={secondaryHref} className="chat-hayat-btn-secondary">
+                {secondaryLabel}
+              </Link>
+            )}
           </div>
 
           <p className="chat-hayat-credit">

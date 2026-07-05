@@ -1,7 +1,9 @@
+"use client";
 import AnimateIn from "@/components/AnimateIn";
-import Link from "next/link";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
+import SpeakingHeroPhoto from "@/components/SpeakingHeroPhoto";
+import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const topics = [
   {
@@ -26,52 +28,109 @@ const formats = [
 ];
 
 export default function SpeakingPage() {
+  const heroTextureRef = useParallax<HTMLDivElement>(0.1);
+  const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
+
   return (
     <>
       {/* HERO */}
       <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
-        <div className="svc-hero-texture" />
-        <div className="max-w-site">
-          <AnimateIn delay={80}>
-            <h1
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
-                lineHeight: 1.2,
-                color: "var(--ink)",
-                fontWeight: 700,
-                marginBottom: "1.25rem",
-              }}
-            >
-              On stages and{" "}
-              <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
-                in rooms
-              </span>
-              .
-            </h1>
-          </AnimateIn>
-          <AnimateIn delay={180}>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.1rem",
-                color: "var(--body)",
-                lineHeight: 1.7,
-                maxWidth: 520,
-              }}
-            >
-              Talks and team sessions on AI leverage, the future of ops, and what actually changes when you give smart people powerful tools.
-            </p>
-          </AnimateIn>
-          <AnimateIn delay={240}>
-            <ProofChipRow>
-              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
-              <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
-              <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
-            </ProofChipRow>
+        <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
+        <div className="max-w-site speaking-hero-grid" ref={heroFadeRef}>
+          <div className="speaking-hero-text">
+            <AnimateIn delay={80}>
+              <h1
+                style={{
+                  fontFamily: "var(--font-playfair), serif",
+                  fontSize: "clamp(3rem, 5vw, 4.25rem)",
+                  lineHeight: 1.2,
+                  color: "var(--ink)",
+                  fontWeight: 700,
+                  marginBottom: "1.25rem",
+                }}
+              >
+                On stages and{" "}
+                <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+                  in rooms
+                </span>
+                .
+              </h1>
+            </AnimateIn>
+            <AnimateIn delay={180}>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "1.1rem",
+                  color: "var(--body)",
+                  lineHeight: 1.7,
+                  maxWidth: 520,
+                }}
+              >
+                Talks and team sessions on AI leverage, the future of ops, and what actually changes when you give smart people powerful tools.
+              </p>
+            </AnimateIn>
+            <AnimateIn delay={240}>
+              <div className="speaking-proof-chips">
+                <ProofChipRow>
+                  <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
+                  <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
+                  <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
+                </ProofChipRow>
+              </div>
+            </AnimateIn>
+          </div>
+          <AnimateIn delay={320} className="speaking-hero-photo-anim">
+            <SpeakingHeroPhoto />
           </AnimateIn>
         </div>
       </section>
+
+      <style>{`
+        .speaking-hero-grid {
+          display: grid;
+          grid-template-columns: 55% 40%;
+          gap: 5%;
+          align-items: center;
+        }
+        .animate-in.speaking-hero-photo-anim {
+          transform: translateX(48px);
+        }
+        .animate-in.visible.speaking-hero-photo-anim {
+          transform: translateX(0);
+        }
+        .speaking-hero-photo {
+          height: 500px;
+          border-radius: 100px 20px 20px 20px;
+          overflow: hidden;
+          box-shadow: 0 24px 48px rgba(120, 66, 30, 0.18), 0 8px 20px rgba(120, 66, 30, 0.12);
+          will-change: transform;
+        }
+        .speaking-hero-photo img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        .speaking-proof-chips > div > span {
+          color: #3A3A3A !important;
+          opacity: 1 !important;
+        }
+        @media (max-width: 860px) {
+          .speaking-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .speaking-hero-photo {
+            height: 340px;
+            width: 100%;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .speaking-hero-photo-anim {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
       {/* TOPICS + FORMATS */}
       <section style={{ padding: "96px 0" }}>
@@ -93,7 +152,7 @@ export default function SpeakingPage() {
             </AnimateIn>
             <div className="flex flex-col gap-6">
               {topics.map((t, i) => (
-                <AnimateIn key={t.title} delay={i * 120}>
+                <AnimateIn key={t.title} delay={i * 80}>
                   <div
                     style={{
                       borderLeft: "2px solid var(--coral)",
@@ -151,8 +210,9 @@ export default function SpeakingPage() {
                 }}
               >
                 {formats.map((f, i) => (
-                  <div
+                  <AnimateIn
                     key={f.label}
+                    delay={i * 80}
                     style={{
                       padding: "1.1rem 1.5rem",
                       borderBottom: i < formats.length - 1 ? "1px solid var(--line)" : "none",
@@ -177,7 +237,7 @@ export default function SpeakingPage() {
                     >
                       {f.detail}
                     </span>
-                  </div>
+                  </AnimateIn>
                 ))}
               </div>
             </AnimateIn>
@@ -185,57 +245,24 @@ export default function SpeakingPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ background: "var(--ink)", padding: "96px 0" }}>
-        <div className="max-w-site">
-          <div style={{ maxWidth: 560 }}>
-            <AnimateIn>
-              <h2
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
-                  color: "#fff",
-                  fontWeight: 700,
-                  marginBottom: "1rem",
-                }}
-              >
-                Booking enquiries.
-              </h2>
-            </AnimateIn>
-            <AnimateIn delay={100}>
-              <p
-                style={{
-                  fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "1rem",
-                  color: "var(--faint)",
-                  lineHeight: 1.7,
-                  marginBottom: "2rem",
-                }}
-              >
-                Tell me about the event, the audience, and what you want them to leave thinking.
-              </p>
-            </AnimateIn>
-            <AnimateIn delay={200}>
-              <div className="flex flex-wrap gap-3">
-                <a href="mailto:riz@withsoch.com" className="btn-coral">riz@withsoch.com</a>
-                <Link
-                  href="/services/consulting#book"
-                  className="btn-ghost"
-                  style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}
-                >
-                  Fill out a brief →
-                </Link>
-              </div>
-            </AnimateIn>
-          </div>
-        </div>
-      </section>
-
-      {/* DIRECT LINE */}
+      {/* DIRECT LINE — booking enquiries */}
       <section style={{ background: "var(--cream)", padding: "96px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
-            <DirectLineCTA />
+            <DirectLineCTA
+              heading={
+                <>
+                  Booking{" "}
+                  <span className="chat-hayat-heading-accent">enquiries.</span>
+                </>
+              }
+              description="Tell me about the event, the audience, and what you want them to leave thinking."
+              primaryLabel="riz@withsoch.com"
+              primaryHref="mailto:riz@withsoch.com"
+              secondaryLabel="Fill out a brief →"
+              secondaryHref="/services/consulting#book"
+              secondaryExternal={false}
+            />
           </AnimateIn>
         </div>
       </section>
