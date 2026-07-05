@@ -73,7 +73,7 @@ function FooterNavLink({ href, external, children }: { href: string; external?: 
 
 export default function Footer({ showCta }: { showCta?: boolean } = {}) {
   const pathname = usePathname();
-  const shouldShowCta = showCta ?? pathname !== "/";
+  const shouldShowCta = showCta ?? (pathname !== "/" && !pathname?.startsWith("/services"));
   const watermarkRef = useParallax<HTMLDivElement>(0.15);
 
   return (
