@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Instant Navigation in Next.js 16: A Practical Setup</title>
+<meta name="guide-date" content="2026-05-02" />
+<meta name="guide-excerpt" content="How unstable_instant catches slow client-side navigations before users ever see them." />
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #22332C;
+    max-width: 680px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem 3rem;
+    line-height: 1.7;
+  }
+  h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  h2 { font-size: 1.25rem; margin-top: 2rem; }
+  p { color: #4A4A4A; }
+  pre { background: #F3ECDD; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+  code { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+  <h1>Instant Navigation in Next.js 16: A Practical Setup</h1>
+  <p>With Cache Components enabled, a misplaced Suspense boundary can silently block client-side navigations. The <code>unstable_instant</code> export catches this at dev and build time instead of in production.</p>
+
+  <h2>The pattern</h2>
+  <pre><code>export const unstable_instant = { prefetch: 'static' }
+
+export default async function Page({ params }) {
+  return (
+    &lt;Suspense fallback={&lt;p&gt;Loading...&lt;/p&gt;}&gt;
+      {params.then(({ slug }) =&gt; &lt;Content slug={slug} /&gt;)}
+    &lt;/Suspense&gt;
+  )
+}</code></pre>
+
+  <h2>Why it matters</h2>
+  <p>Validation simulates navigation from every shared layout boundary, not just the initial page load — the failure mode that's easy to miss by hand.</p>
+</body>
+</html>
