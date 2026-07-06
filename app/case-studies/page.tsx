@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import AnimateIn from "@/components/AnimateIn";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 
@@ -649,9 +650,19 @@ const caseRows = [
 
 /* ─── page ───────────────────────────────────────────────────────────────────── */
 
-export default function CaseStudies() {
+function CaseStudiesContent() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeCase, setActiveCase] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const caseParam = searchParams.get("case");
+    if (!caseParam) return;
+    setActiveCase(caseParam);
+    requestAnimationFrame(() => {
+      document.getElementById(caseParam)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [searchParams]);
 
   const visibleRows =
     activeFilter === "All"
@@ -1143,6 +1154,7 @@ export default function CaseStudies() {
                 className={`case-row-wrap${isDimmed ? " dimmed" : ""}`}
               >
                 <div
+                  id={row.id}
                   className={`proof-row${isActive ? " active" : ""}`}
                   onClick={() => setActiveCase(isActive ? null : row.id)}
                 >
@@ -1225,5 +1237,13 @@ export default function CaseStudies() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function CaseStudies() {
+  return (
+    <Suspense fallback={null}>
+      <CaseStudiesContent />
+    </Suspense>
   );
 }

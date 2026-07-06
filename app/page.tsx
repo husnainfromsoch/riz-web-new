@@ -33,36 +33,42 @@ const metricCards = [
 
 const selectedWorkRows = [
   {
+    id: "cs-01",
     num: "01",
     tag: "REAL ESTATE · SALES",
     title: "AI Lead Qualification & Agent Routing",
     result: "8 min first contact · 34% lead-to-appointment rate",
   },
   {
+    id: "cs-02",
     num: "02",
     tag: "LAW FIRM · OPERATIONS",
     title: "Client Intake Automation & Case Routing",
     result: "12 min response · 3 hrs/day saved · 100% urgent flagged",
   },
   {
+    id: "cs-04",
     num: "03",
     tag: "E-COMMERCE · SUPPORT",
     title: "AI Support Triage & Auto-Resolution",
     result: "67% tickets auto-resolved · 18 min first response",
   },
   {
+    id: "cs-05",
     num: "04",
     tag: "B2B SAAS · SALES",
     title: "Trial-to-Paid Conversion Workflow",
     result: "2.1× conversion · 9% → 19% · 28 hrs/week saved",
   },
   {
+    id: "cs-09",
     num: "05",
     tag: "MARKETING AGENCY · OPS",
     title: "Automated Monthly Client Reporting",
     result: "89% time reduction · delivered 1st of every month",
   },
   {
+    id: "cs-06",
     num: "06",
     tag: "RECRUITMENT · HR",
     title: "CV Screening & Candidate Ranking",
@@ -2307,7 +2313,7 @@ export default function Home() {
           <div className="work-rows-list">
             {selectedWorkRows.map((row, i) => (
               <AnimateIn key={row.num} delay={i * 80}>
-                <Link href="/case-studies" className="work-row">
+                <Link href={`/case-studies?case=${row.id}`} className="work-row">
                   <span className="work-row-badge">{row.num}</span>
                   <span className="work-row-body">
                     <span className="work-row-tag">{row.tag}</span>
