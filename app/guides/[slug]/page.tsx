@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getGuide } from "@/lib/guides";
+import { getGuide, getRelatedGuides } from "@/lib/guides";
+import GuideCard from "../GuideCard";
+import { ArrowIcon } from "../icons";
+import ShareBar from "./ShareBar";
 
 function formatDate(raw: string): string {
   if (!raw) return "";
@@ -39,53 +42,170 @@ export default async function GuidePage({
   const guide = getGuide(slug);
   if (!guide) notFound();
 
+  const related = getRelatedGuides(guide.slug, guide.category);
+
   return (
-    <section style={{ padding: "7rem 0 5rem" }}>
-      <div style={{ maxWidth: 860, margin: "0 auto", padding: "0 40px" }}>
-        <div style={{ marginBottom: "1.75rem" }}>
-          <span
-            style={{
-              fontFamily: "var(--font-geist-mono), monospace",
-              fontSize: "0.75rem",
-              color: "var(--faint)",
-              letterSpacing: "0.06em",
-            }}
-          >
-            {formatDate(guide.date)}
-          </span>
-          <h1
-            style={{
-              fontFamily: "var(--font-montserrat), sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(28px, 4vw, 40px)",
-              lineHeight: 1.15,
-              color: "var(--ink)",
-              margin: "0.5rem 0 0",
-            }}
-          >
-            {guide.title}
-          </h1>
+    <section className="gd-detail">
+      <style>{`
+        .gd-detail {
+          padding: 104px 0 5rem;
+        }
+        .gd-detail-wrap {
+          max-width: 860px;
+          margin: 0 auto;
+          padding: 0 40px;
+        }
+        .gd-breadcrumb {
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.72rem;
+          letter-spacing: 0.04em;
+          color: var(--muted);
+          margin-bottom: 1.25rem;
+        }
+        .gd-breadcrumb a {
+          color: var(--muted);
+          text-decoration: none;
+          transition: color 0.2s ease;
+        }
+        .gd-breadcrumb a:hover {
+          color: var(--coral);
+        }
+        .gd-detail-title {
+          font-family: var(--font-fraunces), serif;
+          font-weight: 600;
+          font-size: clamp(28px, 4vw, 40px);
+          letter-spacing: -0.5px;
+          line-height: 1.15;
+          color: var(--ink);
+          margin: 0 0 1.25rem;
+        }
+        .gd-detail-meta {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-bottom: 1.5rem;
+        }
+        .gd-detail-meta-left {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 10px;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.78rem;
+          color: var(--muted);
+        }
+        .gd-detail-dot { opacity: 0.5; }
+        .gd-share {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .gd-share-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 34px;
+          height: 34px;
+          border-radius: 8px;
+          border: 1px solid var(--line-2);
+          background: #fff;
+          color: var(--muted);
+          cursor: pointer;
+          transition: color 0.2s ease, border-color 0.2s ease;
+        }
+        .gd-share-btn:hover {
+          color: var(--coral);
+          border-color: var(--coral);
+        }
+        .gd-divider {
+          height: 1px;
+          background: var(--line);
+          margin-bottom: 2rem;
+        }
+        .gd-iframe-wrap {
+          border: 1px solid var(--line);
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          background: #fff;
+        }
+        .gd-iframe-wrap iframe {
+          width: 100%;
+          min-height: 70vh;
+          border: none;
+          display: block;
+        }
+        .gd-related {
+          margin-top: 3rem;
+        }
+        .gd-related-heading {
+          font-family: var(--font-fraunces), serif;
+          font-weight: 600;
+          font-size: 1.5rem;
+          color: var(--ink);
+          margin: 0 0 1.5rem;
+        }
+        .gd-related-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+          gap: 20px;
+        }
+        .gd-detail-cta {
+          text-align: center;
+          margin-top: 3rem;
+        }
+        .gd-detail-cta .btn-coral {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 1rem 2rem;
+        }
+
+        @media (max-width: 640px) {
+          .gd-detail-wrap { padding: 0 20px; }
+          .gd-detail-meta { flex-direction: column; align-items: flex-start; }
+        }
+      `}</style>
+
+      <div className="gd-detail-wrap">
+        <nav className="gd-breadcrumb" aria-label="Breadcrumb">
+          <Link href="/guides">Guides</Link> / {guide.title}
+        </nav>
+
+        <h1 className="gd-detail-title">{guide.title}</h1>
+
+        <div className="gd-detail-meta">
+          <div className="gd-detail-meta-left">
+            <span>{formatDate(guide.date)}</span>
+            <span className="gd-detail-dot">·</span>
+            <span>{guide.readingTime} min read</span>
+            <span className="guide-badge">{guide.category}</span>
+          </div>
+          <ShareBar title={guide.title} />
         </div>
 
-        <div
-          style={{
-            border: "1px solid var(--line)",
-            borderRadius: 12,
-            overflow: "hidden",
-            boxShadow: "var(--shadow)",
-            background: "#fff",
-          }}
-        >
-          <iframe
-            src={`/guides/${guide.slug}.html`}
-            title={guide.title}
-            style={{ width: "100%", minHeight: "70vh", border: "none", display: "block" }}
-          />
+        <div className="gd-divider" />
+
+        <div className="gd-iframe-wrap">
+          <iframe src={`/guides/${guide.slug}.html`} title={guide.title} />
         </div>
 
-        <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
-          <Link href="/guides" className="btn-ghost">
-            View All Guides
+        {related.length > 0 && (
+          <div className="gd-related">
+            <h2 className="gd-related-heading">Explore related guides</h2>
+            <div className="gd-related-grid">
+              {related.map((g) => (
+                <GuideCard key={g.slug} guide={g} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="gd-detail-cta">
+          <Link href="/guides" className="btn-coral">
+            View all guides <ArrowIcon size={16} />
           </Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import { ChevronDown } from "lucide-react";
 import AnimateIn from "@/components/AnimateIn";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
 
@@ -721,14 +722,17 @@ function CaseStudiesContent() {
           line-height: 1.5;
         }
         .proof-row-arrow {
+          display: inline-flex;
           color: #948D7E;
-          font-size: 16px;
-          transition: color 0.25s ease, transform 0.25s ease;
+          transition: color 0.2s ease-out, transform 0.2s ease-out;
           justify-self: end;
         }
         .proof-row:hover .proof-row-arrow {
           color: #EA6A47;
-          transform: translate(2px, -2px);
+        }
+        .proof-row.active .proof-row-arrow {
+          color: #EA6A47;
+          transform: rotate(180deg);
         }
 
         /* filter tabs */
@@ -1157,12 +1161,23 @@ function CaseStudiesContent() {
                   id={row.id}
                   className={`proof-row${isActive ? " active" : ""}`}
                   onClick={() => setActiveCase(isActive ? null : row.id)}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isActive}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setActiveCase(isActive ? null : row.id);
+                    }
+                  }}
                 >
                   <span className="proof-row-num">{row.num}</span>
                   <span className="proof-row-tag">{row.tag}</span>
                   <span className="proof-row-title">{row.title}</span>
                   <span className="proof-row-result">{row.result}</span>
-                  <span className="proof-row-arrow">↗</span>
+                  <span className="proof-row-arrow" aria-hidden="true">
+                    <ChevronDown size={18} strokeWidth={2} />
+                  </span>
                 </div>
 
                 <div className={`case-panel${isActive ? " active" : ""}`}>

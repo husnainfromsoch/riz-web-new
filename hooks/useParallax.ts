@@ -56,56 +56,13 @@ export function useParallax<T extends HTMLElement = HTMLDivElement>(factor: numb
 }
 
 /**
- * Fades and lifts an element as it scrolls out past the top of the
- * viewport — used for hero content that should recede on scroll.
- * `distance` is the scroll distance (px) over which the effect completes.
+ * Ref for hero content that previously faded/lifted on scroll. The fade
+ * washed out hero sections (cream background, coral accents, photo) almost
+ * as soon as the user started scrolling, so the effect has been removed —
+ * hero content now keeps full opacity and position for the whole page.
+ * `distance` is kept in the signature so call sites don't need to change.
  */
-export function useScrollFadeOut<T extends HTMLElement = HTMLDivElement>(distance = 400) {
+export function useScrollFadeOut<T extends HTMLElement = HTMLDivElement>(_distance = 400) {
   const ref = useRef<T>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let raf = 0;
-    let listening = false;
-
-    function apply() {
-      raf = 0;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const progress = Math.min(Math.max(-rect.top / distance, 0), 1);
-      el.style.opacity = String(1 - progress * 0.7);
-      el.style.transform = `translate3d(0, ${(-progress * 40).toFixed(2)}px, 0)`;
-    }
-
-    function onScroll() {
-      if (raf) return;
-      raf = requestAnimationFrame(apply);
-    }
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !listening) {
-          listening = true;
-          window.addEventListener("scroll", onScroll, { passive: true });
-          apply();
-        } else if (!entry.isIntersecting && listening) {
-          listening = false;
-          window.removeEventListener("scroll", onScroll);
-        }
-      },
-      { rootMargin: "0px" }
-    );
-    io.observe(el);
-
-    return () => {
-      io.disconnect();
-      window.removeEventListener("scroll", onScroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, [distance]);
-
   return ref;
 }
