@@ -67,13 +67,13 @@ export default function HeroSection() {
     <>
       <style>{`
         .hz-root {
-          --hz-cream: #F3ECDD;
+          --hz-cream: var(--cream);
           --hz-forest: #22332C;
           --hz-black: #0E0E0D;
           --hz-coral: #EA6A47;
           --hz-amber: #D79A36;
           --hz-muted: #948D7E;
-          --hz-line: #DDD3BF;
+          --hz-line: var(--line);
         }
 
         @keyframes nameFlow {
@@ -132,7 +132,7 @@ export default function HeroSection() {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 12px;
           font-weight: 500;
-          letter-spacing: 1.1px;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
           color: var(--hz-muted);
           display: flex;
@@ -176,9 +176,9 @@ export default function HeroSection() {
         }
 
         .hz-headline {
-          font-size: 62px;
+          font-size: clamp(3rem, 5vw, 4.25rem);
           font-weight: 900;
-          line-height: 1.03;
+          line-height: 1.05;
           letter-spacing: -3px;
           margin-bottom: 0;
           color: var(--hz-forest);
@@ -245,14 +245,16 @@ export default function HeroSection() {
         }
         .hz-btn-primary {
           background: #0E0E0D;
-          color: #F3ECDD;
+          color: var(--cream);
           text-decoration: none;
-          padding: 17px 30px;
-          border-radius: 100px;
+          padding: 0 1.75rem;
+          min-height: var(--btn-height);
+          border-radius: var(--btn-radius);
           font-size: 15px;
           font-weight: 600;
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           gap: 8px;
           transition: background 0.22s, transform 0.22s;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
@@ -264,8 +266,12 @@ export default function HeroSection() {
         .hz-btn-secondary {
           color: var(--hz-forest);
           text-decoration: none;
-          padding: 17px 24px;
-          border-radius: 100px;
+          padding: 0 1.75rem;
+          min-height: var(--btn-height);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: var(--btn-radius);
           border: 1.5px solid var(--hz-line);
           font-size: 15px;
           font-weight: 500;
@@ -324,7 +330,7 @@ export default function HeroSection() {
         .hz-avatar-stack { display: flex; align-items: center; }
         .hz-avatar {
           width: 34px; height: 34px; border-radius: 50%;
-          border: 2.5px solid #F3ECDD;
+          border: 2.5px solid var(--cream);
           display: flex; align-items: center; justify-content: center;
           font-size: 10px; font-weight: 800;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
@@ -381,7 +387,7 @@ export default function HeroSection() {
 
         .hz-photo-card {
           position: relative;
-          border-radius: 28px;
+          border-radius: 20px;
           overflow: hidden;
           background: #0E0E0D;
           height: 100%;
@@ -503,7 +509,7 @@ export default function HeroSection() {
           font-size: 20px;
           font-weight: 800;
           letter-spacing: -0.6px;
-          color: #F3ECDD;
+          color: var(--cream);
           transition: opacity 0.3s ease, transform 0.3s ease;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
         }
@@ -559,7 +565,7 @@ export default function HeroSection() {
           letter-spacing: -0.5px;
           margin-bottom: 3px;
           font-style: italic;
-          background: linear-gradient(110deg, #F3ECDD, #EA6A47, #D79A36, #F3ECDD);
+          background: linear-gradient(110deg, var(--cream), #EA6A47, #D79A36, var(--cream));
           background-size: 250% auto;
           -webkit-background-clip: text;
           background-clip: text;

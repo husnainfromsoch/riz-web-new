@@ -337,7 +337,7 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
     <div
       style={{
         background: "#ffffff",
-        border: `1px solid ${hovered ? "#EA6A47" : "#DDD3BF"}`,
+        border: `1px solid ${hovered ? "#EA6A47" : "var(--line)"}`,
         borderRadius: 16,
         padding: "28px 24px",
         display: "flex",
@@ -870,7 +870,7 @@ export default function Home() {
         .proof-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 14px;
+          gap: 28px;
         }
         @media (max-width: 768px) {
           .proof-grid { grid-template-columns: 1fr 1fr; }
@@ -882,8 +882,8 @@ export default function Home() {
         .route-hero-v2 {
           position: relative;
           overflow: hidden;
-          background: #F1EBDE;
-          border: 1px solid #E2DACB;
+          background: var(--cream);
+          border: 1px solid var(--line);
           border-radius: 24px;
           padding: 48px 52px;
           transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -1026,12 +1026,12 @@ export default function Home() {
         .route-cards-row {
           display: grid;
           grid-template-columns: 1fr 1fr 1fr;
-          gap: 16px;
+          gap: 28px;
         }
         .route-card-v2 {
           position: relative;
           background: #ffffff;
-          border: 1px solid #E2DACB;
+          border: 1px solid var(--line);
           border-radius: 20px;
           padding: 32px 28px;
           display: flex;
@@ -1081,7 +1081,7 @@ export default function Home() {
           align-items: center;
           gap: 6px;
           background: #22332C;
-          color: #F3ECDD;
+          color: var(--cream);
           padding: 10px 20px;
           border-radius: 8px;
           font-size: 13px;
@@ -1106,7 +1106,7 @@ export default function Home() {
           display: inline-flex;
           align-items: center;
           background: transparent;
-          border: 1px solid #DDD3BF;
+          border: 1px solid var(--line);
           color: #22332C;
           padding: 10px 20px;
           border-radius: 8px;
@@ -1272,7 +1272,7 @@ export default function Home() {
         .coral-word { color: var(--coral); }
         .believe-closing {
           background: transparent;
-          border-top: 1px solid #DDD3BF;
+          border-top: 1px solid var(--line);
           padding-top: 48px;
           margin-top: 48px;
           display: flex;
@@ -1298,7 +1298,7 @@ export default function Home() {
           margin-bottom: 20px;
         }
         .believe-closing-cta {
-          background: #22332C; color: #F3ECDD;
+          background: #22332C; color: var(--cream);
           padding: 12px 24px; border-radius: 100px;
           font-size: 14px; font-weight: 600;
           text-decoration: none; white-space: nowrap;
@@ -1341,7 +1341,7 @@ export default function Home() {
         .believe-pn-name {
           font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
           font-size: 13px; font-weight: 700; font-style: italic;
-          background: linear-gradient(110deg, #F3ECDD, #EA6A47, #D79A36, #F3ECDD);
+          background: linear-gradient(110deg, var(--cream), #EA6A47, #D79A36, var(--cream));
           background-size: 250% auto;
           -webkit-background-clip: text; background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -1420,7 +1420,7 @@ export default function Home() {
           align-items: center;
           gap: 24px;
           background: #fff;
-          border: 1px solid #DDD3BF;
+          border: 1px solid var(--line);
           border-radius: 16px;
           padding: 22px 26px;
           text-decoration: none;
@@ -1492,7 +1492,7 @@ export default function Home() {
           width: 36px;
           height: 36px;
           border-radius: 50%;
-          border: 1.5px solid #DDD3BF;
+          border: 1.5px solid var(--line);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -1513,7 +1513,7 @@ export default function Home() {
           gap: 8px;
           margin-top: 28px;
           background: #22332C;
-          color: #F3ECDD;
+          color: var(--cream);
           font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
           font-size: 14px;
           font-weight: 600;
@@ -1551,7 +1551,7 @@ export default function Home() {
       {/* SECTION 2 — PROOF */}
       <section
         ref={proofSectionRef}
-        style={{ background: "#F5F0E8", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}
+        style={{ background: "#F5F0E8", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}
       >
         <div className="max-w-site">
           <div className="proof-grid">
@@ -1569,7 +1569,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 3 — WHAT I BELIEVE */}
-      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "56px 60px 80px" }}>
+      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "112px 60px" }}>
         <div style={{ maxWidth: 1360, margin: "0 auto" }}>
 
           <div className="believe-content-wrap">
@@ -1741,7 +1741,7 @@ export default function Home() {
       {/* BY THE NUMBERS */}
       <section
         ref={byTheNumbersRef}
-        style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "100px 0" }}
+        style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}
       >
         <div className="max-w-site by-numbers-grid">
 
@@ -1796,7 +1796,7 @@ export default function Home() {
                     width: 24, height: 24,
                     borderRadius: "50%",
                     border: `2px solid ${showCoral ? "#EA6A47" : "#C17A5A"}`,
-                    background: showCoral ? "#EA6A47" : "#F3ECDD",
+                    background: showCoral ? "#EA6A47" : "var(--cream)",
                     flexShrink: 0,
                     position: "relative",
                     zIndex: 1,
@@ -2001,7 +2001,7 @@ export default function Home() {
       {/* SECTION 1.5 — BEFORE / AFTER TOGGLE */}
       <section
         ref={beforeAfterRef}
-        style={{ background: "#ffffff", padding: "80px 0" }}
+        style={{ background: "#ffffff", padding: "112px 0" }}
       >
         <div className="max-w-site" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <AnimateIn>
@@ -2034,7 +2034,7 @@ export default function Home() {
                 {/* LEFT — BEFORE */}
                 <div style={{
                   background: "#ffffff",
-                  border: "1px solid #DDD3BF",
+                  border: "1px solid var(--line)",
                   borderRadius: "20px 0 0 20px",
                   padding: "40px 36px",
                   display: "flex",
@@ -2062,7 +2062,7 @@ export default function Home() {
                       <div key={step.labelBefore}>
                         <div style={{
                           background: "#ffffff",
-                          border: "1px solid #DDD3BF",
+                          border: "1px solid var(--line)",
                           borderRadius: 14,
                           padding: "14px 18px",
                           display: "flex",
@@ -2080,7 +2080,7 @@ export default function Home() {
                               </p>
                               <span style={{
                                 background: "#22332C",
-                                color: "#F3ECDD",
+                                color: "var(--cream)",
                                 opacity: 1,
                                 fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
                                 fontSize: 10,
@@ -2165,7 +2165,7 @@ export default function Home() {
                 {/* RIGHT — AFTER */}
                 <div style={{
                   background: "transparent",
-                  border: "1px solid #DDD3BF",
+                  border: "1px solid var(--line)",
                   borderRadius: "0 20px 20px 0",
                   padding: "40px 36px",
                   display: "flex",
@@ -2197,7 +2197,7 @@ export default function Home() {
                     <div key={step.title}>
                       <div style={{
                         background: "#ffffff",
-                        border: "1px solid #DDD3BF",
+                        border: "1px solid var(--line)",
                         borderRadius: 14,
                         padding: "14px 18px",
                         display: "flex",
@@ -2233,7 +2233,7 @@ export default function Home() {
                             </p>
                             <span style={{
                               background: "#22332C",
-                              color: "#F3ECDD",
+                              color: "var(--cream)",
                               fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
                               fontSize: 10,
                               borderRadius: 4,
@@ -2267,7 +2267,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 4 — SELECTED WORK */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "80px 0" }}>
+      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h2
@@ -2337,7 +2337,7 @@ export default function Home() {
       <section
         style={{
           background: "#FFFFFF",
-          padding: "100px 0",
+          padding: "112px 0",
           backgroundImage:
             "radial-gradient(circle, rgba(30,36,31,0.05) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
@@ -2570,7 +2570,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 7 — ROUTES */}
-      <section style={{ background: "#FFFFFF", padding: "100px 0" }}>
+      <section style={{ background: "#FFFFFF", padding: "112px 0" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h2
@@ -2796,7 +2796,7 @@ export default function Home() {
       />
 
       {/* SECTION — HAVE A CHAT */}
-      <section style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />
@@ -2805,7 +2805,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 9 — WRITING */}
-      <section style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "5rem 0" }}>
+      <section style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h2

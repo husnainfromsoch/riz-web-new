@@ -42,7 +42,7 @@ export default function ProjectsPage() {
   return (
     <>
       {/* HERO */}
-      <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
+      <section className="svc-hero-section" style={{ background: "var(--cream-2)" }}>
         <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
         <div className="max-w-site" ref={heroFadeRef}>
           <AnimateIn delay={80}>
@@ -88,7 +88,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* WHAT WE BUILD */}
-      <section style={{ padding: "96px 0" }}>
+      <section style={{ padding: "112px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <h2
@@ -109,7 +109,7 @@ export default function ProjectsPage() {
                 <div
                   style={{
                     border: "1px solid var(--line)",
-                    borderRadius: 12,
+                    borderRadius: 18,
                     padding: "2rem",
                     background: "#fff",
                     boxShadow: "var(--shadow)",
@@ -187,7 +187,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* DIRECT LINE */}
-      <section style={{ background: "var(--cream)", padding: "96px 0" }}>
+      <section style={{ background: "var(--cream)", padding: "112px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />

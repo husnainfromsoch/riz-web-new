@@ -126,7 +126,7 @@ export default function TestimonialsSection({
   variant = "full",
   heading,
   headingStyle,
-  background = "#F3ECDD",
+  background = "#F1EBDE",
 }: TestimonialsSectionProps) {
   const featured = variant === "full" ? testimonials[0] : null;
   const gridItems = variant === "full" ? testimonials.slice(1) : testimonials.slice(0, 2);

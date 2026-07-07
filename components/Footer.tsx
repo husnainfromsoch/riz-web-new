@@ -157,13 +157,15 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         .ftr-btn-primary {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           background: #EA6A47;
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-weight: 700;
           font-size: 15px;
-          padding: 14px 28px;
-          border-radius: 100px;
+          padding: 0 28px;
+          min-height: var(--btn-height);
+          border-radius: var(--btn-radius);
           border: none;
           cursor: pointer;
           text-decoration: none;
@@ -176,13 +178,15 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         .ftr-btn-ghost {
           display: inline-flex;
           align-items: center;
+          justify-content: center;
           background: transparent;
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-weight: 700;
           font-size: 15px;
-          padding: 14px 28px;
-          border-radius: 100px;
+          padding: 0 28px;
+          min-height: var(--btn-height);
+          border-radius: var(--btn-radius);
           border: 1.5px solid rgba(34,51,44,0.25);
           text-decoration: none;
           transition: border-color 0.2s ease, color 0.2s ease;
@@ -250,8 +254,8 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         }
         .ftr-col-heading {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem;
-          letter-spacing: 0.1em;
+          font-size: 0.8rem;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
           color: #EA6A47;
           margin: 0 0 18px;

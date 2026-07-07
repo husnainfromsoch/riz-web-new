@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, ReactNode, CSSProperties, ElementType } from "react";
+import { useEffect, useRef, useState, ReactNode, CSSProperties, ElementType } from "react";
 
 interface AnimateInProps {
   children: ReactNode;
@@ -11,22 +11,21 @@ interface AnimateInProps {
 
 export default function AnimateIn({ children, delay = 0, className = "", style, as: Tag = "div" }: AnimateInProps) {
   const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.classList.add("visible");
+      setVisible(true);
       return;
     }
-
-    el.style.transitionDelay = `${delay}ms`;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          el.classList.add("visible");
+          setVisible(true);
           observer.unobserve(el);
         }
       },
@@ -34,10 +33,14 @@ export default function AnimateIn({ children, delay = 0, className = "", style, 
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [delay]);
+  }, []);
 
   return (
-    <Tag ref={ref} className={`animate-in ${className}`} style={style}>
+    <Tag
+      ref={ref}
+      className={`animate-in${visible ? " visible" : ""} ${className}`}
+      style={{ ...style, transitionDelay: `${delay}ms` }}
+    >
       {children}
     </Tag>
   );

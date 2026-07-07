@@ -244,9 +244,9 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         .writing-featured-tag {
           display: inline-block;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.68rem;
+          font-size: 0.8rem;
           font-weight: 700;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.06em;
           color: var(--coral);
           margin-bottom: 0.75rem;
         }
@@ -306,7 +306,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
 
         .blog-post-card {
           border: 1px solid var(--line);
-          border-radius: 12px;
+          border-radius: 18px;
           padding: 2rem;
           background: #fff;
           display: flex;
@@ -445,7 +445,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.68rem",
+                        fontSize: "0.8rem",
                         color: "var(--faint)",
                         letterSpacing: "0.06em",
                       }}

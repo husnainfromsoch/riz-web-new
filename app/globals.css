@@ -2,8 +2,8 @@
 
 :root {
   --bg: #FFFFFF;
-  --cream: #F3ECDD;
-  --cream-2: #F8F3E9;
+  --cream: #F1EBDE;
+  --cream-2: var(--cream);
   --ink: #22332C;
   --body: #4A4A4A;
   --muted: #8A857B;
@@ -11,7 +11,7 @@
   --coral: #EA6A47;
   --coral-d: #CE5430;
   --amber: #D79A36;
-  --line: #E7E0D2;
+  --line: #E2DACB;
   --line-2: #D9D1C0;
   --paper: #F5F0E8;
   --ink2: #5A6660;
@@ -21,6 +21,17 @@
   --ease: cubic-bezier(.2,.7,.2,1);
   --background: var(--bg);
   --foreground: var(--ink);
+
+  /* Section spacing rhythm — enforced site-wide */
+  --section-pad: 112px;
+  --section-pad-mobile: 64px;
+  --heading-gap: 48px;
+  --card-pad: 30px;
+  --grid-gap: 28px;
+  --radius-card: 18px;
+  --radius-chip: 999px;
+  --btn-height: 52px;
+  --btn-radius: 8px;
 
   /* Typography — remap legacy font variables to new system */
   --font-inter-tight: var(--font-montserrat);
@@ -63,13 +74,31 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.05;
 }
 
-h1, h2 { font-size: clamp(36px, 5vw, 56px); }
-h3 { font-size: clamp(22px, 3vw, 32px); line-height: 1.4; }
+/* Hero headlines (h1) vs section headings (h2) get distinct scales */
+h1 { font-size: clamp(3rem, 5vw, 4.25rem); line-height: 1.05; }
+h2 { font-size: clamp(2.25rem, 3.5vw, 3rem); line-height: 1.1; }
+h3 { font-size: clamp(1.3rem, 2vw, 1.5rem); line-height: 1.35; }
 
 p, li, td, th, label, input, textarea, select {
-  font-size: 16px;
+  font-size: 1.0625rem;
   font-weight: 400;
   line-height: 1.7;
+}
+
+.meta-label {
+  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+.section-pad {
+  padding: var(--section-pad) 0;
+}
+
+@media (max-width: 767px) {
+  .section-pad {
+    padding: var(--section-pad-mobile) 0;
+  }
 }
 
 .font-mono-dm {
@@ -200,18 +229,26 @@ p, li, td, th, label, input, textarea, select {
   padding-right: 40px;
 }
 
-.btn-coral {
-  background: var(--coral);
-  color: #fff;
-  padding: 0.75rem 1.75rem;
-  border-radius: 8px;
+.btn-coral,
+.btn-ghost {
+  min-height: var(--btn-height);
+  padding: 0 1.75rem;
+  border-radius: var(--btn-radius);
   font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
   font-weight: 800;
   font-size: 16px;
-  transition: background 0.2s ease;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-decoration: none;
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn-coral {
+  background: var(--coral);
+  color: #fff;
+  transition: background 0.2s ease;
   border: none;
 }
 
@@ -222,16 +259,8 @@ p, li, td, th, label, input, textarea, select {
 .btn-ghost {
   background: transparent;
   color: var(--ink);
-  padding: 0.75rem 1.75rem;
-  border-radius: 8px;
-  font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-  font-weight: 800;
-  font-size: 16px;
   border: 1.5px solid var(--line-2);
   transition: border-color 0.2s ease, color 0.2s ease;
-  display: inline-block;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .btn-ghost:hover {
@@ -245,37 +274,33 @@ p, li, td, th, label, input, textarea, select {
    ============================================================ */
 .text-body {
   color: rgba(34,51,44,0.75);
-  font-size: 15px;
+  font-size: 1.05rem;
   line-height: 1.7;
   opacity: 1;
 }
 
-.tag-pill {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 99px;
-  background: var(--cream);
-  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 13px;
-  color: var(--muted);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
+.tag-pill,
 .guide-badge {
   display: inline-flex;
   align-items: center;
   padding: 4px 12px;
-  border-radius: 4px;
-  background: var(--coral);
-  color: #fff;
+  border-radius: var(--radius-chip);
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 11px;
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.tag-pill {
+  background: var(--cream);
+  color: var(--muted);
+}
+
+.guide-badge {
+  background: var(--coral);
+  color: #fff;
 }
 
 /* ============================================================
@@ -294,7 +319,7 @@ p, li, td, th, label, input, textarea, select {
   flex-direction: column;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 12px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   box-shadow: var(--shadow);
   transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease), border-color 0.25s var(--ease);
@@ -336,7 +361,7 @@ p, li, td, th, label, input, textarea, select {
   right: 10px;
 }
 .gd-card-body {
-  padding: 20px;
+  padding: var(--card-pad);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -345,7 +370,7 @@ p, li, td, th, label, input, textarea, select {
 .gd-card-title {
   font-family: var(--font-fraunces), serif;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.3rem;
   line-height: 1.35;
   color: var(--ink);
   margin: 0;
@@ -368,9 +393,9 @@ p, li, td, th, label, input, textarea, select {
 }
 .gd-card-meta {
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 12px;
+  font-size: 0.8rem;
   color: var(--faint);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
 }
 .gd-card-read {
   display: inline-flex;
@@ -395,29 +420,29 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .think-section {
-  padding: 140px 0;
+  padding: var(--section-pad) 0;
 }
 
 .think-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: var(--grid-gap);
 }
 
 .think-card {
   background: #FFFFFF;
-  border: 1px solid #E2DACB;
+  border: 1px solid var(--line);
   border-top: 3px solid transparent;
-  border-radius: 16px;
-  padding: 32px 28px;
+  border-radius: var(--radius-card);
+  padding: var(--card-pad) 28px;
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .think-card.active {
   transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(30, 36, 31, 0.1);
-  border-top-color: #EA6A47;
+  box-shadow: var(--shadow-lg);
+  border-top-color: var(--coral);
 }
 
 .think-card-title {
@@ -472,7 +497,7 @@ p, li, td, th, label, input, textarea, select {
 
 @media (max-width: 640px) {
   .think-section {
-    padding: 72px 0;
+    padding: var(--section-pad-mobile) 0;
   }
 
   .think-cards-grid {
@@ -540,8 +565,8 @@ p, li, td, th, label, input, textarea, select {
   height: 160px;
   background: #fff;
   border-radius: 16px;
-  border: 1px solid #E7E0D2;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
   padding: 20px;
   box-sizing: border-box;
   position: relative;
@@ -555,7 +580,7 @@ p, li, td, th, label, input, textarea, select {
 
 .social-ticker-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.13);
+  box-shadow: var(--shadow-lg);
   border-color: var(--coral);
 }
 
@@ -658,7 +683,7 @@ p, li, td, th, label, input, textarea, select {
 .oc-card {
   opacity: 0;
   background: #FFFFFF;
-  border: 1px solid #E2DACB;
+  border: 1px solid var(--line);
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
@@ -666,7 +691,7 @@ p, li, td, th, label, input, textarea, select {
   display: flex;
   flex-direction: column;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  box-shadow: 0 12px 32px rgba(120, 90, 50, 0.1);
+  box-shadow: var(--shadow);
 }
 
 @media (max-width: 767px) {
@@ -682,8 +707,8 @@ p, li, td, th, label, input, textarea, select {
 
 .oc-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 20px 48px rgba(120, 90, 50, 0.18);
-  border-color: #EA6A47;
+  box-shadow: var(--shadow-lg);
+  border-color: var(--coral);
 }
 
 .oc-thumb {
@@ -781,9 +806,9 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .oc-card-title {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 800;
-  color: #1E241F;
+  color: var(--ink);
   font-family: var(--font-fraunces), serif;
   line-height: 1.3;
   margin-top: 4px;
@@ -795,8 +820,8 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .oc-card-desc {
-  font-size: 13px;
-  color: #4A524A;
+  font-size: 0.9rem;
+  color: var(--body);
   line-height: 1.6;
   height: 3.2em;
   overflow: hidden;
@@ -834,24 +859,26 @@ p, li, td, th, label, input, textarea, select {
 .oc-ig-cta {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 15px 30px;
-  border-radius: 100px;
-  background: #EA6A47;
+  min-height: var(--btn-height);
+  padding: 0 1.75rem;
+  border-radius: var(--btn-radius);
+  background: var(--coral);
   color: #FFFFFF;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: 0 10px 28px rgba(234, 106, 71, 0.28);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.2s ease;
 }
 
 .oc-ig-cta:hover {
+  background: var(--coral-d);
   transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(234, 106, 71, 0.38);
+  box-shadow: var(--shadow-lg);
 }
 
 .oc-ig-arrow {
@@ -874,8 +901,8 @@ p, li, td, th, label, input, textarea, select {
 
 .svc-hero-title {
   font-family: var(--font-playfair), serif;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  line-height: 1.12;
+  font-size: clamp(3rem, 5vw, 4.25rem);
+  line-height: 1.05;
   color: var(--ink);
   font-weight: 700;
   margin-bottom: 1.25rem;
@@ -907,8 +934,8 @@ p, li, td, th, label, input, textarea, select {
 
 .svc-body {
   font-family: var(--font-dm-sans), sans-serif;
-  font-size: 1.025rem;
-  line-height: 1.78;
+  font-size: 1.05rem;
+  line-height: 1.7;
   max-width: 480px;
   margin-bottom: 1.75rem;
 }
@@ -967,6 +994,18 @@ p, li, td, th, label, input, textarea, select {
 
 .svc-hero-section {
   position: relative;
+  padding: var(--section-pad) 0;
+}
+
+.svc-section {
+  padding: var(--section-pad) 0;
+}
+
+@media (max-width: 767px) {
+  .svc-hero-section,
+  .svc-section {
+    padding: var(--section-pad-mobile) 0;
+  }
 }
 
 .svc-hero-texture {
@@ -1084,7 +1123,7 @@ p, li, td, th, label, input, textarea, select {
   }
 
   .svc-hero-title {
-    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-size: clamp(3rem, 5vw, 4.25rem);
     line-height: 1.05;
     max-width: none;
   }
@@ -1096,7 +1135,7 @@ p, li, td, th, label, input, textarea, select {
   }
 
   .svc-section {
-    padding: 130px 0 !important;
+    padding: var(--section-pad) 0;
   }
 
   .svc-row {
@@ -1138,7 +1177,7 @@ p, li, td, th, label, input, textarea, select {
 .wf-card {
   position: relative;
   background: var(--ink);
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   padding: 2rem 2.25rem;
   box-shadow: var(--shadow-lg);
   width: 100%;
@@ -1213,7 +1252,7 @@ p, li, td, th, label, input, textarea, select {
 /* ─── Testimonials ─────────────────────────────────────────────────── */
 
 .testimonials-section {
-  padding: 100px 0;
+  padding: var(--section-pad) 0;
 }
 
 .testimonials-featured {
@@ -1324,7 +1363,7 @@ p, li, td, th, label, input, textarea, select {
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: var(--grid-gap);
 }
 
 .testimonials-grid.compact {
@@ -1336,9 +1375,9 @@ p, li, td, th, label, input, textarea, select {
 .testimonials-card {
   position: relative;
   background: #fff;
-  border: 1px solid #E2DACB;
+  border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 28px;
+  padding: var(--card-pad);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -1347,7 +1386,7 @@ p, li, td, th, label, input, textarea, select {
 
 .testimonials-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 16px 40px rgba(30, 42, 34, 0.10);
+  box-shadow: var(--shadow-lg);
   border-color: rgba(234, 106, 71, 0.45);
 }
 
@@ -1514,7 +1553,7 @@ p, li, td, th, label, input, textarea, select {
    WRITING SECTION — editorial index list
    ============================================================ */
 .writing-list {
-  border-top: 1px solid #E2DACB;
+  border-top: 1px solid var(--line);
 }
 
 .writing-row {
@@ -1524,7 +1563,7 @@ p, li, td, th, label, input, textarea, select {
   align-items: center;
   gap: 24px;
   padding: 38px 20px;
-  border-bottom: 1px solid #E2DACB;
+  border-bottom: 1px solid var(--line);
   text-decoration: none;
   background: var(--cream);
   transition: background 0.25s ease;
@@ -1570,7 +1609,7 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .writing-row-date {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   letter-spacing: 0.06em;
   color: var(--muted);
 }
@@ -1580,12 +1619,12 @@ p, li, td, th, label, input, textarea, select {
   align-items: center;
   justify-content: center;
   width: fit-content;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border: 1px solid var(--coral);
-  border-radius: 20px;
-  font-size: 0.62rem;
+  border-radius: var(--radius-chip);
+  font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--coral);
 }

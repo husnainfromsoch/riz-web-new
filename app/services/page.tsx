@@ -33,7 +33,7 @@ const checkBullet = (color: string, text: string, i: number) => (
 );
 
 const sectionDivider = (
-  <div style={{ borderTop: "1px solid #E7E0D2", marginTop: 0 }} />
+  <div style={{ borderTop: "1px solid var(--line)", marginTop: 0 }} />
 );
 
 /* ─── shared hook: drives card animations from viewport + motion prefs ─── */
@@ -87,7 +87,7 @@ function ConsultingMockup() {
       ref={ref}
       style={{
         border: "1px solid var(--line)",
-        borderRadius: 14,
+        borderRadius: 18,
         overflow: "hidden",
         boxShadow: "var(--shadow-lg)",
         maxWidth: 460,
@@ -371,7 +371,7 @@ function ProjectsMockup() {
             {wfArrow}
             {wfNode("⋯", "Tag Filter", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(1))}
             {wfArrow}
-            {wfNode("✳", "Enrich", "rgba(215,154,54,0.18)", "rgba(215,154,54,0.35)", "rgba(255,255,255,0.85)", "#D79A36", isStep(2))}
+            {wfNode("✳", "Enrich", "rgba(215,154,54,0.18)", "rgba(215,154,54,0.35)", "rgba(255,255,255,0.85)", "var(--amber)", isStep(2))}
           </div>
 
           {/* connector: branch from Enrich down into row 2 */}
@@ -461,7 +461,7 @@ function WorkshopsMockup() {
       ref={ref}
       style={{
         border: "1px solid var(--line)",
-        borderRadius: 14,
+        borderRadius: 18,
         overflow: "hidden",
         boxShadow: "var(--shadow-lg)",
         maxWidth: 460,
@@ -469,7 +469,7 @@ function WorkshopsMockup() {
       }}
     >
       {/* amber header */}
-      <div style={{ background: "#D79A36", padding: "2rem 1.75rem", position: "relative" }}>
+      <div style={{ background: "var(--amber)", padding: "2rem 1.75rem", position: "relative" }}>
         <span
           style={{
             fontFamily: "var(--font-dm-mono), monospace",
@@ -528,7 +528,7 @@ function WorkshopsMockup() {
             >
               <span
                 style={{
-                  color: "#D79A36",
+                  color: "var(--amber)",
                   flexShrink: 0,
                   fontSize: "1rem",
                   marginTop: "0.1rem",
@@ -570,7 +570,7 @@ function WorkshopsMockup() {
         <div
           style={{
             marginTop: "0.5rem",
-            background: "#D79A36",
+            background: "var(--amber)",
             borderRadius: 8,
             padding: "0.8rem",
             textAlign: "center",
@@ -617,7 +617,7 @@ export default function Services() {
   return (
     <>
       {/* HERO */}
-      <section className="svc-hero-section" style={{ background: "#F1EBDE", paddingTop: 120, paddingBottom: 100 }}>
+      <section className="svc-hero-section" style={{ background: "var(--cream)" }}>
         <div className="svc-hero-texture svc-hero-texture--strong" ref={heroTextureRef} data-parallax />
         <div className="max-w-site">
           <div className="svc-hero-inner" ref={heroFadeRef}>
@@ -699,7 +699,6 @@ export default function Services() {
         className="svc-section"
         style={{
           background: "#fff",
-          padding: "100px 0",
           scrollMarginTop: 96,
         }}
       >
@@ -762,7 +761,6 @@ export default function Services() {
         className="svc-section"
         style={{
           background: "var(--cream)",
-          padding: "100px 0",
           scrollMarginTop: 96,
         }}
       >
@@ -802,9 +800,11 @@ export default function Services() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    display: "inline-block",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    minHeight: 52,
                     padding: "0.75rem 1.75rem",
-                    borderRadius: 6,
+                    borderRadius: 8,
                     background: "var(--ink)",
                     color: "#fff",
                     fontFamily: "var(--font-dm-sans), sans-serif",
@@ -836,7 +836,6 @@ export default function Services() {
         className="svc-section"
         style={{
           background: "#fff",
-          padding: "100px 0",
           scrollMarginTop: 96,
         }}
       >
@@ -845,7 +844,7 @@ export default function Services() {
             {/* left: text */}
             <div className="svc-row-text">
               <AnimateIn>
-                <p className="svc-subline" style={sublineStyle("#D79A36")}>Your team, upskilled.</p>
+                <p className="svc-subline" style={sublineStyle("var(--amber)")}>Your team, upskilled.</p>
               </AnimateIn>
               <AnimateIn delay={100}>
                 <p className="svc-body" style={bodyStyle}>
@@ -867,16 +866,18 @@ export default function Services() {
                   "Executive education sessions",
                   "Hands-on, build-in-session format",
                   "Tailored to your team's actual workflows",
-                ].map((b, i) => checkBullet("#D79A36", b, i))}
+                ].map((b, i) => checkBullet("var(--amber)", b, i))}
               </ul>
               <AnimateIn delay={260}>
                 <Link
                   href="/services/consulting"
                   style={{
-                    display: "inline-block",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    minHeight: 52,
                     padding: "0.75rem 1.75rem",
-                    borderRadius: 6,
-                    background: "#D79A36",
+                    borderRadius: 8,
+                    background: "var(--amber)",
                     color: "var(--ink)",
                     fontFamily: "var(--font-dm-sans), sans-serif",
                     fontWeight: 600,
@@ -911,7 +912,7 @@ export default function Services() {
         }
         headingStyle={{
           fontFamily: "var(--font-playfair), serif",
-          fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+          fontSize: "clamp(2.25rem, 3.5vw, 3rem)",
           fontWeight: 700,
           color: "var(--ink)",
         }}
@@ -920,7 +921,7 @@ export default function Services() {
       {sectionDivider}
 
       {/* BOTTOM CTA — reused Direct Line component from the homepage */}
-      <section style={{ background: "var(--cream)", padding: "100px 0" }}>
+      <section style={{ background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />

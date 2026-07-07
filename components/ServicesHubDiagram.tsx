@@ -49,7 +49,7 @@ export default function ServicesHubDiagram() {
           <line
             key={`spoke-${n.id}`}
             x1={CX} y1={CY} x2={n.cx} y2={n.cy}
-            stroke="#E7E0D2" strokeWidth="1.5" strokeDasharray="5 4"
+            style={{ stroke: "var(--line)" }} strokeWidth="1.5" strokeDasharray="5 4"
           />
         ))}
       </g>

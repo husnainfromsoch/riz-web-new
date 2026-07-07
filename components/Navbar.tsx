@@ -133,10 +133,7 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <CalBookingButton
-            className="btn-coral"
-            style={{ padding: "0.55rem 1.25rem", fontSize: "0.875rem" }}
-          >
+          <CalBookingButton className="btn-coral">
             Book a call
           </CalBookingButton>
         </nav>

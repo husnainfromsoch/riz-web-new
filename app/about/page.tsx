@@ -214,7 +214,7 @@ function StatRow({
           fontSize: 32,
           fontWeight: 900,
           fontFamily: "inherit",
-          background: "linear-gradient(90deg, #F3ECDD, #EA6A47, #D79A36, #F3ECDD)",
+          background: "linear-gradient(90deg, var(--cream), #EA6A47, #D79A36, var(--cream))",
           backgroundSize: "300% auto",
           WebkitBackgroundClip: "text",
           backgroundClip: "text",
@@ -336,8 +336,8 @@ export default function About() {
       <section
         style={{
           background: "#FFFFFF",
-          padding: "80px 0",
-          borderBottom: "1px solid #ECE6D9",
+          padding: "112px 0",
+          borderBottom: "1px solid var(--line)",
         }}
       >
         <div
@@ -371,10 +371,10 @@ export default function About() {
               <h1
                 style={{
                   fontFamily: "var(--font-inter-tight), sans-serif",
-                  fontSize: 52,
+                  fontSize: "clamp(3rem, 5vw, 4.25rem)",
                   fontWeight: 900,
                   color: "#22332C",
-                  lineHeight: 1.1,
+                  lineHeight: 1.05,
                   marginBottom: 8,
                 }}
               >
@@ -390,7 +390,7 @@ export default function About() {
                   fontWeight: 600,
                   fontStyle: "italic",
                   color: "#EA6A47",
-                  marginBottom: 32,
+                  marginBottom: 48,
                 }}
               >
                 Occasionally funny.
@@ -483,7 +483,7 @@ export default function About() {
           gridTemplateColumns: "1fr 1fr",
           gap: 80,
           alignItems: "start",
-          padding: "80px 60px",
+          padding: "112px 60px",
           background: "white",
           maxWidth: 1200,
           margin: "0 auto",
@@ -511,7 +511,7 @@ export default function About() {
             <AnimateIn key={item.year} delay={i * 80}>
               <div
                 style={{
-                  borderLeft: "2px solid #DDD3BF",
+                  borderLeft: "2px solid var(--line)",
                   paddingLeft: 28,
                   marginBottom: 36,
                   position: "relative",
@@ -525,7 +525,7 @@ export default function About() {
                     width: 8,
                     height: 8,
                     borderRadius: "50%",
-                    background: item.active ? "#EA6A47" : "#DDD3BF",
+                    background: item.active ? "#EA6A47" : "var(--line)",
                   }}
                 />
                 <p
@@ -576,7 +576,7 @@ export default function About() {
       </section>
 
       {/* SECTION — OPERATOR NOTES */}
-      <section style={{ background: "#22332C", padding: "80px 60px" }}>
+      <section style={{ background: "#22332C", padding: "112px 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <AnimateIn delay={60}>
             <h2
@@ -584,7 +584,7 @@ export default function About() {
                 fontFamily: "var(--font-inter-tight), sans-serif",
                 fontSize: 36,
                 fontWeight: 900,
-                color: "#F3ECDD",
+                color: "var(--cream)",
                 marginBottom: 48,
               }}
             >
@@ -596,7 +596,7 @@ export default function About() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 20,
+              gap: 28,
             }}
             className="lessons-grid"
           >
@@ -618,7 +618,7 @@ export default function About() {
                       fontFamily: "var(--font-fraunces), serif",
                       fontSize: 16,
                       fontWeight: 700,
-                      color: "#F3ECDD",
+                      color: "var(--cream)",
                       marginBottom: 8,
                     }}
                   >
@@ -646,10 +646,10 @@ export default function About() {
       <section
         className="beyond-section"
         style={{
-          background: "#F1EBDE",
+          background: "var(--cream)",
           backgroundImage: "radial-gradient(rgba(34,51,44,0.12) 1px, transparent 1.6px)",
           backgroundSize: "22px 22px",
-          padding: "110px 60px",
+          padding: "112px 60px",
         }}
       >
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -744,14 +744,14 @@ export default function About() {
         .about-credentials {
           margin: 28px 0;
           padding-top: 24px;
-          border-top: 1px solid #E2DACB;
+          border-top: 1px solid var(--line);
         }
         .about-credentials-label {
           font-family: var(--font-geist-mono), monospace;
-          font-size: 0.7rem;
+          font-size: 0.8rem;
           font-weight: 600;
-          letter-spacing: 0.08em;
-          color: #EA6A47;
+          letter-spacing: 0.06em;
+          color: var(--coral);
           margin: 0 0 12px;
         }
         .about-credentials-row {
@@ -791,7 +791,7 @@ export default function About() {
           align-items: center;
           justify-content: center;
           background: #22332C;
-          color: #F3ECDD;
+          color: var(--cream);
           padding: 18px 40px;
           border-radius: 8px;
           font-size: 15px;
@@ -818,7 +818,7 @@ export default function About() {
           max-height: 640px;
           border-radius: 20px;
           overflow: hidden;
-          box-shadow: 0 24px 48px rgba(120, 66, 30, 0.18), 0 8px 20px rgba(120, 66, 30, 0.12);
+          box-shadow: var(--shadow-lg);
         }
         .about-photo-single img {
           display: block;
@@ -882,7 +882,7 @@ export default function About() {
           margin: 0;
           width: 100%;
           overflow: hidden;
-          box-shadow: 0 20px 44px rgba(120,70,40,0.14), 0 6px 14px rgba(120,70,40,0.08);
+          box-shadow: var(--shadow-lg);
         }
         .beyond-photo img {
           display: block;
@@ -919,11 +919,11 @@ export default function About() {
         .beyond-list {
           display: flex;
           flex-direction: column;
-          border-top: 1px solid #E2DACB;
-          border-bottom: 1px solid #E2DACB;
+          border-top: 1px solid var(--line);
+          border-bottom: 1px solid var(--line);
         }
         .beyond-row-anim + .beyond-row-anim {
-          border-top: 1px solid #E2DACB;
+          border-top: 1px solid var(--line);
         }
         .beyond-row {
           position: relative;
@@ -1009,7 +1009,7 @@ export default function About() {
         .lesson-card {
           background: rgba(255,255,255,0.05);
           border: 1px solid rgba(255,255,255,0.1);
-          border-radius: 12px;
+          border-radius: 18px;
           padding: 28px 24px;
           height: 100%;
           transition: all 0.25s ease;

@@ -34,7 +34,7 @@ export default function SpeakingPage() {
   return (
     <>
       {/* HERO */}
-      <section className="svc-hero-section" style={{ paddingTop: 120, paddingBottom: 96, background: "var(--cream-2)" }}>
+      <section className="svc-hero-section speaking-hero-section" style={{ background: "var(--cream-2)" }}>
         <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
         <div className="max-w-site speaking-hero-grid" ref={heroFadeRef}>
           <div className="speaking-hero-text">
@@ -86,6 +86,9 @@ export default function SpeakingPage() {
       </section>
 
       <style>{`
+        .svc-hero-section.speaking-hero-section {
+          padding-top: 116px;
+        }
         .speaking-hero-grid {
           display: grid;
           grid-template-columns: 55% 40%;
@@ -99,8 +102,9 @@ export default function SpeakingPage() {
           transform: translateX(0);
         }
         .speaking-hero-photo {
-          height: 500px;
-          border-radius: 100px 20px 20px 20px;
+          height: 520px;
+          max-height: 520px;
+          border-radius: 20px;
           overflow: hidden;
           box-shadow: 0 24px 48px rgba(120, 66, 30, 0.18), 0 8px 20px rgba(120, 66, 30, 0.12);
           will-change: transform;
@@ -133,7 +137,7 @@ export default function SpeakingPage() {
       `}</style>
 
       {/* TOPICS + FORMATS */}
-      <section style={{ padding: "96px 0" }}>
+      <section style={{ padding: "112px 0" }}>
         <div className="max-w-site grid md:grid-cols-2 gap-12">
           {/* Topics */}
           <div>
@@ -246,7 +250,7 @@ export default function SpeakingPage() {
       </section>
 
       {/* DIRECT LINE — booking enquiries */}
-      <section style={{ background: "var(--cream)", padding: "96px 0" }}>
+      <section style={{ background: "var(--cream)", padding: "112px 0" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA

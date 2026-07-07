@@ -671,7 +671,7 @@ function CaseStudiesContent() {
       : caseRows.filter((row) => row.industry === activeFilter);
 
   return (
-    <main style={{ background: "white" }}>
+    <main style={{ background: "var(--bg)" }}>
       <style>{`
         .proof-row {
           display: grid;
@@ -679,7 +679,7 @@ function CaseStudiesContent() {
           gap: 24px;
           align-items: center;
           padding: 28px 0;
-          border-bottom: 1px solid #DDD3BF;
+          border-bottom: 1px solid var(--line);
           border-left: 3px solid transparent;
           padding-left: 0;
           transition: background 0.15s ease, border-left-color 0.15s ease, padding-left 0.15s ease;
@@ -740,7 +740,7 @@ function CaseStudiesContent() {
           display: flex;
           flex-wrap: wrap;
           gap: 0;
-          border-bottom: 1px solid #DDD3BF;
+          border-bottom: 1px solid var(--line);
           margin-bottom: 48px;
           padding-bottom: 0;
         }
@@ -772,11 +772,11 @@ function CaseStudiesContent() {
 
         /* hero section */
         .case-hero-band {
-          background: #F1EBDE;
-          border-bottom: 1px solid #E2DACB;
+          background: var(--cream);
+          border-bottom: 1px solid var(--line);
         }
         .case-hero-section {
-          padding: 80px 60px 60px;
+          padding: 112px 60px;
           max-width: 1360px;
           margin: 0 auto;
         }
@@ -826,7 +826,7 @@ function CaseStudiesContent() {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
           font-size: 10px;
           color: rgba(34,51,44,0.45);
-          letter-spacing: 0.1em;
+          letter-spacing: 0.06em;
         }
 
         .case-stats-cards {
@@ -836,9 +836,9 @@ function CaseStudiesContent() {
         }
         .case-stat-card {
           background: #FFFFFF;
-          border: 1px solid #E2DACB;
+          border: 1px solid var(--line);
           border-radius: 16px;
-          padding: 24px 20px;
+          padding: 28px 24px;
           transition: all 0.25s ease;
         }
         .case-stat-card:hover {
@@ -884,7 +884,7 @@ function CaseStudiesContent() {
 
         @media (max-width: 768px) {
           .case-hero-section {
-            padding: 60px 24px 32px;
+            padding: 64px 24px;
           }
           .case-hero-section.case-hero-section--list {
             padding: 32px 24px 0;
@@ -935,7 +935,7 @@ function CaseStudiesContent() {
         .case-panel.active {
           max-height: 900px;
           opacity: 1;
-          border-color: #DDD3BF;
+          border-color: var(--line);
         }
         .case-panel-header {
           background: #22332C;
@@ -947,13 +947,13 @@ function CaseStudiesContent() {
         .case-panel-header-title {
           font-size: 16px;
           font-weight: 700;
-          color: #F3ECDD;
+          color: var(--cream);
           font-family: var(--font-fraunces), serif;
         }
         .case-panel-close {
           background: rgba(255,255,255,0.1);
           border: 1px solid rgba(255,255,255,0.15);
-          color: #F3ECDD;
+          color: var(--cream);
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
           font-size: 11px;
           padding: 6px 14px;
@@ -989,7 +989,7 @@ function CaseStudiesContent() {
         }
         .case-panel-col-ba {
           padding: 32px 28px;
-          border-right: 1px solid #DDD3BF;
+          border-right: 1px solid var(--line);
         }
         .case-panel-label-sm {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
@@ -1018,7 +1018,7 @@ function CaseStudiesContent() {
         }
         .case-panel-divider-v2 {
           height: 1px;
-          background: linear-gradient(90deg, #EA6A47, #DDD3BF);
+          background: linear-gradient(90deg, #EA6A47, var(--line));
           margin: 16px 0;
         }
         .case-panel-col-outcomes {
@@ -1052,8 +1052,8 @@ function CaseStudiesContent() {
           gap: 6px;
         }
         .case-stack-pill-v2 {
-          background: #F3ECDD;
-          border: 1px solid #DDD3BF;
+          background: var(--cream);
+          border: 1px solid var(--line);
           border-radius: 4px;
           padding: 4px 10px;
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
@@ -1079,7 +1079,7 @@ function CaseStudiesContent() {
           }
           .case-panel-col-ba {
             border-right: none;
-            border-bottom: 1px solid #DDD3BF;
+            border-bottom: 1px solid var(--line);
           }
         }
       `}</style>

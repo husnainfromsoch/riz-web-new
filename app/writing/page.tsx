@@ -83,7 +83,7 @@ function PostsSkeleton() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "1.25rem",
+            gap: "1.75rem",
           }}
         >
           {Array.from({ length: 6 }).map((_, i) => (
@@ -91,7 +91,7 @@ function PostsSkeleton() {
               key={i}
               style={{
                 border: "1px solid var(--line)",
-                borderRadius: 12,
+                borderRadius: 18,
                 overflow: "hidden",
                 background: "#fff",
                 boxShadow: "var(--shadow)",
@@ -159,7 +159,7 @@ function PostsSkeleton() {
 export default function WritingPage() {
   return (
     <>
-      <section style={{ paddingTop: 120, paddingBottom: 60, background: "var(--cream-2)" }}>
+      <section style={{ paddingTop: 112, paddingBottom: 64, background: "var(--cream-2)" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h1

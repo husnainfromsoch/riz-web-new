@@ -70,7 +70,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-              gap: "1.25rem",
+              gap: "1.75rem",
             }}
           >
             {filtered.map((post) => (
@@ -84,7 +84,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                 <article
                   style={{
                     border: "1px solid var(--line)",
-                    borderRadius: 12,
+                    borderRadius: 18,
                     background: "#fff",
                     overflow: "hidden",
                     height: "100%",
@@ -136,7 +136,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.68rem",
+                        fontSize: "0.8rem",
                         color: "var(--faint)",
                         letterSpacing: "0.06em",
                       }}
@@ -181,6 +181,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                         fontFamily: "var(--font-dm-sans), sans-serif",
                         fontSize: "0.8rem",
                         fontWeight: 600,
+                        letterSpacing: "0.06em",
                         color: "var(--coral)",
                         marginTop: "0.25rem",
                       }}

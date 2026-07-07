@@ -34,10 +34,10 @@ export default function BookingSection() {
   return (
     <section
       id="booking"
-      style={{ background: "#F3ECDD", borderTop: "1px solid var(--line)" }}
+      style={{ background: "var(--cream)", borderTop: "1px solid var(--line)" }}
     >
       {/* TOP BANNER */}
-      <div style={{ textAlign: "center", padding: "3.5rem 1.5rem 3rem" }}>
+      <div style={{ textAlign: "center", padding: "64px 1.5rem 64px" }}>
         <AnimateIn delay={80}>
           {/* Main heading — DM Sans bold, 56px desktop */}
           <h2
@@ -53,7 +53,7 @@ export default function BookingSection() {
             Book a{" "}
             <span
               style={{
-                background: "#F5C842",
+                background: "var(--amber)",
                 padding: "2px 8px",
                 borderRadius: 4,
                 fontStyle: "normal",
@@ -100,8 +100,8 @@ export default function BookingSection() {
           <div
             style={{
               background: "#fff",
-              borderRadius: 12,
-              border: "1px solid #E7E0D2",
+              borderRadius: 18,
+              border: "1px solid var(--line)",
               overflow: "hidden",
             }}
           >
@@ -110,15 +110,15 @@ export default function BookingSection() {
               {/* Left column */}
               <div
                 style={{
-                  padding: "2.5rem",
-                  borderBottom: "1px solid #E7E0D2",
+                  padding: "1.875rem",
+                  borderBottom: "1px solid var(--line)",
                 }}
-                className="md:border-b-0 md:border-r md:border-r-[#E7E0D2]"
+                className="md:border-b-0 md:border-r md:border-r-[color:var(--line)]"
               >
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.68rem",
+                    fontSize: "0.8rem",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                     color: "var(--coral)",
@@ -161,11 +161,11 @@ export default function BookingSection() {
               </div>
 
               {/* Right column */}
-              <div style={{ padding: "2.5rem" }}>
+              <div style={{ padding: "1.875rem" }}>
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.68rem",
+                    fontSize: "0.8rem",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                     color: "var(--coral)",
@@ -211,7 +211,7 @@ export default function BookingSection() {
             {/* BOTTOM ROW */}
             <div
               style={{
-                borderTop: "1px solid #E7E0D2",
+                borderTop: "1px solid var(--line)",
                 padding: "1.75rem 2.5rem",
                 display: "flex",
                 alignItems: "center",
@@ -224,7 +224,7 @@ export default function BookingSection() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.68rem",
+                    fontSize: "0.8rem",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                     color: "var(--muted)",

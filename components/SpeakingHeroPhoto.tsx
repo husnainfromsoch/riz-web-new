@@ -10,7 +10,7 @@ export default function SpeakingHeroPhoto() {
       <img
         src="/images/speaking/riz-stage.png"
         alt="Rizwan Mahmood speaking on stage at a Future of Tech conference, mic in hand"
-        style={{ objectPosition: "38% 22%" }}
+        style={{ objectPosition: "center 30%" }}
       />
     </div>
   );

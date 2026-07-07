@@ -89,8 +89,11 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
   return (
     <>
       <style>{`
+        main.flex-1 {
+          flex: 0 1 auto;
+        }
         .gd-hero {
-          padding: 96px 0 40px;
+          padding: 112px 0 64px;
         }
         .gd-hero-title {
           font-family: var(--font-fraunces), serif;
@@ -117,8 +120,8 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           max-width: 780px;
           background: #fff;
           border: 1px solid var(--line);
-          border-radius: 14px;
-          padding: 16px;
+          border-radius: 18px;
+          padding: 30px;
           text-decoration: none;
           box-shadow: var(--shadow);
           transition: box-shadow 0.25s ease, transform 0.25s ease;
@@ -130,7 +133,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-featured-thumb {
           position: relative;
           min-height: 160px;
-          border-radius: 10px;
+          border-radius: 16px;
           overflow: hidden;
           background: linear-gradient(135deg, rgba(234,106,71,0.14), rgba(234,106,71,0.04));
           display: flex;
@@ -176,7 +179,8 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-featured-meta {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.72rem;
+          font-size: 0.8rem;
+          letter-spacing: 0.06em;
           color: var(--muted);
         }
         .gd-featured-link {
@@ -361,12 +365,12 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
 
         .gd-grid-section {
-          padding: 3rem 0 5rem;
+          padding: 3rem 0 96px;
         }
         .gd-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-          gap: 20px;
+          gap: 28px;
         }
 
         .gd-empty {
@@ -396,7 +400,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
 
         @media (max-width: 767px) {
-          .gd-hero { padding: 104px 0 32px; }
+          .gd-hero { padding: 104px 0 64px; }
           .gd-featured-card { display: none; }
           .gd-search-input { padding-right: 16px; }
           .gd-kbd { display: none; }

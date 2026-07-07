@@ -4,6 +4,7 @@ import { getGuide, getRelatedGuides } from "@/lib/guides";
 import GuideCard from "../GuideCard";
 import { ArrowIcon } from "../icons";
 import ShareBar from "./ShareBar";
+import GuideFrame from "./GuideFrame";
 
 function formatDate(raw: string): string {
   if (!raw) return "";
@@ -48,7 +49,7 @@ export default async function GuidePage({
     <section className="gd-detail">
       <style>{`
         .gd-detail {
-          padding: 104px 0 5rem;
+          padding: 112px 0 112px;
         }
         .gd-detail-wrap {
           max-width: 860px;
@@ -126,14 +127,13 @@ export default async function GuidePage({
         }
         .gd-iframe-wrap {
           border: 1px solid var(--line);
-          border-radius: 12px;
+          border-radius: 18px;
           overflow: hidden;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          box-shadow: var(--shadow);
           background: #fff;
         }
         .gd-iframe-wrap iframe {
           width: 100%;
-          min-height: 70vh;
           border: none;
           display: block;
         }
@@ -150,7 +150,7 @@ export default async function GuidePage({
         .gd-related-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-          gap: 20px;
+          gap: 28px;
         }
         .gd-detail-cta {
           text-align: center;
@@ -164,6 +164,7 @@ export default async function GuidePage({
         }
 
         @media (max-width: 640px) {
+          .gd-detail { padding: 64px 0; }
           .gd-detail-wrap { padding: 0 20px; }
           .gd-detail-meta { flex-direction: column; align-items: flex-start; }
         }
@@ -189,7 +190,7 @@ export default async function GuidePage({
         <div className="gd-divider" />
 
         <div className="gd-iframe-wrap">
-          <iframe src={`/guides/${guide.slug}.html`} title={guide.title} />
+          <GuideFrame src={`/guides/${guide.slug}.html`} title={guide.title} />
         </div>
 
         {related.length > 0 && (

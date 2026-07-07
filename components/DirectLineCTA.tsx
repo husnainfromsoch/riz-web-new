@@ -29,13 +29,30 @@ export default function DirectLineCTA({
     <>
       <style>{`
         .chat-hayat-card {
-          background: linear-gradient(135deg, #F5E6D3 0%, #EDD5C0 30%, #E8D0D8 65%, #DCC8E0 100%);
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(135deg, #F1EBDE 0%, rgba(232,96,60,0.08) 100%);
           border-radius: 24px;
-          padding: 52px 48px;
+          padding: 64px;
           display: grid;
           grid-template-columns: auto 1fr;
           gap: 52px;
           align-items: center;
+          box-shadow: 0 24px 64px rgba(234,106,71,0.14), 0 4px 16px rgba(34,51,44,0.06);
+        }
+        .chat-hayat-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image: radial-gradient(rgba(34,51,44,0.08) 1px, transparent 1px);
+          background-size: 18px 18px;
+          opacity: 0.5;
+          pointer-events: none;
+        }
+        .chat-hayat-photo-col,
+        .chat-hayat-card > div:last-child {
+          position: relative;
+          z-index: 1;
         }
         .chat-hayat-photo-col {
           display: flex;
@@ -48,7 +65,7 @@ export default function DirectLineCTA({
           height: 180px;
           border-radius: 50%;
           object-fit: cover;
-          object-position: center 15%;
+          object-position: top center;
           border: 4px solid #ffffff;
           box-shadow: 0 8px 32px rgba(0,0,0,0.12);
           display: block;
@@ -103,7 +120,7 @@ export default function DirectLineCTA({
           display: inline-flex;
           align-items: center;
           background: #22332C;
-          color: #F3ECDD;
+          color: var(--cream);
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 15px;
           font-weight: 600;
@@ -150,6 +167,9 @@ export default function DirectLineCTA({
             text-align: center;
             gap: 32px;
             padding: 40px 28px;
+          }
+          .chat-hayat-card::before {
+            background-size: 14px 14px;
           }
           .chat-hayat-buttons {
             justify-content: center;
