@@ -70,30 +70,18 @@ function formatDate(raw: string): string {
   }
 }
 
-function FeaturedCard({ guide }: { guide: GuideMeta }) {
+function HeroVisual({ guide }: { guide: GuideMeta }) {
   const theme = getTheme(guide.category);
   const { Icon } = theme;
   return (
-    <Link href={`/guides/${guide.slug}`} className="gd-featured">
-      <div className="gd-featured-media" style={{ background: theme.gradient }}>
-        <span className="gd-featured-blob gd-featured-blob-a" style={{ background: theme.blobA }} />
-        <span className="gd-featured-blob gd-featured-blob-b" style={{ background: theme.blobB }} />
-        <Icon size={168} className="gd-featured-watermark" />
+    <div className="gd-hero-visual">
+      <div className="gd-hero-visual-media" style={{ background: theme.gradient }}>
+        <span className="gd-hero-visual-blob gd-hero-visual-blob-a" style={{ background: theme.blobA }} />
+        <span className="gd-hero-visual-blob gd-hero-visual-blob-b" style={{ background: theme.blobB }} />
+        <Icon size={128} className="gd-hero-visual-watermark" />
+        <span className="guide-badge gd-hero-visual-badge">{guide.category}</span>
       </div>
-      <div className="gd-featured-body">
-        <span className="guide-badge gd-featured-badge">{guide.category}</span>
-        <h2 className="gd-featured-title">{guide.title}</h2>
-        {guide.excerpt && <p className="gd-featured-excerpt">{guide.excerpt}</p>}
-        <span className="gd-featured-meta">
-          <CalendarIcon size={13} /> {formatDate(guide.date)}
-          <span className="gd-featured-dot">·</span>
-          <ClockIcon size={13} /> {guide.readingTime} min read
-        </span>
-        <span className="gd-featured-cta">
-          Read guide <ArrowIcon size={15} />
-        </span>
-      </div>
-    </Link>
+    </div>
   );
 }
 
@@ -184,11 +172,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
   const filtersActive = search.trim() !== "" || category !== "All";
 
-  const featured = filtersActive ? null : latest;
-  const gridGuides = filtersActive
-    ? filtered
-    : filtered.filter((g) => g.slug !== featured?.slug);
-
   function clearFilters() {
     setSearch("");
     setCategory("All");
@@ -203,6 +186,12 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-hero {
           padding: 112px 0 64px;
           background: var(--cream);
+        }
+        .gd-hero-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 64px;
+          align-items: center;
         }
         .gd-hero-title {
           font-family: var(--font-fraunces), serif;
@@ -222,117 +211,43 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           margin: 0;
         }
 
-        .gd-featured-section {
-          padding: 56px 0 60px;
-          background: #fff;
-        }
-
-        .gd-featured {
-          display: grid;
-          grid-template-columns: 1fr 1.1fr;
-          gap: 40px;
-          align-items: stretch;
-          background: #fff;
-          border: 1px solid var(--line);
-          border-radius: var(--radius-card);
-          padding: 24px;
-          text-decoration: none;
-          box-shadow: var(--shadow);
-          transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
-        }
-        .gd-featured:hover {
+        .gd-hero-visual {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          max-height: 420px;
+          border-radius: 20px;
+          overflow: hidden;
           box-shadow: var(--shadow-lg);
-          transform: translateY(-4px);
         }
-        .gd-featured-media {
+        .gd-hero-visual-media {
           position: relative;
-          min-height: 280px;
-          border-radius: 14px;
-          overflow: hidden;
+          width: 100%;
+          height: 100%;
           display: flex;
-          align-items: flex-end;
-          justify-content: flex-end;
-        }
-        .gd-featured-blob {
-          position: absolute;
-          width: 220px;
-          height: 220px;
-          border-radius: 50%;
-          filter: blur(50px);
-        }
-        .gd-featured-blob-a { top: -60px; left: -50px; }
-        .gd-featured-blob-b { bottom: -70px; right: -40px; }
-        .gd-featured-watermark {
-          position: relative;
-          color: #fff;
-          opacity: 0.22;
-          margin: 24px;
-          transition: transform 0.4s var(--ease), opacity 0.4s var(--ease);
-        }
-        .gd-featured:hover .gd-featured-watermark {
-          transform: translate(-8px, -8px) rotate(4deg) scale(1.04);
-          opacity: 0.3;
-        }
-        .gd-featured-body {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
+          align-items: center;
           justify-content: center;
-          gap: 10px;
-          padding: 12px 16px 12px 4px;
         }
-        .gd-featured-badge {
-          font-size: 0.82rem;
-          padding: 6px 16px;
+        .gd-hero-visual-blob {
+          position: absolute;
+          width: 240px;
+          height: 240px;
+          border-radius: 50%;
+          filter: blur(55px);
         }
-        .gd-featured-title {
-          font-family: var(--font-fraunces), serif;
-          font-weight: 700;
-          font-size: clamp(26px, 2.6vw, 38px);
-          line-height: 1.18;
-          letter-spacing: -0.3px;
-          color: var(--ink);
-          margin: 0.3rem 0 0.1rem;
-        }
-        .gd-featured-excerpt {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 1rem;
-          color: var(--body);
-          line-height: 1.65;
-          margin: 0 0 0.2rem;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .gd-featured-meta {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.78rem;
-          letter-spacing: 0.04em;
-          color: var(--muted);
-        }
-        .gd-featured-dot { opacity: 0.6; margin: 0 2px; }
-        .gd-featured-cta {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          margin-top: 0.6rem;
-          padding: 12px 22px;
-          border-radius: var(--radius-chip);
-          background: var(--coral);
+        .gd-hero-visual-blob-a { top: -60px; left: -50px; }
+        .gd-hero-visual-blob-b { bottom: -70px; right: -40px; }
+        .gd-hero-visual-watermark {
+          position: relative;
           color: #fff;
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.88rem;
-          font-weight: 700;
-          transition: background 0.2s ease, gap 0.2s ease, transform 0.2s ease;
+          opacity: 0.25;
         }
-        .gd-featured:hover .gd-featured-cta {
-          background: var(--coral-d);
-          gap: 11px;
-          transform: translateX(2px);
+        .gd-hero-visual-badge {
+          position: absolute;
+          top: 16px;
+          left: 16px;
+          font-size: 0.8rem;
+          padding: 6px 16px;
         }
 
         .gd-filter-bar {
@@ -621,25 +536,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           gap: 9px;
         }
 
-        .gd-grid-soon {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          text-align: center;
-          gap: 0.5rem;
-          padding: 3rem 1rem;
-          border: 1px dashed var(--line-2);
-          border-radius: var(--radius-card);
-          color: var(--muted);
-        }
-        .gd-grid-soon-icon { color: var(--faint); }
-        .gd-grid-soon-text {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.9rem;
-          color: var(--muted);
-          margin: 0;
-        }
-
         .gd-empty {
           display: flex;
           flex-direction: column;
@@ -672,10 +568,8 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
         @media (max-width: 767px) {
           .gd-hero { padding: 104px 0 64px; }
-          .gd-featured-section { padding: 40px 0 40px; }
-          .gd-featured { grid-template-columns: 1fr; gap: 20px; padding: 16px; }
-          .gd-featured-media { min-height: 200px; }
-          .gd-featured-body { padding: 4px; }
+          .gd-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+          .gd-hero-visual { max-height: 280px; }
           .gd-search-input { padding-right: 16px; }
           .gd-kbd { display: none; }
           .gd-filter-row { flex-direction: column; align-items: flex-start; }
@@ -691,24 +585,23 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
       <section className="gd-hero">
         <div className="max-w-site">
-          <AnimateIn delay={80}>
-            <h1 className="gd-hero-title">Guides</h1>
-          </AnimateIn>
-          <AnimateIn delay={150}>
-            <p className="gd-hero-sub">Automation guides for engineers and founders.</p>
-          </AnimateIn>
+          <div className="gd-hero-grid">
+            {latest && (
+              <AnimateIn>
+                <HeroVisual guide={latest} />
+              </AnimateIn>
+            )}
+            <div>
+              <AnimateIn delay={80}>
+                <h1 className="gd-hero-title">Guides</h1>
+              </AnimateIn>
+              <AnimateIn delay={150}>
+                <p className="gd-hero-sub">Automation guides for engineers and founders.</p>
+              </AnimateIn>
+            </div>
+          </div>
         </div>
       </section>
-
-      {featured && (
-        <section className="gd-featured-section">
-          <div className="max-w-site">
-            <AnimateIn delay={100}>
-              <FeaturedCard guide={featured} />
-            </AnimateIn>
-          </div>
-        </section>
-      )}
 
       <div className="gd-filter-bar">
         <div className="max-w-site">
@@ -781,7 +674,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
       <section className="gd-grid-section">
         <div className="max-w-site">
-          {filtersActive && filtered.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="gd-empty">
               <span className="gd-empty-icon">
                 <SearchIcon size={40} />
@@ -794,16 +687,9 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
                 View all guides
               </button>
             </div>
-          ) : gridGuides.length === 0 ? (
-            <div className="gd-grid-soon">
-              <span className="gd-grid-soon-icon">
-                <BookIcon size={28} />
-              </span>
-              <p className="gd-grid-soon-text">More guides coming soon.</p>
-            </div>
           ) : (
             <div className="gd-grid">
-              {gridGuides.map((guide, i) => (
+              {filtered.map((guide, i) => (
                 <AnimateIn key={guide.slug} delay={Math.min(i, 6) * 60}>
                   <GridCard guide={guide} />
                 </AnimateIn>
