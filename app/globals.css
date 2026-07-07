@@ -427,6 +427,11 @@ p, li, td, th, label, input, textarea, select {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--grid-gap);
+  align-items: stretch;
+}
+
+.think-card-animate {
+  height: 100%;
 }
 
 .think-card {
@@ -435,6 +440,9 @@ p, li, td, th, label, input, textarea, select {
   border-top: 3px solid transparent;
   border-radius: var(--radius-card);
   padding: var(--card-pad) 28px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
@@ -1364,6 +1372,11 @@ p, li, td, th, label, input, textarea, select {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--grid-gap);
+  align-items: stretch;
+}
+
+.testimonials-card-animate {
+  height: 100%;
 }
 
 .testimonials-grid.compact {
@@ -1378,6 +1391,7 @@ p, li, td, th, label, input, textarea, select {
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: var(--card-pad);
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 20px;

@@ -167,7 +167,7 @@ export default function TestimonialsSection({
 
         <div className={`testimonials-grid${variant === "compact" ? " compact" : ""}`}>
           {gridItems.map((t, i) => (
-            <AnimateIn key={t.id} delay={gridBaseDelay + i * 80}>
+            <AnimateIn key={t.id} delay={gridBaseDelay + i * 80} className="testimonials-card-animate">
               <TestimonialCard t={t} />
             </AnimateIn>
           ))}
