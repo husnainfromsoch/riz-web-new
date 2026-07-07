@@ -94,6 +94,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-hero {
           padding: 112px 0 64px;
+          background: var(--cream);
         }
         .gd-hero-title {
           font-family: var(--font-fraunces), serif;
