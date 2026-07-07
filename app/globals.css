@@ -1432,7 +1432,7 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .testimonials-strip-label {
-  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+  font-family: var(--font-montserrat), sans-serif;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;

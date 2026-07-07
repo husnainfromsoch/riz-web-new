@@ -352,7 +352,7 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
       onMouseLeave={() => setHovered(false)}
     >
       <p style={{
-        fontFamily: "var(--font-geist-mono), 'Geist Mono', monospace",
+        fontFamily: "var(--font-montserrat), sans-serif",
         fontSize: 10,
         color: "rgba(34,51,44,0.4)",
         letterSpacing: "0.1em",
@@ -452,13 +452,13 @@ function HowThinkChart({ activeStep }: { activeStep: number }) {
         {[300, 600, 900].map((x) => (
           <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(30,36,31,0.07)" strokeWidth={1} strokeDasharray="4,4" />
         ))}
-        <text x={0} y={16} fontFamily="var(--font-geist-mono), monospace" fontSize={12} fill="rgba(58,64,58,0.55)">
+        <text x={0} y={16} fontFamily="var(--font-montserrat), sans-serif" fontSize={12} fill="rgba(58,64,58,0.55)">
           Clarity &amp; leverage, compounding →
         </text>
-        <text x={60} y={228} textAnchor="start" fontFamily="var(--font-geist-mono), monospace" fontSize={13} fill="rgba(58,64,58,0.6)">
+        <text x={60} y={228} textAnchor="start" fontFamily="var(--font-montserrat), sans-serif" fontSize={13} fill="rgba(58,64,58,0.6)">
           Vague idea
         </text>
-        <text x={1140} y={228} textAnchor="end" fontFamily="var(--font-geist-mono), monospace" fontSize={13} fill="rgba(58,64,58,0.6)">
+        <text x={1140} y={228} textAnchor="end" fontFamily="var(--font-montserrat), sans-serif" fontSize={13} fill="rgba(58,64,58,0.6)">
           Running system
         </text>
         <path d={CHART_AREA_PATH} fill="url(#thinkAreaGradient)" stroke="none" />
@@ -929,7 +929,7 @@ export default function Home() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          font-family: var(--font-geist-mono), monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 11px;
           color: rgba(34,51,44,0.6);
           letter-spacing: 0.02em;
@@ -980,7 +980,7 @@ export default function Home() {
           color: rgba(34,51,44,0.5);
         }
         .route-trust-line {
-          font-family: var(--font-geist-mono), monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 10.5px;
           color: rgba(34,51,44,0.45);
           letter-spacing: 0.02em;
@@ -1008,7 +1008,7 @@ export default function Home() {
         .route-tag-chip {
           display: inline-flex;
           width: fit-content;
-          font-family: var(--font-geist-mono), monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 10px;
           font-weight: 600;
           letter-spacing: 0.1em;
@@ -1064,7 +1064,7 @@ export default function Home() {
           transition: color 0.25s ease;
         }
         .route-authority-line {
-          font-family: var(--font-geist-mono), monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 11px;
           color: rgba(34,51,44,0.4);
           letter-spacing: 0.02em;
@@ -1124,7 +1124,7 @@ export default function Home() {
         .route-footnote {
           margin-top: 24px;
           text-align: center;
-          font-family: var(--font-fraunces), serif;
+          font-family: var(--font-montserrat), sans-serif;
           font-style: italic;
           font-size: 14px;
           color: rgba(34,51,44,0.45);
@@ -1292,7 +1292,7 @@ export default function Home() {
           margin-bottom: 16px;
         }
         .believe-closing-eyebrow {
-          font-family: var(--font-geist-mono), monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 11px; letter-spacing: 0.1em;
           color: rgba(34,51,44,0.6);
           margin-bottom: 20px;
@@ -1367,7 +1367,7 @@ export default function Home() {
           font-size: 20px; font-weight: 900; letter-spacing: -0.8px; color: var(--coral);
         }
         .believe-chip-label {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 9.5px; font-weight: 500; color: var(--muted);
           text-transform: uppercase; letter-spacing: .3px; margin-top: 2px;
         }
@@ -1463,7 +1463,7 @@ export default function Home() {
         .work-row-tag {
           display: inline-flex;
           width: fit-content;
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 10.5px;
           font-weight: 600;
           letter-spacing: 0.08em;
@@ -1821,7 +1821,7 @@ export default function Home() {
                       transition: "color 0.3s ease",
                     }}>{item.company}</span>
                     <span style={{
-                      fontFamily: "var(--font-dm-mono), monospace",
+                      fontFamily: "var(--font-montserrat), sans-serif",
                       fontSize: "0.68rem",
                       color: "#B0A898",
                       marginLeft: "0.5rem",
@@ -2045,7 +2045,7 @@ export default function Home() {
                 }}>
                   <div style={{ marginBottom: 20 }}>
                     <p style={{
-                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                      fontFamily: "var(--font-montserrat), sans-serif",
                       fontSize: 12,
                       color: "rgba(34,51,44,0.6)",
                       letterSpacing: "0.12em",
@@ -2082,7 +2082,7 @@ export default function Home() {
                                 background: "#22332C",
                                 color: "var(--cream)",
                                 opacity: 1,
-                                fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                                fontFamily: "var(--font-montserrat), sans-serif",
                                 fontSize: 10,
                                 borderRadius: 4,
                                 padding: "3px 8px",
@@ -2090,7 +2090,7 @@ export default function Home() {
                               }}>{step.badgeBefore}</span>
                             </div>
                             <p style={{
-                              fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                              fontFamily: "var(--font-montserrat), sans-serif",
                               fontSize: 12,
                               color: "rgba(34,51,44,0.6)",
                               opacity: 1,
@@ -2122,7 +2122,7 @@ export default function Home() {
                 }}>
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
                     <span style={{
-                      fontFamily: "'Geist Mono', var(--font-geist-mono), monospace",
+                      fontFamily: "var(--font-montserrat), sans-serif",
                       fontSize: 11,
                       color: "rgba(34,51,44,0.5)",
                       letterSpacing: "0.1em",
@@ -2177,7 +2177,7 @@ export default function Home() {
                 }}>
                   <div style={{ marginBottom: 20 }}>
                     <p style={{
-                      fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                      fontFamily: "var(--font-montserrat), sans-serif",
                       fontSize: 12,
                       color: "#EA6A47",
                       letterSpacing: "0.12em",
@@ -2234,7 +2234,7 @@ export default function Home() {
                             <span style={{
                               background: "#22332C",
                               color: "var(--cream)",
-                              fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                              fontFamily: "var(--font-montserrat), sans-serif",
                               fontSize: 10,
                               borderRadius: 4,
                               padding: "3px 8px",
@@ -2242,7 +2242,7 @@ export default function Home() {
                             }}>{step.badge}</span>
                           </div>
                           <p style={{
-                            fontFamily: "’Geist Mono’, var(--font-geist-mono), monospace",
+                            fontFamily: "var(--font-montserrat), sans-serif",
                             fontSize: 12,
                             color: "rgba(34,51,44,0.6)",
                             margin: 0,
@@ -2559,7 +2559,7 @@ export default function Home() {
                 fontSize: 18,
                 fontStyle: "italic",
                 color: "#1E241F",
-                fontFamily: "var(--font-fraunces), serif",
+                fontFamily: "var(--font-montserrat), sans-serif",
               }}
             >
               In that order. Every time

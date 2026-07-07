@@ -129,7 +129,7 @@ export default function HeroSection() {
         }
 
         .hz-eyebrow {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 12px;
           font-weight: 500;
           letter-spacing: 0.06em;
@@ -451,7 +451,7 @@ export default function HeroSection() {
           position: absolute;
           top: 18px; right: 18px;
           z-index: 4;
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 11px;
           font-weight: 500;
           letter-spacing: 0.6px;
@@ -518,7 +518,7 @@ export default function HeroSection() {
           transform: translateY(5px);
         }
         .hz-proof-desc {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 10px;
           font-weight: 500;
           color: rgba(243,236,221,0.45);
@@ -577,7 +577,7 @@ export default function HeroSection() {
           font-size: 13px;
           font-weight: 500;
           color: rgba(243,236,221,0.55);
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-montserrat), sans-serif;
         }
 
         /* MARQUEE */
@@ -596,7 +596,7 @@ export default function HeroSection() {
           width: max-content;
         }
         .hz-marquee-inner span {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 12px;
           font-weight: 500;
           letter-spacing: 1px;
