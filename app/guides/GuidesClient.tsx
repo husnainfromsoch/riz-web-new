@@ -466,6 +466,8 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
         .gd-grid-section {
           padding: 48px 0 96px;
+          min-height: calc(100vh - 120px);
+          box-sizing: border-box;
         }
         .gd-grid {
           display: grid;
