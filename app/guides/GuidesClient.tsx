@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
+import { useParallax } from "@/hooks/useParallax";
 import {
   ArrowIcon,
   BookIcon,
@@ -70,18 +71,21 @@ function formatDate(raw: string): string {
   }
 }
 
-function HeroVisual({ guide }: { guide: GuideMeta }) {
-  const theme = getTheme(guide.category);
-  const { Icon } = theme;
+function LatestGuideCard({ guide }: { guide: GuideMeta }) {
   return (
-    <div className="gd-hero-visual">
-      <div className="gd-hero-visual-media" style={{ background: theme.gradient }}>
-        <span className="gd-hero-visual-blob gd-hero-visual-blob-a" style={{ background: theme.blobA }} />
-        <span className="gd-hero-visual-blob gd-hero-visual-blob-b" style={{ background: theme.blobB }} />
-        <Icon size={128} className="gd-hero-visual-watermark" />
-        <span className="guide-badge gd-hero-visual-badge">{guide.category}</span>
+    <Link href={`/guides/${guide.slug}`} className="gd-hero-card">
+      <div className="gd-hero-card-top">
+        <span className="gd-hero-card-tag">LATEST GUIDE</span>
+        <span className="guide-badge gd-hero-card-cat">{guide.category}</span>
       </div>
-    </div>
+      <h2 className="gd-hero-card-title">{guide.title}</h2>
+      <div className="gd-hero-card-meta">
+        <span>{formatDate(guide.date)}</span>
+      </div>
+      <span className="gd-hero-card-arrow">
+        <ArrowIcon size={16} />
+      </span>
+    </Link>
   );
 }
 
@@ -119,6 +123,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
   const [sort, setSort] = useState<SortMode>("newest");
   const [kbdLabel, setKbdLabel] = useState("Ctrl K");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const dotsRef = useParallax<HTMLDivElement>(0.1);
 
   useEffect(() => {
     if (typeof navigator !== "undefined" && /Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
@@ -186,10 +191,11 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-hero {
           padding: 112px 0 64px;
           background: var(--cream);
+          overflow: hidden;
         }
         .gd-hero-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1.15fr 0.85fr;
           gap: 64px;
           align-items: center;
         }
@@ -208,46 +214,89 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           color: var(--body);
           line-height: 1.7;
           max-width: 520px;
-          margin: 0;
+          margin: 0 0 2rem;
         }
 
-        .gd-hero-visual {
+        .gd-hero-right {
           position: relative;
-          width: 100%;
-          aspect-ratio: 4 / 3;
-          max-height: 420px;
-          border-radius: 20px;
-          overflow: hidden;
-          box-shadow: var(--shadow-lg);
-        }
-        .gd-hero-visual-media {
-          position: relative;
-          width: 100%;
-          height: 100%;
+          min-height: 320px;
           display: flex;
           align-items: center;
           justify-content: center;
         }
-        .gd-hero-visual-blob {
+        .gd-hero-decor {
           position: absolute;
-          width: 240px;
-          height: 240px;
-          border-radius: 50%;
-          filter: blur(55px);
+          inset: 0;
+          z-index: 0;
         }
-        .gd-hero-visual-blob-a { top: -60px; left: -50px; }
-        .gd-hero-visual-blob-b { bottom: -70px; right: -40px; }
-        .gd-hero-visual-watermark {
+        .gd-hero-dots {
+          position: absolute;
+          bottom: -20px;
+          left: -10px;
+          width: 140px;
+          height: 140px;
+          background-image: radial-gradient(var(--line-2) 1.5px, transparent 1.5px);
+          background-size: 16px 16px;
+          opacity: 0.8;
+        }
+        .gd-hero-card {
           position: relative;
-          color: #fff;
-          opacity: 0.25;
+          z-index: 1;
+          display: block;
+          width: 100%;
+          max-width: 320px;
+          background: #fff;
+          border: 1px solid var(--line-2);
+          border-radius: 18px;
+          padding: 1.75rem;
+          box-shadow: var(--shadow-lg);
+          text-decoration: none;
+          transform: rotate(-1deg);
+          transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-        .gd-hero-visual-badge {
-          position: absolute;
-          top: 16px;
-          left: 16px;
+        .gd-hero-card:hover {
+          transform: rotate(0deg) translateY(-4px);
+          box-shadow: 0 24px 56px rgba(34,51,44,0.16);
+        }
+        .gd-hero-card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          margin-bottom: 0.75rem;
+        }
+        .gd-hero-card-tag {
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.8rem;
-          padding: 6px 16px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          color: var(--coral);
+        }
+        .gd-hero-card-cat {
+          font-size: 0.68rem;
+          padding: 3px 10px;
+        }
+        .gd-hero-card-title {
+          font-family: var(--font-fraunces), serif;
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: var(--ink);
+          line-height: 1.35;
+          margin: 0 0 1rem;
+        }
+        .gd-hero-card-meta {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 0.8rem;
+          color: var(--muted);
+          margin-bottom: 0.5rem;
+        }
+        .gd-hero-card-arrow {
+          display: inline-flex;
+          color: var(--coral);
+          margin-top: 0.25rem;
         }
 
         .gd-filter-bar {
@@ -564,12 +613,14 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
         @media (max-width: 1024px) {
           .gd-grid { grid-template-columns: repeat(2, 1fr); }
+          .gd-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+          .gd-hero-right { min-height: 0; justify-content: flex-start; }
+          .gd-hero-card { max-width: 100%; transform: none; }
+          .gd-hero-card:hover { transform: translateY(-4px); }
         }
 
         @media (max-width: 767px) {
           .gd-hero { padding: 104px 0 64px; }
-          .gd-hero-grid { grid-template-columns: 1fr; gap: 28px; }
-          .gd-hero-visual { max-height: 280px; }
           .gd-search-input { padding-right: 16px; }
           .gd-kbd { display: none; }
           .gd-filter-row { flex-direction: column; align-items: flex-start; }
@@ -586,11 +637,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
       <section className="gd-hero">
         <div className="max-w-site">
           <div className="gd-hero-grid">
-            {latest && (
-              <AnimateIn>
-                <HeroVisual guide={latest} />
-              </AnimateIn>
-            )}
             <div>
               <AnimateIn delay={80}>
                 <h1 className="gd-hero-title">Guides</h1>
@@ -598,6 +644,34 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
               <AnimateIn delay={150}>
                 <p className="gd-hero-sub">Automation guides for engineers and founders.</p>
               </AnimateIn>
+              <AnimateIn delay={220}>
+                <div className="gd-search-wrap">
+                  <span className="gd-search-icon">
+                    <SearchIcon />
+                  </span>
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search guides…"
+                    aria-label="Search guides"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="gd-search-input"
+                  />
+                  <span className="gd-kbd">{kbdLabel}</span>
+                </div>
+              </AnimateIn>
+            </div>
+
+            <div className="gd-hero-right">
+              <div className="gd-hero-decor" aria-hidden="true">
+                <div className="gd-hero-dots" ref={dotsRef} data-parallax />
+              </div>
+              {latest && (
+                <AnimateIn delay={260}>
+                  <LatestGuideCard guide={latest} />
+                </AnimateIn>
+              )}
             </div>
           </div>
         </div>
@@ -605,22 +679,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
       <div className="gd-filter-bar">
         <div className="max-w-site">
-          <div className="gd-search-wrap">
-            <span className="gd-search-icon">
-              <SearchIcon />
-            </span>
-            <input
-              ref={searchInputRef}
-              type="text"
-              placeholder="Search guides…"
-              aria-label="Search guides"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="gd-search-input"
-            />
-            <span className="gd-kbd">{kbdLabel}</span>
-          </div>
-
           <div className="gd-filter-row">
             <div className="gd-pill-row">
               {categories.map((c) => (
