@@ -25,7 +25,7 @@ function InstagramIcon({ size = 16 }: { size?: number }) {
 const socialLinks = [
   { label: "LINKEDIN", href: "https://linkedin.com/in/rizwanmahmood", Icon: LinkedInIcon },
   { label: "INSTAGRAM", href: "https://instagram.com/rizautomates", Icon: InstagramIcon },
-  { label: "SUBSTACK", href: "https://rizautomates.substack.com/", Icon: Rss },
+  { label: "SUBSTACK", href: "https://conversationswithriz.substack.com/", Icon: Rss },
 ];
 
 const navColumns = [
@@ -36,6 +36,7 @@ const navColumns = [
       { label: "Case studies", href: "/case-studies" },
       { label: "About", href: "/about" },
       { label: "Writing", href: "/blog" },
+      { label: "Guides", href: "/guides" },
     ],
   },
   {

@@ -146,16 +146,7 @@ function ConsultingMockup() {
 
       {/* body */}
       <div style={{ padding: "1.75rem", background: "#fff" }}>
-        <p
-          style={{
-            fontFamily: "var(--font-dm-mono), monospace",
-            fontSize: "0.65rem",
-            color: "var(--muted)",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            marginBottom: "0.85rem",
-          }}
-        >
+        <p className="meta-label" style={{ marginBottom: "0.85rem" }}>
           Available this week
         </p>
 
@@ -470,15 +461,7 @@ function WorkshopsMockup() {
     >
       {/* amber header */}
       <div style={{ background: "var(--amber)", padding: "2rem 1.75rem", position: "relative" }}>
-        <span
-          style={{
-            fontFamily: "var(--font-dm-mono), monospace",
-            fontSize: "0.68rem",
-            color: "rgba(34,51,44,0.55)",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-          }}
-        >
+        <span className="meta-label" style={{ color: "#22332C" }}>
           Live Workshop
         </span>
         <h4
@@ -869,8 +852,7 @@ export default function Services() {
                 ].map((b, i) => checkBullet("var(--amber)", b, i))}
               </ul>
               <AnimateIn delay={260}>
-                <Link
-                  href="/services/consulting"
+                <CalBookingButton
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -883,10 +865,12 @@ export default function Services() {
                     fontWeight: 600,
                     fontSize: "0.95rem",
                     textDecoration: "none",
+                    border: "none",
+                    cursor: "pointer",
                   }}
                 >
                   Enquire →
-                </Link>
+                </CalBookingButton>
               </AnimateIn>
             </div>
 

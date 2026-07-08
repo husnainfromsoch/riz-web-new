@@ -229,15 +229,8 @@ function StatRow({
       </span>
       <span style={{ textAlign: "right" }}>
         <span
-          style={{
-            display: "block",
-            fontFamily: "var(--font-geist-mono), monospace",
-            fontSize: 10,
-            letterSpacing: "0.1em",
-            color: "rgba(243,236,221,0.5)",
-            textTransform: "uppercase",
-            lineHeight: 1.4,
-          }}
+          className="meta-label meta-label--inverse"
+          style={{ display: "block", lineHeight: 1.4 }}
         >
           {stat.label}
         </span>
@@ -246,7 +239,7 @@ function StatRow({
             display: "block",
             fontFamily: "var(--font-geist-mono), monospace",
             fontSize: 9,
-            color: "rgba(243,236,221,0.4)",
+            color: "rgba(243,236,221,0.75)",
             letterSpacing: "0.08em",
             marginTop: 2,
           }}

@@ -704,8 +704,9 @@ function CaseStudiesContent() {
         }
         .proof-row-tag {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 11px;
-          color: rgba(34,51,44,0.45);
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #E8603C;
           letter-spacing: 0.08em;
           line-height: 1.4;
           text-transform: uppercase;
@@ -824,9 +825,11 @@ function CaseStudiesContent() {
         }
         .case-hero-inline-stat-label {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 10px;
-          color: rgba(34,51,44,0.45);
-          letter-spacing: 0.06em;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #E8603C;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
         }
 
         .case-stats-cards {
@@ -848,9 +851,10 @@ function CaseStudiesContent() {
         }
         .case-stat-card-label {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
-          font-size: 9px;
-          color: rgba(34,51,44,0.4);
-          letter-spacing: 0.12em;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: #E8603C;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
           margin-bottom: 8px;
         }

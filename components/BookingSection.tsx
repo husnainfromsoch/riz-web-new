@@ -221,16 +221,7 @@ export default function BookingSection() {
               }}
             >
               <div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.8rem",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: "var(--muted)",
-                    marginBottom: "0.4rem",
-                  }}
-                >
+                <p className="meta-label" style={{ marginBottom: "0.4rem" }}>
                   Investment
                 </p>
                 <p

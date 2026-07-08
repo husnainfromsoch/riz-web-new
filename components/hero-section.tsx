@@ -88,6 +88,9 @@ export default function HeroSection() {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .hz-marquee-inner { animation: none; }
+        }
         @keyframes hzPulse {
           0% { transform: scale(1); opacity: .7; }
           100% { transform: scale(2.5); opacity: 0; }
@@ -341,7 +344,6 @@ export default function HeroSection() {
         .hz-av1 { background: #1AAB5B; color: white; z-index: 4; }
         .hz-av2 { background: #34D186; color: #0A3A1F; z-index: 3; }
         .hz-av3 { background: #9FE870; color: #163300; z-index: 2; }
-        .hz-av4 { background: #003365; color: white; font-size: 8px; z-index: 1; }
 
         .hz-proof-text {
           font-size: 13px;
@@ -518,11 +520,11 @@ export default function HeroSection() {
           transform: translateY(5px);
         }
         .hz-proof-desc {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 10px;
-          font-weight: 500;
-          color: rgba(243,236,221,0.45);
-          letter-spacing: 0.3px;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.7rem;
+          font-weight: 600;
+          color: var(--cream);
+          letter-spacing: 0.08em;
           text-transform: uppercase;
           margin-top: 2px;
           transition: opacity 0.3s ease;
@@ -582,28 +584,36 @@ export default function HeroSection() {
 
         /* MARQUEE */
         .hz-marquee-section {
-          border-top: 1px solid var(--hz-line);
-          border-bottom: 1px solid var(--hz-line);
-          padding: 18px 0;
+          position: relative;
+          border-top: 1px solid #E2DACB;
+          border-bottom: 1px solid #E2DACB;
+          background: linear-gradient(180deg, #FBF8F1 0%, #FFFFFF 100%);
+          padding: 20px 0;
           margin-top: 52px;
           overflow: hidden;
+          -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
         }
         .hz-marquee-inner {
           display: flex;
           gap: 48px;
           white-space: nowrap;
-          animation: marqScroll 28s linear infinite;
+          animation: marqScroll 30s linear infinite;
           width: max-content;
+        }
+        .hz-marquee-section:hover .hz-marquee-inner {
+          animation-play-state: paused;
         }
         .hz-marquee-inner span {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 12px;
-          font-weight: 500;
-          letter-spacing: 1px;
-          color: var(--hz-muted);
+          font-size: 1.05rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          color: #1E2A22;
           text-transform: uppercase;
         }
-        .hz-mdot { color: #EA6A47 !important; }
+        .hz-mdot { color: #EA6A47 !important; font-size: 0.9em; }
+        .hz-mhighlight { color: #EA6A47 !important; }
 
         @media (max-width: 960px) {
           .hz-wrap { padding-left: 24px; padding-right: 24px; }
@@ -668,7 +678,6 @@ export default function HeroSection() {
                     <div className="hz-avatar hz-av2"><img src="/logos/bolt.png" alt="Bolt" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <div className="hz-avatar hz-av3"><img src="/logos/wise.png" alt="Wise" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
-                    <div className="hz-avatar hz-av4">Cam</div>
                   </div>
                   <div className="hz-proof-text">
                     <span className="hz-ops-static">Worked across</span>
@@ -744,7 +753,18 @@ export default function HeroSection() {
             <div className="hz-marquee-section">
               <div className="hz-marquee-inner">
                 {MARQUEE_ITEMS.map((item, i) => (
-                  <span key={i} className={item === "◆" ? "hz-mdot" : ""}>{item}</span>
+                  <span
+                    key={i}
+                    className={
+                      item === "◆"
+                        ? "hz-mdot"
+                        : item === "Anthropic Partner" || item === "Cambridge"
+                        ? "hz-mhighlight"
+                        : ""
+                    }
+                  >
+                    {item}
+                  </span>
                 ))}
               </div>
             </div>

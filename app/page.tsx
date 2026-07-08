@@ -351,14 +351,7 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <p style={{
-        fontFamily: "var(--font-montserrat), sans-serif",
-        fontSize: 10,
-        color: "rgba(34,51,44,0.4)",
-        letterSpacing: "0.1em",
-        textTransform: "uppercase",
-        margin: 0,
-      }}>
+      <p className="meta-label" style={{ margin: 0 }}>
         {card.verb}
       </p>
       <p style={{
@@ -1292,9 +1285,9 @@ export default function Home() {
           margin-bottom: 16px;
         }
         .believe-closing-eyebrow {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 11px; letter-spacing: 0.1em;
-          color: rgba(34,51,44,0.6);
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+          color: #E8603C;
           margin-bottom: 20px;
         }
         .believe-closing-cta {
@@ -1367,9 +1360,9 @@ export default function Home() {
           font-size: 20px; font-weight: 900; letter-spacing: -0.8px; color: var(--coral);
         }
         .believe-chip-label {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 9.5px; font-weight: 500; color: var(--muted);
-          text-transform: uppercase; letter-spacing: .3px; margin-top: 2px;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.7rem; font-weight: 600; color: #E8603C;
+          text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px;
         }
         @media (max-width: 960px) {
           .believe-content-wrap { grid-template-columns: 1fr; gap: 48px; }
@@ -2044,14 +2037,7 @@ export default function Home() {
                   transition: "opacity 0.4s ease",
                 }}>
                   <div style={{ marginBottom: 20 }}>
-                    <p style={{
-                      fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: 12,
-                      color: "rgba(34,51,44,0.6)",
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase" as const,
-                      margin: "0 0 8px",
-                    }}>BEFORE</p>
+                    <p className="meta-label" style={{ margin: "0 0 8px" }}>BEFORE</p>
                     <p style={{ fontSize: 22, fontWeight: 700, color: "#22332C", opacity: 1, margin: 0 }}>
                       You&apos;re the bottleneck.
                     </p>
@@ -2176,14 +2162,7 @@ export default function Home() {
                   position: "relative",
                 }}>
                   <div style={{ marginBottom: 20 }}>
-                    <p style={{
-                      fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: 12,
-                      color: "#EA6A47",
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase" as const,
-                      margin: "0 0 8px",
-                    }}>AFTER</p>
+                    <p className="meta-label" style={{ margin: "0 0 8px" }}>AFTER</p>
                     <p style={{ fontSize: 22, fontWeight: 700, color: "#22332C", margin: 0 }}>
                       The system runs itself.
                     </p>

@@ -245,9 +245,10 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           display: inline-block;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.8rem;
-          font-weight: 700;
-          letter-spacing: 0.06em;
-          color: var(--coral);
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #E8603C;
           margin-bottom: 0.75rem;
         }
         .writing-featured-title {
@@ -282,10 +283,11 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         }
         .writing-divider-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem;
+          font-size: 0.8rem;
+          font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--muted);
+          color: #E8603C;
           white-space: nowrap;
         }
         .writing-divider-rule {

@@ -268,9 +268,10 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-hero-card-tag {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.8rem;
-          font-weight: 700;
-          letter-spacing: 0.06em;
-          color: var(--coral);
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #E8603C;
         }
         .gd-hero-card-cat {
           font-size: 0.68rem;
@@ -300,9 +301,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
 
         .gd-filter-bar {
-          position: sticky;
-          top: 60px;
-          z-index: 30;
           background: #fff;
           border-bottom: 1px solid var(--line);
           padding: 20px 0;
@@ -403,10 +401,11 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-sort-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem;
-          letter-spacing: 0.06em;
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--muted);
+          color: #E8603C;
           white-space: nowrap;
         }
         .gd-sort-select-wrap {
