@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Guide: Checking the Auto-Publish System</title>
+  <meta name="guide-date" content="2026-07-08" />
+  <meta name="guide-excerpt" content="A throwaway test guide to confirm new files in the guides folder appear live automatically." />
+  <meta name="guide-category" content="AI" />
+  <link rel="stylesheet" href="/guides/guide-styles.css" />
+</head>
+<body>
+  <img src="https://placehold.co/800x450/EA6A47/FFFFFF?text=Test+Guide" alt="Test guide thumbnail" />
+
+  <h1>Test Guide: Checking the Auto-Publish System</h1>
+
+  <p>
+    This is a placeholder guide created purely to confirm that dropping a
+    new HTML file into <code>public/guides/</code> makes it appear on the
+    live Guides page automatically — no code changes, no data file edits,
+    no redeploy triggers beyond the normal push.
+  </p>
+
+  <h2>What to check after pushing this file</h2>
+  <ul>
+    <li>Does it show up in the guides grid under the "AI" filter?</li>
+    <li>Does it become the new "Latest Guide" hero card (since its date is today)?</li>
+    <li>Does the thumbnail image render correctly on the card?</li>
+    <li>Does clicking through to <code>/guides/test-guide-delete-me</code> load this content properly inside the iframe?</li>
+    <li>Is the reading time calculated automatically?</li>
+  </ul>
+
+  <p>
+    Once confirmed, delete this file from <code>public/guides/</code> and
+    push again — it should disappear from the site immediately since
+    there's no separate registry to clean up.
+  </p>
+</body>
+</html>
