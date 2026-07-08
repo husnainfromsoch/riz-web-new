@@ -17,7 +17,7 @@ import {
 } from "./icons";
 import type { GuideMeta } from "@/lib/guides";
 
-type SortMode = "newest" | "oldest" | "az" | "za";
+type SortMode = "newest" | "oldest" | "az" | "za" | "year";
 
 type CategoryTheme = {
   gradient: string;
@@ -173,9 +173,22 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           return a.title.localeCompare(b.title);
         case "za":
           return b.title.localeCompare(a.title);
+        case "year":
+          return (b.date || "").localeCompare(a.date || "");
       }
     });
   }, [guides, search, category, sort]);
+
+  const yearGroups = useMemo(() => {
+    if (sort !== "year") return null;
+    const map = new Map<string, GuideMeta[]>();
+    for (const guide of filtered) {
+      const year = (guide.date || "").slice(0, 4) || "Undated";
+      if (!map.has(year)) map.set(year, []);
+      map.get(year)!.push(guide);
+    }
+    return Array.from(map.entries()).sort((a, b) => b[0].localeCompare(a[0]));
+  }, [filtered, sort]);
 
   const filtersActive = search.trim() !== "" || category !== "All";
 
@@ -462,9 +475,9 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           display: flex;
         }
         .gd-results-count {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 0.75rem;
-          color: var(--muted);
+          color: var(--body);
         }
         .gd-clear-btn {
           background: none;
@@ -492,6 +505,19 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 28px;
+        }
+        .gd-year-group + .gd-year-group {
+          margin-top: 56px;
+        }
+        .gd-year-heading {
+          font-family: var(--font-montserrat), sans-serif;
+          font-weight: 900;
+          font-size: clamp(1.3rem, 2vw, 1.5rem);
+          line-height: 1.35;
+          color: var(--ink);
+          margin: 0 0 20px;
+          padding-bottom: 12px;
+          border-bottom: 1px solid var(--line);
         }
 
         .gd-gcard-link {
@@ -584,10 +610,10 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           display: inline-flex;
           align-items: center;
           gap: 5px;
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-family: var(--font-montserrat), sans-serif;
           font-size: 0.72rem;
-          color: var(--faint);
-          letter-spacing: 0.04em;
+          color: var(--body);
+          letter-spacing: 0.01em;
         }
         .gd-gcard-dot { opacity: 0.6; margin: 0 1px; }
         .gd-gcard-read {
@@ -797,6 +823,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
                   <option value="oldest">Oldest first</option>
                   <option value="az">A–Z</option>
                   <option value="za">Z–A</option>
+                  <option value="year">By year</option>
                 </select>
                 <span className="gd-sort-chevron" aria-hidden="true">
                   <ChevronDownIcon />
@@ -823,6 +850,19 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
                 View all guides
               </button>
             </div>
+          ) : sort === "year" && yearGroups ? (
+            yearGroups.map(([year, yearGuides]) => (
+              <div key={year} className="gd-year-group">
+                <h3 className="gd-year-heading">{year}</h3>
+                <div className="gd-grid">
+                  {yearGuides.map((guide, i) => (
+                    <AnimateIn key={guide.slug} delay={Math.min(i, 6) * 60}>
+                      <GridCard guide={guide} />
+                    </AnimateIn>
+                  ))}
+                </div>
+              </div>
+            ))
           ) : (
             <div className="gd-grid">
               {filtered.map((guide, i) => (
