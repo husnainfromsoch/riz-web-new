@@ -332,16 +332,16 @@ export default function HeroSection() {
         }
         .hz-avatar-stack { display: flex; align-items: center; }
         .hz-avatar {
-          width: 34px; height: 34px; border-radius: 50%;
-          border: 2.5px solid var(--cream);
+          width: 44px; height: 44px; border-radius: 50%;
+          border: 2px solid var(--cream);
           display: flex; align-items: center; justify-content: center;
-          font-size: 10px; font-weight: 800;
+          font-size: 16px; font-weight: 700;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          margin-left: -8px;
+          margin-left: -12px;
           flex-shrink: 0;
         }
         .hz-avatar:first-child { margin-left: 0; }
-        .hz-av1 { background: #1AAB5B; color: white; z-index: 4; }
+        .hz-av1 { background: #0F7A45; color: white; z-index: 4; }
         .hz-av2 { background: #34D186; color: #0A3A1F; z-index: 3; }
         .hz-av3 { background: #9FE870; color: #163300; z-index: 2; }
 
@@ -672,12 +672,9 @@ export default function HeroSection() {
 
                 <div className="hz-social-strip">
                   <div className="hz-avatar-stack">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <div className="hz-avatar hz-av1"><img src="/logos/careem.png" alt="Careem" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <div className="hz-avatar hz-av2"><img src="/logos/bolt.png" alt="Bolt" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <div className="hz-avatar hz-av3"><img src="/logos/wise.png" alt="Wise" style={{ width: 22, height: 22, objectFit: "contain", filter: "brightness(0) invert(1)" }} /></div>
+                    <div className="hz-avatar hz-av1" title="Careem">C</div>
+                    <div className="hz-avatar hz-av2" title="Bolt">B</div>
+                    <div className="hz-avatar hz-av3" title="Wise">W</div>
                   </div>
                   <div className="hz-proof-text">
                     <span className="hz-ops-static">Worked across</span>

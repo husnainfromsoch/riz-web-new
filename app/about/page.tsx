@@ -547,9 +547,10 @@ export default function About() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "inherit",
+                    fontFamily: "var(--font-inter-tight), sans-serif",
                     fontSize: 14,
-                    color: "rgba(34,51,44,0.72)",
+                    fontWeight: 400,
+                    color: "var(--body)",
                     opacity: 1,
                     lineHeight: 1.7,
                     margin: 0,
@@ -569,7 +570,7 @@ export default function About() {
       </section>
 
       {/* SECTION — OPERATOR NOTES */}
-      <section style={{ background: "#22332C", padding: "112px 60px" }}>
+      <section style={{ background: "#F5EFE0", padding: "112px 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <AnimateIn delay={60}>
             <h2
@@ -577,7 +578,7 @@ export default function About() {
                 fontFamily: "var(--font-inter-tight), sans-serif",
                 fontSize: 36,
                 fontWeight: 900,
-                color: "var(--cream)",
+                color: "#22332C",
                 marginBottom: 48,
               }}
             >
@@ -611,7 +612,7 @@ export default function About() {
                       fontFamily: "var(--font-fraunces), serif",
                       fontSize: 16,
                       fontWeight: 700,
-                      color: "var(--cream)",
+                      color: "#22332C",
                       marginBottom: 8,
                     }}
                   >
@@ -621,7 +622,7 @@ export default function About() {
                     style={{
                       fontFamily: "var(--font-inter-tight), sans-serif",
                       fontSize: 14,
-                      color: "rgba(243,236,221,0.75)",
+                      color: "rgba(34,51,44,0.72)",
                       lineHeight: 1.7,
                       margin: 0,
                     }}
@@ -660,7 +661,7 @@ export default function About() {
           </AnimateIn>
 
           <div className="beyond-grid">
-            {/* LEFT — editorial photo pair */}
+            {/* LEFT — editorial photo */}
             <div className="beyond-photos">
               <AnimateIn className="beyond-photo-anim beyond-photo-slot-mussels">
                 <ParallaxLayer speed={0.04}>
@@ -669,28 +670,12 @@ export default function About() {
                     <img
                       src="/images/about/riz-italy-mussels.jpg"
                       alt="Rizwan Mahmood in Italy, holding two bowls of fresh mussels on a rooftop terrace"
-                      style={{ objectPosition: "center 24%" }}
+                      style={{ objectPosition: "center 20%" }}
                     />
                   </figure>
                   <p className="beyond-photo-caption">
                     <span className="beyond-caption-dash" aria-hidden="true">—</span>
                     Mussels in Italy. Research.
-                  </p>
-                </ParallaxLayer>
-              </AnimateIn>
-              <AnimateIn delay={90} className="beyond-photo-anim beyond-photo-slot-dinner">
-                <ParallaxLayer speed={0.07}>
-                  <figure className="beyond-photo beyond-photo-dinner">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/images/about/riz-dinner.jpg"
-                      alt="Rizwan Mahmood laughing over dinner at a candlelit restaurant"
-                      style={{ objectPosition: "center 22%" }}
-                    />
-                  </figure>
-                  <p className="beyond-photo-caption">
-                    <span className="beyond-caption-dash" aria-hidden="true">—</span>
-                    Tallinn dinners. Also research.
                   </p>
                 </ParallaxLayer>
               </AnimateIn>
@@ -862,19 +847,17 @@ export default function About() {
         .beyond-photos {
           display: flex;
           flex-direction: column;
-          gap: 32px;
+          gap: 20px;
           width: 100%;
-        }
-        .beyond-photo-slot-dinner {
-          width: 70%;
-          align-self: flex-end;
         }
         .beyond-photo {
           position: relative;
           display: block;
           margin: 0;
           width: 100%;
+          height: 580px;
           overflow: hidden;
+          border-radius: 120px 24px 24px 24px;
           box-shadow: var(--shadow-lg);
         }
         .beyond-photo img {
@@ -882,14 +865,6 @@ export default function About() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-        }
-        .beyond-photo-mussels {
-          aspect-ratio: 4 / 5;
-          border-radius: 120px 24px 24px 24px;
-        }
-        .beyond-photo-dinner {
-          aspect-ratio: 4 / 3;
-          border-radius: 24px 24px 120px 24px;
         }
         .beyond-photo-caption {
           display: flex;
@@ -900,9 +875,6 @@ export default function About() {
           font-style: italic;
           font-size: 13px;
           color: rgba(34,51,44,0.5);
-        }
-        .beyond-photo-slot-dinner .beyond-photo-caption {
-          justify-content: flex-end;
         }
         .beyond-caption-dash {
           color: #EA6A47;
@@ -987,9 +959,6 @@ export default function About() {
             grid-template-columns: 1fr;
             gap: 44px;
           }
-          .beyond-photo-slot-dinner {
-            width: 100%;
-          }
         }
         @media (max-width: 700px) {
           .beyond-section {
@@ -998,17 +967,20 @@ export default function About() {
           .beyond-row {
             padding: 24px 4px;
           }
+          .beyond-photo {
+            height: 420px;
+          }
         }
         .lesson-card {
-          background: rgba(255,255,255,0.05);
-          border: 1px solid rgba(255,255,255,0.1);
+          background: #ffffff;
+          border: 1px solid rgba(34,51,44,0.1);
           border-radius: 18px;
           padding: 28px 24px;
           height: 100%;
           transition: all 0.25s ease;
         }
         .lesson-card:hover {
-          background: rgba(255,255,255,0.08);
+          background: #fdfaf3;
           transform: translateY(-5px);
         }
         @media (max-width: 860px) {

@@ -120,6 +120,8 @@ function GridCard({ guide }: { guide: GuideMeta }) {
 export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+  const [contentType, setContentType] = useState("All");
+  const [format, setFormat] = useState("All");
   const [sort, setSort] = useState<SortMode>("newest");
   const [kbdLabel, setKbdLabel] = useState("Ctrl K");
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -180,6 +182,8 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
   function clearFilters() {
     setSearch("");
     setCategory("All");
+    setContentType("All");
+    setFormat("All");
   }
 
   return (
@@ -354,44 +358,66 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           background: var(--cream-2);
         }
 
-        .gd-filter-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 20px;
-          flex-wrap: wrap;
+        .gd-filter-select-row {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
         }
-        .gd-pill-row {
+        .gd-filter-field {
           display: flex;
-          align-items: center;
-          gap: 8px;
-          flex-wrap: wrap;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
+          flex-direction: column;
+          gap: 6px;
         }
-        .gd-pill-row::-webkit-scrollbar { display: none; }
-        .gd-pill {
-          flex-shrink: 0;
-          padding: 8px 16px;
-          border-radius: 8px;
-          border: none;
-          background: var(--cream);
-          color: var(--body);
+        .gd-filter-label {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.85rem;
+          font-size: 0.75rem;
+          font-weight: 600;
+          color: var(--muted);
+        }
+        .gd-filter-select-wrap {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+        .gd-filter-select {
+          appearance: none;
+          width: 100%;
+          height: 48px;
+          padding: 0 36px 0 16px;
+          border: 1px solid var(--line-2);
+          border-radius: 8px;
+          font-family: var(--font-montserrat), sans-serif;
           font-weight: 500;
+          font-size: 0.9rem;
+          color: var(--ink);
+          background: #fff;
+          outline: none;
           cursor: pointer;
-          transition: background 0.1s ease-out, color 0.1s ease-out, box-shadow 0.15s ease;
-          white-space: nowrap;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
-        .gd-pill:hover {
-          box-shadow: var(--shadow);
+        .gd-filter-select:focus {
+          border-color: var(--coral);
+          box-shadow: 0 0 0 4px rgba(234,106,71,0.12);
         }
-        .gd-pill.active {
-          background: var(--coral);
-          color: #fff;
-          font-weight: 700;
+        .gd-filter-chevron {
+          position: absolute;
+          right: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--muted);
+          pointer-events: none;
+          display: flex;
+        }
+        .gd-grid-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 16px;
+          flex-wrap: wrap;
+          margin-bottom: 24px;
+        }
+        .gd-grid-toolbar .gd-results-count {
+          margin-right: auto;
         }
         .gd-sort-wrap {
           display: flex;
@@ -434,12 +460,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           color: var(--muted);
           pointer-events: none;
           display: flex;
-        }
-        .gd-filter-meta {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          margin-top: 12px;
         }
         .gd-results-count {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
@@ -618,13 +638,15 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           .gd-hero-right { min-height: 0; justify-content: flex-start; }
           .gd-hero-card { max-width: 100%; transform: none; }
           .gd-hero-card:hover { transform: translateY(-4px); }
+          .gd-filter-select-row { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 767px) {
           .gd-hero { padding: 104px 0 64px; }
           .gd-search-input { padding-right: 16px; }
           .gd-kbd { display: none; }
-          .gd-filter-row { flex-direction: column; align-items: flex-start; }
+          .gd-filter-select-row { grid-template-columns: 1fr; }
+          .gd-grid-toolbar { justify-content: flex-start; }
           .gd-sort-wrap { width: 100%; justify-content: space-between; }
         }
 
@@ -680,21 +702,86 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
       <div className="gd-filter-bar">
         <div className="max-w-site">
-          <div className="gd-filter-row">
-            <div className="gd-pill-row">
-              {categories.map((c) => (
-                <button
-                  key={c}
-                  type="button"
-                  className={`gd-pill${category === c ? " active" : ""}`}
-                  aria-pressed={category === c}
-                  onClick={() => setCategory(c)}
+          <div className="gd-filter-select-row">
+            <div className="gd-filter-field">
+              <label htmlFor="gd-filter-topics" className="gd-filter-label">
+                All Topics
+              </label>
+              <div className="gd-filter-select-wrap">
+                <select
+                  id="gd-filter-topics"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="gd-filter-select"
                 >
-                  {c}
-                </button>
-              ))}
+                  <option value="All">- All Topics -</option>
+                  {categories
+                    .filter((c) => c !== "All")
+                    .map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                </select>
+                <span className="gd-filter-chevron" aria-hidden="true">
+                  <ChevronDownIcon />
+                </span>
+              </div>
             </div>
 
+            <div className="gd-filter-field">
+              <label htmlFor="gd-filter-content-type" className="gd-filter-label">
+                All Content Types
+              </label>
+              <div className="gd-filter-select-wrap">
+                <select
+                  id="gd-filter-content-type"
+                  value={contentType}
+                  onChange={(e) => setContentType(e.target.value)}
+                  className="gd-filter-select"
+                >
+                  <option value="All">- All Content Types -</option>
+                  <option value="Guide">Guide</option>
+                  <option value="Article">Article</option>
+                  <option value="Tutorial">Tutorial</option>
+                </select>
+                <span className="gd-filter-chevron" aria-hidden="true">
+                  <ChevronDownIcon />
+                </span>
+              </div>
+            </div>
+
+            <div className="gd-filter-field">
+              <label htmlFor="gd-filter-format" className="gd-filter-label">
+                All Formats
+              </label>
+              <div className="gd-filter-select-wrap">
+                <select
+                  id="gd-filter-format"
+                  value={format}
+                  onChange={(e) => setFormat(e.target.value)}
+                  className="gd-filter-select"
+                >
+                  <option value="All">- All Formats -</option>
+                  <option value="Article">Article</option>
+                  <option value="Video">Video</option>
+                  <option value="Template">Template</option>
+                </select>
+                <span className="gd-filter-chevron" aria-hidden="true">
+                  <ChevronDownIcon />
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section className="gd-grid-section">
+        <div className="max-w-site">
+          <div className="gd-grid-toolbar">
+            <span className="gd-results-count">
+              Showing {filtered.length} of {guides.length} guides
+            </span>
             <div className="gd-sort-wrap">
               <label htmlFor="gd-sort" className="gd-sort-label">
                 Sort by
@@ -716,23 +803,13 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
                 </span>
               </div>
             </div>
-          </div>
-
-          {filtersActive && (
-            <div className="gd-filter-meta">
-              <span className="gd-results-count">
-                Showing {filtered.length} of {guides.length} guides
-              </span>
+            {filtersActive && (
               <button type="button" className="gd-clear-btn" onClick={clearFilters}>
                 Clear filters
               </button>
-            </div>
-          )}
-        </div>
-      </div>
+            )}
+          </div>
 
-      <section className="gd-grid-section">
-        <div className="max-w-site">
           {filtered.length === 0 ? (
             <div className="gd-empty">
               <span className="gd-empty-icon">

@@ -922,9 +922,10 @@ export default function Home() {
           display: inline-flex;
           align-items: center;
           gap: 8px;
-          font-family: var(--font-montserrat), sans-serif;
+          font-family: var(--font-dm-sans), sans-serif;
           font-size: 11px;
-          color: rgba(34,51,44,0.6);
+          font-weight: 500;
+          color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
         }
         .route-authority-icon {
@@ -1057,9 +1058,10 @@ export default function Home() {
           transition: color 0.25s ease;
         }
         .route-authority-line {
-          font-family: var(--font-montserrat), sans-serif;
+          font-family: var(--font-dm-sans), sans-serif;
           font-size: 11px;
-          color: rgba(34,51,44,0.4);
+          font-weight: 500;
+          color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
         }
         .route-card-buttons {
@@ -1117,10 +1119,11 @@ export default function Home() {
         .route-footnote {
           margin-top: 24px;
           text-align: center;
-          font-family: var(--font-montserrat), sans-serif;
+          font-family: var(--font-dm-sans), sans-serif;
           font-style: italic;
           font-size: 14px;
-          color: rgba(34,51,44,0.45);
+          font-weight: 500;
+          color: rgba(34,51,44,0.72);
         }
         .route-footnote a {
           color: #EA6A47;
@@ -1279,8 +1282,8 @@ export default function Home() {
           color: #22332C;
         }
         .believe-closing-italic {
-          font-family: var(--font-fraunces), serif;
-          font-size: 18px; font-weight: 700; font-style: italic;
+          font-family: var(--font-montserrat), sans-serif;
+          font-size: 18px; font-weight: 700; font-style: normal;
           color: #EA6A47;
           margin-bottom: 16px;
         }
@@ -1308,6 +1311,9 @@ export default function Home() {
         }
         .believe-photo-container {
           position: relative; cursor: pointer; user-select: none;
+        }
+        .believe-photo-frame {
+          position: relative; overflow: hidden; border-radius: 16px;
         }
         .believe-photo-img {
           width: 100%; border-radius: 24px; display: block;
@@ -1617,19 +1623,21 @@ export default function Home() {
                   <div className="believe-pn-name">Rizwan Mahmood</div>
                 </div>
 
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  className="believe-photo-img"
-                  src="/Photos/riz-restaurant.jpg"
-                  alt="Rizwan Mahmood"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "center top",
-                    borderRadius: 16,
-                  }}
-                />
+                <div className="believe-photo-frame">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="believe-photo-img"
+                    src="/Photos/riz-restaurant.jpg"
+                    alt="Rizwan Mahmood"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center top",
+                      borderRadius: 16,
+                    }}
+                  />
+                </div>
 
                 {/* Equalizer badge — always visible while playing, independent of hover, so it reads as "sound is on" */}
                 {audioState === 'playing' && (
