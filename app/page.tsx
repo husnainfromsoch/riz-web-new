@@ -1,6 +1,5 @@
 ﻿"use client";
 import { useState, useEffect, useRef, Fragment } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AnimateIn from "@/components/AnimateIn";
@@ -9,6 +8,8 @@ import HeroSection from "@/components/hero-section";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import TestimonialsSection from "@/components/Testimonials";
 import CalBookingButton from "@/components/CalModal";
+import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
+import PersonalityCarousel from "@/components/PersonalityCarousel";
 import { type SubstackPost, FALLBACK_POSTS } from "@/lib/substack";
 
 function formatRowDate(pubDate: string): string {
@@ -29,53 +30,6 @@ const metricCards = [
   { verb: "Scaled across", prefix: "",  target: 4,    suffix: "",  isFloat: false, label: "Markets scaled across · Bolt" },
 ];
 
-// ─── SELECTED WORK ROWS ─────────────────────────────────────────────────────
-
-const selectedWorkRows = [
-  {
-    id: "cs-01",
-    num: "01",
-    tag: "REAL ESTATE · SALES",
-    title: "AI Lead Qualification & Agent Routing",
-    result: "8 min first contact · 34% lead-to-appointment rate",
-  },
-  {
-    id: "cs-02",
-    num: "02",
-    tag: "LAW FIRM · OPERATIONS",
-    title: "Client Intake Automation & Case Routing",
-    result: "12 min response · 3 hrs/day saved · 100% urgent flagged",
-  },
-  {
-    id: "cs-04",
-    num: "03",
-    tag: "E-COMMERCE · SUPPORT",
-    title: "AI Support Triage & Auto-Resolution",
-    result: "67% tickets auto-resolved · 18 min first response",
-  },
-  {
-    id: "cs-05",
-    num: "04",
-    tag: "B2B SAAS · SALES",
-    title: "Trial-to-Paid Conversion Workflow",
-    result: "2.1× conversion · 9% → 19% · 28 hrs/week saved",
-  },
-  {
-    id: "cs-09",
-    num: "05",
-    tag: "MARKETING AGENCY · OPS",
-    title: "Automated Monthly Client Reporting",
-    result: "89% time reduction · delivered 1st of every month",
-  },
-  {
-    id: "cs-06",
-    num: "06",
-    tag: "RECRUITMENT · HR",
-    title: "CV Screening & Candidate Ranking",
-    result: "Same-day shortlist · 75% less screening time",
-  },
-];
-
 // ─── BY THE NUMBERS ──────────────────────────────────────────────────────────
 
 const byTheNumbersRows = [
@@ -86,112 +40,6 @@ const byTheNumbersRows = [
   { num: "05", stat: "Zero code",  subtitle: "Shipped a browser game anyway",                         company: "Now" },
   { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc", company: "Now" },
 ];
-
-// ─── ON CAMERA CARDS ─────────────────────────────────────────────────────────
-
-const onCameraCards: {
-  num: string;
-  href: string;
-  thumb: string;
-  alt?: string;
-  title: string;
-  description: string;
-}[] = [
-  {
-    num: "01",
-    href: "https://www.instagram.com/reels/DZx-_OHOqg4/",
-    thumb: "/images/on-camera/ai-influencers-thumb.jpeg",
-    alt: "Riz on camera — a message to all AI influencers",
-    title: "A message to AI influencers",
-    description: "Calling out the hype — what actually ships vs what gets posted.",
-  },
-  {
-    num: "02",
-    href: "https://www.instagram.com/reel/DZr8EPSOkdB/",
-    thumb: "/Photos/riz-lake.jpg",
-    title: "Operator perspective",
-    description: "How an operator thinks about building systems. A live breakdown.",
-  },
-  {
-    num: "03",
-    href: "https://www.instagram.com/reel/DXltD2Ujl5s/",
-    thumb: "/Photos/riz-vespa.jpg",
-    title: "Stand-up · The AI bit",
-    description: "The bit about AI that landed. Live at the mic in Tallinn.",
-  },
-];
-
-// ─── ON CAMERA GRID (scroll-triggered entrance) ─────────────────────────────
-
-function OnCameraGrid() {
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = gridRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div className="oc-grid" ref={gridRef}>
-      {onCameraCards.map((card, i) => (
-        <a
-          key={card.href}
-          href={card.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`oc-card${inView ? " oc-inview" : ""}`}
-          style={{ animationDelay: `${i * 0.1}s` }}
-        >
-          <div className="oc-thumb">
-            <Image
-              src={card.thumb}
-              alt={card.alt ?? card.title}
-              fill
-              sizes="(max-width: 767px) 85vw, 33vw"
-              style={{ objectFit: "cover", objectPosition: "center top" }}
-            />
-
-            <div className="oc-thumb-gradient" />
-
-            <span className="oc-chip oc-chip-num">{card.num}</span>
-            <span className="oc-chip oc-chip-platform">INSTAGRAM</span>
-
-            <div className="oc-play">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </div>
-
-          {/* Bottom info */}
-          <div className="oc-footer">
-            <div className="oc-footer-top">
-              <span className="oc-reel-tag">REEL</span>
-              <span className="oc-watch">
-                Watch on Instagram <span className="oc-watch-arrow">↗</span>
-              </span>
-            </div>
-
-            <p className="oc-card-title">{card.title}</p>
-            <p className="oc-card-desc">{card.description}</p>
-          </div>
-        </a>
-      ))}
-    </div>
-  );
-}
 
 // ─── PROCESS STEPS ──────────────────────────────────────────────────────────
 
@@ -1225,6 +1073,10 @@ export default function Home() {
           from { opacity: 0; transform: translateY(-8px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        @keyframes ba-toggle-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(234,106,71,0.4); }
+          50%       { box-shadow: 0 0 0 7px rgba(234,106,71,0); }
+        }
         @keyframes hand-wave {
           0%, 60%, 100% { transform: rotate(0deg); }
           10%           { transform: rotate(-12deg); }
@@ -1350,31 +1202,10 @@ export default function Home() {
           0%, 100% { background-position: 0%; }
           50% { background-position: 100%; }
         }
-        .believe-stat-chip {
-          position: absolute; z-index: 5;
-          background: #ffffff; border: 1px solid var(--line);
-          padding: 10px 14px; border-radius: 14px;
-          box-shadow: 0 8px 24px rgba(12,12,11,.1);
-          opacity: 0; animation: believeChipIn 0.6s ease forwards;
-        }
-        @keyframes believeChipIn {
-          from { opacity: 0; transform: translateX(8px); }
-          to { opacity: 1; transform: translateX(0); }
-        }
-        .believe-chip-val {
-          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
-          font-size: 20px; font-weight: 900; letter-spacing: -0.8px; color: var(--coral);
-        }
-        .believe-chip-label {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem; font-weight: 600; color: #E8603C;
-          text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px;
-        }
         @media (max-width: 960px) {
           .believe-content-wrap { grid-template-columns: 1fr; gap: 48px; }
           .believe-photo-col { position: static; }
           .believe-section-title { font-size: 36px; }
-          .believe-stat-chip { display: none; }
         }
         @keyframes terminalIn {
           from { opacity: 0; transform: translateX(-8px); }
@@ -1723,15 +1554,6 @@ export default function Home() {
                   </div>
                 )}
 
-                <div className="believe-stat-chip" style={{ top: "28%", right: "-22px", animationDelay: ".4s" }}>
-                  <div className="believe-chip-val">$3.9M</div>
-                  <div className="believe-chip-label">saved · Careem</div>
-                </div>
-                <div className="believe-stat-chip" style={{ top: "55%", right: "-22px", animationDelay: ".7s" }}>
-                  <div className="believe-chip-val">92%</div>
-                  <div className="believe-chip-label">automation · Wise</div>
-                </div>
-
               </div>
             </div>
 
@@ -1778,6 +1600,7 @@ export default function Home() {
                 const isActive = activeCompany === item.company;
                 const isDefaultHighlight = !!item.highlight && activeCompany === null;
                 const showCoral = isActive || isDefaultHighlight;
+                const logoSrc = ({"Careem": "/logos/careem.png", "Bolt": "/logos/bolt.png", "Wise": "/logos/wise.svg"} as Record<string, string>)[item.company];
                 return (
                 <div
                   key={i}
@@ -1786,7 +1609,7 @@ export default function Home() {
                     display: "flex",
                     alignItems: "center",
                     gap: "0.875rem",
-                    marginBottom: i < 3 ? "1.25rem" : 0,
+                    marginBottom: i < 3 ? "1.5rem" : 0,
                     opacity: 0,
                     animation: `timelineIn 0.5s ease forwards ${0.15 + i * 0.12}s`,
                     cursor: "pointer",
@@ -1804,28 +1627,30 @@ export default function Home() {
                     transition: "background 0.3s ease, border-color 0.3s ease",
                     animation: showCoral ? "pulseNode 2.2s ease-in-out infinite" : "none",
                   }} />
-                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    {({"Careem": "/logos/careem.png", "Bolt": "/logos/bolt.png", "Wise": "/logos/wise.png"} as Record<string, string>)[item.company] && (
+                  <div style={{ display: "flex", alignItems: "center", flexWrap: "nowrap" }}>
+                    {logoSrc && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        src={({"Careem": "/logos/careem.png", "Bolt": "/logos/bolt.png", "Wise": "/logos/wise.png"} as Record<string, string>)[item.company]}
+                        src={logoSrc}
                         alt={item.company}
-                        style={{ width: 32, height: 32, objectFit: "contain", filter: "brightness(0) opacity(0.7)", marginRight: 10, verticalAlign: "middle", flexShrink: 0 }}
+                        style={{ height: 52, maxWidth: 120, width: "auto", objectFit: "contain", flexShrink: 0, marginRight: "0.7rem" }}
                       />
                     )}
                     <span style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "0.98rem",
+                      fontSize: "22px",
                       fontWeight: 700,
                       fontStyle: showCoral ? "italic" : "normal",
                       color: showCoral ? "#EA6A47" : "#22332C",
                       transition: "color 0.3s ease",
+                      whiteSpace: "nowrap",
                     }}>{item.company}</span>
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: "0.68rem",
-                      color: "#B0A898",
-                      marginLeft: "0.5rem",
+                      fontSize: "0.74rem",
+                      fontWeight: 500,
+                      color: "#5C5750",
+                      marginLeft: "0.45rem",
                     }}>{item.year}</span>
                   </div>
                 </div>
@@ -1867,133 +1692,181 @@ export default function Home() {
 
           {/* RIGHT SIDE */}
           <div>
-            {byTheNumbersRows.map((row, i) => {
-              const isRevealed = visibleNumberRows[i];
-              const isActiveMatch = activeCompany !== null && row.company === activeCompany;
-              const isDimmed = activeCompany !== null && row.company !== activeCompany;
-              const rowOpacity = !isRevealed ? 0 : isDimmed ? 0.35 : 1;
-              const rowFilter = isDimmed ? "grayscale(30%)" : "none";
-              const rowTransform = !isRevealed
-                ? "translateY(20px)"
-                : isActiveMatch
-                ? "translateX(6px)"
-                : "translateY(0)";
-              const rowTransition = !isRevealed
-                ? `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s, background 0.3s ease, border-left-color 0.3s ease, filter 0.3s ease`
-                : "opacity 0.35s ease, transform 0.35s ease, background 0.3s ease, border-left-color 0.3s ease, filter 0.3s ease";
-              const rowBorderLeft = isActiveMatch
-                ? "2px solid #EA6A47"
-                : hoveredNumberRow === i
-                ? "3px solid #EA6A47"
-                : "3px solid transparent";
-              const rowBackground = isActiveMatch
-                ? "rgba(234,106,71,0.04)"
-                : hoveredNumberRow === i
-                ? "#F0E8DC"
-                : "transparent";
-              return (
-                <div
-                  key={i}
-                  onMouseEnter={() => setHoveredNumberRow(i)}
-                  onMouseLeave={() => setHoveredNumberRow(null)}
+            {activeCompany !== null && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "0.75rem",
+                  paddingBottom: "0.75rem",
+                  borderBottom: "1px solid #D8D0C4",
+                  animation: "timelineIn 0.3s ease",
+                }}
+              >
+                <span
                   style={{
-                    padding: "28px 0",
-                    borderTop: "1px solid #D8D0C4",
-                    borderBottom:
-                      i === byTheNumbersRows.length - 1 ? "1px solid #D8D0C4" : "none",
-                    borderLeft: rowBorderLeft,
-                    paddingLeft: "20px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "1.5rem",
-                    cursor: "default",
-                    background: rowBackground,
-                    position: "relative",
-                    opacity: rowOpacity,
-                    filter: rowFilter,
-                    transform: rowTransform,
-                    transition: rowTransition,
-                    boxSizing: "border-box" as const,
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "0.8rem",
+                    color: "#5C5750",
                   }}
                 >
-                  {/* Circled number — coral outline only */}
+                  Showing stats for{" "}
+                  <b style={{ color: "#22332C" }}>{activeCompany}</b>
+                </span>
+                <button
+                  onClick={() => setActiveCompany(null)}
+                  style={{
+                    fontFamily: "var(--font-dm-sans), sans-serif",
+                    fontSize: "0.78rem",
+                    color: "#EA6A47",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: 0,
+                  }}
+                >
+                  × Clear filter
+                </button>
+              </div>
+            )}
+            {(() => {
+              const lastVisibleIndex = byTheNumbersRows.reduce(
+                (acc, r, idx) =>
+                  activeCompany === null || r.company === activeCompany ? idx : acc,
+                -1
+              );
+              return byTheNumbersRows.map((row, i) => {
+                const isRevealed = visibleNumberRows[i];
+                const isVisible = activeCompany === null || row.company === activeCompany;
+                const rowOpacity = !isRevealed ? 0 : isVisible ? 1 : 0;
+                const rowTransform = !isRevealed ? "translateY(20px)" : "translateY(0)";
+                const rowTransition = !isRevealed
+                  ? `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`
+                  : "opacity 0.3s ease";
+                const rowBorderLeft = activeCompany !== null
+                  ? "2px solid #EA6A47"
+                  : hoveredNumberRow === i
+                  ? "3px solid #EA6A47"
+                  : "3px solid transparent";
+                const rowBackground = activeCompany !== null
+                  ? "rgba(234,106,71,0.04)"
+                  : hoveredNumberRow === i
+                  ? "#F0E8DC"
+                  : "transparent";
+                return (
                   <div
+                    key={i}
                     style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: "50%",
-                      border: "1.5px solid #C17A5A",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
+                      overflow: "hidden",
+                      maxHeight: isVisible ? 300 : 0,
+                      transition: "max-height 0.4s ease",
                     }}
                   >
-                    <span
+                    <div
+                      onMouseEnter={() => setHoveredNumberRow(i)}
+                      onMouseLeave={() => setHoveredNumberRow(null)}
                       style={{
-                        fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.58rem",
-                        fontWeight: 600,
-                        letterSpacing: "0.04em",
-                        color: "#C17A5A",
+                        paddingTop: isVisible ? "28px" : "0px",
+                        paddingBottom: isVisible ? "28px" : "0px",
+                        paddingLeft: "20px",
+                        paddingRight: 0,
+                        borderTop: isVisible ? "1px solid #D8D0C4" : "0px solid transparent",
+                        borderBottom:
+                          i === lastVisibleIndex && isVisible ? "1px solid #D8D0C4" : "none",
+                        borderLeft: rowBorderLeft,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "1.5rem",
+                        cursor: "default",
+                        background: rowBackground,
+                        position: "relative",
+                        opacity: rowOpacity,
+                        transform: rowTransform,
+                        transition: `${rowTransition}, padding-top 0.4s ease, padding-bottom 0.4s ease, border-color 0.3s ease, background 0.3s ease, border-left-color 0.3s ease`,
+                        boxSizing: "border-box" as const,
                       }}
                     >
-                      {row.num}
-                    </span>
-                  </div>
+                      {/* Circled number — coral outline only */}
+                      <div
+                        style={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: "50%",
+                          border: "1.5px solid #C17A5A",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          flexShrink: 0,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "var(--font-dm-mono), monospace",
+                            fontSize: "0.58rem",
+                            fontWeight: 600,
+                            letterSpacing: "0.04em",
+                            color: "#C17A5A",
+                          }}
+                        >
+                          {row.num}
+                        </span>
+                      </div>
 
-                  {/* Content */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <p
-                      style={{
-                        display: "inline-block",
-                        fontFamily: "var(--font-playfair), serif",
-                        fontSize: "56px",
-                        fontWeight: 700,
-                        lineHeight: 1,
-                        margin: "0 0 6px",
-                        background:
-                          "linear-gradient(90deg, #22332C, #EA6A47, #D79A36, #22332C)",
-                        backgroundSize: "300% auto",
-                        WebkitBackgroundClip: "text",
-                        backgroundClip: "text",
-                        WebkitTextFillColor: "transparent",
-                        animation: "statFlow 4s linear infinite",
-                        animationDelay: `${i * 0.4}s`,
-                      }}
-                    >
-                      {row.stat}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.82rem",
-                        color: "#22332C",
-                        opacity: 0.95,
-                        margin: 0,
-                        lineHeight: 1.5,
-                      }}
-                    >
-                      {row.subtitle}
-                    </p>
-                  </div>
+                      {/* Content */}
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p
+                          style={{
+                            display: "inline-block",
+                            fontFamily: "var(--font-playfair), serif",
+                            fontSize: "56px",
+                            fontWeight: 700,
+                            lineHeight: 1,
+                            margin: "0 0 6px",
+                            background:
+                              "linear-gradient(90deg, #22332C, #EA6A47, #D79A36, #22332C)",
+                            backgroundSize: "300% auto",
+                            WebkitBackgroundClip: "text",
+                            backgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            animation: "statFlow 4s linear infinite",
+                            animationDelay: `${i * 0.4}s`,
+                          }}
+                        >
+                          {row.stat}
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-dm-sans), sans-serif",
+                            fontSize: "0.82rem",
+                            color: "#22332C",
+                            opacity: 0.95,
+                            margin: 0,
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          {row.subtitle}
+                        </p>
+                      </div>
 
-                  {/* Arrow — always visible, turns coral on hover */}
-                  <div style={{ flexShrink: 0 }}>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "1.25rem",
-                        color: hoveredNumberRow === i ? "#EA6A47" : "#C5BDB4",
-                        transition: "color 0.3s ease",
-                      }}
-                    >
-                      →
-                    </span>
+                      {/* Arrow — always visible, turns coral on hover */}
+                      <div style={{ flexShrink: 0 }}>
+                        <span
+                          style={{
+                            fontFamily: "var(--font-dm-sans), sans-serif",
+                            fontSize: "1.25rem",
+                            color: hoveredNumberRow === i ? "#EA6A47" : "#C5BDB4",
+                            transition: "color 0.3s ease",
+                          }}
+                        >
+                          →
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              });
+            })()}
           </div>
 
         </div>
@@ -2011,13 +1884,22 @@ export default function Home() {
               fontSize: "clamp(2rem, 4vw, 52px)",
               color: "#22332C",
               fontWeight: 700,
-              marginBottom: "2rem",
+              marginBottom: "0.75rem",
               letterSpacing: "0.02em",
               textAlign: "center",
             }}>
-              What changes when you work{" "}
-              <span style={{ color: "#EA6A47", fontStyle: "italic" }}>with me.</span>
+              You&apos;re the bottleneck.{" "}
+              <span style={{ color: "#EA6A47", fontStyle: "italic" }}>Or the system is.</span>
             </h2>
+            <p style={{
+              fontFamily: "var(--font-montserrat), sans-serif",
+              fontSize: 16,
+              color: "rgba(34,51,44,0.6)",
+              textAlign: "center",
+              marginBottom: "2rem",
+            }}>
+              Flip the switch. Watch the same lead move through both.
+            </p>
           </AnimateIn>
 
           {/* Split before/after comparison */}
@@ -2034,7 +1916,7 @@ export default function Home() {
 
                 {/* LEFT — BEFORE */}
                 <div style={{
-                  background: "#ffffff",
+                  background: "rgba(34,51,44,0.025)",
                   border: "1px solid var(--line)",
                   borderRadius: "20px 0 0 20px",
                   padding: "40px 36px",
@@ -2052,11 +1934,13 @@ export default function Home() {
                   </div>
                   {workflowSteps.map((step, i) => {
                     const BeforeIcon = beforeIconFns[i];
+                    const isStuck = i === 3;
                     return (
                       <div key={step.labelBefore}>
                         <div style={{
-                          background: "#ffffff",
+                          background: isStuck ? "rgba(34,51,44,0.07)" : "#ffffff",
                           border: "1px solid var(--line)",
+                          borderLeft: isStuck ? "3px solid #22332C" : "1px solid var(--line)",
                           borderRadius: 14,
                           padding: "14px 18px",
                           display: "flex",
@@ -2064,11 +1948,20 @@ export default function Home() {
                           gap: 14,
                           opacity: 1,
                         }}>
-                          <div style={{ flexShrink: 0, marginTop: 2 }}>
-                            <BeforeIcon stroke="#EA6A47" />
+                          <div style={{
+                            flexShrink: 0,
+                            width: 40,
+                            height: 40,
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: isStuck ? "rgba(34,51,44,0.14)" : "rgba(34,51,44,0.06)",
+                          }}>
+                            <BeforeIcon stroke={isStuck ? "#22332C" : "rgba(34,51,44,0.55)"} />
                           </div>
                           <div style={{ flex: 1 }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
                               <p style={{ fontSize: 16, fontWeight: 700, color: "#22332C", opacity: 1, margin: 0 }}>
                                 {step.labelBefore}
                               </p>
@@ -2094,7 +1987,7 @@ export default function Home() {
                         </div>
                         {i < 3 && (
                           <div style={{ display: "flex", justifyContent: "center", padding: "5px 0" }}>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(34,51,44,0.35)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                               <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
                             </svg>
                           </div>
@@ -2106,7 +1999,7 @@ export default function Home() {
 
                 {/* MIDDLE DIVIDER */}
                 <div style={{
-                  width: 60,
+                  width: 104,
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -2114,13 +2007,15 @@ export default function Home() {
                   background: "#ffffff",
                   position: "relative",
                 }}>
-                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: 11,
-                      color: "rgba(34,51,44,0.5)",
-                      letterSpacing: "0.1em",
-                    }}>vs</span>
+                      fontSize: 10,
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      color: isAfter ? "rgba(34,51,44,0.35)" : "#22332C",
+                      transition: "color 0.3s ease",
+                    }}>MANUAL</span>
                     <button
                       onClick={() => {
                         if (loopCancelRef.current) { loopCancelRef.current(); loopCancelRef.current = null; }
@@ -2138,6 +2033,7 @@ export default function Home() {
                         position: "relative",
                         transition: "background 0.3s ease",
                         outline: "none",
+                        animation: isAfter ? "ba-toggle-pulse 1.8s ease-in-out infinite" : "none",
                       }}
                     >
                       <span style={{
@@ -2153,12 +2049,20 @@ export default function Home() {
                         display: "block",
                       }} />
                     </button>
+                    <span style={{
+                      fontFamily: "var(--font-montserrat), sans-serif",
+                      fontSize: 10,
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      color: isAfter ? "#EA6A47" : "rgba(34,51,44,0.35)",
+                      transition: "color 0.3s ease",
+                    }}>AUTOMATED</span>
                   </div>
                 </div>
 
                 {/* RIGHT — AFTER */}
                 <div style={{
-                  background: "transparent",
+                  background: "rgba(234,106,71,0.035)",
                   border: "1px solid var(--line)",
                   borderRadius: "0 20px 20px 0",
                   padding: "40px 36px",
@@ -2183,38 +2087,48 @@ export default function Home() {
                   ] as { title: string; sub: string; badge: string; icon: string }[]).map((step, i) => (
                     <div key={step.title}>
                       <div style={{
-                        background: "#ffffff",
+                        background: "rgba(234,106,71,0.06)",
                         border: "1px solid var(--line)",
+                        borderLeft: "3px solid #EA6A47",
                         borderRadius: 14,
                         padding: "14px 18px",
                         display: "flex",
                         alignItems: "flex-start",
                         gap: 14,
                       }}>
-                        <div style={{ flexShrink: 0, marginTop: 2 }}>
+                        <div style={{
+                          flexShrink: 0,
+                          width: 40,
+                          height: 40,
+                          borderRadius: "50%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "rgba(234,106,71,0.14)",
+                        }}>
                           {step.icon === "zap" && (
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                             </svg>
                           )}
                           {step.icon === "search" && (
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                             </svg>
                           )}
                           {step.icon === "arrow" && (
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                             </svg>
                           )}
                           {step.icon === "check" && (
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
                             </svg>
                           )}
                         </div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
                             <p style={{ fontSize: 16, fontWeight: 700, color: "#22332C", margin: 0 }}>
                               {step.title}
                             </p>
@@ -2250,77 +2164,27 @@ export default function Home() {
               </div>
             </div>
           </AnimateIn>
+
+          <AnimateIn delay={160}>
+            <p style={{
+              fontFamily: "var(--font-playfair), serif",
+              fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
+              fontStyle: "italic",
+              color: "#22332C",
+              textAlign: "center",
+              marginTop: "2.5rem",
+              marginBottom: 0,
+            }}>
+              One version scales. The other burns you out.
+            </p>
+          </AnimateIn>
         </div>
       </section>
 
-      {/* SECTION 4 — SELECTED WORK */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}>
-        <div className="max-w-site">
-          <AnimateIn delay={80}>
-            <h2
-              style={{
-                fontFamily: "inherit",
-                fontSize: 48,
-                color: "#22332C",
-                fontWeight: 900,
-                marginBottom: "0.75rem",
-              }}
-            >
-              Things I&apos;ve actually shipped.
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={150}>
-            <p
-              style={{
-                fontFamily: "inherit",
-                fontSize: 16,
-                color: "rgba(34,51,44,0.72)",
-                fontWeight: 400,
-                lineHeight: 1.7,
-                margin: 0,
-              }}
-            >
-              Not a claim. Evidence. Each one is the thesis in action.
-            </p>
-            <p
-              style={{
-                fontFamily: "inherit",
-                fontSize: 16,
-                color: "rgba(34,51,44,0.72)",
-                fontWeight: 400,
-                lineHeight: 1.7,
-                marginTop: 4,
-                marginBottom: 52,
-              }}
-            >
-              Six systems. Real outcomes. No fluff.
-            </p>
-          </AnimateIn>
+      {/* SECTION 4B — FEATURED CASE STUDIES (expandable preview) */}
+      <FeaturedCaseStudies />
 
-          <div className="work-rows-list">
-            {selectedWorkRows.map((row, i) => (
-              <AnimateIn key={row.num} delay={i * 80}>
-                <Link href={`/case-studies?case=${row.id}`} className="work-row">
-                  <span className="work-row-badge">{row.num}</span>
-                  <span className="work-row-body">
-                    <span className="work-row-tag">{row.tag}</span>
-                    <span className="work-row-title">{row.title}</span>
-                  </span>
-                  <span className="work-row-result">{row.result}</span>
-                  <span className="work-row-arrow">↗</span>
-                </Link>
-              </AnimateIn>
-            ))}
-          </div>
-
-          <Link href="/case-studies" className="work-view-all">
-            View all 20 case studies
-            <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-      </section>
-
-      {/* SECTION 5 — ON CAMERA */}
+      {/* SECTION 5 — PERSONALITY (video carousel) */}
       <section
         style={{
           background: "#FFFFFF",
@@ -2330,55 +2194,52 @@ export default function Home() {
           backgroundSize: "28px 28px",
         }}
       >
-        <div className="max-w-site">
-          {/* Heading area */}
-          <div style={{ marginBottom: "60px" }}>
-            <AnimateIn>
-              <h2
-                style={{
-                  fontFamily: "var(--font-playfair), serif",
-                  fontSize: "48px",
-                  fontWeight: 900,
-                  color: "#1E241F",
-                  marginBottom: "12px",
-                }}
-              >
-                Where systems meet personality.
-              </h2>
-            </AnimateIn>
-            <AnimateIn delay={150}>
-              <p
-                style={{
-                  fontSize: "1.2rem",
-                  lineHeight: 1.7,
-                  color: "#4A524A",
-                  maxWidth: "60ch",
-                }}
-              >
-                I don&apos;t just build the machines — I talk about them. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
-              </p>
-            </AnimateIn>
-          </div>
-
-          <OnCameraGrid />
-
-          {/* CTA strip below grid */}
-          <div style={{ marginTop: "48px", textAlign: "center" }}>
-            <a
-              href="https://www.instagram.com/rizautomates"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="oc-ig-cta"
+        <div className="max-w-site" style={{ marginBottom: "48px" }}>
+          <AnimateIn>
+            <h2
+              style={{
+                fontFamily: "var(--font-playfair), serif",
+                fontSize: "48px",
+                fontWeight: 900,
+                color: "#1E241F",
+                marginBottom: "12px",
+              }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="20" rx="5" />
-                <circle cx="12" cy="12" r="4" />
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-              </svg>
-              More on Instagram
-              <span className="oc-ig-arrow" aria-hidden="true">↗</span>
-            </a>
-          </div>
+              Where systems meet personality.
+            </h2>
+          </AnimateIn>
+          <AnimateIn delay={150}>
+            <p
+              style={{
+                fontSize: "1.2rem",
+                lineHeight: 1.7,
+                color: "#4A524A",
+                maxWidth: "60ch",
+              }}
+            >
+              I don&apos;t just build the machines — I talk about them. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
+            </p>
+          </AnimateIn>
+        </div>
+
+        <PersonalityCarousel />
+
+        {/* CTA strip below carousel */}
+        <div className="max-w-site" style={{ marginTop: "48px", textAlign: "center" }}>
+          <a
+            href="https://www.instagram.com/rizautomates"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="oc-ig-cta"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+            More on Instagram
+            <span className="oc-ig-arrow" aria-hidden="true">↗</span>
+          </a>
         </div>
       </section>
 

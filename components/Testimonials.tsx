@@ -11,6 +11,12 @@ export type Testimonial = {
   avatarUrl?: string;
   /** True until this is swapped for a real client quote. Not shown in the UI — internal tracking only. */
   isPlaceholder?: boolean;
+  /** Placeholder — swap for the real company name once available. Shown only in the featured area. */
+  fullCompany?: string;
+  /** Placeholder href ("#") — swap for the person's real LinkedIn URL. */
+  linkedinUrl?: string;
+  /** Placeholder href ("#") — swap once a case-study/testimonial page exists. */
+  readMoreHref?: string;
 };
 
 // Placeholder quotes — swap for real ones before shipping.
@@ -25,6 +31,9 @@ export const testimonials: Testimonial[] = [
     initials: "AW",
     avatarUrl: "/images/testimonials/amara.jpg",
     isPlaceholder: true,
+    fullCompany: "Northline Cloud",
+    linkedinUrl: "#",
+    readMoreHref: "#",
   },
   {
     id: "ops-clarity",
@@ -35,6 +44,9 @@ export const testimonials: Testimonial[] = [
     initials: "DO",
     avatarUrl: "/images/testimonials/daniel.jpg",
     isPlaceholder: true,
+    fullCompany: "Meridian Logistics",
+    linkedinUrl: "#",
+    readMoreHref: "#",
   },
   {
     id: "workshops",
@@ -45,6 +57,9 @@ export const testimonials: Testimonial[] = [
     initials: "PN",
     avatarUrl: "/images/testimonials/priya.jpg",
     isPlaceholder: true,
+    fullCompany: "Harborview Recruiting",
+    linkedinUrl: "#",
+    readMoreHref: "#",
   },
   {
     id: "advisory",
@@ -55,6 +70,9 @@ export const testimonials: Testimonial[] = [
     initials: "MF",
     avatarUrl: "/images/testimonials/marcus.jpg",
     isPlaceholder: true,
+    fullCompany: "Ashford Hale LLP",
+    linkedinUrl: "#",
+    readMoreHref: "#",
   },
 ];
 
@@ -98,9 +116,46 @@ function Avatar({
   );
 }
 
-function TestimonialCard({ t }: { t: Testimonial }) {
+function LinkedInIcon() {
   return (
-    <div className="testimonials-card">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z" />
+    </svg>
+  );
+}
+
+function TestimonialCard({
+  t,
+  onFeature,
+  isRecent,
+}: {
+  t: Testimonial;
+  onFeature?: (id: string) => void;
+  isRecent?: boolean;
+}) {
+  const clickable = !!onFeature;
+
+  return (
+    <div
+      className={`testimonials-card${clickable ? " testimonials-card-clickable" : ""}${
+        isRecent ? " testimonials-card-recent" : ""
+      }`}
+      onClick={clickable ? () => onFeature!(t.id) : undefined}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      aria-label={clickable ? `Feature ${t.name}'s testimonial` : undefined}
+      onKeyDown={
+        clickable
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onFeature!(t.id);
+              }
+            }
+          : undefined
+      }
+    >
+      {isRecent && <span className="testimonials-card-badge">Previously featured</span>}
       <span className="testimonials-card-mark" aria-hidden="true">&ldquo;</span>
       <p className="testimonials-card-quote">{t.quote}</p>
       <div className="testimonials-author">
@@ -128,8 +183,19 @@ export default function TestimonialsSection({
   headingStyle,
   background = "#F1EBDE",
 }: TestimonialsSectionProps) {
-  const featured = variant === "full" ? testimonials[0] : null;
-  const gridItems = variant === "full" ? testimonials.slice(1) : testimonials.slice(0, 2);
+  const [featuredId, setFeaturedId] = useState(testimonials[0].id);
+  const [previousFeaturedId, setPreviousFeaturedId] = useState<string | null>(null);
+
+  const handleFeature = (id: string) => {
+    if (id === featuredId) return;
+    setPreviousFeaturedId(featuredId);
+    setFeaturedId(id);
+  };
+
+  const featured =
+    variant === "full" ? testimonials.find((t) => t.id === featuredId) ?? testimonials[0] : null;
+  const gridItems =
+    variant === "full" ? testimonials.filter((t) => t.id !== featuredId) : testimonials.slice(0, 2);
   const gridBaseDelay = featured ? 220 : 120;
 
   return (
@@ -148,18 +214,41 @@ export default function TestimonialsSection({
           <AnimateIn delay={120}>
             <div className="testimonials-featured">
               <span className="testimonials-featured-mark" aria-hidden="true">&ldquo;</span>
-              <p className="testimonials-featured-quote">{featured.quote}</p>
-              <div className="testimonials-author">
-                <Avatar
-                  initials={featured.initials}
-                  avatarUrl={featured.avatarUrl}
-                  name={featured.name}
-                  size={48}
-                />
-                <div>
-                  <div className="testimonials-author-name">{featured.name}</div>
-                  <div className="testimonials-author-role">{featured.roleLine}</div>
+              <div key={featured.id} className="testimonials-featured-content">
+                <p className="testimonials-featured-quote">{featured.quote}</p>
+                <div className="testimonials-author">
+                  <Avatar
+                    initials={featured.initials}
+                    avatarUrl={featured.avatarUrl}
+                    name={featured.name}
+                    size={48}
+                  />
+                  <div>
+                    <div className="testimonials-author-name-row">
+                      <span className="testimonials-author-name">{featured.name}</span>
+                      {featured.linkedinUrl && (
+                        <a
+                          href={featured.linkedinUrl}
+                          className="testimonials-linkedin-link"
+                          aria-label={`${featured.name} on LinkedIn`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <LinkedInIcon />
+                        </a>
+                      )}
+                    </div>
+                    <div className="testimonials-author-role">{featured.roleLine}</div>
+                    {featured.fullCompany && (
+                      <div className="testimonials-author-company">at {featured.fullCompany}</div>
+                    )}
+                  </div>
                 </div>
+                {featured.readMoreHref && (
+                  <a href={featured.readMoreHref} className="testimonials-readmore">
+                    Read the full story <span aria-hidden="true">→</span>
+                  </a>
+                )}
               </div>
             </div>
           </AnimateIn>
@@ -168,7 +257,11 @@ export default function TestimonialsSection({
         <div className={`testimonials-grid${variant === "compact" ? " compact" : ""}`}>
           {gridItems.map((t, i) => (
             <AnimateIn key={t.id} delay={gridBaseDelay + i * 80} className="testimonials-card-animate">
-              <TestimonialCard t={t} />
+              <TestimonialCard
+                t={t}
+                onFeature={variant === "full" ? handleFeature : undefined}
+                isRecent={variant === "full" && t.id === previousFeaturedId}
+              />
             </AnimateIn>
           ))}
         </div>

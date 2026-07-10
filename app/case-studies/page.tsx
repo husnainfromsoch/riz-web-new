@@ -682,18 +682,19 @@ function CaseStudiesContent() {
           border-bottom: 1px solid var(--line);
           border-left: 3px solid transparent;
           padding-left: 0;
-          transition: background 0.15s ease, border-left-color 0.15s ease, padding-left 0.15s ease;
+          transition: background-color 0.22s ease, border-left-color 0.22s ease, border-left-width 0.22s ease, padding-left 0.22s ease;
           cursor: pointer;
           text-decoration: none;
         }
         .proof-row:hover {
-          background: rgba(234,106,71,0.02);
+          background-color: rgba(234,106,71,0.02);
           border-left-color: #EA6A47;
           padding-left: 20px;
         }
         .proof-row.active {
-          background: rgba(234,106,71,0.03);
+          background-color: rgba(234,106,71,0.06);
           border-left-color: #EA6A47;
+          border-left-width: 4px;
           padding-left: 20px;
         }
         .proof-row-num {

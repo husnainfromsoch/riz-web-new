@@ -1,67 +1,65 @@
 "use client";
-import { useState, useEffect } from "react";
+import { ComponentType } from "react";
 import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
 import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const PHOTO_URL = "/riz-photo-new.jpg";
 
-const proofs = [
-  {
-    val: "$3.9M",
-    desc: "courier costs saved · Careem",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>`,
-  },
-  {
-    val: "92%",
-    desc: "straight-through processing · Wise",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-  },
-  {
-    val: "20s",
-    desc: "dispatch time · was 3 min · Careem",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-  },
-  {
-    val: "4",
-    desc: "markets scaled across · Bolt",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-  },
-  {
-    val: "Zero",
-    desc: "lines of code — shipped anyway",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
-  },
-  {
-    val: "Won",
-    desc: "wrongful termination case · Bolt",
-    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>`,
-  },
+// Location pin — used for Tallinn since it's a city, not a brand with a logo.
+function TallinnMark() {
+  return (
+    <svg className="hz-marquee-icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 21s7-6.35 7-12a7 7 0 1 0-14 0c0 5.65 7 12 7 12Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  );
+}
+
+// Graduation cap — used for Cambridge since it denotes education, not a company logo.
+function CambridgeMark() {
+  return (
+    <svg className="hz-marquee-icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="m2 8 10-4 10 4-10 4L2 8Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M6 10.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M21.5 9v5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// Sparkle — used for "AI Operator" since it's a role, not a product with a logo.
+function AiOperatorMark() {
+  return (
+    <svg className="hz-marquee-icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 3.5 13.7 9l5.3 1.5-5.3 1.5L12 17.5 10.3 12 5 10.5l5.3-1.5L12 3.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M19 15.5 19.7 17.5 21.5 18.25 19.7 19 19 21 18.3 19 16.5 18.25 18.3 17.5 19 15.5Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+type MarqueeLabel = {
+  label: string;
+  img?: string;
+  w?: number;
+  icon?: ComponentType;
+};
+
+const MARQUEE_LABELS: MarqueeLabel[] = [
+  { label: "Careem", img: "/logos/careem.png", w: 111 },
+  { label: "Bolt", img: "/logos/bolt.png", w: 48 },
+  { label: "Wise", img: "/logos/wise.svg", w: 106 },
+  { label: "Cambridge", icon: CambridgeMark },
+  { label: "Anthropic Partner", img: "/logos/anthropic.svg", w: 28 },
+  { label: "Tallinn", icon: TallinnMark },
+  { label: "n8n Builder", img: "/logos/n8n.svg", w: 28 },
+  { label: "AI Operator", icon: AiOperatorMark },
 ];
 
-const MARQUEE_ITEMS = [
-  "Careem", "◆", "Bolt", "◆", "Wise", "◆", "Cambridge", "◆",
-  "Anthropic Partner", "◆", "Tallinn", "◆", "n8n Builder", "◆", "AI Operator", "◆",
-  "Careem", "◆", "Bolt", "◆", "Wise", "◆", "Cambridge", "◆",
-  "Anthropic Partner", "◆", "Tallinn", "◆", "n8n Builder", "◆", "AI Operator", "◆",
-];
+const MARQUEE_ITEMS = [...MARQUEE_LABELS, ...MARQUEE_LABELS];
 
 export default function HeroSection() {
-  const [proofIdx, setProofIdx] = useState(0);
-  const [fading, setFading] = useState(false);
   const dotGridRef = useParallax<HTMLDivElement>(0.1);
   const fadeRef = useScrollFadeOut<HTMLDivElement>(420);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFading(true);
-      setTimeout(() => {
-        setProofIdx((prev) => (prev + 1) % proofs.length);
-        setFading(false);
-      }, 320);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
@@ -90,14 +88,6 @@ export default function HeroSection() {
         }
         @media (prefers-reduced-motion: reduce) {
           .hz-marquee-inner { animation: none; }
-        }
-        @keyframes hzPulse {
-          0% { transform: scale(1); opacity: .7; }
-          100% { transform: scale(2.5); opacity: 0; }
-        }
-        @keyframes shimmerCard {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
         }
 
         .hz-section {
@@ -288,8 +278,8 @@ export default function HeroSection() {
 
         .hz-ops-heading {
           display: flex;
-          align-items: baseline;
-          gap: 10px;
+          align-items: center;
+          gap: 12px;
           margin-bottom: 14px;
         }
         .hz-ops-num {
@@ -303,7 +293,7 @@ export default function HeroSection() {
         .hz-ops-label {
           font-size: 14px;
           font-weight: 600;
-          max-width: 180px;
+          max-width: 220px;
           line-height: 1.35;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
         }
@@ -320,30 +310,23 @@ export default function HeroSection() {
 
         .hz-social-strip {
           display: flex;
-          align-items: center;
+          flex-direction: column;
+          align-items: flex-start;
           gap: 14px;
-          padding: 12px 18px 12px 12px;
-          background: #FFFFFF;
-          border: 1px solid var(--hz-line);
-          border-radius: 100px;
-          box-shadow: 0 2px 10px rgba(34,51,44,0.05);
           width: fit-content;
+        }
+        .hz-logo-row {
+          display: flex;
+          align-items: center;
+          gap: 30px;
           flex-wrap: wrap;
         }
-        .hz-avatar-stack { display: flex; align-items: center; }
-        .hz-avatar {
-          width: 44px; height: 44px; border-radius: 50%;
-          border: 2px solid var(--cream);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 16px; font-weight: 700;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          margin-left: -12px;
-          flex-shrink: 0;
+        .hz-logo-row img {
+          height: 44px;
+          width: auto;
+          object-fit: contain;
+          display: block;
         }
-        .hz-avatar:first-child { margin-left: 0; }
-        .hz-av1 { background: #0F7A45; color: white; z-index: 4; }
-        .hz-av2 { background: #34D186; color: #0A3A1F; z-index: 3; }
-        .hz-av3 { background: #9FE870; color: #163300; z-index: 2; }
 
         .hz-proof-text {
           font-size: 13px;
@@ -407,187 +390,13 @@ export default function HeroSection() {
           object-position: top center;
           filter: contrast(1.04) saturate(0.9);
         }
-        .hz-photo-card::after {
-          content: '';
-          position: absolute;
-          left: 0; right: 0; bottom: 0;
-          height: 58%;
-          background: linear-gradient(to top, rgba(14,14,13,0.95) 0%, transparent 100%);
-          z-index: 2;
-          pointer-events: none;
-        }
-
-        .hz-avail-badge {
-          position: absolute;
-          top: 18px; left: 18px;
-          z-index: 4;
-          background: rgba(243,236,221,0.96);
-          backdrop-filter: blur(10px);
-          padding: 8px 14px 8px 10px;
-          border-radius: 100px;
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          font-size: 12px;
-          font-weight: 600;
-          color: #22332C;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-        }
-        .hz-pulse-dot {
-          width: 7px; height: 7px;
-          border-radius: 50%;
-          background: #EA6A47;
-          position: relative;
-          flex-shrink: 0;
-        }
-        .hz-pulse-dot::after {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 50%;
-          background: #EA6A47;
-          animation: hzPulse 2s ease-out infinite;
-        }
-
-        .hz-loc-badge {
-          position: absolute;
-          top: 18px; right: 18px;
-          z-index: 4;
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 11px;
-          font-weight: 500;
-          letter-spacing: 0.6px;
-          text-transform: uppercase;
-          color: rgba(255,255,255,0.85);
-          background: rgba(255,255,255,0.1);
-          backdrop-filter: blur(10px);
-          padding: 7px 13px;
-          border-radius: 100px;
-          border: 1px solid rgba(255,255,255,0.12);
-        }
-
-        .hz-proof-ticker {
-          position: absolute;
-          bottom: 90px;
-          left: 16px; right: 16px;
-          z-index: 5;
-          background: rgba(14,14,13,0.82);
-          backdrop-filter: blur(16px);
-          border: 1px solid rgba(234,106,71,0.25);
-          border-radius: 16px;
-          padding: 14px 16px;
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          overflow: hidden;
-        }
-        .hz-proof-ticker::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(110deg, transparent 30%, rgba(234,106,71,0.04) 50%, transparent 70%);
-          background-size: 200% 100%;
-          animation: shimmerCard 3s ease infinite;
-          pointer-events: none;
-        }
-
-        .hz-proof-icon {
-          width: 40px; height: 40px;
-          border-radius: 50%;
-          background: rgba(234,106,71,0.15);
-          border: 1.5px solid rgba(234,106,71,0.3);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          color: #EA6A47;
-          transition: transform 0.4s ease;
-        }
-        .hz-proof-icon svg { width: 18px; height: 18px; }
-        .hz-proof-ticker:hover .hz-proof-icon { transform: scale(1.1) rotate(8deg); }
-
-        .hz-proof-content { flex: 1; min-width: 0; }
-        .hz-proof-val {
-          font-size: 20px;
-          font-weight: 800;
-          letter-spacing: -0.6px;
-          color: var(--cream);
-          transition: opacity 0.3s ease, transform 0.3s ease;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-        }
-        .hz-proof-val.hz-fade {
-          opacity: 0;
-          transform: translateY(5px);
-        }
-        .hz-proof-desc {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem;
-          font-weight: 600;
-          color: var(--cream);
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          margin-top: 2px;
-          transition: opacity 0.3s ease;
-        }
-        .hz-proof-desc.hz-fade { opacity: 0; }
-
-        .hz-proof-nav {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 5px;
-          flex-shrink: 0;
-        }
-        .hz-proof-dots { display: flex; gap: 4px; }
-        .hz-proof-dot {
-          width: 5px; height: 5px;
-          border-radius: 50%;
-          background: rgba(243,236,221,0.18);
-          transition: background 0.3s, transform 0.3s;
-        }
-        .hz-proof-dot.hz-active {
-          background: #EA6A47;
-          transform: scale(1.3);
-        }
-        .hz-proof-counter {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 9px;
-          color: rgba(243,236,221,0.22);
-          letter-spacing: 0.5px;
-        }
-
-        .hz-photo-nameplate {
-          position: absolute;
-          bottom: 22px; left: 22px; right: 22px;
-          z-index: 3;
-        }
-        .hz-pname {
-          font-size: 25px;
-          font-weight: 800;
-          letter-spacing: -0.5px;
-          margin-bottom: 3px;
-          font-style: italic;
-          background: linear-gradient(110deg, var(--cream), #EA6A47, #D79A36, var(--cream));
-          background-size: 250% auto;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: nameFlow 7s ease-in-out infinite;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-        }
-        .hz-prole {
-          font-size: 13px;
-          font-weight: 500;
-          color: rgba(243,236,221,0.55);
-          font-family: var(--font-montserrat), sans-serif;
-        }
 
         /* MARQUEE */
         .hz-marquee-section {
           position: relative;
           border-top: 1px solid #E2DACB;
           border-bottom: 1px solid #E2DACB;
-          background: linear-gradient(180deg, #FBF8F1 0%, #FFFFFF 100%);
+          background: var(--hz-cream);
           padding: 20px 0;
           margin-top: 52px;
           overflow: hidden;
@@ -596,7 +405,8 @@ export default function HeroSection() {
         }
         .hz-marquee-inner {
           display: flex;
-          gap: 48px;
+          align-items: center;
+          gap: 18px;
           white-space: nowrap;
           animation: marqScroll 30s linear infinite;
           width: max-content;
@@ -604,16 +414,33 @@ export default function HeroSection() {
         .hz-marquee-section:hover .hz-marquee-inner {
           animation-play-state: paused;
         }
-        .hz-marquee-inner span {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 1.05rem;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          color: #1E2A22;
-          text-transform: uppercase;
+        .hz-marquee-item {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          width: 150px;
+          height: 96px;
+          padding: 20px;
+          background: #fff;
+          border: 1px solid var(--hz-line);
+          border-radius: 18px;
+          box-shadow: 0 6px 16px -10px rgba(14,14,13,0.18);
         }
-        .hz-mdot { color: #EA6A47 !important; font-size: 0.9em; }
-        .hz-mhighlight { color: #EA6A47 !important; }
+        .hz-marquee-icon {
+          height: 28px;
+          width: auto;
+          max-width: 100%;
+          flex-shrink: 0;
+          object-fit: contain;
+          display: block;
+        }
+        .hz-marquee-icon-svg {
+          height: 28px;
+          width: 28px;
+          flex-shrink: 0;
+          color: var(--hz-forest);
+        }
 
         @media (max-width: 960px) {
           .hz-wrap { padding-left: 24px; padding-right: 24px; }
@@ -666,15 +493,18 @@ export default function HeroSection() {
                   <span className="hz-ops-num">10+</span>
                   <span className="hz-ops-label">
                     <span className="hz-ops-static">years inside </span>
-                    <span className="hz-ops-animated">high-growth operations</span>
+                    <span className="hz-ops-animated">high‑growth operations</span>
                   </span>
                 </div>
 
                 <div className="hz-social-strip">
-                  <div className="hz-avatar-stack">
-                    <div className="hz-avatar hz-av1" title="Careem">C</div>
-                    <div className="hz-avatar hz-av2" title="Bolt">B</div>
-                    <div className="hz-avatar hz-av3" title="Wise">W</div>
+                  <div className="hz-logo-row">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logos/careem.png" alt="Careem" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logos/bolt.png" alt="Bolt" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logos/wise.svg" alt="Wise" />
                   </div>
                   <div className="hz-proof-text">
                     <span className="hz-ops-static">Worked across</span>
@@ -704,44 +534,6 @@ export default function HeroSection() {
                 <div className="hz-photo-card">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={PHOTO_URL} alt="Rizwan Mahmood" />
-
-                  <div className="hz-avail-badge">
-                    <span className="hz-pulse-dot" />
-                    Available this week
-                  </div>
-
-                  <div className="hz-loc-badge">Tallinn · EST</div>
-
-                  <div className="hz-proof-ticker">
-                    <div
-                      className="hz-proof-icon"
-                      dangerouslySetInnerHTML={{ __html: proofs[proofIdx].icon }}
-                    />
-                    <div className="hz-proof-content">
-                      <div className={`hz-proof-val${fading ? " hz-fade" : ""}`}>
-                        {proofs[proofIdx].val}
-                      </div>
-                      <div className={`hz-proof-desc${fading ? " hz-fade" : ""}`}>
-                        {proofs[proofIdx].desc}
-                      </div>
-                    </div>
-                    <div className="hz-proof-nav">
-                      <div className="hz-proof-dots">
-                        {proofs.map((_, i) => (
-                          <div
-                            key={i}
-                            className={`hz-proof-dot${i === proofIdx ? " hz-active" : ""}`}
-                          />
-                        ))}
-                      </div>
-                      <div className="hz-proof-counter">{proofIdx + 1} / {proofs.length}</div>
-                    </div>
-                  </div>
-
-                  <div className="hz-photo-nameplate">
-                    <div className="hz-pname">Rizwan Mahmood</div>
-                    <div className="hz-prole">Operator &amp; AI Builder</div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -749,20 +541,26 @@ export default function HeroSection() {
             {/* MARQUEE STRIP — stays inside hero section */}
             <div className="hz-marquee-section">
               <div className="hz-marquee-inner">
-                {MARQUEE_ITEMS.map((item, i) => (
-                  <span
-                    key={i}
-                    className={
-                      item === "◆"
-                        ? "hz-mdot"
-                        : item === "Anthropic Partner" || item === "Cambridge"
-                        ? "hz-mhighlight"
-                        : ""
-                    }
-                  >
-                    {item}
-                  </span>
-                ))}
+                {MARQUEE_ITEMS.map((item, i) => {
+                  const Icon = item.icon;
+                  return (
+                    <span className="hz-marquee-item" key={i}>
+                      {Icon ? (
+                        <Icon />
+                      ) : (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          className="hz-marquee-icon"
+                          src={item.img}
+                          alt={item.label}
+                          width={item.w}
+                          height={28}
+                          loading="eager"
+                        />
+                      )}
+                    </span>
+                  );
+                })}
               </div>
             </div>
           </div>
