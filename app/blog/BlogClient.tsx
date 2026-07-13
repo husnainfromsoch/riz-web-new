@@ -309,18 +309,48 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         .blog-post-card {
           border: 1px solid var(--line);
           border-radius: 18px;
-          padding: 2rem;
           background: #fff;
           display: flex;
           flex-direction: column;
-          gap: 0.75rem;
           height: 100%;
+          overflow: hidden;
           box-shadow: var(--shadow);
           transition: box-shadow 0.25s ease, transform 0.25s ease;
         }
         .blog-post-card:hover {
           box-shadow: var(--shadow-lg);
           transform: translateY(-5px);
+        }
+        .blog-post-thumb {
+          width: 100%;
+          aspect-ratio: 16 / 9;
+          overflow: hidden;
+          background: var(--cream-2);
+          flex-shrink: 0;
+        }
+        .blog-post-thumb img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .blog-post-body {
+          padding: 2rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          flex: 1;
+        }
+        .blog-post-paid-pill {
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--coral);
+          border: 1px solid var(--coral);
+          border-radius: 999px;
+          padding: 2px 9px;
         }
 
         @media (max-width: 1024px) {
@@ -443,6 +473,12 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
               {filtered.map((p, i) => (
                 <AnimateIn key={p.link} delay={i * 80}>
                 <div className="blog-post-card">
+                  {p.image && (
+                    <div className="blog-post-thumb">
+                      <img src={p.image} alt="" loading="lazy" />
+                    </div>
+                  )}
+                  <div className="blog-post-body">
                   <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                     <span
                       style={{
@@ -455,6 +491,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
                       {formatDate(p.pubDate)}
                     </span>
                     {p.categories[0] && <span className="tag-pill">{p.categories[0]}</span>}
+                    {p.isPaid && <span className="blog-post-paid-pill">Paid post</span>}
                   </div>
                   <h2
                     style={{
@@ -492,6 +529,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
                   >
                     Read →
                   </a>
+                  </div>
                 </div>
                 </AnimateIn>
               ))}

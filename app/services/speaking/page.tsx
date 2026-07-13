@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import AnimateIn from "@/components/AnimateIn";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
@@ -20,16 +22,38 @@ const topics = [
   },
 ];
 
+// NOTE: description copy below is a placeholder draft — Riz to review and replace with his own wording.
 const formats = [
-  { label: "Keynote", detail: "45–60 min" },
-  { label: "Workshop", detail: "Half day" },
-  { label: "Founder dinner facilitation", detail: "2–3 hours" },
-  { label: "Podcast guest", detail: "Flexible" },
+  {
+    label: "Keynote",
+    detail: "45–60 min",
+    description:
+      "One clear thesis, delivered with real stories from scaling ops across Careem, Bolt and Wise. Built for conferences and all-hands where the room needs a wake-up call, not a buzzword tour. Ends with a framework people can actually use Monday morning.",
+  },
+  {
+    label: "Workshop",
+    detail: "Half day",
+    description:
+      "Hands-on and specific to your team's actual workflows — not generic AI theory. Riz works through real examples with your ops, and the room leaves with a working framework, not slides. Built for teams ready to get their hands dirty, not just sit and listen.",
+  },
+  {
+    label: "Founder dinner facilitation",
+    detail: "2–3 hours",
+    description:
+      "An intimate, off-the-record session for a small group of founders or execs. Riz facilitates a real conversation on AI leverage and scaling ops — sharper and more candid than any panel. Best for 6–12 people who want peer-level exchange, not a pitch.",
+  },
+  {
+    label: "Podcast guest",
+    detail: "Flexible",
+    description:
+      "Ten years scaling ops across four continents, told through what actually broke and what held. Riz talks AI literacy for operators, the Careem/Bolt/Wise years, and what changes when you give smart people powerful tools. Comfortable in long-form or quick-hit formats.",
+  },
 ];
 
 export default function SpeakingPage() {
   const heroTextureRef = useParallax<HTMLDivElement>(0.1);
   const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
+  const [activeFormat, setActiveFormat] = useState<string | null>(null);
 
   return (
     <>
@@ -134,6 +158,53 @@ export default function SpeakingPage() {
             transform: none !important;
           }
         }
+
+        .format-row {
+          padding: 1.1rem 1.5rem;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 0.95rem;
+          color: var(--body);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+          transition: background-color 0.22s ease;
+        }
+        .format-row:hover,
+        .format-row.active {
+          background-color: rgba(234, 106, 71, 0.05);
+        }
+        .format-row-chevron {
+          display: inline-flex;
+          color: var(--muted);
+          transition: transform 0.22s ease, color 0.22s ease;
+        }
+        .format-row:hover .format-row-chevron {
+          color: var(--coral);
+        }
+        .format-row.active .format-row-chevron {
+          color: var(--coral);
+          transform: rotate(180deg);
+        }
+        .format-row-panel {
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: max-height 0.25s ease, opacity 0.2s ease;
+        }
+        .format-row-panel.active {
+          max-height: 220px;
+          opacity: 1;
+          transition: max-height 0.22s ease, opacity 0.25s ease 0.02s;
+        }
+        .format-row-panel-text {
+          margin: 0;
+          padding: 0 1.5rem 1.1rem;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 0.85rem;
+          line-height: 1.7;
+          color: var(--body);
+        }
       `}</style>
 
       {/* TOPICS + FORMATS */}
@@ -213,36 +284,54 @@ export default function SpeakingPage() {
                   boxShadow: "var(--shadow)",
                 }}
               >
-                {formats.map((f, i) => (
-                  <AnimateIn
-                    key={f.label}
-                    delay={i * 80}
-                    style={{
-                      padding: "1.1rem 1.5rem",
-                      borderBottom: i < formats.length - 1 ? "1px solid var(--line)" : "none",
-                      fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.95rem",
-                      color: "var(--body)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                      <span style={{ color: "var(--coral)", fontSize: "0.55rem" }}>●</span>
-                      <span style={{ fontWeight: 500, color: "var(--ink)" }}>{f.label}</span>
-                    </div>
-                    <span
+                {formats.map((f, i) => {
+                  const isActive = activeFormat === f.label;
+                  return (
+                    <AnimateIn
+                      key={f.label}
+                      delay={i * 80}
                       style={{
-                        fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.72rem",
-                        color: "var(--muted)",
+                        borderBottom: i < formats.length - 1 ? "1px solid var(--line)" : "none",
                       }}
                     >
-                      {f.detail}
-                    </span>
-                  </AnimateIn>
-                ))}
+                      <div
+                        className={`format-row${isActive ? " active" : ""}`}
+                        onClick={() => setActiveFormat(isActive ? null : f.label)}
+                        role="button"
+                        tabIndex={0}
+                        aria-expanded={isActive}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            setActiveFormat(isActive ? null : f.label);
+                          }
+                        }}
+                      >
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                          <span style={{ color: "var(--coral)", fontSize: "0.55rem" }}>●</span>
+                          <span style={{ fontWeight: 500, color: "var(--ink)" }}>{f.label}</span>
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                          <span
+                            style={{
+                              fontFamily: "var(--font-dm-mono), monospace",
+                              fontSize: "0.72rem",
+                              color: "var(--muted)",
+                            }}
+                          >
+                            {f.detail}
+                          </span>
+                          <span className="format-row-chevron" aria-hidden="true">
+                            <ChevronDown size={16} strokeWidth={2} />
+                          </span>
+                        </div>
+                      </div>
+                      <div className={`format-row-panel${isActive ? " active" : ""}`}>
+                        <p className="format-row-panel-text">{f.description}</p>
+                      </div>
+                    </AnimateIn>
+                  );
+                })}
               </div>
             </AnimateIn>
           </div>

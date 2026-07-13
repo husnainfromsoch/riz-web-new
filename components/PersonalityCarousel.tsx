@@ -4,42 +4,56 @@ import Image from "next/image";
 
 type CarouselCard = {
   id: string;
-  kind: "video" | "instagram" | "placeholder";
+  kind: "video" | "placeholder";
   src?: string;
-  instagramId?: string;
+  instagramUrl?: string;
   poster?: string;
   tag: string;
   title: string;
   description: string;
 };
 
+const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/rizautomates";
+
 const carouselCards: CarouselCard[] = [
   {
     id: "card-1",
-    kind: "instagram",
-    instagramId: "DZx-_OHOqg4",
+    kind: "video",
+    src: "/videos/riz-reel.mp4",
+    instagramUrl: "https://www.instagram.com/reel/DZx-_OHOqg4/",
     tag: "REEL",
     title: "A message to AI influencers",
     description: "Calling out the hype — what actually ships vs what gets posted.",
   },
   {
     id: "card-2",
-    kind: "instagram",
-    instagramId: "DZr8EPSOkdB",
+    kind: "video",
+    src: "/videos/riz-reel-2.mp4",
+    instagramUrl: "https://www.instagram.com/reel/DZr8EPSOkdB/",
     tag: "REEL",
     title: "Operator perspective",
     description: "How an operator thinks about building systems. A live breakdown.",
   },
   {
     id: "card-3",
-    kind: "instagram",
-    instagramId: "DXltD2Ujl5s",
+    kind: "video",
+    src: "/videos/riz-reel-3.mp4",
+    instagramUrl: "https://www.instagram.com/reel/DXltD2Ujl5s/",
     tag: "REEL",
     title: "Stand-up · The AI bit",
     description: "The bit about AI that landed. Live at the mic in Tallinn.",
   },
   {
     id: "card-4",
+    kind: "video",
+    src: "/videos/riz-reel-4.mp4",
+    instagramUrl: INSTAGRAM_PROFILE_URL,
+    tag: "REEL",
+    title: "More from the feed",
+    description: "Another clip from the Instagram grid.",
+  },
+  {
+    id: "card-5",
     kind: "placeholder",
     poster: "/Photos/riz-lake.jpg",
     tag: "COMING SOON",
@@ -47,7 +61,7 @@ const carouselCards: CarouselCard[] = [
     description: "Long-form breakdowns, dropping soon.",
   },
   {
-    id: "card-5",
+    id: "card-6",
     kind: "placeholder",
     poster: "/Photos/riz-vespa.jpg",
     tag: "COMING SOON",
@@ -75,12 +89,14 @@ function PauseIcon() {
 
 function VideoCard({
   card,
+  instanceId,
   isActive,
   onActivate,
   onDeactivate,
   registerVideo,
 }: {
   card: CarouselCard;
+  instanceId: string;
   isActive: boolean;
   onActivate: () => void;
   onDeactivate: () => void;
@@ -96,7 +112,7 @@ function VideoCard({
   }
 
   return (
-    <div className="pc-card" data-card-id={card.id}>
+    <div className="pc-card" data-instance-id={instanceId}>
       <div className="pc-video-wrap" onClick={handleToggle}>
         <video
           ref={registerVideo}
@@ -117,33 +133,26 @@ function VideoCard({
         <div className="pc-footer">
           <p className="pc-title">{card.title}</p>
           <p className="pc-desc">{card.description}</p>
+          {card.instagramUrl && (
+            <a
+              href={card.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pc-ig-link"
+              onClick={(e) => e.stopPropagation()}
+            >
+              View more on Instagram
+            </a>
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-function InstagramCard({ card }: { card: CarouselCard }) {
+function PlaceholderCard({ card, instanceId }: { card: CarouselCard; instanceId: string }) {
   return (
-    <div className="pc-card" data-card-id={card.id}>
-      <div className="pc-video-wrap pc-video-wrap--ig">
-        <iframe
-          className="pc-ig-frame"
-          src={`https://www.instagram.com/reel/${card.instagramId}/embed/captioned/`}
-          title={card.title}
-          loading="lazy"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-        />
-        <span className="pc-badge">{card.tag}</span>
-      </div>
-    </div>
-  );
-}
-
-function PlaceholderCard({ card }: { card: CarouselCard }) {
-  return (
-    <div className="pc-card" data-card-id={card.id}>
+    <div className="pc-card" data-instance-id={instanceId}>
       <div className="pc-video-wrap pc-video-wrap--placeholder">
         {card.poster && (
           <Image
@@ -165,12 +174,18 @@ function PlaceholderCard({ card }: { card: CarouselCard }) {
   );
 }
 
+// Two consecutive copies of the deck let the track translate exactly one
+// set's width and land back on an identical layout — a seamless loop.
+const trackCards = [
+  ...carouselCards.map((card) => ({ card, instanceId: `${card.id}-a` })),
+  ...carouselCards.map((card) => ({ card, instanceId: `${card.id}-b` })),
+];
+
 export default function PersonalityCarousel() {
-  const rowRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<Map<string, HTMLVideoElement>>(new Map());
   const [activeId, setActiveId] = useState<string | null>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const activeIdRef = useRef<string | null>(null);
   activeIdRef.current = activeId;
 
@@ -200,13 +215,13 @@ export default function PersonalityCarousel() {
     setActiveId(id);
   }, []);
 
-  // Autoplay-muted-on-scroll-into-view + reset unmuted state when a card scrolls away
+  // Autoplay-muted-on-drift-into-view + reset unmuted state when a card drifts away
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const wrap = entry.target as HTMLElement;
-          const id = wrap.dataset.cardId;
+          const id = wrap.dataset.instanceId;
           if (!id) return;
           const video = videoRefs.current.get(id);
           if (!video) return;
@@ -225,165 +240,134 @@ export default function PersonalityCarousel() {
       { threshold: 0.6 }
     );
 
-    const cards = rowRef.current?.querySelectorAll("[data-card-id]");
+    const cards = trackRef.current?.querySelectorAll("[data-instance-id]");
     cards?.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
-  const updateScrollState = useCallback(() => {
-    const row = rowRef.current;
-    if (!row) return;
-    setCanScrollLeft(row.scrollLeft > 8);
-    setCanScrollRight(row.scrollLeft < row.scrollWidth - row.clientWidth - 8);
-  }, []);
+  // Called by the arrow buttons to jump the track by one card without
+  // fighting the continuous drift set up in the effect below.
+  const nudgeRef = useRef<(direction: 1 | -1) => void>(() => {});
 
+  // Continuous constant-speed drift (same technique/pace as the site's logo
+  // ticker marquee), driven by rAF so hover-pause/resume never jumps and
+  // arrow clicks can nudge the offset directly. Loops seamlessly because the
+  // deck is rendered twice — wrapping at exactly one set's width is invisible.
   useEffect(() => {
-    updateScrollState();
-    const row = rowRef.current;
-    if (!row) return;
-    row.addEventListener("scroll", updateScrollState, { passive: true });
-    window.addEventListener("resize", updateScrollState);
-    return () => {
-      row.removeEventListener("scroll", updateScrollState);
-      window.removeEventListener("resize", updateScrollState);
-    };
-  }, [updateScrollState]);
-
-  // Filled in by the auto-scroll effect below; called by the arrow buttons
-  // so a manual nudge pauses the auto-scroll the same way hover/touch does.
-  const pauseAutoScrollRef = useRef<() => void>(() => {});
-  const resumeAutoScrollRef = useRef<() => void>(() => {});
-
-  function scrollByCard(direction: 1 | -1) {
-    const row = rowRef.current;
-    if (!row) return;
-    pauseAutoScrollRef.current();
-    resumeAutoScrollRef.current();
-    const card = row.querySelector<HTMLElement>("[data-card-id]");
-    const cardWidth = card ? card.getBoundingClientRect().width : 260;
-    const gap = 20;
-    row.scrollBy({ left: direction * (cardWidth + gap), behavior: "smooth" });
-  }
-
-  // Slow, continuous auto-scroll that pauses on hover/touch/active playback
-  // and whenever the user manually scrolls, resuming a moment later.
-  useEffect(() => {
-    const row = rowRef.current;
-    if (!row) return;
+    const track = trackRef.current;
+    const viewport = viewportRef.current;
+    if (!track || !viewport) return;
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
     if (prefersReducedMotion) return;
 
-    // scroll-snap-type fights programmatic scrollLeft nudges (it snaps back
-    // to the nearest card after every micro-adjustment), so it's only left
-    // on while the user is actually interacting with the row.
-    const originalSnap = row.style.scrollSnapType;
-    const disableSnap = () => {
-      row.style.scrollSnapType = "none";
-    };
-    const restoreSnap = () => {
-      row.style.scrollSnapType = originalSnap;
-    };
-
+    const SPEED_PX_PER_SEC = 45; // matches the hero logo ticker's pace
+    let offset = 0;
+    let setWidth = track.scrollWidth / 2;
     let paused = false;
-    let direction: 1 | -1 = 1;
-    let resumeTimeout: ReturnType<typeof setTimeout> | null = null;
-    let rafId: number;
+    let lastTime = 0;
+    let rafId = 0;
 
-    const pause = () => {
-      paused = true;
-      restoreSnap();
+    const applyTransform = () => {
+      track.style.transform = `translate3d(${-offset}px, 0, 0)`;
     };
-    const resume = () => {
-      if (resumeTimeout) clearTimeout(resumeTimeout);
-      resumeTimeout = setTimeout(() => {
-        paused = false;
-        disableSnap();
-      }, 2200);
+    applyTransform();
+
+    const measure = () => {
+      const nextSetWidth = track.scrollWidth / 2;
+      if (nextSetWidth > 0) {
+        setWidth = nextSetWidth;
+        offset = ((offset % setWidth) + setWidth) % setWidth;
+        applyTransform();
+      }
     };
+    window.addEventListener("resize", measure);
 
-    pauseAutoScrollRef.current = pause;
-    resumeAutoScrollRef.current = resume;
-
-    const handleManualScroll = () => {
-      pause();
-      resume();
-    };
-
-    row.addEventListener("pointerenter", pause);
-    row.addEventListener("pointerleave", resume);
-    row.addEventListener("touchstart", pause, { passive: true });
-    row.addEventListener("touchend", resume, { passive: true });
-    row.addEventListener("wheel", handleManualScroll, { passive: true });
-    row.addEventListener("pointerdown", pause);
-    row.addEventListener("pointerup", resume);
-
-    disableSnap();
-    const tick = () => {
-      if (!paused && activeIdRef.current === null) {
-        const maxScroll = row.scrollWidth - row.clientWidth;
-        if (maxScroll > 0) {
-          if (row.scrollLeft >= maxScroll - 1) direction = -1;
-          else if (row.scrollLeft <= 1) direction = 1;
-          row.scrollLeft += direction * 0.6;
-        }
+    const tick = (time: number) => {
+      if (!lastTime) lastTime = time;
+      const dt = (time - lastTime) / 1000;
+      lastTime = time;
+      if (!paused && activeIdRef.current === null && setWidth > 0) {
+        offset += SPEED_PX_PER_SEC * dt;
+        if (offset >= setWidth) offset -= setWidth;
+        applyTransform();
       }
       rafId = requestAnimationFrame(tick);
     };
     rafId = requestAnimationFrame(tick);
 
+    const pause = () => {
+      paused = true;
+    };
+    const resume = () => {
+      lastTime = 0;
+      paused = false;
+    };
+
+    nudgeRef.current = (direction) => {
+      const card = track.querySelector<HTMLElement>("[data-instance-id]");
+      const cardWidth = card ? card.getBoundingClientRect().width : 260;
+      const gap = 20;
+      const step = cardWidth + gap;
+      if (setWidth > 0) {
+        offset = ((offset + direction * step) % setWidth + setWidth) % setWidth;
+        applyTransform();
+      }
+    };
+
+    viewport.addEventListener("pointerenter", pause);
+    viewport.addEventListener("pointerleave", resume);
+    viewport.addEventListener("touchstart", pause, { passive: true });
+    viewport.addEventListener("touchend", resume, { passive: true });
+
     return () => {
       cancelAnimationFrame(rafId);
-      if (resumeTimeout) clearTimeout(resumeTimeout);
-      restoreSnap();
-      row.removeEventListener("pointerenter", pause);
-      row.removeEventListener("pointerleave", resume);
-      row.removeEventListener("touchstart", pause);
-      row.removeEventListener("touchend", resume);
-      row.removeEventListener("wheel", handleManualScroll);
-      row.removeEventListener("pointerdown", pause);
-      row.removeEventListener("pointerup", resume);
+      window.removeEventListener("resize", measure);
+      viewport.removeEventListener("pointerenter", pause);
+      viewport.removeEventListener("pointerleave", resume);
+      viewport.removeEventListener("touchstart", pause);
+      viewport.removeEventListener("touchend", resume);
     };
   }, []);
 
   return (
     <div className="pc-wrap">
-      <div className="pc-row" ref={rowRef}>
-        {carouselCards.map((card) => {
-          if (card.kind === "video") {
-            return (
-              <VideoCard
-                key={card.id}
-                card={card}
-                isActive={activeId === card.id}
-                onActivate={() => activate(card.id)}
-                onDeactivate={() => deactivate(card.id)}
-                registerVideo={(el) => registerVideo(card.id, el)}
-              />
-            );
-          }
-          if (card.kind === "instagram") {
-            return <InstagramCard key={card.id} card={card} />;
-          }
-          return <PlaceholderCard key={card.id} card={card} />;
-        })}
+      <div className="pc-marquee-viewport" ref={viewportRef}>
+        <div className="pc-track" ref={trackRef}>
+          {trackCards.map(({ card, instanceId }) => {
+            if (card.kind === "video") {
+              return (
+                <VideoCard
+                  key={instanceId}
+                  card={card}
+                  instanceId={instanceId}
+                  isActive={activeId === instanceId}
+                  onActivate={() => activate(instanceId)}
+                  onDeactivate={() => deactivate(instanceId)}
+                  registerVideo={(el) => registerVideo(instanceId, el)}
+                />
+              );
+            }
+            return <PlaceholderCard key={instanceId} card={card} instanceId={instanceId} />;
+          })}
+        </div>
       </div>
 
       <button
         type="button"
         aria-label="Scroll left"
-        className={`pc-arrow pc-arrow-left${canScrollLeft ? "" : " pc-arrow-hidden"}`}
-        onClick={() => scrollByCard(-1)}
+        className="pc-arrow pc-arrow-left"
+        onClick={() => nudgeRef.current(-1)}
       >
         ‹
       </button>
       <button
         type="button"
         aria-label="Scroll right"
-        className={`pc-arrow pc-arrow-right${canScrollRight ? "" : " pc-arrow-hidden"}`}
-        onClick={() => scrollByCard(1)}
+        className="pc-arrow pc-arrow-right"
+        onClick={() => nudgeRef.current(1)}
       >
         ›
       </button>
