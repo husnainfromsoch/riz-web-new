@@ -2227,7 +2227,7 @@ export default function Home() {
         {/* CTA strip below carousel */}
         <div className="max-w-site" style={{ marginTop: "48px", textAlign: "center" }}>
           <a
-            href="https://www.instagram.com/rizautomates"
+            href="https://www.instagram.com/etz.riz/"
             target="_blank"
             rel="noopener noreferrer"
             className="oc-ig-cta"

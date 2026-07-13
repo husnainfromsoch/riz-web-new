@@ -95,9 +95,9 @@ export default function HeroSection() {
           background: var(--hz-cream);
         }
         .hz-wrap {
-          max-width: 1360px;
+          max-width: var(--maxw);
           margin: 0 auto;
-          padding: 0 60px;
+          padding: 0 40px;
           position: relative;
           z-index: 1;
         }

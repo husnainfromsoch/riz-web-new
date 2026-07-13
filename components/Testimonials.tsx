@@ -7,6 +7,8 @@ export type Testimonial = {
   name: string;
   roleLine: string;
   quote: string;
+  /** Short preview of `quote` for the clickable grid cards — full quote shows only in the featured box. */
+  teaser?: string;
   initials: string;
   avatarUrl?: string;
   /** True until this is swapped for a real client quote. Not shown in the UI — internal tracking only. */
@@ -15,7 +17,7 @@ export type Testimonial = {
   fullCompany?: string;
   /** Placeholder href ("#") — swap for the person's real LinkedIn URL. */
   linkedinUrl?: string;
-  /** Placeholder href ("#") — swap once a case-study/testimonial page exists. */
+  /** Placeholder href ("#") — not currently rendered; kept for when a case-study/testimonial page exists. */
   readMoreHref?: string;
 };
 
@@ -28,6 +30,8 @@ export const testimonials: Testimonial[] = [
     roleLine: "Founder, B2B SaaS",
     quote:
       "Riz didn't just wire up automations — he made us rebuild how we thought about the whole sales pipeline first. That's the part that actually stuck.",
+    teaser:
+      "Riz didn't just wire up automations — he made us rebuild how we thought about the whole sales pipeline first…",
     initials: "AW",
     avatarUrl: "/images/testimonials/amara.jpg",
     isPlaceholder: true,
@@ -41,6 +45,8 @@ export const testimonials: Testimonial[] = [
     roleLine: "Head of Ops, logistics scale-up",
     quote:
       'We\'d tried three other "AI consultants" before Riz. He was the first one who asked about our process before touching a single tool.',
+    teaser:
+      'We\'d tried three other "AI consultants" before Riz. He was the first one who asked about our process…',
     initials: "DO",
     avatarUrl: "/images/testimonials/daniel.jpg",
     isPlaceholder: true,
@@ -54,6 +60,8 @@ export const testimonials: Testimonial[] = [
     roleLine: "COO, recruitment agency",
     quote:
       "The workshop paid for itself in the first week — my team stopped treating AI like a toy and started treating it like leverage.",
+    teaser:
+      "The workshop paid for itself in the first week — my team stopped treating AI like a toy…",
     initials: "PN",
     avatarUrl: "/images/testimonials/priya.jpg",
     isPlaceholder: true,
@@ -67,6 +75,8 @@ export const testimonials: Testimonial[] = [
     roleLine: "Managing Partner, law firm",
     quote:
       "Straightforward, no-nonsense advisory. Riz told us what wouldn't work before we spent a cent building it.",
+    teaser:
+      "Straightforward, no-nonsense advisory. Riz told us what wouldn't work before we spent a cent…",
     initials: "MF",
     avatarUrl: "/images/testimonials/marcus.jpg",
     isPlaceholder: true,
@@ -116,9 +126,9 @@ function Avatar({
   );
 }
 
-function LinkedInIcon() {
+function LinkedInIcon({ size = 14 }: { size?: number }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.55V9h3.57v11.45z" />
     </svg>
   );
@@ -157,14 +167,27 @@ function TestimonialCard({
     >
       {isRecent && <span className="testimonials-card-badge">Previously featured</span>}
       <span className="testimonials-card-mark" aria-hidden="true">&ldquo;</span>
-      <p className="testimonials-card-quote">{t.quote}</p>
+      <p className="testimonials-card-quote">{clickable && t.teaser ? t.teaser : t.quote}</p>
       <div className="testimonials-author">
         <Avatar initials={t.initials} avatarUrl={t.avatarUrl} name={t.name} size={36} />
         <div>
           <div className="testimonials-author-name">{t.name}</div>
-          <div className="testimonials-author-role">{t.roleLine}</div>
+          {/* Role/company/LinkedIn stay exclusive to the featured box — the payoff for clicking. */}
+          {!clickable && <div className="testimonials-author-role">{t.roleLine}</div>}
         </div>
       </div>
+      {clickable && (
+        <button
+          type="button"
+          className="testimonials-readmore testimonials-readmore-card"
+          onClick={(e) => {
+            e.stopPropagation();
+            onFeature!(t.id);
+          }}
+        >
+          Read the full story <span aria-hidden="true">→</span>
+        </button>
+      )}
     </div>
   );
 }
@@ -216,39 +239,36 @@ export default function TestimonialsSection({
               <span className="testimonials-featured-mark" aria-hidden="true">&ldquo;</span>
               <div key={featured.id} className="testimonials-featured-content">
                 <p className="testimonials-featured-quote">{featured.quote}</p>
-                <div className="testimonials-author">
+                <div className="testimonials-featured-person">
                   <Avatar
                     initials={featured.initials}
                     avatarUrl={featured.avatarUrl}
                     name={featured.name}
-                    size={48}
+                    size={68}
                   />
                   <div>
-                    <div className="testimonials-author-name-row">
-                      <span className="testimonials-author-name">{featured.name}</span>
+                    <div className="testimonials-featured-name-row">
+                      <span className="testimonials-featured-name">{featured.name}</span>
                       {featured.linkedinUrl && (
                         <a
                           href={featured.linkedinUrl}
-                          className="testimonials-linkedin-link"
+                          className="testimonials-linkedin-btn"
                           aria-label={`${featured.name} on LinkedIn`}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <LinkedInIcon />
+                          <LinkedInIcon size={15} />
                         </a>
                       )}
                     </div>
-                    <div className="testimonials-author-role">{featured.roleLine}</div>
-                    {featured.fullCompany && (
-                      <div className="testimonials-author-company">at {featured.fullCompany}</div>
-                    )}
+                    <div className="testimonials-featured-role">
+                      <span>{featured.roleLine}</span>
+                      {featured.fullCompany && (
+                        <span className="testimonials-featured-company">{featured.fullCompany}</span>
+                      )}
+                    </div>
                   </div>
                 </div>
-                {featured.readMoreHref && (
-                  <a href={featured.readMoreHref} className="testimonials-readmore">
-                    Read the full story <span aria-hidden="true">→</span>
-                  </a>
-                )}
               </div>
             </div>
           </AnimateIn>
