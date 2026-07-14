@@ -13,14 +13,14 @@ type CarouselCard = {
   description: string;
 };
 
-const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/etz.riz/";
+const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/etz.riz/reels/";
 
 const carouselCards: CarouselCard[] = [
   {
     id: "card-1",
     kind: "video",
     src: "/videos/riz-reel.mp4",
-    instagramUrl: "https://www.instagram.com/reel/DZx-_OHOqg4/",
+    instagramUrl: INSTAGRAM_PROFILE_URL,
     tag: "REEL",
     title: "A message to AI influencers",
     description: "Calling out the hype — what actually ships vs what gets posted.",
@@ -29,7 +29,7 @@ const carouselCards: CarouselCard[] = [
     id: "card-2",
     kind: "video",
     src: "/videos/riz-reel-2.mp4",
-    instagramUrl: "https://www.instagram.com/reel/DZr8EPSOkdB/",
+    instagramUrl: INSTAGRAM_PROFILE_URL,
     tag: "REEL",
     title: "Operator perspective",
     description: "How an operator thinks about building systems. A live breakdown.",
@@ -38,7 +38,7 @@ const carouselCards: CarouselCard[] = [
     id: "card-3",
     kind: "video",
     src: "/videos/riz-reel-3.mp4",
-    instagramUrl: "https://www.instagram.com/reel/DXltD2Ujl5s/",
+    instagramUrl: INSTAGRAM_PROFILE_URL,
     tag: "REEL",
     title: "Stand-up · The AI bit",
     description: "The bit about AI that landed. Live at the mic in Tallinn.",
@@ -54,19 +54,30 @@ const carouselCards: CarouselCard[] = [
   },
   {
     id: "card-5",
-    kind: "placeholder",
-    poster: "/Photos/riz-lake.jpg",
-    tag: "COMING SOON",
-    title: "Podcast clips",
-    description: "Long-form breakdowns, dropping soon.",
+    kind: "video",
+    src: "/videos/riz-reel-5.mp4",
+    instagramUrl: INSTAGRAM_PROFILE_URL,
+    tag: "REEL",
+    title: "Podcast clips", // placeholder — flagged for review
+    description: "Long-form breakdowns, cut down to the good parts.", // placeholder — flagged for review
   },
   {
     id: "card-6",
-    kind: "placeholder",
-    poster: "/Photos/riz-vespa.jpg",
-    tag: "COMING SOON",
-    title: "Behind the build",
-    description: "Raw footage from client builds, dropping soon.",
+    kind: "video",
+    src: "/videos/riz-reel-6.mp4",
+    instagramUrl: INSTAGRAM_PROFILE_URL,
+    tag: "REEL",
+    title: "Behind the build", // placeholder — flagged for review
+    description: "Raw footage from a client build, start to finish.", // placeholder — flagged for review
+  },
+  {
+    id: "card-7",
+    kind: "video",
+    src: "/videos/riz-reel-7.mp4",
+    instagramUrl: INSTAGRAM_PROFILE_URL,
+    tag: "REEL",
+    title: "More from the feed", // placeholder — flagged for review
+    description: "Another clip straight from the Instagram grid.", // placeholder — flagged for review
   },
 ];
 

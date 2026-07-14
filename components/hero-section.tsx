@@ -28,7 +28,6 @@ const MARQUEE_LABELS: MarqueeLabel[] = [
   { label: "Bolt", img: "/logos/bolt.png", w: 48 },
   { label: "Wise", img: "/logos/wise.svg", w: 106 },
   { label: "Anthropic", img: "/logos/anthropic.png", w: 111 },
-  { label: "Tallinn" },
   { label: "n8n Builder", img: "/logos/n8n.svg", w: 28 },
   { label: "AI Operator", icon: AiOperatorMark },
 ];

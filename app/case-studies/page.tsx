@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, CSSProperties } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 import AnimateIn from "@/components/AnimateIn";
@@ -46,7 +46,20 @@ const CASE_IMAGES: Record<string, string> = {
   logistics: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&q=80",
 };
 
-const caseRows = [
+const ACCENT_PALETTE = [
+  "#C24629", // coral (brand-derived, darkened for AA contrast)
+  "#B8562F", // rust
+  "#5E7145", // olive / sage
+  "#C2410C", // deep coral / burnt orange
+  "#2E7C74", // teal
+  "#8C6A1E", // muted gold
+  "#B5576B", // dusty rose
+  "#3E6B4F", // forest green
+  "#8A4B3B", // terracotta
+  "#A15A2A", // amber / ochre
+];
+
+const caseRowsBase = [
   {
     id: "cs-01",
     num: "01",
@@ -649,6 +662,11 @@ const caseRows = [
   },
 ];
 
+const caseRows = caseRowsBase.map((row, i) => ({
+  ...row,
+  accent: ACCENT_PALETTE[i % ACCENT_PALETTE.length],
+}));
+
 /* ─── page ───────────────────────────────────────────────────────────────────── */
 
 function CaseStudiesContent() {
@@ -687,27 +705,27 @@ function CaseStudiesContent() {
           text-decoration: none;
         }
         .proof-row:hover {
-          background-color: rgba(234,106,71,0.02);
-          border-left-color: #EA6A47;
+          background-color: var(--row-accent-bg-hover, rgba(234,106,71,0.02));
+          border-left-color: var(--row-accent, #EA6A47);
           padding-left: 20px;
         }
         .proof-row.active {
-          background-color: rgba(234,106,71,0.06);
-          border-left-color: #EA6A47;
+          background-color: var(--row-accent-bg-active, rgba(234,106,71,0.06));
+          border-left-color: var(--row-accent, #EA6A47);
           border-left-width: 4px;
           padding-left: 20px;
         }
         .proof-row-num {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
           font-size: 12px;
-          color: #EA6A47;
+          color: var(--row-accent, #EA6A47);
           letter-spacing: 0.1em;
         }
         .proof-row-tag {
           font-family: 'Geist Mono', var(--font-geist-mono), monospace;
           font-size: 0.8rem;
           font-weight: 600;
-          color: #E8603C;
+          color: var(--row-accent, #E8603C);
           letter-spacing: 0.08em;
           line-height: 1.4;
           text-transform: uppercase;
@@ -730,10 +748,10 @@ function CaseStudiesContent() {
           justify-self: end;
         }
         .proof-row:hover .proof-row-arrow {
-          color: #EA6A47;
+          color: var(--row-accent, #EA6A47);
         }
         .proof-row.active .proof-row-arrow {
-          color: #EA6A47;
+          color: var(--row-accent, #EA6A47);
           transform: rotate(180deg);
         }
 
@@ -941,6 +959,7 @@ function CaseStudiesContent() {
           max-height: 900px;
           opacity: 1;
           border-color: var(--line);
+          box-shadow: inset 0 3px 0 0 var(--row-accent, #EA6A47);
         }
         .case-panel-header {
           background: #22332C;
@@ -1155,12 +1174,18 @@ function CaseStudiesContent() {
           {visibleRows.map((row, i) => {
             const isActive = activeCase === row.id;
             const isDimmed = activeCase !== null && !isActive;
+            const rowAccentStyle = {
+              "--row-accent": row.accent,
+              "--row-accent-bg-hover": `${row.accent}05`,
+              "--row-accent-bg-active": `${row.accent}0F`,
+            } as CSSProperties;
             return (
               <AnimateIn
                 as="div"
                 key={row.id}
                 delay={Math.min(i, 6) * 80}
                 className={`case-row-wrap${isDimmed ? " dimmed" : ""}`}
+                style={rowAccentStyle}
               >
                 <div
                   id={row.id}

@@ -872,13 +872,13 @@ p, li, td, th, label, input, textarea, select {
 
 .pc-arrow {
   position: absolute;
-  top: 42%;
+  top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(6px);
   color: var(--ink);
   font-size: 22px;
@@ -887,22 +887,25 @@ p, li, td, th, label, input, textarea, select {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: var(--shadow);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.12);
   transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  z-index: 4;
+  z-index: 5;
 }
 
 .pc-arrow:hover {
   background: var(--coral);
   color: #fff;
+  transform: translateY(-50%) scale(1.06);
 }
 
+/* Positioned outside the card track (in the section gutter) rather than
+   on top of it, so they read as standalone nav controls, not overlays. */
 .pc-arrow-left {
-  left: max(12px, calc((100% - var(--maxw)) / 2 + 12px));
+  left: max(-8px, calc((100% - var(--maxw)) / 2 - 30px));
 }
 
 .pc-arrow-right {
-  right: 12px;
+  right: max(-8px, calc((100% - var(--maxw)) / 2 - 30px));
 }
 
 @media (max-width: 767px) {

@@ -1,12 +1,15 @@
 "use client";
-import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import Link from "next/link";
 import { Mic, Globe, Languages, Handshake, BadgeCheck } from "lucide-react";
 import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const pills = [
-  "Cambridge", "Careem", "Bolt", "Wise", "Tallinn", "Anthropic Partner",
+  { label: "Careem", logo: "/logos/careem.png" },
+  { label: "Bolt", logo: "/logos/bolt.png" },
+  { label: "Wise", logo: "/logos/wise.svg" },
+  { label: "Anthropic Partner", logo: "/logos/anthropic.png" },
 ];
 
 const timeline = [
@@ -131,26 +134,44 @@ const lessons = [
   {
     title: "Clarity before tools.",
     body: "Every failed automation I've seen started with the wrong question. Fix the thinking first.",
+    accent: "#C24629",
+    rotate: -1.5,
+    offsetY: 0,
   },
   {
     title: "The bottleneck is usually the process.",
     body: "Not the people. Not the tools. The process nobody wants to admit is broken.",
+    accent: "#5E7145",
+    rotate: 1.2,
+    offsetY: 18,
   },
   {
     title: "Ship it, then improve it.",
     body: "The best system is the one that runs. Perfect is the enemy of shipped.",
+    accent: "#2E7C74",
+    rotate: -1,
+    offsetY: -8,
   },
   {
     title: "Document everything.",
     body: "The Bolt case taught me this the hard way. Write it down. Every time.",
+    accent: "#8C6A1E",
+    rotate: 1.6,
+    offsetY: 6,
   },
   {
     title: "Automation amplifies what's already there.",
     body: "Good thinking gets better. Muddled thinking gets louder. Choose which one to scale.",
+    accent: "#B5576B",
+    rotate: -1.8,
+    offsetY: 20,
   },
   {
     title: "The human still matters.",
     body: "The best automation I've built makes the human more human — not less necessary.",
+    accent: "#3E6B4F",
+    rotate: 1,
+    offsetY: -4,
   },
 ];
 
@@ -436,14 +457,24 @@ export default function About() {
               <div className="about-credentials">
                 <p className="about-credentials-label">TRACK RECORD</p>
                 <div className="about-credentials-row">
-                  {pills.map((pill) => {
-                    const featured = pill === "Anthropic Partner";
+                  {pills.map((pill, i) => {
+                    const featured = pill.label === "Anthropic Partner";
                     return (
-                      <Fragment key={pill}>
-                        <span aria-hidden="true" className="about-credentials-dot">
-                          &middot;
-                        </span>
+                      <Fragment key={pill.label}>
+                        {i > 0 && (
+                          <span aria-hidden="true" className="about-credentials-dot">
+                            &middot;
+                          </span>
+                        )}
                         <span className={featured ? "about-pill about-pill-featured" : "about-pill"}>
+                          {pill.logo && (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              src={pill.logo}
+                              alt={pill.label}
+                              className="about-pill-logo"
+                            />
+                          )}
                           {featured && (
                             <BadgeCheck
                               size={14}
@@ -451,7 +482,7 @@ export default function About() {
                               className="about-pill-icon"
                             />
                           )}
-                          {pill}
+                          {featured || !pill.logo ? pill.label : null}
                         </span>
                       </Fragment>
                     );
@@ -547,12 +578,12 @@ export default function About() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: "var(--font-inter-tight), sans-serif",
+                    fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
                     fontSize: 14,
                     fontWeight: 400,
-                    color: "var(--body)",
+                    color: "var(--ink)",
                     opacity: 1,
-                    lineHeight: 1.7,
+                    lineHeight: 1.65,
                     margin: 0,
                   }}
                 >
@@ -595,16 +626,18 @@ export default function About() {
             className="lessons-grid"
           >
             {lessons.map((lesson, i) => (
-              <AnimateIn key={lesson.title} delay={i * 80}>
-                <div className="lesson-card">
-                  <p
-                    style={{
-                      fontFamily: "var(--font-geist-mono), monospace",
-                      fontSize: 11,
-                      color: "rgba(234,106,71,0.6)",
-                      marginBottom: 12,
-                    }}
-                  >
+              <AnimateIn key={lesson.title} delay={i * 90}>
+                <div
+                  className="lesson-card"
+                  style={
+                    {
+                      "--lesson-rotate": `${lesson.rotate}deg`,
+                      "--lesson-offset": `${lesson.offsetY}px`,
+                      "--lesson-accent": lesson.accent,
+                    } as CSSProperties
+                  }
+                >
+                  <p className="lesson-card-number">
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <h3
@@ -763,6 +796,13 @@ export default function About() {
         .about-pill-icon {
           color: #EA6A47;
           flex-shrink: 0;
+        }
+        .about-pill-logo {
+          display: block;
+          height: 40px;
+          width: auto;
+          max-width: 120px;
+          object-fit: contain;
         }
         .about-cta {
           display: inline-flex;
@@ -977,15 +1017,38 @@ export default function About() {
           border-radius: 18px;
           padding: 28px 24px;
           height: 100%;
-          transition: all 0.25s ease;
+          transform: rotate(var(--lesson-rotate, 0deg)) translateY(var(--lesson-offset, 0px));
+          box-shadow: 0 2px 8px rgba(34,51,44,0.06);
+          transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
         }
         .lesson-card:hover {
           background: #fdfaf3;
-          transform: translateY(-5px);
+          transform: rotate(0deg) translateY(calc(var(--lesson-offset, 0px) - 8px));
+          box-shadow: 0 18px 32px rgba(34,51,44,0.14);
+        }
+        .lesson-card-number {
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 11px;
+          color: var(--lesson-accent, #EA6A47);
+          opacity: 0.55;
+          margin: 0 0 12px;
+          display: inline-block;
+          transition: transform 0.3s ease, opacity 0.3s ease;
+          transform-origin: left center;
+        }
+        .lesson-card:hover .lesson-card-number {
+          opacity: 1;
+          transform: scale(1.5);
         }
         @media (max-width: 860px) {
           .lessons-grid {
             grid-template-columns: 1fr !important;
+          }
+          .lesson-card {
+            transform: none !important;
+          }
+          .lesson-card:hover {
+            transform: translateY(-4px) !important;
           }
         }
         @keyframes statGradient {

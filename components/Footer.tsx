@@ -61,7 +61,7 @@ const navColumns = [
     links: [
       { label: "Soch → withsoch.com", href: "https://withsoch.com", external: true },
       { label: "riz@withsoch.com", href: "mailto:riz@withsoch.com" },
-      { label: "Anthropic Partner", href: null },
+      { label: "Anthropic Partner", href: null, logo: "/logos/anthropic.png" },
     ],
   },
 ];
@@ -313,6 +313,17 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           color: rgba(34,51,44,0.45);
           margin-bottom: 14px;
         }
+        .ftr-static-inline {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .ftr-static-logo {
+          height: 20px;
+          width: auto;
+          flex-shrink: 0;
+          opacity: 0.75;
+        }
 
         @media (max-width: 1024px) {
           .ftr-grid {
@@ -423,6 +434,11 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
                     <FooterNavLink key={l.label} href={l.href} external={"external" in l ? l.external : undefined}>
                       {l.label}
                     </FooterNavLink>
+                  ) : "logo" in l && l.logo ? (
+                    <span key={l.label} className="ftr-static ftr-static-inline">
+                      <img src={l.logo} alt="" className="ftr-static-logo" />
+                      {l.label}
+                    </span>
                   ) : (
                     <span key={l.label} className="ftr-static">
                       {l.label}

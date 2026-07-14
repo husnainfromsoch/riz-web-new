@@ -164,6 +164,12 @@ export default function FeaturedCaseStudies() {
         }
 
         .fcs-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 28px;
+        }
+
+        .fcs-row {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 28px;
@@ -464,7 +470,7 @@ export default function FeaturedCaseStudies() {
         }
 
         @media (max-width: 900px) {
-          .fcs-grid {
+          .fcs-row {
             grid-template-columns: 1fr;
           }
         }
@@ -507,114 +513,123 @@ export default function FeaturedCaseStudies() {
         <div className="fcs-header-divider" />
 
         <div className="fcs-grid">
-          {FEATURED_CASES.map((row, i) => {
-            const isActive = openId === row.id;
-            const Icon = row.icon;
+          {[FEATURED_CASES.slice(0, 2), FEATURED_CASES.slice(2, 4)].map((rowCases, rowIdx) => {
+            const rowHasOpen = rowCases.some((c) => c.id === openId);
             return (
-              <AnimateIn as="div" key={row.id} delay={i * 90}>
-                <div
-                  className={`fcs-card${isActive ? " active" : ""}`}
-                  onClick={() => toggleCard(row)}
-                  role="button"
-                  tabIndex={0}
-                  aria-expanded={isActive}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      toggleCard(row);
-                    }
-                  }}
-                >
-                  <div className="fcs-card-top">
-                    <span className="fcs-card-icon">
-                      <Icon size={19} strokeWidth={1.8} color="#EA6A47" />
-                    </span>
-                    <span className="fcs-card-tag">{row.tag}</span>
-                  </div>
+              <div key={rowIdx}>
+                <div className="fcs-row">
+                  {rowCases.map((row, i) => {
+                    const isActive = openId === row.id;
+                    const Icon = row.icon;
+                    return (
+                      <AnimateIn as="div" key={row.id} delay={(rowIdx * 2 + i) * 90}>
+                        <div
+                          className={`fcs-card${isActive ? " active" : ""}`}
+                          onClick={() => toggleCard(row)}
+                          role="button"
+                          tabIndex={0}
+                          aria-expanded={isActive}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              toggleCard(row);
+                            }
+                          }}
+                        >
+                          <div className="fcs-card-top">
+                            <span className="fcs-card-icon">
+                              <Icon size={19} strokeWidth={1.8} color="#EA6A47" />
+                            </span>
+                            <span className="fcs-card-tag">{row.tag}</span>
+                          </div>
 
-                  <div className="fcs-card-stat">{row.hero.number}</div>
-                  <p className="fcs-card-stat-desc">{row.hero.label}</p>
+                          <div className="fcs-card-stat">{row.hero.number}</div>
+                          <p className="fcs-card-stat-desc">{row.hero.label}</p>
 
-                  <div className="fcs-card-divider" />
+                          <div className="fcs-card-divider" />
 
-                  <h3 className="fcs-card-title">{row.title}</h3>
-                  <p className="fcs-card-result">{row.result}</p>
+                          <h3 className="fcs-card-title">{row.title}</h3>
+                          <p className="fcs-card-result">{row.result}</p>
 
-                  <div className="fcs-card-bottom">
-                    <span className="fcs-card-chevron" aria-hidden="true">
-                      <ChevronDown size={18} strokeWidth={2} />
-                    </span>
+                          <div className="fcs-card-bottom">
+                            <span className="fcs-card-chevron" aria-hidden="true">
+                              <ChevronDown size={18} strokeWidth={2} />
+                            </span>
+                          </div>
+                        </div>
+                      </AnimateIn>
+                    );
+                  })}
+                </div>
+
+                <div className={`fcs-panel${rowHasOpen ? " active" : ""}`}>
+                  <div className="fcs-panel-inner">
+                    <div className="fcs-panel-header">
+                      <span className="fcs-panel-header-title">{panelCase.title}</span>
+                      <button className="fcs-panel-close" onClick={() => setOpenId(null)}>
+                        ✕ CLOSE
+                      </button>
+                    </div>
+
+                    <div className="fcs-panel-content">
+                      <div className="fcs-panel-image">
+                        <img src={panelCase.image} alt={panelCase.title} />
+                        <div className="fcs-panel-image-overlay" />
+                      </div>
+
+                      <div className="fcs-panel-col-ba">
+                        <p className="meta-label" style={{ marginBottom: 12 }}>BEFORE</p>
+                        <ul className="fcs-panel-list">
+                          {panelCase.details.before.map((item, idx) => (
+                            <li key={idx}>
+                              <span style={{ color: "rgba(34,51,44,0.25)" }}>→ </span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="fcs-panel-divider" />
+                        <p className="meta-label after" style={{ marginBottom: 12 }}>AFTER</p>
+                        <ul className="fcs-panel-list after">
+                          {panelCase.details.after.map((item, idx) => (
+                            <li key={idx}>
+                              <span style={{ color: "#EA6A47" }}>→ </span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="fcs-panel-col-outcomes">
+                        <p className="meta-label" style={{ marginBottom: 20 }}>OUTCOMES</p>
+                        {panelCase.details.outcomes.map((stat, idx) => (
+                          <div className="fcs-stat" key={idx}>
+                            <div className="fcs-stat-number">{stat.number}</div>
+                            <div className="fcs-stat-desc">{stat.label}</div>
+                          </div>
+                        ))}
+
+                        <p className="meta-label" style={{ marginTop: 24, marginBottom: 10 }}>
+                          STACK
+                        </p>
+                        <div className="fcs-stack-pills">
+                          {panelCase.details.stack.map((tech, idx) => (
+                            <span className="fcs-stack-pill" key={idx}>
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+
+                        <p className="meta-label" style={{ marginTop: 16, marginBottom: 6 }}>
+                          DELIVERED IN
+                        </p>
+                        <div className="fcs-delivered-value">{panelCase.details.delivered}</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </AnimateIn>
+              </div>
             );
           })}
-        </div>
-
-        <div className={`fcs-panel${openId ? " active" : ""}`}>
-          <div className="fcs-panel-inner">
-            <div className="fcs-panel-header">
-              <span className="fcs-panel-header-title">{panelCase.title}</span>
-              <button className="fcs-panel-close" onClick={() => setOpenId(null)}>
-                ✕ CLOSE
-              </button>
-            </div>
-
-            <div className="fcs-panel-content">
-              <div className="fcs-panel-image">
-                <img src={panelCase.image} alt={panelCase.title} />
-                <div className="fcs-panel-image-overlay" />
-              </div>
-
-              <div className="fcs-panel-col-ba">
-                <p className="meta-label" style={{ marginBottom: 12 }}>BEFORE</p>
-                <ul className="fcs-panel-list">
-                  {panelCase.details.before.map((item, idx) => (
-                    <li key={idx}>
-                      <span style={{ color: "rgba(34,51,44,0.25)" }}>→ </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <div className="fcs-panel-divider" />
-                <p className="meta-label after" style={{ marginBottom: 12 }}>AFTER</p>
-                <ul className="fcs-panel-list after">
-                  {panelCase.details.after.map((item, idx) => (
-                    <li key={idx}>
-                      <span style={{ color: "#EA6A47" }}>→ </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="fcs-panel-col-outcomes">
-                <p className="meta-label" style={{ marginBottom: 20 }}>OUTCOMES</p>
-                {panelCase.details.outcomes.map((stat, idx) => (
-                  <div className="fcs-stat" key={idx}>
-                    <div className="fcs-stat-number">{stat.number}</div>
-                    <div className="fcs-stat-desc">{stat.label}</div>
-                  </div>
-                ))}
-
-                <p className="meta-label" style={{ marginTop: 24, marginBottom: 10 }}>
-                  STACK
-                </p>
-                <div className="fcs-stack-pills">
-                  {panelCase.details.stack.map((tech, idx) => (
-                    <span className="fcs-stack-pill" key={idx}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <p className="meta-label" style={{ marginTop: 16, marginBottom: 6 }}>
-                  DELIVERED IN
-                </p>
-                <div className="fcs-delivered-value">{panelCase.details.delivered}</div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <Link href="/case-studies" className="fcs-view-all">
