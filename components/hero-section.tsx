@@ -6,27 +6,6 @@ import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const PHOTO_URL = "/riz-photo-new.jpg";
 
-// Location pin — used for Tallinn since it's a city, not a brand with a logo.
-function TallinnMark() {
-  return (
-    <svg className="hz-marquee-icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 21s7-6.35 7-12a7 7 0 1 0-14 0c0 5.65 7 12 7 12Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-      <circle cx="12" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.8" />
-    </svg>
-  );
-}
-
-// Graduation cap — used for Cambridge since it denotes education, not a company logo.
-function CambridgeMark() {
-  return (
-    <svg className="hz-marquee-icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="m2 8 10-4 10 4-10 4L2 8Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-      <path d="M6 10.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M21.5 9v5.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-    </svg>
-  );
-}
-
 // Sparkle — used for "AI Operator" since it's a role, not a product with a logo.
 function AiOperatorMark() {
   return (
@@ -48,9 +27,8 @@ const MARQUEE_LABELS: MarqueeLabel[] = [
   { label: "Careem", img: "/logos/careem.png", w: 111 },
   { label: "Bolt", img: "/logos/bolt.png", w: 48 },
   { label: "Wise", img: "/logos/wise.svg", w: 106 },
-  { label: "Cambridge", icon: CambridgeMark },
-  { label: "Anthropic Partner", img: "/logos/anthropic.svg", w: 28 },
-  { label: "Tallinn", icon: TallinnMark },
+  { label: "Anthropic", img: "/logos/anthropic.png", w: 111 },
+  { label: "Tallinn" },
   { label: "n8n Builder", img: "/logos/n8n.svg", w: 28 },
   { label: "AI Operator", icon: AiOperatorMark },
 ];
@@ -328,39 +306,6 @@ export default function HeroSection() {
           display: block;
         }
 
-        .hz-proof-text {
-          font-size: 13px;
-          color: var(--hz-muted);
-          line-height: 1.4;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          flex-wrap: wrap;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-        }
-        .hz-proof-company {
-          display: inline-flex;
-          align-items: center;
-          gap: 4px;
-          font-weight: 700;
-          color: var(--hz-forest);
-          font-size: 13px;
-        }
-        .hz-cdot {
-          width: 6px; height: 6px; border-radius: 50%;
-          display: inline-block; flex-shrink: 0;
-        }
-        .hz-proof-sep { color: var(--hz-line); font-size: 14px; }
-        .hz-proof-anthropic {
-          font-weight: 700;
-          background: linear-gradient(90deg, #9B59B6, #EA6A47, #D79A36);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: accentFlow 4.5s linear infinite;
-        }
-
         /* RIGHT */
         .hz-right-col {
           position: relative;
@@ -441,6 +386,14 @@ export default function HeroSection() {
           flex-shrink: 0;
           color: var(--hz-forest);
         }
+        .hz-marquee-text {
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: 14px;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+          color: var(--hz-forest);
+          white-space: nowrap;
+        }
 
         @media (max-width: 960px) {
           .hz-wrap { padding-left: 24px; padding-right: 24px; }
@@ -506,26 +459,6 @@ export default function HeroSection() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/logos/wise.svg" alt="Wise" />
                   </div>
-                  <div className="hz-proof-text">
-                    <span className="hz-ops-static">Worked across</span>
-                    <span className="hz-proof-company">
-                      <span className="hz-cdot" style={{ background: "#1AAB5B" }} />Careem
-                    </span>
-                    <span className="hz-proof-sep">·</span>
-                    <span className="hz-proof-company">
-                      <span className="hz-cdot" style={{ background: "#34D186" }} />Bolt
-                    </span>
-                    <span className="hz-proof-sep">·</span>
-                    <span className="hz-proof-company">
-                      <span className="hz-cdot" style={{ background: "#9FE870" }} />Wise
-                    </span>
-                    <span className="hz-proof-sep">·</span>
-                    <span className="hz-proof-company">
-                      <span className="hz-cdot" style={{ background: "#003365" }} />Cambridge
-                    </span>
-                    <span className="hz-ops-static">— now building with</span>
-                    <span className="hz-proof-anthropic">Anthropic</span>
-                  </div>
                 </div>
               </div>
 
@@ -547,7 +480,7 @@ export default function HeroSection() {
                     <span className="hz-marquee-item" key={i}>
                       {Icon ? (
                         <Icon />
-                      ) : (
+                      ) : item.img ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           className="hz-marquee-icon"
@@ -557,6 +490,8 @@ export default function HeroSection() {
                           height={28}
                           loading="eager"
                         />
+                      ) : (
+                        <span className="hz-marquee-text">{item.label}</span>
                       )}
                     </span>
                   );

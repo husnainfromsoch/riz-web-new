@@ -72,7 +72,7 @@ const FEATURED_CASES = [
     tag: "B2B SAAS · SALES",
     icon: Cpu,
     title: "Trial-to-Paid Conversion Workflow",
-    result: "9% → 19% trial conversion",
+    result: "High-intent users contacted in <4 hrs · was 3-4 days",
     image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&q=80",
     hero: { number: "2.1×", label: "trial-to-paid conversion / 9% → 19%" },
     details: {
@@ -147,7 +147,11 @@ export default function FeaturedCaseStudies() {
   return (
     <section
       style={{
-        background: "var(--bg)",
+        background: "#F5EFE3",
+        backgroundImage:
+          "radial-gradient(circle, rgba(30,36,31,0.05) 1px, transparent 1px)",
+        backgroundSize: "28px 28px",
+        boxShadow: "inset 0 1px 0 rgba(30,36,31,0.06)",
         padding: "112px 0",
         borderTop: "1px solid var(--line)",
       }}
@@ -174,11 +178,12 @@ export default function FeaturedCaseStudies() {
           display: flex;
           flex-direction: column;
           cursor: pointer;
+          box-shadow: 0 2px 12px rgba(34,51,44,0.06);
           transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
         .fcs-card:hover {
           transform: translateY(-6px);
-          box-shadow: 0 20px 48px rgba(34,51,44,0.12);
+          box-shadow: 0 20px 48px rgba(34,51,44,0.16);
           border-color: #EA6A47;
         }
         .fcs-card.active {
@@ -267,7 +272,8 @@ export default function FeaturedCaseStudies() {
         .fcs-card-bottom {
           display: flex;
           justify-content: flex-end;
-          margin-top: 18px;
+          align-items: center;
+          margin-top: 12px;
         }
         .fcs-card-chevron {
           display: inline-flex;
@@ -276,10 +282,14 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card:hover .fcs-card-chevron {
           color: #EA6A47;
+          transform: scale(1.15);
         }
         .fcs-card.active .fcs-card-chevron {
           color: #EA6A47;
           transform: rotate(180deg);
+        }
+        .fcs-card.active:hover .fcs-card-chevron {
+          transform: rotate(180deg) scale(1.15);
         }
 
         .fcs-panel {
@@ -476,7 +486,7 @@ export default function FeaturedCaseStudies() {
         @media (hover: none) {
           .fcs-card:hover {
             transform: none;
-            box-shadow: none;
+            box-shadow: 0 2px 12px rgba(34,51,44,0.06);
             border-color: var(--line);
           }
           .fcs-card.active:hover {
@@ -487,9 +497,6 @@ export default function FeaturedCaseStudies() {
 
       <div className="max-w-site">
         <AnimateIn>
-          <p className="meta-label" style={{ marginBottom: "0.75rem" }}>
-            CASE STUDIES
-          </p>
           <h2 style={{ fontSize: 40, fontWeight: 900, color: "#22332C", marginBottom: 12 }}>
             Proven results across industries.
           </h2>
