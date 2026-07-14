@@ -44,7 +44,8 @@ export default function ProjectsPage() {
       {/* HERO */}
       <section className="svc-hero-section" style={{ background: "var(--cream-2)" }}>
         <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
-        <div className="max-w-site" ref={heroFadeRef}>
+        <div className="max-w-site projects-hero-grid" ref={heroFadeRef}>
+          <div className="projects-hero-text">
           <AnimateIn delay={80}>
             <h1
               style={{
@@ -84,8 +85,61 @@ export default function ProjectsPage() {
               <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
             </ProofChipRow>
           </AnimateIn>
+          </div>
+          <AnimateIn delay={320} className="projects-hero-image-anim">
+            <div className="projects-hero-image">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://images.unsplash.com/photo-1644088379091-d574269d422f?fm=jpg&q=80&w=1600&auto=format&fit=crop"
+                alt="Abstract blue network of connected nodes, representing automated workflows"
+              />
+            </div>
+          </AnimateIn>
         </div>
       </section>
+
+      <style>{`
+        .projects-hero-grid {
+          display: grid;
+          grid-template-columns: 55% 40%;
+          gap: 5%;
+          align-items: center;
+        }
+        .animate-in.projects-hero-image-anim {
+          transform: translateX(48px);
+        }
+        .animate-in.visible.projects-hero-image-anim {
+          transform: translateX(0);
+        }
+        .projects-hero-image {
+          height: 420px;
+          max-height: 420px;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 24px 48px rgba(120, 66, 30, 0.18), 0 8px 20px rgba(120, 66, 30, 0.12);
+        }
+        .projects-hero-image img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        @media (max-width: 860px) {
+          .projects-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .projects-hero-image {
+            height: 300px;
+            width: 100%;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .projects-hero-image-anim {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
       {/* WHAT WE BUILD */}
       <section style={{ padding: "112px 0" }}>

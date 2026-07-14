@@ -160,7 +160,7 @@ export default function SpeakingPage() {
         }
 
         .format-row {
-          padding: 1.1rem 1.5rem;
+          padding: 1.35rem 1.5rem;
           font-family: var(--font-dm-sans), sans-serif;
           font-size: 0.95rem;
           color: var(--body);
@@ -173,6 +173,16 @@ export default function SpeakingPage() {
         .format-row:hover,
         .format-row.active {
           background-color: rgba(234, 106, 71, 0.05);
+        }
+        .format-row-label {
+          font-family: var(--font-playfair), serif;
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: var(--ink);
+          transition: color 0.22s ease;
+        }
+        .format-row.active .format-row-label {
+          color: var(--coral);
         }
         .format-row-chevron {
           display: inline-flex;
@@ -193,13 +203,14 @@ export default function SpeakingPage() {
           transition: max-height 0.25s ease, opacity 0.2s ease;
         }
         .format-row-panel.active {
-          max-height: 220px;
+          max-height: 280px;
           opacity: 1;
           transition: max-height 0.22s ease, opacity 0.25s ease 0.02s;
         }
         .format-row-panel-text {
-          margin: 0;
-          padding: 0 1.5rem 1.1rem;
+          margin: 0 1.5rem 1.35rem;
+          padding-left: 1.25rem;
+          border-left: 2px solid var(--coral);
           font-family: var(--font-dm-sans), sans-serif;
           font-size: 0.85rem;
           line-height: 1.7;
@@ -309,7 +320,7 @@ export default function SpeakingPage() {
                       >
                         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                           <span style={{ color: "var(--coral)", fontSize: "0.55rem" }}>●</span>
-                          <span style={{ fontWeight: 500, color: "var(--ink)" }}>{f.label}</span>
+                          <span className="format-row-label">{f.label}</span>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                           <span
