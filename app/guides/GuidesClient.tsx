@@ -95,9 +95,18 @@ function GridCard({ guide }: { guide: GuideMeta }) {
   return (
     <Link href={`/guides/${guide.slug}`} className="gd-gcard-link">
       <article className="gd-gcard">
-        <div className="gd-gcard-media" style={{ background: theme.gradient }}>
-          <span className="gd-gcard-blob" style={{ background: theme.blobB }} />
-          <Icon size={64} className="gd-gcard-watermark" />
+        <div
+          className="gd-gcard-media"
+          style={guide.thumbnail ? undefined : { background: theme.gradient }}
+        >
+          {guide.thumbnail ? (
+            <img src={guide.thumbnail} alt="" className="gd-gcard-photo" />
+          ) : (
+            <>
+              <span className="gd-gcard-blob" style={{ background: theme.blobB }} />
+              <Icon size={64} className="gd-gcard-watermark" />
+            </>
+          )}
           <span className="guide-badge gd-gcard-badge">{guide.category}</span>
         </div>
         <div className="gd-gcard-body">
@@ -550,6 +559,13 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           display: flex;
           align-items: flex-end;
           justify-content: flex-end;
+        }
+        .gd-gcard-photo {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         .gd-gcard-blob {
           position: absolute;
