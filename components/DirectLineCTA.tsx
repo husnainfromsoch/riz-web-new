@@ -44,20 +44,10 @@ function ClaudeIcon() {
   );
 }
 
-function GeminiIcon() {
+function PerplexityIcon() {
   return (
-    <svg viewBox="0 0 24 24" width={26} height={26} aria-hidden="true">
-      <defs>
-        <linearGradient id="chat-hayat-gemini-grad" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#4285F4" />
-          <stop offset="0.5" stopColor="#9168C0" />
-          <stop offset="1" stopColor="#D96570" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z"
-        fill="url(#chat-hayat-gemini-grad)"
-      />
+    <svg viewBox="0 0 24 24" width={26} height={26} fill="#1F1F1F" aria-hidden="true">
+      <path d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.0765 0v7.0896H1.6026v10.3976h2.4739v6.3542l6.7591-6.4471v6.4471h1.1554v-6.5372l6.6521 6.5372v-6.4471h2.4739V7.0896zM13.7331 2.6199v4.4697l-3.4763 3.0011V5.9497l3.4763-3.3298zm-8.4212.0177L8.7 5.9603v4.1354L5.3119 7.1618V2.6376zM2.7579 8.2449h1.9989v6.5518l-1.9989-1.7212V8.2449zm1.1958 8.3218l3.7592 3.2371v2.6903l-3.7592-3.5772v-2.3502zm4.9146 4.1697v-5.6524l-3.7395-3.2202V9.5807l4.895 4.2255v6.9302zm1.1554-6.9433l4.895-4.2223v3.4693l-3.7592 3.2192v5.6533l-1.1358.923v-6.9425zm8.6541 2.6905l-3.7592 3.5772v-2.6906l3.7592-3.2367v2.3501zM21.2421 13.078l-1.9989 1.7212V8.2449h1.9989v4.8331z" />
     </svg>
   );
 }
@@ -74,9 +64,9 @@ const AI_OPTIONS = [
     icon: <ClaudeIcon />,
   },
   {
-    name: "Gemini",
-    href: `https://gemini.google.com/app?q=${ENCODED_AI_PROMPT}`,
-    icon: <GeminiIcon />,
+    name: "Perplexity",
+    href: `https://www.perplexity.ai/search?q=${ENCODED_AI_PROMPT}`,
+    icon: <PerplexityIcon />,
   },
 ];
 
