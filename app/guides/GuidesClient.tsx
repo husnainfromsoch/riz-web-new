@@ -553,7 +553,8 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-gcard-media {
           position: relative;
-          height: 140px;
+          aspect-ratio: 16 / 9;
+          height: auto;
           flex-shrink: 0;
           overflow: hidden;
           display: flex;
@@ -566,6 +567,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: center;
         }
         .gd-gcard-blob {
           position: absolute;

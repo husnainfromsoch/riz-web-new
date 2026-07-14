@@ -338,7 +338,8 @@ p, li, td, th, label, input, textarea, select {
 }
 .gd-card-thumb {
   position: relative;
-  height: 160px;
+  aspect-ratio: 16 / 9;
+  height: auto;
   flex-shrink: 0;
   background: linear-gradient(135deg, rgba(234,106,71,0.12), rgba(234,106,71,0.04));
   overflow: hidden;
