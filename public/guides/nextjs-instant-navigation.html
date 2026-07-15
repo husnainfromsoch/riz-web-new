@@ -12,11 +12,12 @@
 <body>
   <h1>Instant Navigation in Next.js 16: A Practical Setup</h1>
 
+  <!-- INTRO NOTE: draft — pending Rizwan's review -->
   <div class="guide-note">
-    <p><strong>A note from me:</strong> with Cache Components enabled, a misplaced Suspense boundary can silently block client-side navigations. The <code>unstable_instant</code> export catches this at dev and build time instead of in production.</p>
+    <p><strong>Hey, it's Riz 👋</strong> A misplaced Suspense boundary can silently block client-side navigation once Cache Components are on. This guide shows the setup that catches it at build time instead of in production.</p>
   </div>
 
-  <h2>🧩 The pattern</h2>
+  <h2>The pattern 🧩</h2>
   <pre><code>export const unstable_instant = { prefetch: 'static' }
 
 export default async function Page({ params }) {
@@ -27,11 +28,14 @@ export default async function Page({ params }) {
   )
 }</code></pre>
 
-  <h2>⚡ Why it matters</h2>
-  <p>Validation simulates navigation from every shared layout boundary, not just the initial page load — the failure mode that's easy to miss by hand.</p>
+  <h2>Why it matters ⚡</h2>
+  <ul class="guide-checklist">
+    <li>📌 Validation simulates navigation from every shared layout boundary, not just the initial page load.</li>
+    <li>✅ That's the failure mode that's easy to miss by hand.</li>
+  </ul>
 
   <div class="guide-note guide-note--close">
-    <p>Follow <a href="https://www.instagram.com/etz.riz/reels/">@etz.riz</a> for more web dev tips.</p>
+    <p>Follow <a href="https://www.instagram.com/etz.riz/reels/" target="_blank" rel="noopener">@etz.riz</a> for more automation tips 👋</p>
   </div>
 </body>
 </html>

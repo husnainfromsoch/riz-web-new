@@ -43,10 +43,23 @@ li { margin-bottom: 0.4rem; }
 .guide-checklist { list-style: none; padding-left: 0.2rem; }
 .guide-checklist li { margin-bottom: 0.6rem; line-height: 1.6; }
 
-/* Numbered steps */
+/* Numbered steps — optionally start each item with an emoji + <strong> lead-in */
 .guide-steps { padding-left: 1.5rem; }
 .guide-steps li { margin-bottom: 0.7rem; }
 .guide-steps li::marker { color: var(--guide-coral); font-weight: 700; }
+.guide-steps li strong { color: var(--guide-ink); }
+
+/* Mini callout card — smaller than .guide-note, stack multiple in sequence */
+.guide-mini-note {
+  background: var(--guide-cream);
+  border-left: 3px solid var(--guide-coral);
+  border-radius: 0 8px 8px 0;
+  padding: 0.85rem 1.1rem;
+  margin: 0 0 0.9rem;
+  font-size: 0.98rem;
+}
+.guide-mini-note p { margin: 0; }
+.guide-mini-note strong { color: var(--guide-ink); }
 
 code { background: var(--guide-cream); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
 pre {
