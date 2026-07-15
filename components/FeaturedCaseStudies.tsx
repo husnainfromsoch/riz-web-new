@@ -303,6 +303,7 @@ export default function FeaturedCaseStudies() {
           max-height: 0;
           overflow: hidden;
           background: white;
+          background-clip: padding-box;
           border: 1.5px solid transparent;
           border-radius: 20px;
           margin-top: 0;
