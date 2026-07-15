@@ -394,11 +394,46 @@ export default function HeroSection() {
           white-space: nowrap;
         }
 
+        .hz-trust-row { display: contents; }
+
         @media (max-width: 960px) {
           .hz-wrap { padding-left: 24px; padding-right: 24px; }
           .hz-grid { grid-template-columns: 1fr; gap: 36px; }
-          .hz-headline { font-size: 40px; letter-spacing: -1.5px; }
-          .hz-photo-card { aspect-ratio: 1; }
+          .hz-headline { font-size: clamp(30px, 8.5vw, 40px); letter-spacing: -1.5px; }
+          /* min-height must be killed here: with aspect-ratio it transfers
+             a 560px min-width and blows the grid track past the viewport */
+          .hz-photo-card { aspect-ratio: 4 / 5; min-height: 0; height: auto; }
+        }
+
+        @media (max-width: 640px) {
+          .hz-hero { padding: 44px 0 48px; }
+          .hz-eyebrow { margin-top: 16px; margin-bottom: 24px; }
+          .hz-intro { font-size: clamp(20px, 5.8vw, 24px); margin-bottom: 10px; }
+          .hz-value-prop { font-size: 16px; margin-bottom: 24px; }
+          .hz-role-list { margin-bottom: 24px; }
+          .hz-role-list li { font-size: 15px; padding: 11px 0; }
+          .hz-cta-row { margin-bottom: 24px; }
+          .hz-btn-primary, .hz-btn-secondary { flex: 1 1 auto; }
+          .hz-trust-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+          }
+          .hz-ops-num { font-size: 32px; letter-spacing: -1.5px; }
+          .hz-ops-label { font-size: 13px; max-width: 190px; }
+          .hz-logo-row { gap: 16px; flex-wrap: nowrap; }
+          .hz-logo-row img { height: 28px; }
+          .hz-marquee-section {
+            margin-top: 36px;
+            padding: 16px 0;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
+          }
+          .hz-marquee-inner { gap: 14px; }
+          .hz-marquee-item { width: 122px; height: 78px; padding: 16px; border-radius: 14px; }
+          .hz-marquee-icon { height: 24px; }
+          .hz-marquee-icon-svg { height: 24px; width: 24px; }
         }
       `}</style>
 
@@ -441,6 +476,7 @@ export default function HeroSection() {
                   <Link href="/case-studies" className="hz-btn-secondary">See what I&apos;ve built</Link>
                 </div>
 
+                <div className="hz-trust-row">
                 <div className="hz-ops-heading">
                   <span className="hz-ops-num">10+</span>
                   <span className="hz-ops-label">
@@ -458,6 +494,7 @@ export default function HeroSection() {
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/logos/wise.svg" alt="Wise" />
                   </div>
+                </div>
                 </div>
               </div>
 

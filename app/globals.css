@@ -65,6 +65,8 @@ body {
   font-size: 16px;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
+  /* Safety net: no element may create horizontal page scroll */
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {
