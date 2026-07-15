@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import AnimateIn from "@/components/AnimateIn";
-import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
@@ -91,7 +90,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* FORMATS */}
-      <section style={{ padding: "112px 0" }}>
+      <section className="section-pad">
         <div className="max-w-site">
           <AnimateIn>
             <h2
@@ -198,7 +197,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* BOOK */}
-      <section id="book" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}>
+      <section id="book" className="section-pad" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="max-w-site">
           <div style={{ maxWidth: 600 }}>
             <AnimateIn>
@@ -343,7 +342,7 @@ export default function ConsultingPage() {
       </section>
 
       {/* DIRECT LINE */}
-      <section style={{ background: "var(--cream)", padding: "112px 0" }}>
+      <section className="section-pad" style={{ background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />

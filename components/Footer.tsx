@@ -91,7 +91,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
       <style>{`
         .ftr-root {
           position: relative;
-          background: #F5EFE3;
+          background: var(--paper);
           overflow: hidden;
           border-top: 1px solid #EA6A47;
           padding: 56px clamp(20px, 5vw, 60px) 40px;

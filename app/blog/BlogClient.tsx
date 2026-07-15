@@ -97,8 +97,8 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
     <>
       <style>{`
         .writing-hero {
-          padding-top: 120px;
-          padding-bottom: 60px;
+          padding-top: 112px;
+          padding-bottom: 64px;
           background: var(--cream-2);
           overflow: hidden;
         }
@@ -172,7 +172,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         .writing-search-input::placeholder { color: var(--muted); }
         .writing-search-input:focus {
           border-color: var(--coral);
-          box-shadow: 0 0 0 4px rgba(232,96,60,0.12);
+          box-shadow: 0 0 0 4px rgba(234,106,71,0.12);
         }
         .writing-kbd {
           position: absolute;

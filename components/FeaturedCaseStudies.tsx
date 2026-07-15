@@ -147,14 +147,14 @@ export default function FeaturedCaseStudies() {
   return (
     <section
       style={{
-        background: "#F5EFE3",
+        background: "var(--paper)",
         backgroundImage:
           "radial-gradient(circle, rgba(30,36,31,0.05) 1px, transparent 1px)",
         backgroundSize: "28px 28px",
         boxShadow: "inset 0 1px 0 rgba(30,36,31,0.06)",
-        padding: "112px 0",
         borderTop: "1px solid var(--line)",
       }}
+      className="section-pad"
     >
       <style>{`
         .fcs-header-divider {

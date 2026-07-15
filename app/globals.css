@@ -236,6 +236,13 @@ p, li, td, th, label, input, textarea, select {
   padding-right: 40px;
 }
 
+@media (max-width: 640px) {
+  .max-w-site {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
 .btn-coral,
 .btn-ghost {
   min-height: var(--btn-height);
@@ -320,15 +327,13 @@ p, li, td, th, label, input, textarea, select {
   text-decoration: none;
 }
 .gd-card {
-  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-  box-shadow: var(--shadow);
+  border-radius: 18px;
+  padding: 1.75rem;
   transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease), border-color 0.25s var(--ease);
 }
 .gd-card:hover {
@@ -336,80 +341,44 @@ p, li, td, th, label, input, textarea, select {
   transform: translateY(-4px);
   border-color: var(--line-2);
 }
-.gd-card-thumb {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  flex-shrink: 0;
-  background: linear-gradient(135deg, rgba(234,106,71,0.12), rgba(234,106,71,0.04));
-  overflow: hidden;
-}
-.gd-card-thumb-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: opacity 0.25s ease;
-}
-.gd-card:hover .gd-card-thumb-img {
-  opacity: 0.95;
-}
-.gd-card-thumb-fallback {
-  width: 100%;
-  height: 100%;
+.gd-card-tags {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--coral);
-  opacity: 0.35;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1rem;
 }
-.gd-card-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.gd-pill {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.72rem;
+  border-radius: 999px;
+  padding: 5px 14px;
+  line-height: 1.3;
 }
-.gd-card-body {
-  padding: var(--card-pad);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
+.gd-pill-topic {
+  background: #fff;
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+  font-weight: 600;
+}
+.gd-pill-tool {
+  background: var(--coral);
+  border: 1px solid var(--coral);
+  color: #fff;
+  font-weight: 700;
 }
 .gd-card-title {
   font-family: var(--font-fraunces), serif;
-  font-weight: 600;
-  font-size: 1.3rem;
+  font-weight: 700;
+  font-size: 1.25rem;
   line-height: 1.35;
   color: var(--ink);
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.gd-card-excerpt {
-  font-family: var(--font-montserrat), sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--body);
-  margin: 0;
+  margin: 0 0 1.5rem;
   flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.gd-card-meta {
-  font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--faint);
-  letter-spacing: 0.06em;
 }
 .gd-card-read {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  align-self: flex-end;
   font-family: var(--font-montserrat), sans-serif;
   font-size: 13px;
   font-weight: 700;

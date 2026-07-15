@@ -7,8 +7,8 @@ export type GuideMeta = {
   excerpt: string;
   date: string;
   category: string;
+  tool: string;
   readingTime: number;
-  thumbnail?: string;
 };
 
 const GUIDES_DIR = path.join(process.cwd(), "public", "guides");
@@ -34,10 +34,10 @@ function parseGuide(slug: string, html: string): GuideMeta {
   const excerpt = extractTag(html, /<meta\s+name=["']guide-excerpt["']\s+content=["']([^"']*)["']/i);
   const date = extractTag(html, /<meta\s+name=["']guide-date["']\s+content=["']([^"']*)["']/i);
   const category = extractTag(html, /<meta\s+name=["']guide-category["']\s+content=["']([^"']*)["']/i) || "Guide";
-  const thumbnail = extractTag(html, /<img[^>]+src=["']([^"']+)["']/i) || undefined;
+  const tool = extractTag(html, /<meta\s+name=["']guide-tool["']\s+content=["']([^"']*)["']/i) || "General";
   const readingTime = estimateReadingTime(html);
 
-  return { slug, title, excerpt, date, category, readingTime, thumbnail };
+  return { slug, title, excerpt, date, category, tool, readingTime };
 }
 
 export function getAllGuides(): GuideMeta[] {
@@ -45,7 +45,7 @@ export function getAllGuides(): GuideMeta[] {
 
   return fs
     .readdirSync(GUIDES_DIR)
-    .filter((file) => file.endsWith(".html"))
+    .filter((file) => file.endsWith(".html") && SLUG_PATTERN.test(file.replace(/\.html$/, "")))
     .map((file) => {
       const slug = file.replace(/\.html$/, "");
       const html = fs.readFileSync(path.join(GUIDES_DIR, file), "utf-8");

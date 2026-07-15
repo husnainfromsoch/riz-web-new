@@ -219,7 +219,7 @@ export default function SpeakingPage() {
       `}</style>
 
       {/* TOPICS + FORMATS */}
-      <section style={{ padding: "112px 0" }}>
+      <section className="section-pad">
         <div className="max-w-site grid md:grid-cols-2 gap-12">
           {/* Topics */}
           <div>
@@ -350,7 +350,7 @@ export default function SpeakingPage() {
       </section>
 
       {/* DIRECT LINE — booking enquiries */}
-      <section style={{ background: "var(--cream)", padding: "112px 0" }}>
+      <section className="section-pad" style={{ background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA

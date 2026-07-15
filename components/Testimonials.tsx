@@ -249,7 +249,7 @@ export default function TestimonialsSection({
                   <div>
                     <div className="testimonials-featured-name-row">
                       <span className="testimonials-featured-name">{featured.name}</span>
-                      {featured.linkedinUrl && (
+                      {featured.linkedinUrl && featured.linkedinUrl !== "#" && (
                         <a
                           href={featured.linkedinUrl}
                           className="testimonials-linkedin-btn"

@@ -73,7 +73,6 @@ export async function getSubstackPosts(): Promise<SubstackPost[]> {
   try {
     const res = await fetch(FEED_URL, { next: { revalidate: 1800 } });
     if (!res.ok) {
-      console.log(`[substack] DEBUG: fetch failed (status ${res.status}) — serving FALLBACK_POSTS`);
       return FALLBACK_POSTS;
     }
 
@@ -88,7 +87,6 @@ export async function getSubstackPosts(): Promise<SubstackPost[]> {
     const raw = parsed?.rss?.channel?.item;
     const items: unknown[] = Array.isArray(raw) ? raw : raw ? [raw] : [];
     if (items.length === 0) {
-      console.log("[substack] DEBUG: feed parsed but 0 items found — serving FALLBACK_POSTS");
       return FALLBACK_POSTS;
     }
 
@@ -124,14 +122,11 @@ export async function getSubstackPosts(): Promise<SubstackPost[]> {
 
     const valid = posts.filter((p) => p.title && p.link);
     if (valid.length === 0) {
-      console.log("[substack] DEBUG: 0 valid items after filtering — serving FALLBACK_POSTS");
       return FALLBACK_POSTS;
     }
 
-    console.log(`[substack] DEBUG: serving ${valid.length} LIVE post(s) from RSS feed`);
     return valid.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
-  } catch (err) {
-    console.log("[substack] DEBUG: fetch/parse threw an error — serving FALLBACK_POSTS", err);
+  } catch {
     return FALLBACK_POSTS;
   }
 }

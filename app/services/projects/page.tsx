@@ -142,7 +142,7 @@ export default function ProjectsPage() {
       `}</style>
 
       {/* WHAT WE BUILD */}
-      <section style={{ padding: "112px 0" }}>
+      <section className="section-pad">
         <div className="max-w-site">
           <AnimateIn>
             <h2
@@ -241,7 +241,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* DIRECT LINE */}
-      <section style={{ background: "var(--cream)", padding: "112px 0" }}>
+      <section className="section-pad" style={{ background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />

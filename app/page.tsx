@@ -1381,7 +1381,8 @@ export default function Home() {
       {/* SECTION 2 — PROOF */}
       <section
         ref={proofSectionRef}
-        style={{ background: "#F5F0E8", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}
+        className="section-pad"
+        style={{ background: "var(--paper)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}
       >
         <div className="max-w-site">
           <div className="proof-grid">
@@ -1399,8 +1400,8 @@ export default function Home() {
       </section>
 
       {/* SECTION 3 — WHAT I BELIEVE */}
-      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "112px 60px" }}>
-        <div style={{ maxWidth: 1360, margin: "0 auto" }}>
+      <section id="what-i-believe" className="section-pad" style={{ position: "relative", zIndex: 1 }}>
+        <div className="max-w-site">
 
           <div className="believe-content-wrap">
 
@@ -1564,7 +1565,8 @@ export default function Home() {
       {/* BY THE NUMBERS */}
       <section
         ref={byTheNumbersRef}
-        style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}
+        className="section-pad"
+        style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}
       >
         <div className="max-w-site by-numbers-grid">
 
@@ -1875,7 +1877,8 @@ export default function Home() {
       {/* SECTION 1.5 — BEFORE / AFTER TOGGLE */}
       <section
         ref={beforeAfterRef}
-        style={{ background: "#ffffff", padding: "112px 0" }}
+        className="section-pad"
+        style={{ background: "#ffffff" }}
       >
         <div className="max-w-site" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <AnimateIn>
@@ -2186,9 +2189,9 @@ export default function Home() {
 
       {/* SECTION 5 — PERSONALITY (video carousel) */}
       <section
+        className="section-pad"
         style={{
           background: "#FFFFFF",
-          padding: "112px 0",
           backgroundImage:
             "radial-gradient(circle, rgba(30,36,31,0.05) 1px, transparent 1px)",
           backgroundSize: "28px 28px",
@@ -2247,7 +2250,7 @@ export default function Home() {
       <section
         className="think-section"
         style={{
-          background: "#F5EFE3",
+          background: "var(--paper)",
           position: "relative",
           overflow: "hidden",
           backgroundImage:
@@ -2418,7 +2421,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 7 — ROUTES */}
-      <section style={{ background: "#FFFFFF", padding: "112px 0" }}>
+      <section className="section-pad" style={{ background: "#FFFFFF" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h2
@@ -2644,7 +2647,7 @@ export default function Home() {
       />
 
       {/* SECTION — HAVE A CHAT */}
-      <section style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}>
+      <section className="section-pad" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />
@@ -2653,7 +2656,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 9 — WRITING */}
-      <section style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "112px 0" }}>
+      <section className="section-pad" style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h2

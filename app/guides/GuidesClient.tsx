@@ -1,126 +1,23 @@
 "use client";
-import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import AnimateIn from "@/components/AnimateIn";
 import ScrollProgressBar from "@/components/ScrollProgressBar";
-import { useParallax } from "@/hooks/useParallax";
-import {
-  ArrowIcon,
-  BookIcon,
-  BoltIcon,
-  CalendarIcon,
-  ChevronDownIcon,
-  ClockIcon,
-  CodeIcon,
-  SearchIcon,
-  SparkleIcon,
-} from "./icons";
+import { ArrowIcon, SearchIcon } from "./icons";
 import type { GuideMeta } from "@/lib/guides";
 
-type SortMode = "newest" | "oldest" | "az" | "za" | "year";
-
-type CategoryTheme = {
-  gradient: string;
-  blobA: string;
-  blobB: string;
-  Icon: (props: { size?: number; className?: string }) => ReactElement;
-};
-
-const CATEGORY_THEME: Record<string, CategoryTheme> = {
-  AI: {
-    gradient: "linear-gradient(135deg, #FF9A6B 0%, #EA6A47 45%, #B93A1E 100%)",
-    blobA: "rgba(255,255,255,0.32)",
-    blobB: "rgba(185,58,30,0.45)",
-    Icon: SparkleIcon,
-  },
-  Automation: {
-    gradient: "linear-gradient(135deg, #64E6CE 0%, #1E9A87 45%, #0C5F53 100%)",
-    blobA: "rgba(255,255,255,0.28)",
-    blobB: "rgba(12,95,83,0.5)",
-    Icon: BoltIcon,
-  },
-  "Web Dev": {
-    gradient: "linear-gradient(135deg, #93A4FF 0%, #5A6DE6 45%, #31399C 100%)",
-    blobA: "rgba(255,255,255,0.28)",
-    blobB: "rgba(49,57,156,0.5)",
-    Icon: CodeIcon,
-  },
-};
-
-const DEFAULT_THEME: CategoryTheme = {
-  gradient: "linear-gradient(135deg, rgba(34,51,44,0.4), rgba(34,51,44,0.14))",
-  blobA: "rgba(255,255,255,0.25)",
-  blobB: "rgba(34,51,44,0.35)",
-  Icon: BookIcon,
-};
-
-function getTheme(category: string): CategoryTheme {
-  return CATEGORY_THEME[category] || DEFAULT_THEME;
-}
-
-function formatDate(raw: string): string {
-  if (!raw) return "";
-  try {
-    return new Date(raw).toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  } catch {
-    return raw;
-  }
-}
-
-function LatestGuideCard({ guide }: { guide: GuideMeta }) {
-  return (
-    <Link href={`/guides/${guide.slug}`} className="gd-hero-card">
-      <div className="gd-hero-card-top">
-        <span className="gd-hero-card-tag">LATEST GUIDE</span>
-        <span className="guide-badge gd-hero-card-cat">{guide.category}</span>
-      </div>
-      <h2 className="gd-hero-card-title">{guide.title}</h2>
-      <div className="gd-hero-card-meta">
-        <span>{formatDate(guide.date)}</span>
-      </div>
-      <span className="gd-hero-card-arrow">
-        <ArrowIcon size={16} />
-      </span>
-    </Link>
-  );
-}
-
 function GridCard({ guide }: { guide: GuideMeta }) {
-  const theme = getTheme(guide.category);
-  const { Icon } = theme;
   return (
     <Link href={`/guides/${guide.slug}`} className="gd-gcard-link">
       <article className="gd-gcard">
-        <div
-          className="gd-gcard-media"
-          style={guide.thumbnail ? undefined : { background: theme.gradient }}
-        >
-          {guide.thumbnail ? (
-            <img src={guide.thumbnail} alt="" className="gd-gcard-photo" />
-          ) : (
-            <>
-              <span className="gd-gcard-blob" style={{ background: theme.blobB }} />
-              <Icon size={64} className="gd-gcard-watermark" />
-            </>
-          )}
-          <span className="guide-badge gd-gcard-badge">{guide.category}</span>
+        <div className="gd-gcard-tags">
+          <span className="gd-pill gd-pill-topic">{guide.category}</span>
+          <span className="gd-pill gd-pill-tool">{guide.tool}</span>
         </div>
-        <div className="gd-gcard-body">
-          <h3 className="gd-gcard-title">{guide.title}</h3>
-          {guide.excerpt && <p className="gd-gcard-excerpt">{guide.excerpt}</p>}
-          <span className="gd-gcard-meta">
-            <CalendarIcon size={12} /> {formatDate(guide.date)}
-            <span className="gd-gcard-dot">·</span>
-            <ClockIcon size={12} /> {guide.readingTime} min read
-          </span>
-          <span className="gd-gcard-read">
-            Read guide <ArrowIcon size={12} />
-          </span>
-        </div>
+        <h3 className="gd-gcard-title">{guide.title}</h3>
+        <span className="gd-gcard-read">
+          Read guide <ArrowIcon size={12} />
+        </span>
       </article>
     </Link>
   );
@@ -129,12 +26,9 @@ function GridCard({ guide }: { guide: GuideMeta }) {
 export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
-  const [contentType, setContentType] = useState("All");
-  const [format, setFormat] = useState("All");
-  const [sort, setSort] = useState<SortMode>("newest");
+  const [tool, setTool] = useState("All tools");
   const [kbdLabel, setKbdLabel] = useState("Ctrl K");
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const dotsRef = useParallax<HTMLDivElement>(0.1);
 
   useEffect(() => {
     if (typeof navigator !== "undefined" && /Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
@@ -158,54 +52,38 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
     [guides]
   );
 
-  const latest = useMemo(
-    () => [...guides].sort((a, b) => (b.date || "").localeCompare(a.date || ""))[0],
+  const tools = useMemo(
+    () => ["All tools", ...Array.from(new Set(guides.map((g) => g.tool))).sort()],
     [guides]
   );
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    const matched = guides.filter((g) => {
-      const matchesQuery =
-        !q || g.title.toLowerCase().includes(q) || g.excerpt.toLowerCase().includes(q);
-      const matchesCategory = category === "All" || g.category === category;
-      return matchesQuery && matchesCategory;
-    });
+    return guides
+      .filter((g) => {
+        const matchesQuery =
+          !q || g.title.toLowerCase().includes(q) || g.excerpt.toLowerCase().includes(q);
+        const matchesCategory = category === "All" || g.category === category;
+        const matchesTool = tool === "All tools" || g.tool === tool;
+        return matchesQuery && matchesCategory && matchesTool;
+      })
+      .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+  }, [guides, search, category, tool]);
 
-    return [...matched].sort((a, b) => {
-      switch (sort) {
-        case "newest":
-          return (b.date || "").localeCompare(a.date || "");
-        case "oldest":
-          return (a.date || "").localeCompare(b.date || "");
-        case "az":
-          return a.title.localeCompare(b.title);
-        case "za":
-          return b.title.localeCompare(a.title);
-        case "year":
-          return (b.date || "").localeCompare(a.date || "");
-      }
-    });
-  }, [guides, search, category, sort]);
+  const filtersActive = search.trim() !== "" || category !== "All" || tool !== "All tools";
 
-  const yearGroups = useMemo(() => {
-    if (sort !== "year") return null;
-    const map = new Map<string, GuideMeta[]>();
-    for (const guide of filtered) {
-      const year = (guide.date || "").slice(0, 4) || "Undated";
-      if (!map.has(year)) map.set(year, []);
-      map.get(year)!.push(guide);
-    }
-    return Array.from(map.entries()).sort((a, b) => b[0].localeCompare(a[0]));
-  }, [filtered, sort]);
-
-  const filtersActive = search.trim() !== "" || category !== "All";
+  const latest = useMemo(
+    () =>
+      guides.length
+        ? [...guides].sort((a, b) => (b.date || "").localeCompare(a.date || ""))[0]
+        : null,
+    [guides]
+  );
 
   function clearFilters() {
     setSearch("");
     setCategory("All");
-    setContentType("All");
-    setFormat("All");
+    setTool("All tools");
   }
 
   return (
@@ -215,127 +93,88 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           flex: 0 1 auto;
         }
         .gd-hero {
-          padding: 112px 0 64px;
+          padding: 112px 0 0;
           background: var(--cream);
+          text-align: center;
+          position: relative;
           overflow: hidden;
         }
-        .gd-hero-grid {
-          display: grid;
-          grid-template-columns: 1.15fr 0.85fr;
-          gap: 64px;
-          align-items: center;
+        .gd-hero .max-w-site {
+          position: relative;
+          z-index: 1;
+        }
+        .gd-hero-bg {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          color: var(--coral);
+        }
+        .gd-doodle {
+          position: absolute;
+        }
+        .gd-doodle-arrow { top: 128px; left: 6%; opacity: 0.13; transform: rotate(-12deg); }
+        .gd-doodle-sparkle { top: 96px; right: 8%; opacity: 0.14; }
+        .gd-doodle-sparkle-sm { top: 210px; right: 26%; opacity: 0.1; transform: scale(0.6) rotate(20deg); }
+        .gd-doodle-squiggle { bottom: 26px; left: 18%; opacity: 0.12; }
+        .gd-doodle-circle { top: 170px; right: 3%; opacity: 0.1; transform: rotate(8deg); }
+        .gd-doodle-loop { top: 60px; left: 30%; opacity: 0.09; }
+        .gd-hero-watermark {
+          position: absolute;
+          left: -30px;
+          bottom: -78px;
+          font-family: var(--font-caveat), 'Caveat', cursive;
+          font-size: clamp(140px, 16vw, 230px);
+          line-height: 1;
+          color: var(--coral);
+          opacity: 0.055;
+          transform: rotate(-5deg);
+          white-space: nowrap;
+          user-select: none;
+        }
+        .gd-hero-accent {
+          font-family: var(--font-caveat), 'Caveat', cursive;
+          font-size: clamp(1.4rem, 2.5vw, 1.75rem);
+          color: var(--coral);
+          display: block;
+          margin-bottom: 0.25rem;
+          transform: rotate(-2deg);
         }
         .gd-hero-title {
           font-family: var(--font-fraunces), serif;
-          font-weight: 600;
-          font-size: clamp(36px, 5vw, 56px);
+          font-weight: 700;
+          font-size: clamp(38px, 5.5vw, 60px);
           letter-spacing: -0.5px;
           line-height: 1.05;
           color: var(--ink);
-          margin: 0 0 0.75rem;
+          margin: 0 0 1rem;
+        }
+        .gd-hero-em {
+          position: relative;
+          color: var(--coral);
+          white-space: nowrap;
+        }
+        .gd-hero-em svg {
+          position: absolute;
+          left: 0;
+          bottom: -0.18em;
+          width: 100%;
+          height: 0.28em;
+          overflow: visible;
         }
         .gd-hero-sub {
           font-family: var(--font-montserrat), sans-serif;
           font-size: 1.05rem;
           color: var(--body);
           line-height: 1.7;
-          max-width: 520px;
-          margin: 0 0 2rem;
-        }
-
-        .gd-hero-right {
-          position: relative;
-          min-height: 320px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .gd-hero-decor {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-        }
-        .gd-hero-dots {
-          position: absolute;
-          bottom: -20px;
-          left: -10px;
-          width: 140px;
-          height: 140px;
-          background-image: radial-gradient(var(--line-2) 1.5px, transparent 1.5px);
-          background-size: 16px 16px;
-          opacity: 0.8;
-        }
-        .gd-hero-card {
-          position: relative;
-          z-index: 1;
-          display: block;
-          width: 100%;
-          max-width: 320px;
-          background: #fff;
-          border: 1px solid var(--line-2);
-          border-radius: 18px;
-          padding: 1.75rem;
-          box-shadow: var(--shadow-lg);
-          text-decoration: none;
-          transform: rotate(-1deg);
-          transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .gd-hero-card:hover {
-          transform: rotate(0deg) translateY(-4px);
-          box-shadow: 0 24px 56px rgba(34,51,44,0.16);
-        }
-        .gd-hero-card-top {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
-          margin-bottom: 0.75rem;
-        }
-        .gd-hero-card-tag {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: #E8603C;
-        }
-        .gd-hero-card-cat {
-          font-size: 0.68rem;
-          padding: 3px 10px;
-        }
-        .gd-hero-card-title {
-          font-family: var(--font-fraunces), serif;
-          font-size: 1.3rem;
-          font-weight: 600;
-          color: var(--ink);
-          line-height: 1.35;
-          margin: 0 0 1rem;
-        }
-        .gd-hero-card-meta {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 0.8rem;
-          color: var(--muted);
-          margin-bottom: 0.5rem;
-        }
-        .gd-hero-card-arrow {
-          display: inline-flex;
-          color: var(--coral);
-          margin-top: 0.25rem;
-        }
-
-        .gd-filter-bar {
-          background: #fff;
-          border-bottom: 1px solid var(--line);
-          padding: 20px 0;
+          max-width: 560px;
+          margin: 0 auto 1.75rem;
         }
         .gd-search-wrap {
           position: relative;
           width: 100%;
-          max-width: 480px;
-          margin-bottom: 16px;
+          max-width: 440px;
+          margin: 0 auto;
         }
         .gd-search-icon {
           position: absolute;
@@ -380,115 +219,68 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           background: var(--cream-2);
         }
 
-        .gd-filter-select-row {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+        .gd-filters {
+          background: var(--cream);
+          padding: 44px 0 36px;
+          text-align: center;
         }
-        .gd-filter-field {
+        .gd-filter-row {
+          margin-top: 32px;
+        }
+        .gd-filter-row:first-child {
+          margin-top: 0;
+        }
+        .gd-filter-script {
+          font-family: var(--font-caveat), 'Caveat', cursive;
+          font-size: 1.3rem;
+          color: var(--coral);
+          display: block;
+          margin-bottom: 10px;
+          transform: rotate(-1.5deg);
+        }
+        .gd-filter-pills {
           display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-        .gd-filter-label {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.75rem;
-          font-weight: 600;
-          color: var(--muted);
-        }
-        .gd-filter-select-wrap {
-          position: relative;
-          display: flex;
-          align-items: center;
-        }
-        .gd-filter-select {
-          appearance: none;
-          width: 100%;
-          height: 48px;
-          padding: 0 36px 0 16px;
-          border: 1px solid var(--line-2);
-          border-radius: 8px;
-          font-family: var(--font-montserrat), sans-serif;
-          font-weight: 500;
-          font-size: 0.9rem;
-          color: var(--ink);
-          background: #fff;
-          outline: none;
-          cursor: pointer;
-          transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-        .gd-filter-select:focus {
-          border-color: var(--coral);
-          box-shadow: 0 0 0 4px rgba(234,106,71,0.12);
-        }
-        .gd-filter-chevron {
-          position: absolute;
-          right: 14px;
-          top: 50%;
-          transform: translateY(-50%);
-          color: var(--muted);
-          pointer-events: none;
-          display: flex;
-        }
-        .gd-grid-toolbar {
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 16px;
           flex-wrap: wrap;
-          margin-bottom: 24px;
-        }
-        .gd-grid-toolbar .gd-results-count {
-          margin-right: auto;
-        }
-        .gd-sort-wrap {
-          display: flex;
-          align-items: center;
+          justify-content: center;
           gap: 10px;
-          flex-shrink: 0;
         }
-        .gd-sort-label {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: #E8603C;
-          white-space: nowrap;
-        }
-        .gd-sort-select-wrap {
-          position: relative;
-          display: flex;
-          align-items: center;
-        }
-        .gd-sort-select {
-          appearance: none;
-          padding: 8px 32px 8px 12px;
-          border: 1px solid var(--line-2);
-          border-radius: 8px;
+        .gd-filter-pill {
           font-family: var(--font-montserrat), sans-serif;
-          font-weight: 600;
           font-size: 0.85rem;
+          font-weight: 600;
           color: var(--ink);
           background: #fff;
-          outline: none;
+          border: 1px solid var(--line-2);
+          border-radius: 999px;
+          padding: 9px 20px;
           cursor: pointer;
+          transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.2s ease;
         }
-        .gd-sort-chevron {
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          transform: translateY(-50%);
-          color: var(--muted);
-          pointer-events: none;
-          display: flex;
+        .gd-filter-pill:hover {
+          border-color: var(--coral);
+          color: var(--coral);
+          transform: translateY(-1px);
+        }
+        .gd-filter-pill.is-active {
+          background: var(--coral);
+          border-color: var(--coral);
+          color: #fff;
+        }
+        .gd-filter-pill.is-active:hover {
+          color: #fff;
+          background: var(--coral-d);
+          border-color: var(--coral-d);
         }
         .gd-results-count {
-          font-family: var(--font-montserrat), sans-serif;
+          display: inline-block;
+          margin-top: 32px;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.75rem;
+          letter-spacing: 0.04em;
           color: var(--body);
         }
         .gd-clear-btn {
+          margin-left: 12px;
           background: none;
           border: 1px solid var(--line-2);
           border-radius: 8px;
@@ -506,7 +298,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
 
         .gd-grid-section {
-          padding: 48px 0 96px;
+          padding: 56px 0 96px;
           min-height: calc(100vh - 120px);
           box-sizing: border-box;
         }
@@ -515,19 +307,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           grid-template-columns: repeat(3, 1fr);
           gap: 28px;
         }
-        .gd-year-group + .gd-year-group {
-          margin-top: 56px;
-        }
-        .gd-year-heading {
-          font-family: var(--font-montserrat), sans-serif;
-          font-weight: 900;
-          font-size: clamp(1.3rem, 2vw, 1.5rem);
-          line-height: 1.35;
-          color: var(--ink);
-          margin: 0 0 20px;
-          padding-bottom: 12px;
-          border-bottom: 1px solid var(--line);
-        }
 
         .gd-gcard-link {
           display: block;
@@ -535,15 +314,13 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           text-decoration: none;
         }
         .gd-gcard {
-          position: relative;
           height: 100%;
           display: flex;
           flex-direction: column;
-          background: #fff;
+          background: var(--cream);
           border: 1px solid var(--line);
-          border-radius: var(--radius-card);
-          overflow: hidden;
-          box-shadow: var(--shadow);
+          border-radius: 18px;
+          padding: 1.75rem;
           transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease), border-color 0.25s var(--ease);
         }
         .gd-gcard:hover {
@@ -551,94 +328,25 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           transform: translateY(-3px);
           border-color: var(--line-2);
         }
-        .gd-gcard-media {
-          position: relative;
-          aspect-ratio: 16 / 9;
-          height: auto;
-          flex-shrink: 0;
-          overflow: hidden;
+        .gd-gcard-tags {
           display: flex;
-          align-items: flex-end;
-          justify-content: flex-end;
-        }
-        .gd-gcard-photo {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-        }
-        .gd-gcard-blob {
-          position: absolute;
-          width: 120px;
-          height: 120px;
-          border-radius: 50%;
-          bottom: -40px;
-          right: -30px;
-          filter: blur(30px);
-        }
-        .gd-gcard-watermark {
-          position: relative;
-          color: #fff;
-          opacity: 0.25;
-          margin: 14px;
-          transition: transform 0.3s var(--ease);
-        }
-        .gd-gcard:hover .gd-gcard-watermark {
-          transform: translate(-4px, -4px) rotate(4deg);
-        }
-        .gd-gcard-badge {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-        }
-        .gd-gcard-body {
-          padding: var(--card-pad);
-          display: flex;
-          flex-direction: column;
+          flex-wrap: wrap;
           gap: 8px;
-          flex: 1;
+          margin-bottom: 1rem;
         }
         .gd-gcard-title {
           font-family: var(--font-fraunces), serif;
-          font-weight: 600;
-          font-size: 1.1rem;
+          font-weight: 700;
+          font-size: 1.25rem;
           line-height: 1.35;
           color: var(--ink);
-          margin: 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-        .gd-gcard-excerpt {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 13px;
-          line-height: 1.6;
-          color: var(--body);
-          margin: 0;
+          margin: 0 0 1.5rem;
           flex: 1;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
         }
-        .gd-gcard-meta {
-          display: inline-flex;
-          align-items: center;
-          gap: 5px;
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.72rem;
-          color: var(--body);
-          letter-spacing: 0.01em;
-        }
-        .gd-gcard-dot { opacity: 0.6; margin: 0 1px; }
         .gd-gcard-read {
           display: inline-flex;
           align-items: center;
           gap: 6px;
-          align-self: flex-end;
           font-family: var(--font-montserrat), sans-serif;
           font-size: 13px;
           font-weight: 700;
@@ -648,6 +356,121 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-gcard:hover .gd-gcard-read {
           color: var(--coral-d);
           gap: 9px;
+        }
+
+        .gd-float-wrap {
+          position: absolute;
+          right: 24px;
+          top: 30px;
+          width: 240px;
+          z-index: 2;
+        }
+        .gd-float-card {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.6rem;
+          text-align: left;
+          text-decoration: none;
+          background: #fff;
+          border: 1px solid var(--line-2);
+          border-radius: 16px;
+          padding: 1.25rem 1.35rem;
+          box-shadow: var(--shadow-lg);
+          transform: rotate(4deg);
+          transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+        }
+        .gd-float-card:hover {
+          transform: rotate(1deg) translateY(-4px);
+          box-shadow: var(--shadow-lg);
+        }
+        .gd-float-label {
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.65rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #fff;
+          background: var(--coral);
+          border-radius: 999px;
+          padding: 4px 10px;
+        }
+        .gd-float-title {
+          font-family: var(--font-fraunces), serif;
+          font-weight: 700;
+          font-size: 1.05rem;
+          line-height: 1.35;
+          color: var(--ink);
+          margin: 0;
+        }
+        .gd-float-date {
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
+          font-size: 0.7rem;
+          color: var(--muted);
+        }
+        .gd-float-card .gd-gcard-read { font-size: 12px; }
+        .gd-float-card:hover .gd-gcard-read {
+          color: var(--coral-d);
+          gap: 9px;
+        }
+        .gd-float-left {
+          position: absolute;
+          left: 32px;
+          top: 48px;
+          width: 210px;
+          z-index: 2;
+          text-align: center;
+          pointer-events: none;
+        }
+        .gd-deck {
+          position: relative;
+          width: 170px;
+          height: 128px;
+          margin: 0 auto;
+        }
+        .gd-deck-card {
+          position: absolute;
+          inset: 0;
+          background: #fff;
+          border: 1px solid var(--line-2);
+          border-radius: 14px;
+          box-shadow: var(--shadow);
+        }
+        .gd-deck-card:nth-child(1) { transform: rotate(-8deg) translate(-8px, 6px); opacity: 0.55; }
+        .gd-deck-card:nth-child(2) { transform: rotate(5deg) translate(7px, 2px); opacity: 0.75; }
+        .gd-deck-card:nth-child(3) {
+          transform: rotate(-2deg);
+          box-shadow: var(--shadow-lg);
+          padding: 1rem 1.1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 9px;
+        }
+        .gd-deck-pill {
+          width: 52px;
+          height: 12px;
+          border-radius: 999px;
+          background: var(--coral);
+          opacity: 0.75;
+        }
+        .gd-deck-line {
+          width: 100%;
+          height: 8px;
+          border-radius: 999px;
+          background: var(--line-2);
+        }
+        .gd-deck-line.is-short { width: 62%; }
+        .gd-deck-label {
+          display: inline-block;
+          margin-top: 18px;
+          font-family: var(--font-caveat), 'Caveat', cursive;
+          font-size: 1.25rem;
+          color: var(--body);
+          transform: rotate(-3deg);
+        }
+        @media (max-width: 1280px) {
+          .gd-float-wrap, .gd-float-left { display: none; }
         }
 
         .gd-empty {
@@ -678,22 +501,18 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
         @media (max-width: 1024px) {
           .gd-grid { grid-template-columns: repeat(2, 1fr); }
-          .gd-hero-grid { grid-template-columns: 1fr; gap: 40px; }
-          .gd-hero-right { min-height: 0; justify-content: flex-start; }
-          .gd-hero-card { max-width: 100%; transform: none; }
-          .gd-hero-card:hover { transform: translateY(-4px); }
-          .gd-filter-select-row { grid-template-columns: repeat(3, 1fr); }
         }
-
+        @media (max-width: 1024px) and (min-width: 768px) {
+          .gd-doodle-loop, .gd-doodle-sparkle-sm, .gd-doodle-circle { display: none; }
+        }
         @media (max-width: 767px) {
-          .gd-hero { padding: 104px 0 64px; }
+          .gd-hero { padding: 104px 0 0; }
+          .gd-filters { padding-top: 36px; }
+          .gd-doodle { display: none; }
+          .gd-hero-watermark { font-size: 120px; bottom: -44px; opacity: 0.05; }
           .gd-search-input { padding-right: 16px; }
           .gd-kbd { display: none; }
-          .gd-filter-select-row { grid-template-columns: 1fr; }
-          .gd-grid-toolbar { justify-content: flex-start; }
-          .gd-sort-wrap { width: 100%; justify-content: space-between; }
         }
-
         @media (max-width: 640px) {
           .gd-grid { grid-template-columns: 1fr; }
         }
@@ -702,159 +521,152 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
       <ScrollProgressBar />
 
       <section className="gd-hero">
+        <div className="gd-hero-bg" aria-hidden="true">
+          <span className="gd-hero-watermark">guides</span>
+          <svg className="gd-doodle gd-doodle-arrow" width="72" height="60" viewBox="0 0 72 60" fill="none">
+            <path d="M6 6 C 18 34, 40 48, 64 50" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+            <path d="M50 54 L 64 50 L 56 40" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <svg className="gd-doodle gd-doodle-sparkle" width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M22 4 C 23 14, 26 19, 40 22 C 26 25, 23 30, 22 40 C 21 30, 18 25, 4 22 C 18 19, 21 14, 22 4 Z" fill="currentColor" />
+          </svg>
+          <svg className="gd-doodle gd-doodle-sparkle-sm" width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <path d="M22 4 C 23 14, 26 19, 40 22 C 26 25, 23 30, 22 40 C 21 30, 18 25, 4 22 C 18 19, 21 14, 22 4 Z" fill="currentColor" />
+          </svg>
+          <svg className="gd-doodle gd-doodle-squiggle" width="110" height="18" viewBox="0 0 110 18" fill="none">
+            <path d="M3 12 Q 14 3, 25 10 T 47 9 T 69 10 T 91 8 T 107 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          </svg>
+          <svg className="gd-doodle gd-doodle-circle" width="64" height="46" viewBox="0 0 64 46" fill="none">
+            <path d="M33 5 C 12 4, 3 12, 4 23 C 5 36, 22 42, 38 40 C 54 38, 62 29, 59 18 C 56 8, 42 3, 28 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </svg>
+          <svg className="gd-doodle gd-doodle-loop" width="70" height="34" viewBox="0 0 70 34" fill="none">
+            <path d="M4 26 C 14 6, 26 4, 28 14 C 30 24, 18 28, 22 18 C 27 6, 48 4, 66 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+          </svg>
+        </div>
         <div className="max-w-site">
-          <div className="gd-hero-grid">
-            <div>
-              <AnimateIn delay={80}>
-                <h1 className="gd-hero-title">Guides</h1>
-              </AnimateIn>
-              <AnimateIn delay={150}>
-                <p className="gd-hero-sub">Automation guides for engineers and founders.</p>
-              </AnimateIn>
-              <AnimateIn delay={220}>
-                <div className="gd-search-wrap">
-                  <span className="gd-search-icon">
-                    <SearchIcon />
-                  </span>
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="Search guides…"
-                    aria-label="Search guides"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="gd-search-input"
+          <AnimateIn delay={40}>
+            <span className="gd-hero-accent">the whole library</span>
+          </AnimateIn>
+          <AnimateIn delay={80}>
+            <h1 className="gd-hero-title">
+              All the{" "}
+              <span className="gd-hero-em">
+                guides
+                <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
+                  <path
+                    d="M2 9 Q 28 3, 52 7 T 98 5"
+                    fill="none"
+                    stroke="var(--coral)"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    opacity="0.45"
                   />
-                  <span className="gd-kbd">{kbdLabel}</span>
+                </svg>
+              </span>
+            </h1>
+          </AnimateIn>
+          <AnimateIn delay={150}>
+            <p className="gd-hero-sub">
+              Practical automation guides for engineers and founders — pick a topic, pick a tool,
+              and dig in.
+            </p>
+          </AnimateIn>
+          <AnimateIn delay={340} className="gd-float-left">
+            <div aria-hidden="true">
+              <div className="gd-deck">
+                <div className="gd-deck-card" />
+                <div className="gd-deck-card" />
+                <div className="gd-deck-card">
+                  <span className="gd-deck-pill" />
+                  <span className="gd-deck-line" />
+                  <span className="gd-deck-line" />
+                  <span className="gd-deck-line is-short" />
                 </div>
-              </AnimateIn>
-            </div>
-
-            <div className="gd-hero-right">
-              <div className="gd-hero-decor" aria-hidden="true">
-                <div className="gd-hero-dots" ref={dotsRef} data-parallax />
               </div>
-              {latest && (
-                <AnimateIn delay={260}>
-                  <LatestGuideCard guide={latest} />
-                </AnimateIn>
-              )}
+              <span className="gd-deck-label">the whole pile ↓</span>
             </div>
-          </div>
+          </AnimateIn>
+          {latest && (
+            <AnimateIn delay={300} className="gd-float-wrap">
+              <Link href={`/guides/${latest.slug}`} className="gd-float-card">
+                <span className="gd-float-label">Latest guide</span>
+                <h2 className="gd-float-title">{latest.title}</h2>
+                {latest.date && <span className="gd-float-date">{latest.date}</span>}
+                <span className="gd-gcard-read">
+                  Read guide <ArrowIcon size={12} />
+                </span>
+              </Link>
+            </AnimateIn>
+          )}
+          <AnimateIn delay={220}>
+            <div className="gd-search-wrap">
+              <span className="gd-search-icon">
+                <SearchIcon />
+              </span>
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search guides…"
+                aria-label="Search guides"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="gd-search-input"
+              />
+              <span className="gd-kbd">{kbdLabel}</span>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
-      <div className="gd-filter-bar">
+      <div className="gd-filters">
         <div className="max-w-site">
-          <div className="gd-filter-select-row">
-            <div className="gd-filter-field">
-              <label htmlFor="gd-filter-topics" className="gd-filter-label">
-                All Topics
-              </label>
-              <div className="gd-filter-select-wrap">
-                <select
-                  id="gd-filter-topics"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className="gd-filter-select"
+          <div className="gd-filter-row">
+            <span className="gd-filter-script">filter by topic</span>
+            <div className="gd-filter-pills" role="group" aria-label="Filter by topic">
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  className={`gd-filter-pill${category === c ? " is-active" : ""}`}
+                  aria-pressed={category === c}
+                  onClick={() => setCategory(c)}
                 >
-                  <option value="All">- All Topics -</option>
-                  {categories
-                    .filter((c) => c !== "All")
-                    .map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                </select>
-                <span className="gd-filter-chevron" aria-hidden="true">
-                  <ChevronDownIcon />
-                </span>
-              </div>
-            </div>
-
-            <div className="gd-filter-field">
-              <label htmlFor="gd-filter-content-type" className="gd-filter-label">
-                All Content Types
-              </label>
-              <div className="gd-filter-select-wrap">
-                <select
-                  id="gd-filter-content-type"
-                  value={contentType}
-                  onChange={(e) => setContentType(e.target.value)}
-                  className="gd-filter-select"
-                >
-                  <option value="All">- All Content Types -</option>
-                  <option value="Guide">Guide</option>
-                  <option value="Article">Article</option>
-                  <option value="Tutorial">Tutorial</option>
-                </select>
-                <span className="gd-filter-chevron" aria-hidden="true">
-                  <ChevronDownIcon />
-                </span>
-              </div>
-            </div>
-
-            <div className="gd-filter-field">
-              <label htmlFor="gd-filter-format" className="gd-filter-label">
-                All Formats
-              </label>
-              <div className="gd-filter-select-wrap">
-                <select
-                  id="gd-filter-format"
-                  value={format}
-                  onChange={(e) => setFormat(e.target.value)}
-                  className="gd-filter-select"
-                >
-                  <option value="All">- All Formats -</option>
-                  <option value="Article">Article</option>
-                  <option value="Video">Video</option>
-                  <option value="Template">Template</option>
-                </select>
-                <span className="gd-filter-chevron" aria-hidden="true">
-                  <ChevronDownIcon />
-                </span>
-              </div>
+                  {c}
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-      </div>
 
-      <section className="gd-grid-section">
-        <div className="max-w-site">
-          <div className="gd-grid-toolbar">
-            <span className="gd-results-count">
-              Showing {filtered.length} of {guides.length} guides
-            </span>
-            <div className="gd-sort-wrap">
-              <label htmlFor="gd-sort" className="gd-sort-label">
-                Sort by
-              </label>
-              <div className="gd-sort-select-wrap">
-                <select
-                  id="gd-sort"
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value as SortMode)}
-                  className="gd-sort-select"
+          <div className="gd-filter-row">
+            <span className="gd-filter-script">filter by AI tool</span>
+            <div className="gd-filter-pills" role="group" aria-label="Filter by AI tool">
+              {tools.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  className={`gd-filter-pill${tool === t ? " is-active" : ""}`}
+                  aria-pressed={tool === t}
+                  onClick={() => setTool(t)}
                 >
-                  <option value="newest">Most recent</option>
-                  <option value="oldest">Oldest first</option>
-                  <option value="az">A–Z</option>
-                  <option value="za">Z–A</option>
-                  <option value="year">By year</option>
-                </select>
-                <span className="gd-sort-chevron" aria-hidden="true">
-                  <ChevronDownIcon />
-                </span>
-              </div>
+                  {t}
+                </button>
+              ))}
             </div>
+          </div>
+
+          <span className="gd-results-count">
+            Showing {filtered.length} of {guides.length} guides
             {filtersActive && (
               <button type="button" className="gd-clear-btn" onClick={clearFilters}>
                 Clear filters
               </button>
             )}
-          </div>
+          </span>
+        </div>
+      </div>
 
+      <section className="gd-grid-section">
+        <div className="max-w-site">
           {filtered.length === 0 ? (
             <div className="gd-empty">
               <span className="gd-empty-icon">
@@ -868,19 +680,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
                 View all guides
               </button>
             </div>
-          ) : sort === "year" && yearGroups ? (
-            yearGroups.map(([year, yearGuides]) => (
-              <div key={year} className="gd-year-group">
-                <h3 className="gd-year-heading">{year}</h3>
-                <div className="gd-grid">
-                  {yearGuides.map((guide, i) => (
-                    <AnimateIn key={guide.slug} delay={Math.min(i, 6) * 60}>
-                      <GridCard guide={guide} />
-                    </AnimateIn>
-                  ))}
-                </div>
-              </div>
-            ))
           ) : (
             <div className="gd-grid">
               {filtered.map((guide, i) => (

@@ -105,8 +105,6 @@ const beyondFacts: BeyondFact[] = [
     title: "The podcast",
     body: "Recorded from my apartment. Unscripted, mostly about work.",
     extra: "Latest: AI didn't break my workflow. I did.",
-    linkText: "Listen →",
-    linkHref: "#",
   },
   {
     icon: Globe,
@@ -348,6 +346,7 @@ export default function About() {
     <>
       {/* HERO */}
       <section
+        className="about-hero-section"
         style={{
           background: "#FFFFFF",
           padding: "112px 0",
@@ -601,7 +600,7 @@ export default function About() {
       </section>
 
       {/* SECTION — OPERATOR NOTES */}
-      <section style={{ background: "#F5EFE0", padding: "112px 60px" }}>
+      <section className="lessons-section" style={{ background: "var(--cream)", padding: "112px 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <AnimateIn delay={60}>
             <h2
@@ -1001,6 +1000,12 @@ export default function About() {
           }
         }
         @media (max-width: 700px) {
+          .about-hero-section {
+            padding: 64px 0 !important;
+          }
+          .lessons-section {
+            padding: 64px 24px !important;
+          }
           .beyond-section {
             padding: 64px 24px !important;
           }

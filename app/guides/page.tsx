@@ -1,5 +1,12 @@
+import { Caveat } from "next/font/google";
 import { getAllGuides } from "@/lib/guides";
 import GuidesClient from "./GuidesClient";
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-caveat",
+});
 
 export const metadata = {
   title: "Guides — Rizwan Mahmood",
@@ -8,5 +15,9 @@ export const metadata = {
 
 export default function GuidesPage() {
   const guides = getAllGuides();
-  return <GuidesClient guides={guides} />;
+  return (
+    <div className={caveat.variable}>
+      <GuidesClient guides={guides} />
+    </div>
+  );
 }

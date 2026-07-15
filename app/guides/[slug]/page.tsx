@@ -64,12 +64,18 @@ export default async function GuidePage({
           margin-bottom: 1.25rem;
         }
         .gd-breadcrumb a {
-          color: var(--muted);
+          color: var(--coral);
           text-decoration: none;
           transition: color 0.2s ease;
         }
         .gd-breadcrumb a:hover {
-          color: var(--coral);
+          color: var(--coral-d, var(--coral));
+        }
+        .gd-detail-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          margin-bottom: 1rem;
         }
         .gd-detail-title {
           font-family: var(--font-fraunces), serif;
@@ -165,15 +171,20 @@ export default async function GuidePage({
 
         @media (max-width: 640px) {
           .gd-detail { padding: 64px 0; }
-          .gd-detail-wrap { padding: 0 20px; }
+          .gd-detail-wrap { padding: 0 24px; }
           .gd-detail-meta { flex-direction: column; align-items: flex-start; }
         }
       `}</style>
 
       <div className="gd-detail-wrap">
         <nav className="gd-breadcrumb" aria-label="Breadcrumb">
-          <Link href="/guides">Guides</Link> / {guide.title}
+          <Link href="/guides">← all guides</Link>
         </nav>
+
+        <div className="gd-detail-tags">
+          <span className="gd-pill gd-pill-topic">{guide.category}</span>
+          <span className="gd-pill gd-pill-tool">{guide.tool}</span>
+        </div>
 
         <h1 className="gd-detail-title">{guide.title}</h1>
 
@@ -182,7 +193,6 @@ export default async function GuidePage({
             <span>{formatDate(guide.date)}</span>
             <span className="gd-detail-dot">·</span>
             <span>{guide.readingTime} min read</span>
-            <span className="guide-badge">{guide.category}</span>
           </div>
           <ShareBar title={guide.title} />
         </div>

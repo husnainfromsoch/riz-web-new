@@ -6,15 +6,17 @@
 <meta name="guide-date" content="2026-05-02" />
 <meta name="guide-excerpt" content="How unstable_instant catches slow client-side navigations before users ever see them." />
 <meta name="guide-category" content="Web Dev" />
+<meta name="guide-tool" content="Next.js" />
 <link rel="stylesheet" href="/guides/guide-styles.css" />
 </head>
 <body>
   <h1>Instant Navigation in Next.js 16: A Practical Setup</h1>
-  <!-- Photo by Christopher Gower on Unsplash, Unsplash License -->
-  <img src="https://images.unsplash.com/photo-1497864768494-78100d1ddf01?fm=jpg&q=80&w=1600&auto=format&fit=crop" alt="Laptop with code editor" loading="lazy" width="1600" height="900" />
-  <p>With Cache Components enabled, a misplaced Suspense boundary can silently block client-side navigations. The <code>unstable_instant</code> export catches this at dev and build time instead of in production.</p>
 
-  <h2>The pattern</h2>
+  <div class="guide-note">
+    <p><strong>A note from me:</strong> with Cache Components enabled, a misplaced Suspense boundary can silently block client-side navigations. The <code>unstable_instant</code> export catches this at dev and build time instead of in production.</p>
+  </div>
+
+  <h2>🧩 The pattern</h2>
   <pre><code>export const unstable_instant = { prefetch: 'static' }
 
 export default async function Page({ params }) {
@@ -25,7 +27,11 @@ export default async function Page({ params }) {
   )
 }</code></pre>
 
-  <h2>Why it matters</h2>
+  <h2>⚡ Why it matters</h2>
   <p>Validation simulates navigation from every shared layout boundary, not just the initial page load — the failure mode that's easy to miss by hand.</p>
+
+  <div class="guide-note guide-note--close">
+    <p>Follow <a href="https://www.instagram.com/etz.riz/reels/">@etz.riz</a> for more web dev tips.</p>
+  </div>
 </body>
 </html>

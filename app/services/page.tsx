@@ -4,7 +4,6 @@ import AnimateIn from "@/components/AnimateIn";
 import ServicesHubDiagram from "@/components/ServicesHubDiagram";
 import TestimonialsSection from "@/components/Testimonials";
 import DirectLineCTA from "@/components/DirectLineCTA";
-import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
 import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
@@ -905,7 +904,7 @@ export default function Services() {
       {sectionDivider}
 
       {/* BOTTOM CTA — reused Direct Line component from the homepage */}
-      <section style={{ background: "var(--cream)" }}>
+      <section className="section-pad" style={{ background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />
