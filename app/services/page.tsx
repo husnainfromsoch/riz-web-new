@@ -634,8 +634,8 @@ export default function Services() {
                     marginBottom: "0.5rem",
                   }}
                 >
-                  Each service is built around one goal: getting your operations
-                  clear enough that AI actually works for you.
+                  Every service has one goal: get your operations clear enough
+                  that AI actually works for you.
                 </p>
               </AnimateIn>
               <AnimateIn delay={190}>
@@ -693,7 +693,7 @@ export default function Services() {
               </AnimateIn>
               <AnimateIn delay={100}>
                 <p className="svc-body" style={bodyStyle}>
-                  Most founders automate broken processes. I fix the thinking
+                  Most owners automate broken processes. I fix the thinking
                   first. 1:1 advisory, fractional ops, and strategic clarity
                   sessions. From $160/hr.
                 </p>
@@ -703,8 +703,8 @@ export default function Services() {
                   Every engagement starts the same way: we diagnose the process
                   before touching a single tool. A Clarity Session maps what&apos;s
                   actually broken, what&apos;s worth automating, and what isn&apos;t.
-                  From there, fractional advisory is a standing monthly check-in
-                  — I stay close to the numbers and flag what&apos;s next before it
+                  From there, fractional advisory is a standing monthly check-in.
+                  I stay close to the numbers and flag what&apos;s next before it
                   becomes a fire.
                 </p>
               </AnimateIn>
@@ -764,7 +764,7 @@ export default function Services() {
                   Every build is scoped up front and delivered through Soch,
                   with weekly demos so you&apos;re never guessing what&apos;s shipping.
                   When it&apos;s done, you get full documentation and a proper
-                  handover — no retainer required to keep it running.
+                  handover. No retainer required to keep it running.
                 </p>
               </AnimateIn>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
@@ -837,8 +837,8 @@ export default function Services() {
               <AnimateIn delay={140}>
                 <p className="svc-body" style={bodyStyle}>
                   No slide decks to sit through. Teams leave with a working
-                  automation they built themselves, live, in the room —
-                  something they can point to on Monday morning.
+                  automation they built themselves, live, in the room.
+                  Something they can point to on Monday morning.
                 </p>
               </AnimateIn>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
@@ -903,7 +903,7 @@ export default function Services() {
 
       {sectionDivider}
 
-      {/* BOTTOM CTA — reused Direct Line component from the homepage */}
+      {/* BOTTOM CTA - reused Direct Line component from the homepage */}
       <section className="section-pad" style={{ background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>

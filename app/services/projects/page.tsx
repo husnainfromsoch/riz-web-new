@@ -80,7 +80,7 @@ export default function ProjectsPage() {
           </AnimateIn>
           <AnimateIn delay={240}>
             <ProofChipRow>
-              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
+              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops · Careem · Bolt · Wise</ProofChip>
               <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
               <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
             </ProofChipRow>
@@ -220,7 +220,7 @@ export default function ProjectsPage() {
                 {[
                   "Fixed price quoted before we start",
                   "Built in n8n, documented, and handed over",
-                  "You own the automation completely — no lock-in",
+                  "You own the automation completely, no lock-in",
                 ].map((t, i) => checkBullet(t, i))}
               </ul>
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>

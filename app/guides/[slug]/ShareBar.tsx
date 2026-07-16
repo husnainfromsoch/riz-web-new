@@ -15,7 +15,7 @@ export default function ShareBar({ title }: { title: string }) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard unavailable — silently ignore
+      // clipboard unavailable - silently ignore
     }
   }
 

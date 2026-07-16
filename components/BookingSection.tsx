@@ -39,7 +39,7 @@ export default function BookingSection() {
       {/* TOP BANNER */}
       <div style={{ textAlign: "center", padding: "64px 1.5rem 64px" }}>
         <AnimateIn delay={80}>
-          {/* Main heading — DM Sans bold, 56px desktop */}
+          {/* Main heading - DM Sans bold, 56px desktop */}
           <h2
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",

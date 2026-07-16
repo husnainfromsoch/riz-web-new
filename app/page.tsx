@@ -47,7 +47,7 @@ const processSteps = [
   {
     num: "01",
     title: "Get clear",
-    body: "Before tools, before n8n, before any of it — what's the actual problem? This is where most projects fail. Not here.",
+    body: "Before tools, before n8n, before any of it: what's the actual problem? This is where most projects fail. Not here.",
   },
   {
     num: "02",
@@ -235,7 +235,7 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
   );
 }
 
-// ─── HOW I THINK — ANIMATED CHART ───────────────────────────────────────────
+// ─── HOW I THINK - ANIMATED CHART ───────────────────────────────────────────
 
 const CHART_LINE_PATH = "M60,180 L300,150 L600,110 L900,70 L1140,30";
 const CHART_AREA_PATH = "M60,180 L300,150 L600,110 L900,70 L1140,30 L1140,220 L60,220 Z";
@@ -546,7 +546,7 @@ export default function Home() {
         setAudioState("playing");
       })
       .catch(() => {
-        // Fail silently — e.g. file missing or playback blocked.
+        // Fail silently - e.g. file missing or playback blocked.
       });
   }
 
@@ -649,15 +649,15 @@ export default function Home() {
 
         function runCycle() {
           if (cancelled) return;
-          // OFF state — wait 2s then flip ON
+          // OFF state - wait 2s then flip ON
           schedule(() => {
             if (cancelled) return;
             setIsAfter(true);
-            // ON state — wait 3s then flip OFF
+            // ON state - wait 3s then flip OFF
             schedule(() => {
               if (cancelled) return;
               setIsAfter(false);
-              // OFF again — wait 2s then loop
+              // OFF again - wait 2s then loop
               schedule(runCycle, 2000);
             }, 3000);
           }, 2000);
@@ -719,7 +719,7 @@ export default function Home() {
         @media (max-width: 480px) {
           .proof-grid { grid-template-columns: 1fr; }
         }
-        /* ===== ROUTES — "How people work with me" ===== */
+        /* ===== ROUTES - "How people work with me" ===== */
         .route-hero-v2 {
           position: relative;
           overflow: hidden;
@@ -1044,7 +1044,7 @@ export default function Home() {
           90%  { opacity: 1; }
           100% { left: calc(100% + 4px); opacity: 0; }
         }
-        /* Before/After comparison stacks vertically on mobile — the
+        /* Before/After comparison stacks vertically on mobile - the
            three-column grid cannot shrink below its content width and
            was the root cause of horizontal page overflow. */
         @media (max-width: 767px) {
@@ -1254,7 +1254,7 @@ export default function Home() {
           margin-left: 4px;
         }
 
-        /* ===== SELECTED WORK — SYSTEM ROWS ===== */
+        /* ===== SELECTED WORK - SYSTEM ROWS ===== */
         .work-rows-list {
           position: relative;
           display: flex;
@@ -1403,10 +1403,10 @@ export default function Home() {
         }
       `}</style>
 
-      {/* SECTION 1 — HERO */}
+      {/* SECTION 1 - HERO */}
       <HeroSection />
 
-      {/* SECTION 2 — PROOF */}
+      {/* SECTION 2 - PROOF */}
       <section
         ref={proofSectionRef}
         className="section-pad"
@@ -1427,14 +1427,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 3 — WHAT I BELIEVE */}
-      {/* Intentionally custom width — do not standardize to .max-w-site */}
+      {/* SECTION 3 - WHAT I BELIEVE */}
+      {/* Intentionally custom width - do not standardize to .max-w-site */}
       <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "112px 60px" }}>
         <div style={{ maxWidth: 1360, margin: "0 auto" }}>
 
           <div className="believe-content-wrap">
 
-            {/* LEFT — text */}
+            {/* LEFT - text */}
             <div>
               <h2 className="believe-section-title">What I actually believe.</h2>
 
@@ -1443,7 +1443,7 @@ export default function Home() {
                   Everyone&apos;s selling AI like it&apos;s a brain you can rent. It isn&apos;t.
                 </p>
                 <p className="belief-para" ref={(el) => { beliefParaRefs.current[1] = el; }}>
-                  AI doesn&apos;t think for you. It thinks <em>like</em> you — faster, and at scale.
+                  AI doesn&apos;t think for you. It thinks <em>like</em> you, faster and at scale.
                 </p>
                 <p className="belief-para" ref={(el) => { beliefParaRefs.current[2] = el; }}>
                   Feed it muddled thinking and you get muddled output. Just more of it.
@@ -1471,7 +1471,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* RIGHT — photo */}
+            {/* RIGHT - photo */}
             <div className="believe-photo-col">
               <div
                 className="believe-photo-container portrait-wrapper"
@@ -1500,7 +1500,7 @@ export default function Home() {
                   />
                 </div>
 
-                {/* Equalizer badge — always visible while playing, independent of hover, so it reads as "sound is on" */}
+                {/* Equalizer badge - always visible while playing, independent of hover, so it reads as "sound is on" */}
                 {audioState === 'playing' && (
                   <div className="portrait-eq-badge" aria-hidden="true">
                     <span />
@@ -1510,7 +1510,7 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* Idle pill — hidden by default, appears on hover, disappears once audio starts */}
+                {/* Idle pill - hidden by default, appears on hover, disappears once audio starts */}
                 {audioState === 'idle' && (
                   <div className="hear-me-pill" style={{
                     position: "absolute",
@@ -1535,7 +1535,7 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* Vinyl — shown when hovered+playing, or any paused state */}
+                {/* Vinyl - shown when hovered+playing, or any paused state */}
                 {audioState !== 'idle' && (audioState === 'paused' || believeHovered) && (
                   <div style={{
                     position: "absolute",
@@ -1561,7 +1561,7 @@ export default function Home() {
                   </div>
                 )}
 
-                {/* Status bar — shown when hovered+playing, or any paused state */}
+                {/* Status bar - shown when hovered+playing, or any paused state */}
                 {audioState !== 'idle' && (audioState === 'paused' || believeHovered) && (
                   <div style={{
                     position: "absolute",
@@ -1580,7 +1580,7 @@ export default function Home() {
                     zIndex: 4,
                     pointerEvents: "none" as const,
                   }}>
-                    {audioState === 'playing' ? 'NOW PLAYING — CLICK TO PAUSE' : 'PAUSED — CLICK TO RESUME'}
+                    {audioState === 'playing' ? 'NOW PLAYING · CLICK TO PAUSE' : 'PAUSED · CLICK TO RESUME'}
                   </div>
                 )}
 
@@ -1715,7 +1715,7 @@ export default function Home() {
                 margin: 0,
               }}>
                 Ten years. Four companies.<br />
-                One consistent result — systems that run without you.
+                One consistent result: systems that run without you.
               </p>
             </div>
 
@@ -1818,7 +1818,7 @@ export default function Home() {
                         boxSizing: "border-box" as const,
                       }}
                     >
-                      {/* Circled number — coral outline only */}
+                      {/* Circled number - coral outline only */}
                       <div
                         style={{
                           width: 32,
@@ -1880,7 +1880,7 @@ export default function Home() {
                         </p>
                       </div>
 
-                      {/* Arrow — always visible, turns coral on hover */}
+                      {/* Arrow - always visible, turns coral on hover */}
                       <div style={{ flexShrink: 0 }}>
                         <span
                           style={{
@@ -1903,7 +1903,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 1.5 — BEFORE / AFTER TOGGLE */}
+      {/* SECTION 1.5 - BEFORE / AFTER TOGGLE */}
       <section
         ref={beforeAfterRef}
         className="section-pad"
@@ -1946,7 +1946,7 @@ export default function Home() {
                 minHeight: 420,
               }}>
 
-                {/* LEFT — BEFORE */}
+                {/* LEFT - BEFORE */}
                 <div className="ba-panel-before" style={{
                   background: "rgba(34,51,44,0.025)",
                   border: "1px solid var(--line)",
@@ -2092,7 +2092,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* RIGHT — AFTER */}
+                {/* RIGHT - AFTER */}
                 <div className="ba-panel-after" style={{
                   background: "rgba(234,106,71,0.035)",
                   border: "1px solid var(--line)",
@@ -2213,10 +2213,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 4B — FEATURED CASE STUDIES (expandable preview) */}
+      {/* SECTION 4B - FEATURED CASE STUDIES (expandable preview) */}
       <FeaturedCaseStudies />
 
-      {/* SECTION 5 — PERSONALITY (video carousel) */}
+      {/* SECTION 5 - PERSONALITY (video carousel) */}
       <section
         className="section-pad"
         style={{
@@ -2249,7 +2249,7 @@ export default function Home() {
                 maxWidth: "60ch",
               }}
             >
-              I don&apos;t just build the machines — I talk about them. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
+              I don&apos;t just build the machines. I talk about them too. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
             </p>
           </AnimateIn>
         </div>
@@ -2275,7 +2275,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 6 — PROCESS */}
+      {/* SECTION 6 - PROCESS */}
       <section
         className="think-section"
         style={{
@@ -2449,7 +2449,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 7 — ROUTES */}
+      {/* SECTION 7 - ROUTES */}
       <section className="section-pad" style={{ background: "#FFFFFF" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
@@ -2481,14 +2481,14 @@ export default function Home() {
           </AnimateIn>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {/* ROW 1 — Consulting featured */}
+            {/* ROW 1 - Consulting featured */}
             <AnimateIn delay={200}>
               <div className="route-hero-v2">
                 <div className="route-hero-texture" aria-hidden="true" />
                 <div className="route-hero-glow" aria-hidden="true" />
 
                 <div className="route-hero-grid">
-                  {/* LEFT — tag, title, description, authority row */}
+                  {/* LEFT - tag, title, description, authority row */}
                   <div>
                     <span className="route-tag-chip route-tag-chip--coral" style={{ marginBottom: 16 }}>
                       1:1 ADVISORY
@@ -2513,7 +2513,7 @@ export default function Home() {
                         maxWidth: 520,
                       }}
                     >
-                      1:1 advisory and fractional product / ops for early-stage teams. I come in, we get clear, we build the system.
+                      1:1 advisory and fractional ops for owners and the small teams around them. I come in, we get clear, we build the system.
                     </p>
 
                     <div className="route-authority-row">
@@ -2523,7 +2523,7 @@ export default function Home() {
                             <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z" />
                           </svg>
                         </span>
-                        10+ yrs ops — Careem · Bolt · Wise
+                        10+ yrs ops · Careem · Bolt · Wise
                       </span>
                       <span className="route-authority-chip">
                         <span className="route-authority-icon">
@@ -2546,7 +2546,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  {/* RIGHT — pricing block */}
+                  {/* RIGHT - pricing block */}
                   <div className="route-price-block">
                     <span className="route-price-from">From</span>
                     <span className="route-price-value">
@@ -2560,9 +2560,9 @@ export default function Home() {
               </div>
             </AnimateIn>
 
-            {/* ROW 2 — 3 columns */}
+            {/* ROW 2 - 3 columns */}
             <div className="route-cards-row">
-              {/* CARD A — A system built for you */}
+              {/* CARD A - A system built for you */}
               <AnimateIn delay={280}>
                 <ClickableCard href="/services/projects" className="route-card-v2">
                   <span className="route-card-icon"><RouteBuildIcon /></span>
@@ -2579,7 +2579,7 @@ export default function Home() {
                   >
                     Custom AI automations, end-to-end. That&apos;s what Soch does.
                   </p>
-                  <p className="route-authority-line">Delivered via Soch — withsoch.com</p>
+                  <p className="route-authority-line">Delivered via Soch · withsoch.com</p>
                   <div className="route-card-buttons">
                     <Link
                       href="https://withsoch.com"
@@ -2596,7 +2596,7 @@ export default function Home() {
                 </ClickableCard>
               </AnimateIn>
 
-              {/* CARD B — Speaking & workshops */}
+              {/* CARD B - Speaking & workshops */}
               <AnimateIn delay={360}>
                 <ClickableCard href="/services/speaking" className="route-card-v2">
                   <span className="route-card-icon"><RouteMicIcon /></span>
@@ -2622,7 +2622,7 @@ export default function Home() {
                 </ClickableCard>
               </AnimateIn>
 
-              {/* CARD C — Just want to learn? */}
+              {/* CARD C - Just want to learn? */}
               <AnimateIn delay={440}>
                 <ClickableCard href="/blog" className="route-card-v2">
                   <span className="route-card-icon"><RouteBookIcon /></span>
@@ -2666,7 +2666,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 8 — TESTIMONIALS */}
+      {/* SECTION 8 - TESTIMONIALS */}
       <TestimonialsSection
         heading={
           <>
@@ -2675,7 +2675,7 @@ export default function Home() {
         }
       />
 
-      {/* SECTION — HAVE A CHAT */}
+      {/* SECTION - HAVE A CHAT */}
       <section className="section-pad" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="max-w-site">
           <AnimateIn>
@@ -2684,7 +2684,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 9 — WRITING */}
+      {/* SECTION 9 - WRITING */}
       <section className="section-pad" style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
@@ -2746,7 +2746,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 10 — BOOKING */}
+      {/* SECTION 10 - BOOKING */}
       <BookingSection />
     </>
   );

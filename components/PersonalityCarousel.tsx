@@ -23,7 +23,7 @@ const carouselCards: CarouselCard[] = [
     instagramUrl: INSTAGRAM_PROFILE_URL,
     tag: "REEL",
     title: "A message to AI influencers",
-    description: "Calling out the hype — what actually ships vs what gets posted.",
+    description: "Calling out the hype: what actually ships versus what gets posted.",
   },
   {
     id: "card-2",
@@ -58,8 +58,8 @@ const carouselCards: CarouselCard[] = [
     src: "/videos/riz-reel-5.mp4",
     instagramUrl: INSTAGRAM_PROFILE_URL,
     tag: "REEL",
-    title: "Podcast clips", // placeholder — flagged for review
-    description: "Long-form breakdowns, cut down to the good parts.", // placeholder — flagged for review
+    title: "Podcast clips", // placeholder - flagged for review
+    description: "Long-form breakdowns, cut down to the good parts.", // placeholder - flagged for review
   },
   {
     id: "card-6",
@@ -67,8 +67,8 @@ const carouselCards: CarouselCard[] = [
     src: "/videos/riz-reel-6.mp4",
     instagramUrl: INSTAGRAM_PROFILE_URL,
     tag: "REEL",
-    title: "Behind the build", // placeholder — flagged for review
-    description: "Raw footage from a client build, start to finish.", // placeholder — flagged for review
+    title: "Behind the build", // placeholder - flagged for review
+    description: "Raw footage from a client build, start to finish.", // placeholder - flagged for review
   },
   {
     id: "card-7",
@@ -76,8 +76,8 @@ const carouselCards: CarouselCard[] = [
     src: "/videos/riz-reel-7.mp4",
     instagramUrl: INSTAGRAM_PROFILE_URL,
     tag: "REEL",
-    title: "More from the feed", // placeholder — flagged for review
-    description: "Another clip straight from the Instagram grid.", // placeholder — flagged for review
+    title: "More from the feed", // placeholder - flagged for review
+    description: "Another clip straight from the Instagram grid.", // placeholder - flagged for review
   },
 ];
 
@@ -186,7 +186,7 @@ function PlaceholderCard({ card, instanceId }: { card: CarouselCard; instanceId:
 }
 
 // Two consecutive copies of the deck let the track translate exactly one
-// set's width and land back on an identical layout — a seamless loop.
+// set's width and land back on an identical layout - a seamless loop.
 const trackCards = [
   ...carouselCards.map((card) => ({ card, instanceId: `${card.id}-a` })),
   ...carouselCards.map((card) => ({ card, instanceId: `${card.id}-b` })),
@@ -263,7 +263,7 @@ export default function PersonalityCarousel() {
   // Continuous constant-speed drift (same technique/pace as the site's logo
   // ticker marquee), driven by rAF so hover-pause/resume never jumps and
   // arrow clicks can nudge the offset directly. Loops seamlessly because the
-  // deck is rendered twice — wrapping at exactly one set's width is invisible.
+  // deck is rendered twice - wrapping at exactly one set's width is invisible.
   useEffect(() => {
     const track = trackRef.current;
     const viewport = viewportRef.current;

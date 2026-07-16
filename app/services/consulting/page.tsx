@@ -25,7 +25,7 @@ const formats = [
   },
   {
     title: "Fractional ops",
-    body: "1–2 days per week, embedded in your team. I run ops alongside you, not for you.",
+    body: "1-2 days per week, embedded in your team. I run ops alongside you, not for you.",
   },
   {
     title: "Advisory retainer",
@@ -76,12 +76,12 @@ export default function ConsultingPage() {
                 maxWidth: 520,
               }}
             >
-              I work with founders and ops leads who know something is wrong but can&apos;t quite name it. We name it together. Then we fix it.
+              I work with owners and founders who know something is wrong but can&apos;t quite name it. We name it together. Then we fix it.
             </p>
           </AnimateIn>
           <AnimateIn delay={240}>
             <ProofChipRow>
-              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
+              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops · Careem · Bolt · Wise</ProofChip>
               <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
               <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
             </ProofChipRow>
@@ -146,7 +146,7 @@ export default function ConsultingPage() {
           <ul style={{ listStyle: "none", padding: 0, margin: "2.5rem 0 0", maxWidth: 460 }}>
             {[
               "Fixed intro call before anything is scoped",
-              "Direct access — no account managers, no hand-offs",
+              "Direct access, no account managers, no hand-offs",
               "Documentation and hand-over on everything we build",
             ].map((t, i) => checkBullet(t, i))}
           </ul>
@@ -222,7 +222,7 @@ export default function ConsultingPage() {
                   marginBottom: "1.25rem",
                 }}
               >
-                I&apos;ll reply within 48 hours. If there&apos;s a fit, we&apos;ll book a call. Or skip the form —
+                I&apos;ll reply within 48 hours. If there&apos;s a fit, we&apos;ll book a call. Or skip the form and book directly.
               </p>
             </AnimateIn>
             <AnimateIn delay={110}>
