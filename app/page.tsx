@@ -1044,6 +1044,29 @@ export default function Home() {
           90%  { opacity: 1; }
           100% { left: calc(100% + 4px); opacity: 0; }
         }
+        /* Before/After comparison stacks vertically on mobile — the
+           three-column grid cannot shrink below its content width and
+           was the root cause of horizontal page overflow. */
+        @media (max-width: 767px) {
+          .ba-compare-grid {
+            grid-template-columns: minmax(0, 1fr) !important;
+          }
+          .ba-panel-before {
+            border-radius: 20px 20px 0 0 !important;
+            padding: 28px 20px !important;
+          }
+          .ba-panel-after {
+            border-radius: 0 0 20px 20px !important;
+            padding: 28px 20px !important;
+          }
+          .ba-divider {
+            width: 100% !important;
+            padding: 18px 0;
+          }
+          .ba-divider > div {
+            flex-direction: row !important;
+          }
+        }
         .ba-row { display: flex; align-items: stretch; width: 100%; }
         .ba-card { flex: 1; min-width: 0; }
         .ba-arrow-h { display: flex; align-items: center; flex-shrink: 0; width: 44px; }
@@ -1096,7 +1119,9 @@ export default function Home() {
           display: grid;
           grid-template-columns: 1fr 420px;
           gap: 80px;
-          align-items: start;
+          /* stretch (not start): the photo column must span the full section
+             height or position: sticky on the photo has no room to travel */
+          align-items: stretch;
         }
         .believe-section-title {
           font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
@@ -1159,10 +1184,11 @@ export default function Home() {
           transform: translateY(-2px);
         }
         .believe-photo-col {
-          position: sticky; top: 40px;
+          position: relative;
         }
         .believe-photo-container {
-          position: relative; cursor: pointer; user-select: none;
+          position: sticky; top: 112px;
+          cursor: pointer; user-select: none;
         }
         .believe-photo-frame {
           position: relative; overflow: hidden; border-radius: 16px;
@@ -1205,6 +1231,8 @@ export default function Home() {
         @media (max-width: 960px) {
           .believe-content-wrap { grid-template-columns: 1fr; gap: 48px; }
           .believe-photo-col { position: static; }
+          /* single-column stacking: photo stays in flow, no sticky */
+          .believe-photo-container { position: relative; top: auto; }
           .believe-section-title { font-size: 36px; }
         }
         @keyframes terminalIn {
@@ -1400,8 +1428,9 @@ export default function Home() {
       </section>
 
       {/* SECTION 3 — WHAT I BELIEVE */}
-      <section id="what-i-believe" className="section-pad" style={{ position: "relative", zIndex: 1 }}>
-        <div className="max-w-site">
+      {/* Intentionally custom width — do not standardize to .max-w-site */}
+      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "112px 60px" }}>
+        <div style={{ maxWidth: 1360, margin: "0 auto" }}>
 
           <div className="believe-content-wrap">
 
@@ -1908,9 +1937,9 @@ export default function Home() {
           {/* Split before/after comparison */}
           <AnimateIn delay={80}>
             <div style={{ width: "100%" }}>
-              <div style={{
+              <div className="ba-compare-grid" style={{
                 display: "grid",
-                gridTemplateColumns: "1fr auto 1fr",
+                gridTemplateColumns: "minmax(0,1fr) auto minmax(0,1fr)",
                 gap: 0,
                 borderRadius: 20,
                 overflow: "hidden",
@@ -1918,7 +1947,7 @@ export default function Home() {
               }}>
 
                 {/* LEFT — BEFORE */}
-                <div style={{
+                <div className="ba-panel-before" style={{
                   background: "rgba(34,51,44,0.025)",
                   border: "1px solid var(--line)",
                   borderRadius: "20px 0 0 20px",
@@ -2001,7 +2030,7 @@ export default function Home() {
                 </div>
 
                 {/* MIDDLE DIVIDER */}
-                <div style={{
+                <div className="ba-divider" style={{
                   width: 104,
                   display: "flex",
                   flexDirection: "column",
@@ -2064,7 +2093,7 @@ export default function Home() {
                 </div>
 
                 {/* RIGHT — AFTER */}
-                <div style={{
+                <div className="ba-panel-after" style={{
                   background: "rgba(234,106,71,0.035)",
                   border: "1px solid var(--line)",
                   borderRadius: "0 20px 20px 0",
