@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ChevronDown, Home, Megaphone, Cpu, Truck } from "lucide-react";
 import AnimateIn from "@/components/AnimateIn";
 
-/* ─── data — 4 selected from the full case studies list ──────────────────── */
+/* ─── data - 4 selected from the full case studies list ──────────────────── */
 
 const FEATURED_CASES = [
   {
@@ -109,7 +109,7 @@ const FEATURED_CASES = [
       before: [
         "340+ WISMO tickets per month",
         "1.5 support roles on WISMO full-time",
-        "Reactive — customers contacting first",
+        "Reactive, customers contacting first",
         "No branded delay communication",
       ],
       after: [

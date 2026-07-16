@@ -7,21 +7,21 @@ export type Testimonial = {
   name: string;
   roleLine: string;
   quote: string;
-  /** Short preview of `quote` for the clickable grid cards — full quote shows only in the featured box. */
+  /** Short preview of `quote` for the clickable grid cards - full quote shows only in the featured box. */
   teaser?: string;
   initials: string;
   avatarUrl?: string;
-  /** True until this is swapped for a real client quote. Not shown in the UI — internal tracking only. */
+  /** True until this is swapped for a real client quote. Not shown in the UI - internal tracking only. */
   isPlaceholder?: boolean;
-  /** Placeholder — swap for the real company name once available. Shown only in the featured area. */
+  /** Placeholder - swap for the real company name once available. Shown only in the featured area. */
   fullCompany?: string;
-  /** Placeholder href ("#") — swap for the person's real LinkedIn URL. */
+  /** Placeholder href ("#") - swap for the person's real LinkedIn URL. */
   linkedinUrl?: string;
-  /** Placeholder href ("#") — not currently rendered; kept for when a case-study/testimonial page exists. */
+  /** Placeholder href ("#") - not currently rendered; kept for when a case-study/testimonial page exists. */
   readMoreHref?: string;
 };
 
-// Placeholder quotes — swap for real ones before shipping.
+// Placeholder quotes - swap for real ones before shipping.
 // avatarUrl entries are AI-generated placeholder faces; swap for real client photos later.
 export const testimonials: Testimonial[] = [
   {
@@ -29,9 +29,9 @@ export const testimonials: Testimonial[] = [
     name: "Amara Whitfield",
     roleLine: "Founder, B2B SaaS",
     quote:
-      "Riz didn't just wire up automations — he made us rebuild how we thought about the whole sales pipeline first. That's the part that actually stuck.",
+      "Riz didn't just wire up automations. He made us rebuild how we thought about the whole sales pipeline first. That's the part that actually stuck.",
     teaser:
-      "Riz didn't just wire up automations — he made us rebuild how we thought about the whole sales pipeline first…",
+      "Riz didn't just wire up automations. He made us rebuild how we thought about the whole sales pipeline first…",
     initials: "AW",
     avatarUrl: "/images/testimonials/amara.jpg",
     isPlaceholder: true,
@@ -59,9 +59,9 @@ export const testimonials: Testimonial[] = [
     name: "Priya Nathan",
     roleLine: "COO, recruitment agency",
     quote:
-      "The workshop paid for itself in the first week — my team stopped treating AI like a toy and started treating it like leverage.",
+      "The workshop paid for itself in the first week. My team stopped treating AI like a toy and started treating it like leverage.",
     teaser:
-      "The workshop paid for itself in the first week — my team stopped treating AI like a toy…",
+      "The workshop paid for itself in the first week. My team stopped treating AI like a toy…",
     initials: "PN",
     avatarUrl: "/images/testimonials/priya.jpg",
     isPlaceholder: true,
@@ -172,7 +172,7 @@ function TestimonialCard({
         <Avatar initials={t.initials} avatarUrl={t.avatarUrl} name={t.name} size={36} />
         <div>
           <div className="testimonials-author-name">{t.name}</div>
-          {/* Role/company/LinkedIn stay exclusive to the featured box — the payoff for clicking. */}
+          {/* Role/company/LinkedIn stay exclusive to the featured box - the payoff for clicking. */}
           {!clickable && <div className="testimonials-author-role">{t.roleLine}</div>}
         </div>
       </div>
@@ -294,7 +294,7 @@ export default function TestimonialsSection({
                 <span className="testimonials-strip-companies">{trustedCompanies.join(" · ")}</span>
               </p>
               <p className="testimonials-strip-note">
-                Companies Riz has worked at — background, not client logos.
+                Companies Riz has worked at. Background, not client logos.
               </p>
             </div>
           </AnimateIn>

@@ -9,8 +9,8 @@ const caveat = Caveat({
 });
 
 export const metadata = {
-  title: "Guides — Rizwan Mahmood",
-  description: "Automation guides for engineers and founders — practical, no fluff.",
+  title: "Guides · Rizwan Mahmood",
+  description: "Automation guides for engineers and founders. Practical, no fluff.",
 };
 
 export default function GuidesPage() {

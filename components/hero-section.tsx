@@ -6,7 +6,7 @@ import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const PHOTO_URL = "/riz-photo-new.jpg";
 
-// Sparkle — used for "AI Operator" since it's a role, not a product with a logo.
+// Sparkle used for "AI Operator" since it's a role, not a product with a logo.
 function AiOperatorMark() {
   return (
     <svg className="hz-marquee-icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -452,7 +452,7 @@ export default function HeroSection() {
                 <p className="hz-intro">Hi, I&apos;m <span className="hz-intro-name">Riz</span>.</p>
 
                 <h1 className="hz-headline">
-                  I help founders<br />
+                  I help owners<br />
                   think clearly enough<br />
                   that <span className="hz-accent">automation works.</span>
                 </h1>
@@ -460,15 +460,15 @@ export default function HeroSection() {
                 <div className="hz-rule" />
 
                 <p className="hz-value-prop">
-                  Most founders buy tools before they fix their thinking.{" "}
-                  <b>AI scales whatever you feed it</b> — muddled input, muddled output.
-                  I come in before the build, not after.
+                  Most owners buy tools before they fix how the work actually runs.{" "}
+                  <b>AI scales whatever you feed it</b>: messy input, messy output.
+                  I come in before the build, not after it breaks.
                 </p>
 
                 <ul className="hz-role-list">
-                  <li><span className="hz-role-arrow">→</span>Consulting &amp; AI advisory — from $160/hr</li>
-                  <li><span className="hz-role-arrow">→</span>Automation systems built end-to-end via Soch</li>
-                  <li><span className="hz-role-arrow">→</span>Workshops &amp; keynotes on AI in operations</li>
+                  <li><span className="hz-role-arrow">→</span>Consulting and AI advisory, from $160/hr</li>
+                  <li><span className="hz-role-arrow">→</span>Automation systems built and shipped through Soch</li>
+                  <li><span className="hz-role-arrow">→</span>Workshops and keynotes on AI in operations</li>
                 </ul>
 
                 <div className="hz-cta-row">
@@ -507,7 +507,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* MARQUEE STRIP — stays inside hero section */}
+            {/* MARQUEE STRIP: stays inside hero section */}
             <div className="hz-marquee-section">
               <div className="hz-marquee-inner">
                 {MARQUEE_ITEMS.map((item, i) => {

@@ -6,7 +6,7 @@ import CalBookingButton from "@/components/CalModal";
 import { useParallax } from "@/hooks/useParallax";
 
 // Official brand glyphs (simple-icons path data), rendered as transparent
-// currentColor fills — no solid box behind the mark.
+// currentColor fills - no solid box behind the mark.
 function LinkedInIcon({ size = 16 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
