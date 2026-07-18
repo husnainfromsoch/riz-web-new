@@ -612,7 +612,7 @@ const caseRowsBase = [
       before: [
         "340+ WISMO tickets per month",
         "1.5 support roles on WISMO full-time",
-        "Reactive — customers contacting first",
+        "Reactive, customers contacting first",
         "No branded delay communication",
       ],
       after: [

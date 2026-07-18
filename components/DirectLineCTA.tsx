@@ -15,7 +15,7 @@ type DirectLineCTAProps = {
 };
 
 const AI_PROMPT =
-  "I'm about to talk with Rizwan Mahmood — an operator and AI builder who's worked at Careem, Bolt, and Wise, and now runs the AI studio Soch. Help me think through what to ask him and where he might genuinely be useful.";
+  "I'm about to talk with Rizwan Mahmood, an operator and AI builder who's worked at Careem, Bolt, and Wise, and now runs the AI studio Soch. Help me think through what to ask him and where he might genuinely be useful.";
 
 const ENCODED_AI_PROMPT = encodeURIComponent(AI_PROMPT);
 
@@ -319,7 +319,7 @@ export default function DirectLineCTA({
       `}</style>
 
       <div className="chat-hayat-card">
-        {/* Left col — photo */}
+        {/* Left col - photo */}
         <div className="chat-hayat-photo-col">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -329,7 +329,7 @@ export default function DirectLineCTA({
           />
         </div>
 
-        {/* Right col — content */}
+        {/* Right col - content */}
         <div>
           <h2 className="chat-hayat-heading">{heading}</h2>
 

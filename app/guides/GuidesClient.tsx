@@ -567,7 +567,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           </AnimateIn>
           <AnimateIn delay={150}>
             <p className="gd-hero-sub">
-              Practical automation guides for engineers and founders — pick a topic, pick a tool,
+              Practical automation guides for engineers and founders. Pick a topic, pick a tool,
               and dig in.
             </p>
           </AnimateIn>

@@ -10,7 +10,7 @@ import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 const topics = [
   {
     title: '"Think first, then automate"',
-    body: "The core thesis. What goes wrong when companies add AI without getting clear first — and how to do it in the right order.",
+    body: "The core thesis. What goes wrong when companies add AI without getting clear first, and how to do it in the right order.",
   },
   {
     title: "What Careem, Bolt and Wise taught me about ops at scale",
@@ -18,15 +18,15 @@ const topics = [
   },
   {
     title: "AI literacy for operators",
-    body: "Practical frameworks for ops teams who need to work alongside AI — not fear it, not over-trust it.",
+    body: "Practical frameworks for ops teams who need to work alongside AI without fearing it or over-trusting it.",
   },
 ];
 
-// NOTE: description copy below is a placeholder draft — Riz to review and replace with his own wording.
+// NOTE: description copy below is a placeholder draft - Riz to review and replace with his own wording.
 const formats = [
   {
     label: "Keynote",
-    detail: "45–60 min",
+    detail: "45-60 min",
     description:
       "One clear thesis, delivered with real stories from scaling ops across Careem, Bolt and Wise. Built for conferences and all-hands where the room needs a wake-up call, not a buzzword tour. Ends with a framework people can actually use Monday morning.",
   },
@@ -34,13 +34,13 @@ const formats = [
     label: "Workshop",
     detail: "Half day",
     description:
-      "Hands-on and specific to your team's actual workflows — not generic AI theory. Riz works through real examples with your ops, and the room leaves with a working framework, not slides. Built for teams ready to get their hands dirty, not just sit and listen.",
+      "Hands-on and specific to your team's actual workflows, not generic AI theory. Riz works through real examples with your ops, and the room leaves with a working framework instead of slides. Built for teams ready to get their hands dirty, not just sit and listen.",
   },
   {
     label: "Founder dinner facilitation",
-    detail: "2–3 hours",
+    detail: "2-3 hours",
     description:
-      "An intimate, off-the-record session for a small group of founders or execs. Riz facilitates a real conversation on AI leverage and scaling ops — sharper and more candid than any panel. Best for 6–12 people who want peer-level exchange, not a pitch.",
+      "An intimate, off-the-record session for a small group of founders or execs. Riz facilitates a real conversation on AI leverage and scaling ops, sharper and more candid than any panel. Best for 6 to 12 people who want a peer-level exchange, not a pitch.",
   },
   {
     label: "Podcast guest",
@@ -96,7 +96,7 @@ export default function SpeakingPage() {
             <AnimateIn delay={240}>
               <div className="speaking-proof-chips">
                 <ProofChipRow>
-                  <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops — Careem · Bolt · Wise</ProofChip>
+                  <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops · Careem · Bolt · Wise</ProofChip>
                   <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
                   <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
                 </ProofChipRow>
@@ -349,7 +349,7 @@ export default function SpeakingPage() {
         </div>
       </section>
 
-      {/* DIRECT LINE — booking enquiries */}
+      {/* DIRECT LINE - booking enquiries */}
       <section className="section-pad" style={{ background: "var(--cream)" }}>
         <div className="max-w-site">
           <AnimateIn>

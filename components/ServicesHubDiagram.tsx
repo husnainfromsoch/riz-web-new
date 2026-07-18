@@ -9,7 +9,7 @@ const OR = 130;          // orbit radius (center-to-node-center)
 const NR = 44;           // node circle radius
 
 // Node positions in the initial SVG viewport
-// Consulting  –90° (top),  Projects +30° (bottom-right),  Workshops +150° (bottom-left)
+// Consulting  -90° (top),  Projects +30° (bottom-right),  Workshops +150° (bottom-left)
 const NODES = [
   { id: "consulting", cx: 210,                                          cy: CY - OR,       fill: "#EA6A47", num: "01", label: "CONSULTING" },
   { id: "projects",   cx: Math.round(CX + OR * Math.cos(Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(Math.PI / 6)),  fill: "#22332C", num: "02", label: "PROJECTS"   },
@@ -57,7 +57,7 @@ export default function ServicesHubDiagram() {
       {/* ── glow ring (static, sits on top of spokes) ─────────────── */}
       <circle cx={CX} cy={CY} r={CR + 20} fill="none" stroke="#FFFFFF" strokeWidth="22" />
 
-      {/* ── center circle — pulse only, does NOT rotate ───────────── */}
+      {/* ── center circle - pulse only, does NOT rotate ───────────── */}
       <g style={{ transformOrigin: `${CX}px ${CY}px`, animation: "svc-pulse 3s ease-in-out infinite" } as React.CSSProperties}>
         <circle cx={CX} cy={CY} r={CR} fill="#22332C" />
         <text x={CX} y={CY - 14} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="10.5" fill="rgba(255,255,255,0.55)" letterSpacing="0.03em">The clearest</text>
@@ -77,7 +77,7 @@ export default function ServicesHubDiagram() {
                * all text inside the circle perfectly upright at every angle.
                */}
               <g style={counterStyle(n.cx, n.cy)}>
-                {/* Scale wrapper — only scales the active hovered node */}
+                {/* Scale wrapper - only scales the active hovered node */}
                 <g
                   style={{
                     transformOrigin: `${n.cx}px ${n.cy}px`,
@@ -100,7 +100,7 @@ export default function ServicesHubDiagram() {
                     style={{ transition: "stroke-width 0.2s ease" }}
                   />
 
-                  {/* number — Playfair, centered in circle */}
+                  {/* number - Playfair, centered in circle */}
                   <text
                     x={n.cx} y={n.cy - 8}
                     textAnchor="middle" dominantBaseline="auto"
@@ -111,7 +111,7 @@ export default function ServicesHubDiagram() {
                     {n.num}
                   </text>
 
-                  {/* label — DM Mono, below number, stays inside circle */}
+                  {/* label - DM Mono, below number, stays inside circle */}
                   <text
                     x={n.cx} y={n.cy + 13}
                     textAnchor="middle" dominantBaseline="auto"

@@ -46,7 +46,7 @@ const timeline = [
   {
     year: "2024",
     company: "Now",
-    body: "Building AI systems for founders who want to think clearly first, then automate. Recording a podcast. Shipping things I have no business building.",
+    body: "Building AI systems for owners who want to think clearly first, then automate. Recording a podcast. Shipping things I have no business building.",
     active: true,
   },
 ];
@@ -122,7 +122,7 @@ const beyondFacts: BeyondFact[] = [
     icon: Handshake,
     title: "Soch",
     body: "Built with two people I trust. Small on purpose.",
-    extra: "We build AI systems for ops-heavy teams.",
+    extra: "We build AI systems for owners with ops-heavy teams.",
     linkText: "withsoch.com →",
     linkHref: "https://withsoch.com",
   },
@@ -166,7 +166,7 @@ const lessons = [
   },
   {
     title: "The human still matters.",
-    body: "The best automation I've built makes the human more human — not less necessary.",
+    body: "The best automation I've built makes the human more human, not less necessary.",
     accent: "#3E6B4F",
     rotate: 1,
     offsetY: -4,
@@ -513,7 +513,7 @@ export default function About() {
         }}
         className="longer-version-grid"
       >
-        {/* LEFT — timeline */}
+        {/* LEFT - timeline */}
         <div>
           <AnimateIn>
             <h2
@@ -593,13 +593,13 @@ export default function About() {
           ))}
         </div>
 
-        {/* RIGHT — animated stats panel */}
+        {/* RIGHT - animated stats panel */}
         <div style={{ position: "sticky", top: 100 }} className="track-record-sticky">
           <TrackRecordPanel />
         </div>
       </section>
 
-      {/* SECTION — OPERATOR NOTES */}
+      {/* SECTION - OPERATOR NOTES */}
       <section className="lessons-section" style={{ background: "var(--cream)", padding: "112px 60px" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <AnimateIn delay={60}>
@@ -668,7 +668,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* SECTION — BEYOND THE WORK */}
+      {/* SECTION - BEYOND THE WORK */}
       <section
         className="beyond-section"
         style={{
@@ -688,12 +688,12 @@ export default function About() {
           <AnimateIn delay={90}>
             <div className="beyond-quote">
               <span className="beyond-quote-bar" aria-hidden="true" />
-              <p>The work is serious. The rest of it — not always.</p>
+              <p>The work is serious. The rest of it, not always.</p>
             </div>
           </AnimateIn>
 
           <div className="beyond-grid">
-            {/* LEFT — editorial photo */}
+            {/* LEFT - editorial photo */}
             <div className="beyond-photos">
               <AnimateIn className="beyond-photo-anim beyond-photo-slot-mussels">
                 <ParallaxLayer speed={0.04}>
@@ -706,14 +706,13 @@ export default function About() {
                     />
                   </figure>
                   <p className="beyond-photo-caption">
-                    <span className="beyond-caption-dash" aria-hidden="true">—</span>
                     Mussels in Italy. Research.
                   </p>
                 </ParallaxLayer>
               </AnimateIn>
             </div>
 
-            {/* RIGHT — boxless editorial list */}
+            {/* RIGHT - boxless editorial list */}
             <div className="beyond-list">
               {beyondFacts.map((fact, i) => {
                 const Icon = fact.icon;

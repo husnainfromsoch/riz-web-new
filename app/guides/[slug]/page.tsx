@@ -29,7 +29,7 @@ export async function generateMetadata({
   if (!guide) return {};
 
   return {
-    title: `${guide.title} — Rizwan Mahmood`,
+    title: `${guide.title} · Rizwan Mahmood`,
     description: guide.excerpt || undefined,
   };
 }

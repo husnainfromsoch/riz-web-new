@@ -30,9 +30,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Rizwan Mahmood — Operator · Builder · Tallinn",
+  title: "Rizwan Mahmood · Operator · Builder · Tallinn",
   description:
-    "I help founders think clearly enough that automation actually works — and I build the systems that prove it.",
+    "I help business owners think clearly enough that automation actually works, and I build the systems that prove it.",
 };
 
 export default function RootLayout({
