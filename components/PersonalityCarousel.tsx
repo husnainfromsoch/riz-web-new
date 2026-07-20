@@ -144,17 +144,6 @@ function VideoCard({
         <div className="pc-footer">
           <p className="pc-title">{card.title}</p>
           <p className="pc-desc">{card.description}</p>
-          {card.instagramUrl && (
-            <a
-              href={card.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pc-ig-link"
-              onClick={(e) => e.stopPropagation()}
-            >
-              View more on Instagram
-            </a>
-          )}
         </div>
       </div>
     </div>

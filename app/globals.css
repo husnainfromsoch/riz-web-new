@@ -834,22 +834,6 @@ p, li, td, th, label, input, textarea, select {
   overflow: hidden;
 }
 
-.pc-ig-link {
-  display: inline-block;
-  pointer-events: auto;
-  margin-top: 8px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.85);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.pc-ig-link:hover {
-  color: var(--coral);
-}
-
 .pc-arrow {
   position: absolute;
   top: 50%;
