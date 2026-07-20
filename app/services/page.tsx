@@ -605,21 +605,6 @@ export default function Services() {
           <div className="svc-hero-inner" ref={heroFadeRef}>
             {/* left: text + pills */}
             <div>
-              <AnimateIn>
-                <div className="svc-hero-brand">
-                  <span
-                    className="animate-pulse-dot"
-                    style={{
-                      width: 7,
-                      height: 7,
-                      borderRadius: "50%",
-                      background: "#EA6A47",
-                      display: "inline-block",
-                    }}
-                  />
-                  <span className="svc-hero-brand-word">Riz</span>
-                </div>
-              </AnimateIn>
               <AnimateIn delay={60}>
                 <h1 className="svc-hero-title">Every way to work with Riz.</h1>
               </AnimateIn>

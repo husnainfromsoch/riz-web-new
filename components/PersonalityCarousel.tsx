@@ -13,7 +13,7 @@ type CarouselCard = {
   description: string;
 };
 
-const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/etz.riz/reels/";
+const INSTAGRAM_PROFILE_URL = "https://www.instagram.com/etz.riz/";
 
 const carouselCards: CarouselCard[] = [
   {

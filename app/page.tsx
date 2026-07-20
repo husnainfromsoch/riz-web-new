@@ -293,13 +293,13 @@ function HowThinkChart({ activeStep }: { activeStep: number }) {
         {[300, 600, 900].map((x) => (
           <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(30,36,31,0.07)" strokeWidth={1} strokeDasharray="4,4" />
         ))}
-        <text x={0} y={16} fontFamily="var(--font-montserrat), sans-serif" fontSize={12} fill="rgba(58,64,58,0.55)">
+        <text x={0} y={16} fontFamily="var(--font-montserrat), sans-serif" fontSize={15} fontWeight={500} fill="#4A4A4A">
           Clarity &amp; leverage, compounding →
         </text>
-        <text x={60} y={228} textAnchor="start" fontFamily="var(--font-montserrat), sans-serif" fontSize={13} fill="rgba(58,64,58,0.6)">
+        <text x={60} y={228} textAnchor="start" fontFamily="var(--font-montserrat), sans-serif" fontSize={15} fontWeight={500} fill="#4A4A4A">
           Vague idea
         </text>
-        <text x={1140} y={228} textAnchor="end" fontFamily="var(--font-montserrat), sans-serif" fontSize={13} fill="rgba(58,64,58,0.6)">
+        <text x={1140} y={228} textAnchor="end" fontFamily="var(--font-montserrat), sans-serif" fontSize={15} fontWeight={600} fill="#EA6A47">
           Running system
         </text>
         <path d={CHART_AREA_PATH} fill="url(#thinkAreaGradient)" stroke="none" />
@@ -1228,6 +1228,15 @@ export default function Home() {
           0%, 100% { background-position: 0%; }
           50% { background-position: 100%; }
         }
+        .believe-section-pad {
+          padding: 112px 60px;
+        }
+        @media (max-width: 767px) {
+          .believe-section-pad { padding-top: 64px; padding-bottom: 64px; }
+        }
+        @media (max-width: 640px) {
+          .believe-section-pad { padding-left: 24px; padding-right: 24px; }
+        }
         @media (max-width: 960px) {
           .believe-content-wrap { grid-template-columns: 1fr; gap: 48px; }
           .believe-photo-col { position: static; }
@@ -1429,7 +1438,7 @@ export default function Home() {
 
       {/* SECTION 3 - WHAT I BELIEVE */}
       {/* Intentionally custom width - do not standardize to .max-w-site */}
-      <section id="what-i-believe" style={{ position: "relative", zIndex: 1, padding: "112px 60px" }}>
+      <section id="what-i-believe" className="believe-section-pad" style={{ position: "relative", zIndex: 1 }}>
         <div style={{ maxWidth: 1360, margin: "0 auto" }}>
 
           <div className="believe-content-wrap">
