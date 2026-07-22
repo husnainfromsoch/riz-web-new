@@ -27,8 +27,46 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [tool, setTool] = useState("All tools");
+  const [year, setYear] = useState("All years");
+  const [sort, setSort] = useState<"recent" | "oldest" | "az" | "za">("recent");
+  const [sortOpen, setSortOpen] = useState(false);
+  const [yearOpen, setYearOpen] = useState(false);
   const [kbdLabel, setKbdLabel] = useState("Ctrl K");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const sortWrapRef = useRef<HTMLDivElement>(null);
+  const yearWrapRef = useRef<HTMLDivElement>(null);
+
+  const SORT_OPTIONS: { value: "recent" | "oldest" | "az" | "za"; label: string }[] = [
+    { value: "recent", label: "Most recent" },
+    { value: "oldest", label: "Oldest first" },
+    { value: "az", label: "A-Z" },
+    { value: "za", label: "Z-A" },
+  ];
+  const activeSortLabel = SORT_OPTIONS.find((o) => o.value === sort)?.label ?? "Most recent";
+
+  useEffect(() => {
+    if (!sortOpen && !yearOpen) return;
+    function handleClick(e: MouseEvent) {
+      if (sortOpen && sortWrapRef.current && !sortWrapRef.current.contains(e.target as Node)) {
+        setSortOpen(false);
+      }
+      if (yearOpen && yearWrapRef.current && !yearWrapRef.current.contains(e.target as Node)) {
+        setYearOpen(false);
+      }
+    }
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setSortOpen(false);
+        setYearOpen(false);
+      }
+    }
+    window.addEventListener("mousedown", handleClick);
+    window.addEventListener("keydown", handleEscape);
+    return () => {
+      window.removeEventListener("mousedown", handleClick);
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [sortOpen, yearOpen]);
 
   useEffect(() => {
     if (typeof navigator !== "undefined" && /Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
@@ -57,6 +95,15 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
     [guides]
   );
 
+  const years = useMemo(
+    () =>
+      Array.from(new Set(guides.map((g) => (g.date || "").slice(0, 4)).filter(Boolean))).sort(
+        (a, b) => b.localeCompare(a)
+      ),
+    [guides]
+  );
+  const showYearFilter = years.length > 1;
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return guides
@@ -65,12 +112,20 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           !q || g.title.toLowerCase().includes(q) || g.excerpt.toLowerCase().includes(q);
         const matchesCategory = category === "All" || g.category === category;
         const matchesTool = tool === "All tools" || g.tool === tool;
-        return matchesQuery && matchesCategory && matchesTool;
+        const matchesYear = year === "All years" || (g.date || "").slice(0, 4) === year;
+        return matchesQuery && matchesCategory && matchesTool && matchesYear;
       })
-      .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
-  }, [guides, search, category, tool]);
+      .sort((a, b) => {
+        if (sort === "az") return a.title.localeCompare(b.title);
+        if (sort === "za") return b.title.localeCompare(a.title);
+        return sort === "oldest"
+          ? (a.date || "").localeCompare(b.date || "")
+          : (b.date || "").localeCompare(a.date || "");
+      });
+  }, [guides, search, category, tool, year, sort]);
 
-  const filtersActive = search.trim() !== "" || category !== "All" || tool !== "All tools";
+  const filtersActive =
+    search.trim() !== "" || category !== "All" || tool !== "All tools" || year !== "All years";
 
   const latest = useMemo(
     () =>
@@ -84,6 +139,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
     setSearch("");
     setCategory("All");
     setTool("All tools");
+    setYear("All years");
   }
 
   return (
@@ -102,35 +158,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-hero .max-w-site {
           position: relative;
           z-index: 1;
-        }
-        .gd-hero-bg {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 0;
-          color: var(--coral);
-        }
-        .gd-doodle {
-          position: absolute;
-        }
-        .gd-doodle-arrow { top: 128px; left: 6%; opacity: 0.13; transform: rotate(-12deg); }
-        .gd-doodle-sparkle { top: 96px; right: 8%; opacity: 0.14; }
-        .gd-doodle-sparkle-sm { top: 210px; right: 26%; opacity: 0.1; transform: scale(0.6) rotate(20deg); }
-        .gd-doodle-squiggle { bottom: 26px; left: 18%; opacity: 0.12; }
-        .gd-doodle-circle { top: 170px; right: 3%; opacity: 0.1; transform: rotate(8deg); }
-        .gd-doodle-loop { top: 60px; left: 30%; opacity: 0.09; }
-        .gd-hero-watermark {
-          position: absolute;
-          left: -30px;
-          bottom: -78px;
-          font-family: var(--font-caveat), 'Caveat', cursive;
-          font-size: clamp(140px, 16vw, 230px);
-          line-height: 1;
-          color: var(--coral);
-          opacity: 0.055;
-          transform: rotate(-5deg);
-          white-space: nowrap;
-          user-select: none;
         }
         .gd-hero-accent {
           font-family: var(--font-caveat), 'Caveat', cursive;
@@ -222,7 +249,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-filters {
           background: var(--cream);
           padding: 44px 0 36px;
-          text-align: center;
+          text-align: left;
         }
         .gd-filter-row {
           margin-top: 32px;
@@ -241,7 +268,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-filter-pills {
           display: flex;
           flex-wrap: wrap;
-          justify-content: center;
+          justify-content: flex-start;
           gap: 10px;
         }
         .gd-filter-pill {
@@ -273,11 +300,23 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-results-count {
           display: inline-block;
-          margin-top: 32px;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.75rem;
           letter-spacing: 0.04em;
           color: var(--body);
+        }
+        .gd-grid-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          flex-wrap: wrap;
+          margin-bottom: 32px;
+        }
+        @media (max-width: 640px) {
+          .gd-grid-toolbar {
+            align-items: flex-start;
+          }
         }
         .gd-clear-btn {
           margin-left: 12px;
@@ -295,6 +334,84 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-clear-btn:hover {
           border-color: var(--ink);
           color: var(--ink);
+        }
+
+        .gd-sort-wrap {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .gd-sort-label {
+          font-size: 0.7rem;
+        }
+        .gd-sort-btn {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          height: 40px;
+          padding: 0 14px;
+          border: 1px solid var(--line-2);
+          border-radius: 12px;
+          font-family: var(--font-montserrat), sans-serif;
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--ink);
+          background: #fff;
+          box-shadow: var(--shadow);
+          cursor: pointer;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .gd-sort-btn:hover {
+          border-color: var(--coral);
+        }
+        .gd-sort-btn.is-open {
+          border-color: var(--coral);
+          box-shadow: 0 0 0 4px rgba(234,106,71,0.12);
+        }
+        .gd-sort-chevron {
+          display: flex;
+          color: var(--muted);
+          transition: transform 0.2s ease;
+        }
+        .gd-sort-btn.is-open .gd-sort-chevron {
+          transform: rotate(180deg);
+          color: var(--coral);
+        }
+        .gd-sort-menu {
+          position: absolute;
+          top: calc(100% + 8px);
+          right: 0;
+          min-width: 180px;
+          background: var(--cream);
+          border: 1px solid var(--line-2);
+          border-radius: 12px;
+          box-shadow: var(--shadow-lg);
+          padding: 6px;
+          z-index: 10;
+        }
+        .gd-sort-option {
+          display: block;
+          width: 100%;
+          text-align: left;
+          background: none;
+          border: none;
+          border-radius: 8px;
+          padding: 9px 12px;
+          font-family: var(--font-montserrat), sans-serif;
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--ink);
+          cursor: pointer;
+          transition: background 0.15s ease, color 0.15s ease;
+        }
+        .gd-sort-option:hover {
+          background: rgba(234,106,71,0.1);
+          color: var(--coral);
+        }
+        .gd-sort-option.is-selected {
+          background: var(--coral);
+          color: #fff;
         }
 
         .gd-grid-section {
@@ -413,64 +530,8 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           color: var(--coral-d);
           gap: 9px;
         }
-        .gd-float-left {
-          position: absolute;
-          left: 32px;
-          top: 48px;
-          width: 210px;
-          z-index: 2;
-          text-align: center;
-          pointer-events: none;
-        }
-        .gd-deck {
-          position: relative;
-          width: 170px;
-          height: 128px;
-          margin: 0 auto;
-        }
-        .gd-deck-card {
-          position: absolute;
-          inset: 0;
-          background: #fff;
-          border: 1px solid var(--line-2);
-          border-radius: 14px;
-          box-shadow: var(--shadow);
-        }
-        .gd-deck-card:nth-child(1) { transform: rotate(-8deg) translate(-8px, 6px); opacity: 0.55; }
-        .gd-deck-card:nth-child(2) { transform: rotate(5deg) translate(7px, 2px); opacity: 0.75; }
-        .gd-deck-card:nth-child(3) {
-          transform: rotate(-2deg);
-          box-shadow: var(--shadow-lg);
-          padding: 1rem 1.1rem;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 9px;
-        }
-        .gd-deck-pill {
-          width: 52px;
-          height: 12px;
-          border-radius: 999px;
-          background: var(--coral);
-          opacity: 0.75;
-        }
-        .gd-deck-line {
-          width: 100%;
-          height: 8px;
-          border-radius: 999px;
-          background: var(--line-2);
-        }
-        .gd-deck-line.is-short { width: 62%; }
-        .gd-deck-label {
-          display: inline-block;
-          margin-top: 18px;
-          font-family: var(--font-caveat), 'Caveat', cursive;
-          font-size: 1.25rem;
-          color: var(--body);
-          transform: rotate(-3deg);
-        }
         @media (max-width: 1280px) {
-          .gd-float-wrap, .gd-float-left { display: none; }
+          .gd-float-wrap { display: none; }
         }
 
         .gd-empty {
@@ -502,14 +563,9 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         @media (max-width: 1024px) {
           .gd-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        @media (max-width: 1024px) and (min-width: 768px) {
-          .gd-doodle-loop, .gd-doodle-sparkle-sm, .gd-doodle-circle { display: none; }
-        }
         @media (max-width: 767px) {
           .gd-hero { padding: 104px 0 0; }
           .gd-filters { padding-top: 36px; }
-          .gd-doodle { display: none; }
-          .gd-hero-watermark { font-size: 120px; bottom: -44px; opacity: 0.05; }
           .gd-search-input { padding-right: 16px; }
           .gd-kbd { display: none; }
         }
@@ -521,28 +577,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
       <ScrollProgressBar />
 
       <section className="gd-hero">
-        <div className="gd-hero-bg" aria-hidden="true">
-          <span className="gd-hero-watermark">guides</span>
-          <svg className="gd-doodle gd-doodle-arrow" width="72" height="60" viewBox="0 0 72 60" fill="none">
-            <path d="M6 6 C 18 34, 40 48, 64 50" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-            <path d="M50 54 L 64 50 L 56 40" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <svg className="gd-doodle gd-doodle-sparkle" width="44" height="44" viewBox="0 0 44 44" fill="none">
-            <path d="M22 4 C 23 14, 26 19, 40 22 C 26 25, 23 30, 22 40 C 21 30, 18 25, 4 22 C 18 19, 21 14, 22 4 Z" fill="currentColor" />
-          </svg>
-          <svg className="gd-doodle gd-doodle-sparkle-sm" width="44" height="44" viewBox="0 0 44 44" fill="none">
-            <path d="M22 4 C 23 14, 26 19, 40 22 C 26 25, 23 30, 22 40 C 21 30, 18 25, 4 22 C 18 19, 21 14, 22 4 Z" fill="currentColor" />
-          </svg>
-          <svg className="gd-doodle gd-doodle-squiggle" width="110" height="18" viewBox="0 0 110 18" fill="none">
-            <path d="M3 12 Q 14 3, 25 10 T 47 9 T 69 10 T 91 8 T 107 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-          </svg>
-          <svg className="gd-doodle gd-doodle-circle" width="64" height="46" viewBox="0 0 64 46" fill="none">
-            <path d="M33 5 C 12 4, 3 12, 4 23 C 5 36, 22 42, 38 40 C 54 38, 62 29, 59 18 C 56 8, 42 3, 28 7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          </svg>
-          <svg className="gd-doodle gd-doodle-loop" width="70" height="34" viewBox="0 0 70 34" fill="none">
-            <path d="M4 26 C 14 6, 26 4, 28 14 C 30 24, 18 28, 22 18 C 27 6, 48 4, 66 12" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-          </svg>
-        </div>
         <div className="max-w-site">
           <AnimateIn delay={40}>
             <span className="gd-hero-accent">the whole library</span>
@@ -570,21 +604,6 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
               Practical automation guides for engineers and founders. Pick a topic, pick a tool,
               and dig in.
             </p>
-          </AnimateIn>
-          <AnimateIn delay={340} className="gd-float-left">
-            <div aria-hidden="true">
-              <div className="gd-deck">
-                <div className="gd-deck-card" />
-                <div className="gd-deck-card" />
-                <div className="gd-deck-card">
-                  <span className="gd-deck-pill" />
-                  <span className="gd-deck-line" />
-                  <span className="gd-deck-line" />
-                  <span className="gd-deck-line is-short" />
-                </div>
-              </div>
-              <span className="gd-deck-label">the whole pile ↓</span>
-            </div>
           </AnimateIn>
           {latest && (
             <AnimateIn delay={300} className="gd-float-wrap">
@@ -654,19 +673,97 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
             </div>
           </div>
 
-          <span className="gd-results-count">
-            Showing {filtered.length} of {guides.length} guides
-            {filtersActive && (
-              <button type="button" className="gd-clear-btn" onClick={clearFilters}>
-                Clear filters
-              </button>
-            )}
-          </span>
+          {showYearFilter && (
+            <div className="gd-filter-row">
+              <span className="gd-filter-script">filter by year</span>
+              <div className="gd-sort-wrap" ref={yearWrapRef}>
+                <button
+                  type="button"
+                  className={`gd-sort-btn${yearOpen ? " is-open" : ""}`}
+                  aria-haspopup="listbox"
+                  aria-expanded={yearOpen}
+                  onClick={() => setYearOpen((v) => !v)}
+                >
+                  {year}
+                  <span className="gd-sort-chevron">
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                      <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+                {yearOpen && (
+                  <div className="gd-sort-menu" role="listbox" aria-label="Filter by year">
+                    {["All years", ...years].map((y) => (
+                      <button
+                        key={y}
+                        type="button"
+                        role="option"
+                        aria-selected={year === y}
+                        className={`gd-sort-option${year === y ? " is-selected" : ""}`}
+                        onClick={() => {
+                          setYear(y);
+                          setYearOpen(false);
+                        }}
+                      >
+                        {y}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       <section className="gd-grid-section">
         <div className="max-w-site">
+          <div className="gd-grid-toolbar">
+            <span className="gd-results-count">
+              Showing {filtered.length} of {guides.length} guides
+              {filtersActive && (
+                <button type="button" className="gd-clear-btn" onClick={clearFilters}>
+                  Clear filters
+                </button>
+              )}
+            </span>
+            <div className="gd-sort-wrap" ref={sortWrapRef}>
+              <span className="meta-label gd-sort-label">Sort by</span>
+              <button
+                type="button"
+                className={`gd-sort-btn${sortOpen ? " is-open" : ""}`}
+                aria-haspopup="listbox"
+                aria-expanded={sortOpen}
+                onClick={() => setSortOpen((v) => !v)}
+              >
+                {activeSortLabel}
+                <span className="gd-sort-chevron">
+                  <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+              </button>
+              {sortOpen && (
+                <div className="gd-sort-menu" role="listbox" aria-label="Sort by">
+                  {SORT_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      role="option"
+                      aria-selected={sort === opt.value}
+                      className={`gd-sort-option${sort === opt.value ? " is-selected" : ""}`}
+                      onClick={() => {
+                        setSort(opt.value);
+                        setSortOpen(false);
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
           {filtered.length === 0 ? (
             <div className="gd-empty">
               <span className="gd-empty-icon">
