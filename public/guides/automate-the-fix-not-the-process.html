@@ -26,21 +26,21 @@
     background-size:24px 24px;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.68;font-size:18px;-webkit-font-smoothing:antialiased;}
-  a{color:var(--coral-deep);text-decoration:none;border-bottom:1px solid rgba(200,80,47,.28);}
-  a:hover{border-bottom-color:var(--coral-deep);}
+  a{color:var(--coral-deep);text-decoration:none;border-bottom:1px solid rgba(200,80,47,.28);transition:color .15s ease,border-color .15s ease;}
+  a:hover{border-bottom-color:var(--coral-deep);color:var(--coral);}
   .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--coral);z-index:50;transition:width .1s linear;}
-  .wrap{position:relative;max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+  .wrap{position:relative;max-width:var(--wrap);margin:0 auto;padding:40px 24px 0;}
   .watermark{position:absolute;top:6px;right:-6px;font-family:var(--serif);font-weight:700;font-size:200px;line-height:1;color:var(--coral);opacity:.05;pointer-events:none;user-select:none;z-index:0;}
   .guide-top{padding-top:40px;}
-  .backlink{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--charcoal-soft);border:none;font-weight:500;}
-  .backlink:hover{color:var(--coral-deep);}
+  .backlink{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--charcoal-soft);border:none;font-weight:500;padding:6px 10px;margin-left:-10px;border-radius:8px;transition:all .15s ease;}
+  .backlink:hover{color:var(--coral-deep);background:rgba(234,106,71,.08);}
   .eyebrow{margin-top:34px;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--label);font-weight:700;font-family:var(--mono);}
   h1{font-family:var(--serif);font-size:clamp(32px,5.4vw,50px);line-height:1.12;margin:.32em 0 .34em;letter-spacing:-.01em;color:var(--charcoal);font-weight:700;}
   .lede{font-size:21px;color:var(--charcoal-soft);max-width:60ch;margin:0 0 18px;}
   .quickrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:22px 0 6px;font-size:14px;color:var(--charcoal-soft);}
-  .skip{display:inline-flex;align-items:center;gap:7px;background:var(--cream-2);border:1px solid var(--line);border-radius:999px;padding:8px 16px;color:var(--charcoal);font-weight:600;box-shadow:0 2px 8px rgba(61,61,61,.06);}
-  .skip:hover{border-color:var(--coral);color:var(--coral-deep);}
-  .readtime{opacity:.85;font-family:var(--mono);font-size:13px;}
+  .skip{display:inline-flex;align-items:center;gap:7px;background:var(--coral);border:1px solid var(--coral);border-radius:999px;padding:10px 20px;color:#fff;font-weight:700;box-shadow:0 4px 14px rgba(234,106,71,.22);border-bottom:none;transition:all .18s ease;}
+  .skip:hover{background:var(--coral-deep);border-color:var(--coral-deep);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(234,106,71,.32);}
+  .readtime{opacity:1;font-family:var(--mono);font-size:15px;font-weight:600;color:var(--charcoal);}
   h2{font-family:var(--serif);font-size:clamp(24px,3.5vw,31px);margin:2.1em 0 .5em;letter-spacing:-.005em;color:var(--charcoal);font-weight:700;scroll-margin-top:24px;}
   h3{font-family:var(--serif);font-size:20px;margin:1.7em 0 .4em;color:var(--charcoal);font-weight:700;}
   h3.spaced{margin-top:2em;}
@@ -66,8 +66,8 @@
   ol.flow>li::before{content:counter(step);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:8px;background:var(--coral);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;}
   /* link cards */
   .linkcards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0;}
-  .linkcard{display:block;background:var(--cream-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;border-left:3px solid var(--coral);}
-  .linkcard:hover{border-color:var(--coral);}
+  .linkcard{display:block;background:var(--cream-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;border-left:3px solid var(--coral);transition:all .18s ease;}
+  .linkcard:hover{border-color:var(--coral);transform:translateY(-2px);box-shadow:0 8px 20px rgba(61,61,61,.08);}
   .lc-name{display:block;font-weight:700;color:var(--charcoal);margin-bottom:4px;}
   .lc-desc{display:block;font-size:15px;color:var(--charcoal-soft);}
   /* callout */
@@ -79,7 +79,7 @@
   .prompt-head{display:flex;align-items:center;justify-content:space-between;background:var(--code-head);border-radius:12px 12px 0 0;padding:9px 14px 9px 16px;border:1px solid var(--code-border);border-bottom:none;}
   .prompt-head .lbl{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--code-accent);font-weight:700;}
   .copy-btn{background:transparent;color:#D9D2C4;border:1px solid #3A3733;border-radius:7px;font-size:12.5px;padding:4px 11px;cursor:pointer;transition:all .15s;font-family:inherit;}
-  .copy-btn:hover{background:var(--coral);color:#fff;border-color:var(--coral);}
+  .copy-btn:hover{background:var(--coral);color:#fff;border-color:var(--coral);transform:translateY(-1px);}
   pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--code-border);border-top:none;border-radius:0 0 12px 12px;padding:20px 22px;margin:0;overflow-x:auto;font-size:14.5px;line-height:1.62;font-family:"SF Mono",SFMono-Regular,ui-monospace,Menlo,Consolas,monospace;}
   pre.plain{border-radius:12px;border-top:1px solid var(--code-border);}
   pre .brk{color:var(--code-accent);font-weight:600;}
@@ -93,15 +93,22 @@
   .honest li{margin:.55em 0;}
   /* footer */
   .cta{margin-top:44px;background:linear-gradient(155deg,#3D3D3D,#2E2C2A);color:var(--cream);border-radius:18px;padding:34px 32px;box-shadow:0 14px 36px rgba(0,0,0,.16);}
-  .cta h2{color:#fff;margin:0 0 .35em;}
-  .cta p{color:#DAD3C4;margin-bottom:1em;}
-  .cta a.button{display:inline-block;background:var(--coral);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;border:none;}
-  .cta a.button:hover{background:var(--coral-deep);}
+  .cta h2{color:#fff;margin:0 0 .4em;}
+  .cta p{color:#DAD3C4;margin:0 0 1.2em;max-width:52ch;}
+  .cta a.button{display:inline-block;background:var(--coral);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;border:none;border-bottom:none;transition:all .18s ease;}
+  .cta a.button:hover{background:var(--coral-deep);transform:translateY(-2px);box-shadow:0 8px 22px rgba(234,106,71,.3);}
   .cta a{color:#F3B39C;}
-  .guide-foot{margin:34px 0 90px;padding-top:22px;border-top:1px solid var(--line);color:var(--charcoal-soft);font-size:15px;}
-  .foot-follow{font-size:17px;color:var(--charcoal);}
-  .guide-foot a{color:var(--coral-deep);}
-  .foot-meta{margin-top:10px;font-size:14px;}
+  .guide-foot{margin:34px 0 90px;padding-top:26px;border-top:1px solid var(--line);text-align:center;}
+  .foot-lede{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--charcoal);margin:0 0 14px;}
+  .foot-ctas{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px;justify-content:center;}
+  .foot-pill{display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:999px;font-weight:600;font-size:15px;border:1px solid var(--line);background:var(--cream-2);color:var(--charcoal);border-bottom:none;transition:all .18s ease;}
+  .foot-pill:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(61,61,61,.10);border-color:var(--coral);color:var(--coral-deep);}
+  .foot-pill--primary{background:var(--coral);color:#fff;border-color:var(--coral);}
+  .foot-pill--primary:hover{background:var(--coral-deep);border-color:var(--coral-deep);color:#fff;box-shadow:0 8px 20px rgba(234,106,71,.3);}
+  .foot-guides-btn{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:#fff;padding:12px 26px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;border:none;border-bottom:none;transition:all .18s ease;}
+  .foot-guides-btn:hover{background:var(--coral-deep);color:#fff;transform:translateY(-2px);box-shadow:0 8px 22px rgba(234,106,71,.3);}
+  .foot-attribution{margin:0 0 16px;font-size:14px;color:var(--charcoal-soft);}
+  .ig-icon{flex-shrink:0;}
   @media(max-width:640px){body{font-size:17px;}.steps3{grid-template-columns:1fr;}.linkcards{grid-template-columns:1fr;}.ex td:first-child{width:96px;}}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.progress{transition:none;}}
 </style>
@@ -115,14 +122,14 @@
   <div class="watermark" aria-hidden="true">A</div>
 
   <!-- guide-local top only. The host website provides Home/Contact/etc. -->
-  <div class="guide-top"><a class="backlink" href="/guides">← All guides</a></div>
+
 
   <div class="eyebrow">Automation · Systems thinking</div>
   <h1>Automate the fix, not the process</h1>
   <p class="lede">Most automations don't fail because the tool is bad. They fail because they were wired around a process nobody had actually fixed yet. Here's the one-line rule that changes that, and the exact method to apply it.</p>
 
   <div class="quickrow">
-    <a class="skip" href="#start">↓ Skip to the 3-step method</a>
+    <a class="skip" href="#start">Skip to the 3-step method</a>
     <span class="readtime">6 min read · works with n8n, Zapier, Make, or none of the above</span>
   </div>
 
@@ -203,12 +210,23 @@ Be blunt. If most of this isn't ready to automate yet, tell me that directly ins
   <div class="cta">
     <h2>Want the system, not just the method? ⚙️</h2>
     <p>If you'd rather have this audit-then-build process run on your actual workflow instead of a hypothetical one, that's the done-for-you version.</p>
-    <p><a class="button" href="[BOOK_A_CALL_LINK]">Book a call →</a></p>
+    <a class="button" href="[BOOK_A_CALL_LINK]">Book a call →</a>
   </div>
 
   <div class="guide-foot">
-    <p class="foot-follow">Follow <a href="[LINKEDIN_URL]">@itsriz</a> for AI tips every single day. Or <a href="[BOOK_A_CALL_LINK]">book a call with Riz</a> for AI coaching.</p>
-    <p class="foot-meta">Written by <strong>Riz</strong> · <a href="/guides">← All guides</a></p>
+    <p class="foot-lede">Want more like this? 👋</p>
+    <div class="foot-ctas">
+      <a class="foot-pill foot-pill--primary" href="[LINKEDIN_URL]">Follow @itsriz for daily AI tips
+        <svg class="ig-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="6" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/>
+          <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/>
+        </svg>
+      </a>
+      <a class="foot-pill" href="[BOOK_A_CALL_LINK]">Book a call for AI coaching</a>
+    </div>
+    <p class="foot-attribution">Written by <strong>Riz</strong></p>
+    <a class="foot-guides-btn" href="/guides">View all guides →</a>
   </div>
 
 </div>

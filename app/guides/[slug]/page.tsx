@@ -50,6 +50,7 @@ export default async function GuidePage({
       <style>{`
         .gd-detail {
           padding: 112px 0 112px;
+          background: #F5EFE0;
         }
         .gd-detail-wrap {
           max-width: 860px;
@@ -132,11 +133,7 @@ export default async function GuidePage({
           margin-bottom: 2rem;
         }
         .gd-iframe-wrap {
-          border: 1px solid var(--line);
-          border-radius: 18px;
-          overflow: hidden;
-          box-shadow: var(--shadow);
-          background: #fff;
+          background: #F5EFE0;
         }
         .gd-iframe-wrap iframe {
           width: 100%;
