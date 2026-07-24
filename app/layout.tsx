@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   description:
     "I help business owners think clearly enough that automation actually works, and I build the systems that prove it.",
   icons: {
-    icon: "/favicon/v1-coral-circle-serif-icon.png",
+    icon: "/favicon/v1-coral-circle-serif-icon-black-R.png",
   },
 };
 
