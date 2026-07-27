@@ -15,7 +15,7 @@ export type Testimonial = {
   isPlaceholder?: boolean;
   /** Placeholder - swap for the real company name once available. Shown only in the featured area. */
   fullCompany?: string;
-  /** Placeholder href ("#") - swap for the person's real LinkedIn URL. */
+  /** Placeholder value (e.g. "[LINKEDIN_URL_NAME]") - swap for the person's real LinkedIn URL. */
   linkedinUrl?: string;
   /** Placeholder href ("#") - not currently rendered; kept for when a case-study/testimonial page exists. */
   readMoreHref?: string;
@@ -36,7 +36,7 @@ export const testimonials: Testimonial[] = [
     avatarUrl: "/images/testimonials/amara.jpg",
     isPlaceholder: true,
     fullCompany: "Northline Cloud",
-    linkedinUrl: "#",
+    linkedinUrl: "[LINKEDIN_URL_AMARA_WHITFIELD]",
     readMoreHref: "#",
   },
   {
@@ -51,7 +51,7 @@ export const testimonials: Testimonial[] = [
     avatarUrl: "/images/testimonials/daniel.jpg",
     isPlaceholder: true,
     fullCompany: "Meridian Logistics",
-    linkedinUrl: "#",
+    linkedinUrl: "[LINKEDIN_URL_DANIEL_OKAFOR]",
     readMoreHref: "#",
   },
   {
@@ -66,7 +66,7 @@ export const testimonials: Testimonial[] = [
     avatarUrl: "/images/testimonials/priya.jpg",
     isPlaceholder: true,
     fullCompany: "Harborview Recruiting",
-    linkedinUrl: "#",
+    linkedinUrl: "[LINKEDIN_URL_PRIYA_NATHAN]",
     readMoreHref: "#",
   },
   {
@@ -81,7 +81,7 @@ export const testimonials: Testimonial[] = [
     avatarUrl: "/images/testimonials/marcus.jpg",
     isPlaceholder: true,
     fullCompany: "Ashford Hale LLP",
-    linkedinUrl: "#",
+    linkedinUrl: "[LINKEDIN_URL_MARCUS_FELDT]",
     readMoreHref: "#",
   },
 ];
@@ -249,7 +249,7 @@ export default function TestimonialsSection({
                   <div>
                     <div className="testimonials-featured-name-row">
                       <span className="testimonials-featured-name">{featured.name}</span>
-                      {featured.linkedinUrl && featured.linkedinUrl !== "#" && (
+                      {featured.linkedinUrl && (
                         <a
                           href={featured.linkedinUrl}
                           className="testimonials-linkedin-btn"
