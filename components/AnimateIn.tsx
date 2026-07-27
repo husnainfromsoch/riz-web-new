@@ -29,7 +29,7 @@ export default function AnimateIn({ children, delay = 0, className = "", style, 
           observer.unobserve(el);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();

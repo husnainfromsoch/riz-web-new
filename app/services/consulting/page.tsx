@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, CSSProperties } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import CalBookingButton from "@/components/CalModal";
+import ConsultingHeroPhoto from "@/components/ConsultingHeroPhoto";
 import DirectLineCTA from "@/components/DirectLineCTA";
 import { ProofChip, ProofChipRow, ProofChipIconAward, ProofChipIconGlobe, ProofChipIconCheck } from "@/components/ProofChip";
 import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
@@ -22,14 +23,17 @@ const formats = [
   {
     title: "Strategy sessions",
     body: "90 minutes, recorded, actioned. We name the problem and leave with a clear direction.",
+    accent: "var(--coral)",
   },
   {
     title: "Fractional ops",
     body: "1-2 days per week, embedded in your team. I run ops alongside you, not for you.",
+    accent: "var(--amber)",
   },
   {
     title: "Advisory retainer",
     body: "Monthly, async-first. I'm in your corner when you need a clear head on hard decisions.",
+    accent: "var(--ink2)",
   },
 ];
 
@@ -47,16 +51,44 @@ export default function ConsultingPage() {
     <>
       <style>{`
         .consulting-format-card {
+          position: relative;
           border: 1px solid var(--line);
           border-radius: 22px;
           padding: 2rem;
+          padding-top: calc(2rem + 4px);
           background: #fff;
           box-shadow: 0 16px 40px rgba(234,106,71,0.10), 0 4px 14px rgba(34,51,44,0.05);
           transition: transform 0.18s ease, box-shadow 0.18s ease;
+          overflow: hidden;
         }
         .consulting-format-card:hover {
           transform: translateY(-2px);
           box-shadow: 0 20px 48px rgba(234,106,71,0.16), 0 6px 18px rgba(34,51,44,0.08);
+        }
+        .consulting-format-card::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: var(--format-accent, var(--coral));
+        }
+        .consulting-checklist-block {
+          background: var(--cream-2);
+          border: 1px solid var(--line);
+          border-radius: 22px;
+          padding: 1.75rem 2rem;
+        }
+        .consulting-eyebrow {
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 0.75rem;
+          color: var(--coral);
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          display: block;
+          margin-bottom: 0.75rem;
         }
         .consulting-pricing-bar {
           margin-top: 2.5rem;
@@ -90,57 +122,161 @@ export default function ConsultingPage() {
         .consulting-send-btn {
           border-radius: 100px;
         }
+        .consulting-book-grid {
+          display: grid;
+          grid-template-columns: 56% 40%;
+          gap: 4%;
+          align-items: start;
+        }
+        .consulting-next-panel {
+          margin-top: 0;
+        }
+        .consulting-step-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.9rem;
+        }
+        .consulting-step-item + .consulting-step-item {
+          margin-top: 1.1rem;
+        }
+        .consulting-step-num {
+          flex: none;
+          width: 28px;
+          height: 28px;
+          border-radius: 50%;
+          background: var(--coral);
+          color: #fff;
+          font-family: var(--font-dm-mono), monospace;
+          font-size: 0.8rem;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .consulting-step-text {
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 0.92rem;
+          color: var(--body);
+          line-height: 1.6;
+          padding-top: 0.15rem;
+        }
+        @media (max-width: 860px) {
+          .consulting-book-grid {
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+          }
+          .consulting-next-panel {
+            margin-top: 0.5rem;
+          }
+        }
       `}</style>
       {/* HERO */}
       <section className="svc-hero-section" style={{ background: "var(--cream-2)" }}>
         <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
-        <div className="max-w-site" ref={heroFadeRef}>
-          <AnimateIn delay={80}>
-            <h1
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
-                lineHeight: 1.2,
-                color: "var(--ink)",
-                fontWeight: 700,
-                marginBottom: "1.25rem",
-                maxWidth: 580,
-              }}
-            >
-              Clarity before{" "}
-              <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
-                systems
-              </span>
-              .
-            </h1>
-          </AnimateIn>
-          <AnimateIn delay={180}>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.1rem",
-                color: "var(--body)",
-                lineHeight: 1.7,
-                maxWidth: 520,
-              }}
-            >
-              I work with owners and founders who know something is wrong but can&apos;t quite name it. We name it together. Then we fix it.
-            </p>
-          </AnimateIn>
-          <AnimateIn delay={240}>
-            <ProofChipRow>
-              <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops · Careem · Bolt · Wise</ProofChip>
-              <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
-              <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
-            </ProofChipRow>
+        <div className="max-w-site consulting-hero-grid" ref={heroFadeRef}>
+          <div className="consulting-hero-text">
+            <AnimateIn delay={80}>
+              <h1
+                style={{
+                  fontFamily: "var(--font-playfair), serif",
+                  fontSize: "clamp(2.2rem, 4vw, 3rem)",
+                  lineHeight: 1.2,
+                  color: "var(--ink)",
+                  fontWeight: 700,
+                  marginBottom: "1.25rem",
+                  maxWidth: 580,
+                }}
+              >
+                Clarity before{" "}
+                <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+                  systems
+                </span>
+                .
+              </h1>
+            </AnimateIn>
+            <AnimateIn delay={180}>
+              <p
+                style={{
+                  fontFamily: "var(--font-dm-sans), sans-serif",
+                  fontSize: "1.1rem",
+                  color: "var(--body)",
+                  lineHeight: 1.7,
+                  maxWidth: 520,
+                }}
+              >
+                I work with owners and founders who know something is wrong but can&apos;t quite name it. We name it together. Then we fix it.
+              </p>
+            </AnimateIn>
+            <AnimateIn delay={240}>
+              <ProofChipRow>
+                <ProofChip icon={<ProofChipIconAward />}>10+ yrs ops · Careem · Bolt · Wise</ProofChip>
+                <ProofChip icon={<ProofChipIconGlobe />}>4 continents</ProofChip>
+                <ProofChip icon={<ProofChipIconCheck />}>Anthropic Partner</ProofChip>
+              </ProofChipRow>
+            </AnimateIn>
+          </div>
+          <AnimateIn delay={320} className="consulting-hero-photo-anim">
+            <ConsultingHeroPhoto />
           </AnimateIn>
         </div>
       </section>
+
+      <style>{`
+        .consulting-hero-grid {
+          display: grid;
+          grid-template-columns: 58% 38%;
+          gap: 4%;
+          align-items: center;
+        }
+        .animate-in.consulting-hero-photo-anim {
+          transform: translateX(48px);
+        }
+        .animate-in.visible.consulting-hero-photo-anim {
+          transform: translateX(0);
+        }
+        .consulting-hero-photo {
+          position: relative;
+          height: 460px;
+          max-height: 460px;
+          border-radius: 8px 32px 32px 32px;
+          overflow: hidden;
+          transform: rotate(1.5deg);
+          box-shadow: 0 24px 56px rgba(234,106,71,0.18), 0 8px 22px rgba(34,51,44,0.08);
+          will-change: transform;
+        }
+        @media (max-width: 1024px) {
+          .consulting-hero-grid {
+            grid-template-columns: 56% 40%;
+            gap: 4%;
+          }
+          .consulting-hero-photo {
+            height: 380px;
+            max-height: 380px;
+          }
+        }
+        @media (max-width: 860px) {
+          .consulting-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .consulting-hero-photo {
+            height: 320px;
+            max-height: 320px;
+            width: 100%;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .consulting-hero-photo-anim {
+            transform: none !important;
+          }
+        }
+      `}</style>
 
       {/* FORMATS */}
       <section className="section-pad">
         <div className="max-w-site">
           <AnimateIn>
+            <span className="consulting-eyebrow">The engagement</span>
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
@@ -156,7 +292,10 @@ export default function ConsultingPage() {
           <div className="grid md:grid-cols-3 gap-5">
             {formats.map((f, i) => (
               <AnimateIn key={f.title} delay={i * 80}>
-                <div className="consulting-format-card">
+                <div
+                  className="consulting-format-card"
+                  style={{ "--format-accent": f.accent } as CSSProperties}
+                >
                   <h3
                     style={{
                       fontFamily: "var(--font-playfair), serif",
@@ -183,13 +322,15 @@ export default function ConsultingPage() {
             ))}
           </div>
 
-          <ul style={{ listStyle: "none", padding: 0, margin: "2.5rem 0 0", maxWidth: 460 }}>
-            {[
-              "Fixed intro call before anything is scoped",
-              "Direct access, no account managers, no hand-offs",
-              "Documentation and hand-over on everything we build",
-            ].map((t, i) => checkBullet(t, i))}
-          </ul>
+          <div className="consulting-checklist-block" style={{ margin: "2.5rem 0 0", maxWidth: 460 }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+              {[
+                "Fixed intro call before anything is scoped",
+                "Direct access, no account managers, no hand-offs",
+                "Documentation and hand-over on everything we build",
+              ].map((t, i) => checkBullet(t, i))}
+            </ul>
+          </div>
 
           <AnimateIn delay={400}>
             <div className="consulting-pricing-bar">
@@ -226,6 +367,7 @@ export default function ConsultingPage() {
       {/* BOOK */}
       <section id="book" className="section-pad" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="max-w-site">
+          <div className="consulting-book-grid">
           <div style={{ maxWidth: 600 }}>
             <AnimateIn>
               <h2
@@ -381,11 +523,30 @@ export default function ConsultingPage() {
               )}
             </AnimateIn>
           </div>
+
+          <AnimateIn delay={200} className="consulting-next-panel">
+            <div className="consulting-checklist-block">
+              <span className="consulting-eyebrow" style={{ marginBottom: "1.1rem" }}>
+                What happens next
+              </span>
+              {[
+                "You send it — takes 2 minutes, no calendar needed yet.",
+                "I read it — within 48 hours, properly, not skimmed.",
+                "If it's a fit, we book a call. If not, I'll tell you that too.",
+              ].map((t, i) => (
+                <div className="consulting-step-item" key={t}>
+                  <span className="consulting-step-num">{i + 1}</span>
+                  <span className="consulting-step-text">{t}</span>
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
+          </div>
         </div>
       </section>
 
       {/* DIRECT LINE */}
-      <section className="section-pad" style={{ background: "var(--cream)" }}>
+      <section className="section-pad" style={{ background: "var(--bg)" }}>
         <div className="max-w-site">
           <AnimateIn>
             <DirectLineCTA />
