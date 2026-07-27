@@ -38,11 +38,59 @@ export default function ConsultingPage() {
   const [email, setEmail] = useState("");
   const [problem, setProblem] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const heroTextureRef = useParallax<HTMLDivElement>(0.1);
   const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
 
   return (
     <>
+      <style>{`
+        .consulting-format-card {
+          border: 1px solid var(--line);
+          border-radius: 22px;
+          padding: 2rem;
+          background: #fff;
+          box-shadow: 0 16px 40px rgba(234,106,71,0.10), 0 4px 14px rgba(34,51,44,0.05);
+          transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .consulting-format-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 20px 48px rgba(234,106,71,0.16), 0 6px 18px rgba(34,51,44,0.08);
+        }
+        .consulting-pricing-bar {
+          margin-top: 2.5rem;
+          padding: 1.5rem 2rem;
+          background: var(--cream);
+          border: 1px solid var(--line);
+          border-radius: 18px;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          box-shadow: 0 16px 40px rgba(234,106,71,0.10), 0 4px 14px rgba(34,51,44,0.05);
+        }
+        .consulting-form-input {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border: 1px solid var(--line-2);
+          border-radius: 11px;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 0.95rem;
+          color: var(--ink);
+          background: #fff;
+          outline: none;
+          transition: border-color 0.18s ease, box-shadow 0.18s ease;
+        }
+        .consulting-form-input:focus {
+          border-color: var(--coral);
+          box-shadow: 0 0 0 3px color-mix(in srgb, var(--coral) 18%, transparent);
+        }
+        .consulting-send-btn {
+          border-radius: 100px;
+        }
+      `}</style>
       {/* HERO */}
       <section className="svc-hero-section" style={{ background: "var(--cream-2)" }}>
         <div className="svc-hero-texture" ref={heroTextureRef} data-parallax />
@@ -108,15 +156,7 @@ export default function ConsultingPage() {
           <div className="grid md:grid-cols-3 gap-5">
             {formats.map((f, i) => (
               <AnimateIn key={f.title} delay={i * 80}>
-                <div
-                  style={{
-                    border: "1px solid var(--line)",
-                    borderRadius: 18,
-                    padding: "2rem",
-                    background: "#fff",
-                    boxShadow: "var(--shadow)",
-                  }}
-                >
+                <div className="consulting-format-card">
                   <h3
                     style={{
                       fontFamily: "var(--font-playfair), serif",
@@ -152,20 +192,7 @@ export default function ConsultingPage() {
           </ul>
 
           <AnimateIn delay={400}>
-            <div
-              style={{
-                marginTop: "2.5rem",
-                padding: "1.5rem 2rem",
-                background: "var(--cream)",
-                border: "1px solid var(--line)",
-                borderRadius: 12,
-                display: "flex",
-                alignItems: "center",
-                gap: "1rem",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-              }}
-            >
+            <div className="consulting-pricing-bar">
               <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                 <span
                   style={{
@@ -254,7 +281,30 @@ export default function ConsultingPage() {
                 </div>
               ) : (
                 <form
-                  onSubmit={(e) => { e.preventDefault(); if (name && email && problem) setSubmitted(true); }}
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (!name || !email || !problem) return;
+                    const webhookUrl = process.env.NEXT_PUBLIC_N8N_CONSULTING_FORM_WEBHOOK;
+                    if (!webhookUrl) {
+                      setSubmitError(true);
+                      return;
+                    }
+                    setSubmitting(true);
+                    setSubmitError(false);
+                    try {
+                      const res = await fetch(webhookUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ name, email, problem, submittedAt: new Date().toISOString() }),
+                      });
+                      if (!res.ok) throw new Error("Webhook responded with an error");
+                      setSubmitted(true);
+                    } catch {
+                      setSubmitError(true);
+                    } finally {
+                      setSubmitting(false);
+                    }
+                  }}
                   style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
                 >
                   {[
@@ -282,17 +332,7 @@ export default function ConsultingPage() {
                         value={field.value}
                         onChange={(e) => field.setter(e.target.value)}
                         required
-                        style={{
-                          width: "100%",
-                          padding: "0.75rem 1rem",
-                          border: "1px solid var(--line-2)",
-                          borderRadius: 6,
-                          fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "0.95rem",
-                          color: "var(--ink)",
-                          background: "#fff",
-                          outline: "none",
-                        }}
+                        className="consulting-form-input"
                       />
                     </div>
                   ))}
@@ -317,22 +357,25 @@ export default function ConsultingPage() {
                       onChange={(e) => setProblem(e.target.value)}
                       required
                       rows={5}
-                      style={{
-                        width: "100%",
-                        padding: "0.75rem 1rem",
-                        border: "1px solid var(--line-2)",
-                        borderRadius: 6,
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.95rem",
-                        color: "var(--ink)",
-                        background: "#fff",
-                        outline: "none",
-                        resize: "vertical",
-                      }}
+                      className="consulting-form-input"
+                      style={{ resize: "vertical" }}
                     />
                   </div>
+                  {submitError && (
+                    <p
+                      style={{
+                        fontFamily: "var(--font-dm-sans), sans-serif",
+                        fontSize: "0.9rem",
+                        color: "var(--coral)",
+                      }}
+                    >
+                      Something went wrong — try booking a call directly instead.
+                    </p>
+                  )}
                   <div>
-                    <button type="submit" className="btn-coral">Send →</button>
+                    <button type="submit" className="btn-coral consulting-send-btn" disabled={submitting}>
+                      {submitting ? "Sending..." : "Send →"}
+                    </button>
                   </div>
                 </form>
               )}
