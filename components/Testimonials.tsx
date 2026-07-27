@@ -249,16 +249,13 @@ export default function TestimonialsSection({
                   <div>
                     <div className="testimonials-featured-name-row">
                       <span className="testimonials-featured-name">{featured.name}</span>
-                      {featured.linkedinUrl && (
-                        <a
-                          href={featured.linkedinUrl}
-                          className="testimonials-linkedin-btn"
+                      {featured.linkedinUrl && !featured.linkedinUrl.startsWith("[") && (
+                        <span
+                          className="testimonials-linkedin-btn testimonials-linkedin-btn-inert"
                           aria-label={`${featured.name} on LinkedIn`}
-                          target="_blank"
-                          rel="noopener noreferrer"
                         >
                           <LinkedInIcon size={15} />
-                        </a>
+                        </span>
                       )}
                     </div>
                     <div className="testimonials-featured-role">

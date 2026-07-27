@@ -1350,6 +1350,11 @@ p, li, td, th, label, input, textarea, select {
   transform: translateY(-1px);
 }
 
+.testimonials-linkedin-btn-inert {
+  cursor: default;
+  pointer-events: none;
+}
+
 .testimonials-featured-role {
   display: flex;
   align-items: center;

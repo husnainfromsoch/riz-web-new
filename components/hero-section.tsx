@@ -6,16 +6,6 @@ import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const PHOTO_URL = "/riz-photo-new.jpg";
 
-// Sparkle used for "AI Operator" since it's a role, not a product with a logo.
-function AiOperatorMark() {
-  return (
-    <svg className="hz-marquee-icon-svg" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 3.5 13.7 9l5.3 1.5-5.3 1.5L12 17.5 10.3 12 5 10.5l5.3-1.5L12 3.5Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-      <path d="M19 15.5 19.7 17.5 21.5 18.25 19.7 19 19 21 18.3 19 16.5 18.25 18.3 17.5 19 15.5Z" fill="currentColor" />
-    </svg>
-  );
-}
-
 type MarqueeLabel = {
   label: string;
   img?: string;
@@ -29,7 +19,6 @@ const MARQUEE_LABELS: MarqueeLabel[] = [
   { label: "Wise", img: "/logos/wise.svg", w: 106 },
   { label: "Anthropic", img: "/logos/anthropic.png", w: 111 },
   { label: "n8n Builder", img: "/logos/n8n.svg", w: 28 },
-  { label: "AI Operator", icon: AiOperatorMark },
 ];
 
 const MARQUEE_ITEMS = [...MARQUEE_LABELS, ...MARQUEE_LABELS];
