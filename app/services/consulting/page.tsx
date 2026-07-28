@@ -78,7 +78,21 @@ export default function ConsultingPage() {
           background: var(--cream-2);
           border: 1px solid var(--line);
           border-radius: 22px;
-          padding: 1.75rem 2rem;
+          padding: 2rem 2.25rem;
+        }
+        .consulting-checklist-block ul {
+          display: flex;
+          gap: 2.5rem;
+        }
+        .consulting-checklist-block .svc-check-item {
+          flex: 1;
+          margin-bottom: 0;
+        }
+        @media (max-width: 768px) {
+          .consulting-checklist-block ul {
+            flex-direction: column;
+            gap: 14px;
+          }
         }
         .consulting-eyebrow {
           font-family: var(--font-dm-mono), monospace;
@@ -126,7 +140,15 @@ export default function ConsultingPage() {
           display: grid;
           grid-template-columns: 56% 40%;
           gap: 4%;
-          align-items: start;
+          align-items: center;
+        }
+        #book.section-pad {
+          padding: 72px 0;
+        }
+        @media (max-width: 767px) {
+          #book.section-pad {
+            padding: var(--section-pad-mobile) 0;
+          }
         }
         .consulting-next-panel {
           margin-top: 0;
@@ -322,7 +344,7 @@ export default function ConsultingPage() {
             ))}
           </div>
 
-          <div className="consulting-checklist-block" style={{ margin: "2.5rem 0 0", maxWidth: 460 }}>
+          <div className="consulting-checklist-block" style={{ margin: "2.5rem 0 0" }}>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {[
                 "Fixed intro call before anything is scoped",
