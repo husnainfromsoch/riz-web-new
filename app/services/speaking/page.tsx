@@ -176,7 +176,7 @@ export default function SpeakingPage() {
         }
         .format-row-label {
           font-family: var(--font-playfair), serif;
-          font-size: 1.3rem;
+          font-size: 1.05rem;
           font-weight: 600;
           color: var(--ink);
           transition: color 0.22s ease;
