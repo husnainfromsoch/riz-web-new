@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zapier vs Make vs n8n: Which Automation Tool Are You Overpaying For? — Soch Consulting</title>
+<meta name="guide-date" content="2026-08-04" />
+<meta name="guide-excerpt" content="The real difference between Zapier, Make.com, and n8n isn't features — it's how each one bills you once your automation actually gets busy. Here's the honest breakdown." />
+<meta name="guide-category" content="Automation" />
+<meta name="guide-tool" content="n8n, Zapier, Make.com" />
+<style>
+  :root{
+    --coral:#EA6A47;--coral-deep:#C8502F;
+    --cream:#F5EFE0;--cream-2:#FBF7EE;
+    --charcoal:#3D3D3D;--charcoal-soft:#5A5754;--line:#E4DCC9;
+    --code-bg:#000000;--code-head:#1A1815;--code-fg:#F3ECDD;--code-accent:#F0A488;--code-border:#262320;
+    --wrap:760px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--charcoal);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.68;font-size:18px;-webkit-font-smoothing:antialiased;}
+  a{color:var(--coral-deep);text-decoration:none;border-bottom:1px solid rgba(200,80,47,.28);}
+  a:hover{border-bottom-color:var(--coral-deep);}
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--coral);z-index:50;transition:width .1s linear;}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+  .guide-top{padding-top:40px;}
+  .backlink{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--charcoal-soft);border:none;font-weight:500;}
+  .backlink:hover{color:var(--coral-deep);}
+  .eyebrow{margin-top:34px;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--coral);font-weight:700;}
+  h1{font-size:clamp(32px,5.4vw,50px);line-height:1.1;margin:.28em 0 .32em;letter-spacing:-.02em;color:var(--charcoal);}
+  .lede{font-size:21px;color:var(--charcoal-soft);max-width:60ch;margin:0 0 18px;}
+  .quickrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:22px 0 6px;font-size:14px;color:var(--charcoal-soft);}
+  .skip{display:inline-flex;align-items:center;gap:7px;background:var(--cream-2);border:1px solid var(--line);border-radius:999px;padding:8px 16px;color:var(--charcoal);font-weight:600;}
+  .skip:hover{border-color:var(--coral);color:var(--coral-deep);}
+  .readtime{opacity:.85;}
+  h2{font-size:clamp(24px,3.5vw,31px);margin:2.1em 0 .5em;letter-spacing:-.01em;color:var(--charcoal);scroll-margin-top:24px;}
+  h3{font-size:20px;margin:1.7em 0 .4em;color:var(--charcoal);}
+  h3.spaced{margin-top:2em;}
+  p{margin:0 0 1.05em;}
+  strong{color:var(--charcoal);font-weight:700;}
+  .muted{color:var(--charcoal-soft);}.small{font-size:16px;}
+  .divider{position:relative;height:1px;background:var(--line);border:0;margin:58px 0 6px;}
+  .divider::before{content:"";position:absolute;left:0;top:-2px;width:44px;height:4px;background:var(--coral);border-radius:2px;}
+  ol,ul{margin:0 0 1.2em;padding-left:1.35em;}li{margin:.45em 0;}
+  /* tool cards */
+  .tool-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0 8px;}
+  .tool-card{background:var(--cream-2);border:1px solid var(--line);border-radius:14px;padding:20px 16px;}
+  .tool-card .name{font-weight:800;font-size:17px;color:var(--charcoal);margin-bottom:6px;}
+  .tool-card .billing{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:10px;}
+  .tool-card .desc{font-size:15px;color:var(--charcoal-soft);}
+  /* comparison table */
+  .ex{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:16px;}
+  .ex th{text-align:left;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--charcoal-soft);font-weight:700;padding:8px 6px;border-bottom:2px solid var(--line);}
+  .ex td{border-bottom:1px solid var(--line);padding:12px 6px;vertical-align:top;}
+  .ex td:first-child{color:var(--coral-deep);font-weight:700;width:130px;white-space:nowrap;}
+  .ex tr:last-child td{border-bottom:none;}
+  /* decision cards */
+  .decide{display:grid;grid-template-columns:1fr;gap:12px;margin:24px 0;}
+  .decide-card{background:var(--cream-2);border:1px solid var(--line);border-radius:12px;padding:18px 20px;border-left:4px solid var(--coral);}
+  .decide-card .label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-deep);font-weight:800;margin-bottom:6px;}
+  .decide-card .cond{font-weight:700;color:var(--charcoal);margin-bottom:4px;font-size:17px;}
+  .decide-card .rec{font-size:15px;color:var(--charcoal-soft);}
+  /* callout */
+  .callout{border-left:4px solid var(--coral);background:var(--cream-2);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0 22px;}
+  .callout .tag{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-deep);font-weight:800;margin-bottom:5px;}
+  .callout p:last-child{margin-bottom:0;}
+  /* honest */
+  .honest li{margin:.55em 0;}
+  /* footer */
+  .cta{margin-top:44px;background:var(--charcoal);color:var(--cream);border-radius:18px;padding:32px 30px;}
+  .cta h2{color:#fff;margin:0 0 .35em;}
+  .cta p{color:#DAD3C4;margin-bottom:1em;}
+  .cta a.button{display:inline-block;background:var(--coral);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;border:none;}
+  .cta a.button:hover{background:var(--coral-deep);}
+  .cta a{color:#F3B39C;}
+  .guide-foot{margin:34px 0 90px;padding-top:22px;border-top:1px solid var(--line);color:var(--charcoal-soft);font-size:15px;}
+  .foot-follow{font-size:17px;color:var(--charcoal);}
+  .guide-foot a{color:var(--coral-deep);}
+  .foot-meta{margin-top:10px;font-size:14px;}
+  /* cost example block */
+  .cost-example{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--code-border);border-radius:12px;padding:20px 22px;margin:20px 0 28px;font-size:15px;line-height:1.75;font-family:"SF Mono",SFMono-Regular,ui-monospace,Menlo,Consolas,monospace;}
+  .cost-example .tool-lbl{color:var(--code-accent);font-weight:700;}
+  @media(max-width:640px){body{font-size:17px;}.tool-cards{grid-template-columns:1fr;}.ex td:first-child{width:96px;}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.progress{transition:none;}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="wrap">
+
+  <div class="guide-top"><a class="backlink" href="/guides">← All guides</a></div>
+
+  <div class="eyebrow">Automation · Tool Comparison</div>
+  <h1>Zapier vs Make vs n8n: which one are you overpaying for?</h1>
+  <p class="lede">The real difference between these three tools isn't features — it's how each one bills you the moment your automation actually gets busy.</p>
+
+  <div class="quickrow">
+    <a class="skip" href="#billing">↓ Skip to the billing breakdown</a>
+    <span class="readtime">5 min read · Zapier, Make.com, n8n</span>
+  </div>
+
+  <img src="images/zapier-vs-make-vs-n8n.webp" alt="Zapier vs Make vs n8n comparison — three automation tools side by side" style="width:100%;border-radius:16px;margin:22px 0 8px;border:1px solid var(--line);">
+
+  <p>Most comparisons of these tools focus on features: which has the most integrations, which looks the prettiest, which has the best documentation. That's all fine. But the question that actually determines which one you should use is simpler: what happens to your bill once the workflow is running a few thousand times a month?</p>
+
+  <p>The answer is different for all three — and the gap between them is much larger than most people expect before they get their first invoice.</p>
+
+  <hr class="divider">
+
+  <h2 id="billing">The billing models, plainly stated 💳</h2>
+
+  <div class="tool-cards">
+    <div class="tool-card">
+      <div class="name">Zapier</div>
+      <div class="billing">Billed per task</div>
+      <div class="desc">Every single action inside a workflow counts as a separate task. A 10-step Zap running 1,000 times = 10,000 tasks billed.</div>
+    </div>
+    <div class="tool-card">
+      <div class="name">Make.com</div>
+      <div class="billing">Billed per operation</div>
+      <div class="desc">Similar to Zapier's logic, but meaningfully cheaper at equivalent volume — roughly 60% less for the same workload.</div>
+    </div>
+    <div class="tool-card">
+      <div class="name">n8n</div>
+      <div class="billing">Billed per execution</div>
+      <div class="desc">The entire workflow — however many steps — counts as one unit. Scale doesn't compound your bill the same way.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="tag">The number that matters</span>
+    <p>Take a 10-step workflow running 10,000 times a month. That's <strong>100,000 tasks on Zapier</strong>. On n8n, it's still just <strong>10,000 executions</strong> — and the per-execution cost is lower on top of that. The same workload can cost 80–90% less.</p>
+  </div>
+
+  <p>Here's what the same concrete workload looks like across all three:</p>
+
+  <div class="cost-example">
+<span class="tool-lbl">Scenario:</span> 10-step workflow · 10,000 runs/month
+
+<span class="tool-lbl">Zapier</span>   → 100,000 tasks billed   ████████████████████ most expensive
+<span class="tool-lbl">Make.com</span> → ~100,000 ops billed   ████████░░░░ ~60% cheaper than Zapier
+<span class="tool-lbl">n8n</span>      → 10,000 executions      ██░░░░░░░░░░ 80–90% cheaper than Zapier</div>
+
+  <hr class="divider">
+
+  <h2>What each tool is actually good at 🔧</h2>
+
+  <table class="ex">
+    <tr><th>Tool</th><th>Where it wins</th><th>Where it doesn't</th></tr>
+    <tr>
+      <td>Zapier</td>
+      <td>Easiest to learn, largest app library, zero technical setup required. You can build your first workflow in under 10 minutes.</td>
+      <td>The task-based billing compounds fast. Anything complex or high-volume becomes expensive quickly.</td>
+    </tr>
+    <tr>
+      <td>Make.com</td>
+      <td>Visual canvas built for branching logic — genuinely easier to read a complex flow than Zapier's linear layout. The honest middle ground on price.</td>
+      <td>Still no-code, so ceiling is lower than n8n. Not ideal for AI agents that need persistent memory across runs.</td>
+    </tr>
+    <tr>
+      <td>n8n</td>
+      <td>Open-source and self-hostable, execution-based billing, built natively for AI agents with memory across runs. Massively cheaper at scale.</td>
+      <td>Expects more technical comfort. Setup takes longer. Not the right choice if you want to go from zero to running in an afternoon without touching any config.</td>
+    </tr>
+  </table>
+
+  <hr class="divider">
+
+  <h2 id="pick">Pick the right one for where you are right now 🎯</h2>
+
+  <div class="decide">
+    <div class="decide-card">
+      <div class="label">Choose this if →</div>
+      <div class="cond">No technical background, simple workflow, just need it to work</div>
+      <div class="rec">Zapier. The learning curve is minimal, the app library is unmatched, and the cost is fine at low volume. Just know what you're signing up for if it scales.</div>
+    </div>
+    <div class="decide-card">
+      <div class="label">Choose this if →</div>
+      <div class="cond">Complex branching logic, still want no-code, volume is growing</div>
+      <div class="rec">Make.com. The visual canvas handles multi-path logic better than Zapier's interface, and you'll pay meaningfully less for the same work.</div>
+    </div>
+    <div class="decide-card">
+      <div class="label">Choose this if →</div>
+      <div class="cond">Building an AI agent, need memory across runs, high volume, or want to self-host</div>
+      <div class="rec">n8n. It's the only one of the three built from the ground up for this use case, and the economics at scale aren't close.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 id="honest">The honest bit ✅</h2>
+  <ul class="honest">
+    <li><strong>Zapier's ease is genuinely valuable.</strong> If you're non-technical and building something simple that runs a few hundred times a month, the cost difference is negligible and the time saved setting it up is real.</li>
+    <li><strong>Make.com's visual canvas isn't just aesthetic.</strong> For workflows with real branching logic — different paths for different conditions — it's genuinely easier to read and maintain than a long linear Zapier chain.</li>
+    <li><strong>n8n's self-hosting advantage has a real cost of its own.</strong> You need a server, you need to manage updates, and when something breaks at 2am you're the one fixing it. The cloud version removes that, but the price advantage narrows slightly.</li>
+    <li><strong>Execution-based billing only helps if your workflows are genuinely multi-step.</strong> A 2-step workflow running 500 times a month costs almost nothing on any of these platforms — the difference starts mattering at volume and complexity.</li>
+    <li><strong>"Cheapest" and "right for you" aren't always the same answer.</strong> The tool you'll actually maintain and iterate on is more valuable than the one that's theoretically optimal but that you never quite get around to learning.</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Not sure which one is right for your setup? ⚙️</h2>
+    <p>If you want someone to look at what you're actually running — or trying to build — and tell you whether you're on the right tool (or overpaying), that's exactly what the done-for-you conversation is for.</p>
+    <p><a class="button" href="https://cal.com/consult-with-riz/work" target="_blank" rel="noopener noreferrer">Book a call →</a></p>
+  </div>
+
+  <div class="guide-foot">
+    <p class="foot-follow">Follow <a href="https://www.linkedin.com/in/itsriz">@itsriz</a> for AI tips every single day. Or <a href="https://cal.com/consult-with-riz/work" target="_blank" rel="noopener noreferrer">book a call with Riz</a> for AI coaching.</p>
+    <p class="foot-meta">Written by <strong>Riz</strong> · <a href="/guides">← All guides</a></p>
+  </div>
+
+</div>
+
+<script>
+  var bar=document.getElementById('progress');
+  function upd(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop||document.body.scrollTop)/max*100:0)+'%';}
+  document.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+</script>
+
+</body>
+</html>
