@@ -1229,13 +1229,10 @@ export default function Home() {
           50% { background-position: 100%; }
         }
         .believe-section-pad {
-          padding: 112px 60px;
+          padding: 112px 0;
         }
         @media (max-width: 767px) {
           .believe-section-pad { padding-top: 64px; padding-bottom: 64px; }
-        }
-        @media (max-width: 640px) {
-          .believe-section-pad { padding-left: 24px; padding-right: 24px; }
         }
         @media (max-width: 960px) {
           .believe-content-wrap { grid-template-columns: 1fr; gap: 48px; }
@@ -1437,9 +1434,8 @@ export default function Home() {
       </section>
 
       {/* SECTION 3 - WHAT I BELIEVE */}
-      {/* Intentionally custom width - do not standardize to .max-w-site */}
       <section id="what-i-believe" className="believe-section-pad" style={{ position: "relative", zIndex: 1 }}>
-        <div style={{ maxWidth: 1360, margin: "0 auto" }}>
+        <div className="max-w-site">
 
           <div className="believe-content-wrap">
 
