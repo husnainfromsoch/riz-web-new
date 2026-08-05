@@ -466,12 +466,10 @@ export default function Home() {
   const [believeHovered, setBelieveHovered] = useState(false);
   const [audioState, setAudioState] = useState<'idle' | 'playing' | 'paused'>('idle');
   const [isAfter, setIsAfter] = useState(false);
-  const [toggleAnimating, setToggleAnimating] = useState(false);
   const [hoveredBACard, setHoveredBACard] = useState<number | null>(null);
   const beforeAfterRef = useRef<HTMLElement>(null);
-  const beforeAfterTriggeredRef = useRef(false);
-  const loopCancelRef = useRef<(() => void) | null>(null);
   const portraitAudioRef = useRef<HTMLAudioElement | null>(null);
+  const toggleClickAudioCtxRef = useRef<AudioContext | null>(null);
   const audioFadeRafRef = useRef<number | null>(null);
 
   const proofSectionRef = useRef<HTMLElement | null>(null);
@@ -485,7 +483,7 @@ export default function Home() {
   const [hoveredNumberRow, setHoveredNumberRow] = useState<number | null>(null);
   const [activeCompany, setActiveCompany] = useState<string | null>(null);
 
-  const beliefParaRefs = useRef<Array<HTMLParagraphElement | null>>([]);
+  const beliefParaRefs = useRef<Array<HTMLSpanElement | null>>([]);
 
   const [activeThinkStep, setActiveThinkStep] = useState(0);
   const thinkChartContainerRef = useRef<HTMLDivElement>(null);
@@ -629,61 +627,37 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const el = beforeAfterRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting || beforeAfterTriggeredRef.current) return;
-        beforeAfterTriggeredRef.current = true;
-        observer.disconnect();
-
-        let cancelled = false;
-        const timers = new Set<ReturnType<typeof setTimeout>>();
-
-        function schedule(fn: () => void, ms: number) {
-          const id = setTimeout(() => { timers.delete(id); fn(); }, ms);
-          timers.add(id);
-        }
-
-        function runCycle() {
-          if (cancelled) return;
-          // OFF state - wait 2s then flip ON
-          schedule(() => {
-            if (cancelled) return;
-            setIsAfter(true);
-            // ON state - wait 3s then flip OFF
-            schedule(() => {
-              if (cancelled) return;
-              setIsAfter(false);
-              // OFF again - wait 2s then loop
-              schedule(runCycle, 2000);
-            }, 3000);
-          }, 2000);
-        }
-
-        setToggleAnimating(true);
-        setIsAfter(false);
-        runCycle();
-
-        loopCancelRef.current = () => {
-          cancelled = true;
-          timers.forEach((id) => clearTimeout(id));
-        };
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => {
-      observer.disconnect();
-      if (loopCancelRef.current) { loopCancelRef.current(); loopCancelRef.current = null; }
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Toggle now only changes state on manual click (see playToggleSound + button onClick below) —
+  // the auto-toggling demo animation has been removed entirely.
+  function playToggleSound() {
+    if (typeof window === "undefined") return;
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!toggleClickAudioCtxRef.current) {
+        toggleClickAudioCtxRef.current = new AudioCtx();
+      }
+      const ctx = toggleClickAudioCtxRef.current;
+      if (ctx.state === "suspended") ctx.resume();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "sine";
+      const now = ctx.currentTime;
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.13);
+    } catch {
+      // Fail silently - e.g. Web Audio unsupported or blocked before user gesture.
+    }
+  }
 
   useEffect(() => {
-    const els = beliefParaRefs.current.filter(Boolean) as HTMLParagraphElement[];
+    const els = beliefParaRefs.current.filter(Boolean) as HTMLSpanElement[];
     if (!els.length) return;
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -1096,10 +1070,6 @@ export default function Home() {
           from { opacity: 0; transform: translateY(-8px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes ba-toggle-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(234,106,71,0.4); }
-          50%       { box-shadow: 0 0 0 7px rgba(234,106,71,0); }
-        }
         @keyframes hand-wave {
           0%, 60%, 100% { transform: rotate(0deg); }
           10%           { transform: rotate(-12deg); }
@@ -1117,7 +1087,7 @@ export default function Home() {
         /* ===== BELIEVE SECTION ===== */
         .believe-content-wrap {
           display: grid;
-          grid-template-columns: 1fr 420px;
+          grid-template-columns: 1fr 340px;
           gap: 80px;
           /* stretch (not start): the photo column must span the full section
              height or position: sticky on the photo has no room to travel */
@@ -1128,17 +1098,17 @@ export default function Home() {
           font-size: 52px; font-weight: 900; letter-spacing: -2.5px;
           line-height: 1.03; margin-bottom: 40px; color: var(--ink);
         }
-        .belief-para {
+        .belief-para-merged {
           font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
           font-size: 20px; line-height: 1.65; color: var(--ink);
-          padding-bottom: 24px; margin-bottom: 24px;
-          border-bottom: 1px solid var(--line);
+        }
+        .belief-sentence {
+          display: inline-block;
           opacity: 0; transform: translateY(14px);
           transition: opacity 0.5s ease, transform 0.5s ease;
         }
-        .belief-para.visible { opacity: 1; transform: translateY(0); }
-        .belief-para:last-of-type { border-bottom: none; margin-bottom: 0; }
-        .belief-para.key-line {
+        .belief-sentence.visible { opacity: 1; transform: translateY(0); }
+        .belief-sentence.key-line {
           font-family: var(--font-fraunces), serif;
           font-size: 22px; font-weight: 800; letter-spacing: -.3px;
         }
@@ -1163,12 +1133,6 @@ export default function Home() {
           font-size: 18px; font-weight: 700; font-style: normal;
           color: #EA6A47;
           margin-bottom: 16px;
-        }
-        .believe-closing-eyebrow {
-          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
-          color: #E8603C;
-          margin-bottom: 20px;
         }
         .believe-closing-cta {
           background: #22332C; color: var(--cream);
@@ -1444,34 +1408,33 @@ export default function Home() {
               <h2 className="believe-section-title">What I actually believe.</h2>
 
               <div>
-                <p className="belief-para" ref={(el) => { beliefParaRefs.current[0] = el; }}>
-                  Everyone&apos;s selling AI like it&apos;s a brain you can rent. It isn&apos;t.
-                </p>
-                <p className="belief-para" ref={(el) => { beliefParaRefs.current[1] = el; }}>
-                  AI doesn&apos;t think for you. It thinks <em>like</em> you, faster and at scale.
-                </p>
-                <p className="belief-para" ref={(el) => { beliefParaRefs.current[2] = el; }}>
-                  Feed it muddled thinking and you get muddled output. Just more of it.
-                </p>
-                <p className="belief-para key-line" ref={(el) => { beliefParaRefs.current[3] = el; }}>
-                  Feed it clarity and it becomes <span className="coral-word">leverage.</span>
-                </p>
-                <p className="belief-para" ref={(el) => { beliefParaRefs.current[4] = el; }}>
-                  So the work was never &quot;add AI.&quot; The work is: get clear on the actual problem, design the system, then let the machine run it.
-                </p>
-                <p className="belief-para" ref={(el) => { beliefParaRefs.current[5] = el; }}>
-                  The teams I watched scale weren&apos;t the ones with the best tools. They were the ones who thought clearly before they built.
+                <p className="belief-para-merged">
+                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[0] = el; }}>
+                    Everyone&apos;s selling AI like it&apos;s a brain you can rent. It isn&apos;t.{" "}
+                  </span>
+                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[1] = el; }}>
+                    AI doesn&apos;t think for you. It thinks <em>like</em> you, faster and at scale.{" "}
+                  </span>
+                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[2] = el; }}>
+                    Feed it muddled thinking and you get muddled output. Just more of it.{" "}
+                  </span>
+                  <span className="belief-sentence key-line" ref={(el) => { beliefParaRefs.current[3] = el; }}>
+                    Feed it clarity and it becomes <span className="coral-word">leverage.</span>{" "}
+                  </span>
+                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[4] = el; }}>
+                    So the work was never &quot;add AI.&quot; The work is: get clear on the actual problem, design the system, then let the machine run it.{" "}
+                  </span>
+                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[5] = el; }}>
+                    The teams I watched scale weren&apos;t the ones with the best tools. They were the ones who thought clearly before they built.
+                  </span>
                 </p>
               </div>
 
               <div className="believe-closing">
                 <div className="believe-closing-main">That&apos;s the whole game.</div>
                 <div className="believe-closing-italic">Think first. Then automate.</div>
-                <div className="believe-closing-eyebrow" style={{ textTransform: "uppercase" }}>
-                  The operator behind the thinking.
-                </div>
                 <Link href="/about" className="believe-closing-cta">
-                  Meet Riz →
+                  About Riz →
                 </Link>
               </div>
             </div>
@@ -1673,15 +1636,6 @@ export default function Home() {
                       />
                     )}
                     <span style={{
-                      fontFamily: "var(--font-playfair), serif",
-                      fontSize: "22px",
-                      fontWeight: 700,
-                      fontStyle: showCoral ? "italic" : "normal",
-                      color: showCoral ? "#EA6A47" : "#22332C",
-                      transition: "color 0.3s ease",
-                      whiteSpace: "nowrap",
-                    }}>{item.company}</span>
-                    <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
                       fontSize: "0.74rem",
                       fontWeight: 500,
@@ -1705,24 +1659,6 @@ export default function Home() {
             }}>
               What ten years inside high-growth operations actually adds up to. A track record, not a theory.
             </p>
-
-            <div style={{
-              borderLeft: "3px solid #EA6A47",
-              paddingLeft: 16,
-              maxWidth: 300,
-            }}>
-              <p style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: 15,
-                fontStyle: "normal",
-                color: "#4A4A4A",
-                lineHeight: 1.65,
-                margin: 0,
-              }}>
-                Ten years. Four companies.<br />
-                One consistent result: systems that run without you.
-              </p>
-            </div>
 
           </div>
 
@@ -1859,14 +1795,7 @@ export default function Home() {
                             fontWeight: 700,
                             lineHeight: 1,
                             margin: "0 0 6px",
-                            background:
-                              "linear-gradient(90deg, #22332C, #EA6A47, #D79A36, #22332C)",
-                            backgroundSize: "300% auto",
-                            WebkitBackgroundClip: "text",
-                            backgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            animation: "statFlow 4s linear infinite",
-                            animationDelay: `${i * 0.4}s`,
+                            color: "var(--coral)",
                           }}
                         >
                           {row.stat}
@@ -2055,8 +1984,7 @@ export default function Home() {
                     }}>MANUAL</span>
                     <button
                       onClick={() => {
-                        if (loopCancelRef.current) { loopCancelRef.current(); loopCancelRef.current = null; }
-                        setToggleAnimating(true);
+                        playToggleSound();
                         setIsAfter((v) => !v);
                       }}
                       aria-label={isAfter ? "Switch to Before" : "Switch to After"}
@@ -2070,7 +1998,6 @@ export default function Home() {
                         position: "relative",
                         transition: "background 0.3s ease",
                         outline: "none",
-                        animation: isAfter ? "ba-toggle-pulse 1.8s ease-in-out infinite" : "none",
                       }}
                     >
                       <span style={{
@@ -2202,19 +2129,6 @@ export default function Home() {
             </div>
           </AnimateIn>
 
-          <AnimateIn delay={160}>
-            <p style={{
-              fontFamily: "var(--font-playfair), serif",
-              fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
-              fontStyle: "italic",
-              color: "#22332C",
-              textAlign: "center",
-              marginTop: "2.5rem",
-              marginBottom: 0,
-            }}>
-              One version scales. The other burns you out.
-            </p>
-          </AnimateIn>
         </div>
       </section>
 

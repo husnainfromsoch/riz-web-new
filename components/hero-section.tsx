@@ -284,12 +284,13 @@ export default function HeroSection() {
         .hz-logo-row {
           display: flex;
           align-items: center;
-          gap: 30px;
-          flex-wrap: wrap;
+          gap: 24px;
+          flex-wrap: nowrap;
         }
         .hz-logo-row img {
-          height: 44px;
+          height: 32px;
           width: auto;
+          max-width: 90px;
           object-fit: contain;
           display: block;
         }
@@ -383,7 +384,12 @@ export default function HeroSection() {
           white-space: nowrap;
         }
 
-        .hz-trust-row { display: contents; }
+        .hz-trust-row {
+          display: flex;
+          align-items: center;
+          flex-wrap: nowrap;
+          gap: 24px;
+        }
 
         @media (max-width: 960px) {
           .hz-wrap { padding-left: 24px; padding-right: 24px; }
@@ -411,8 +417,9 @@ export default function HeroSection() {
           }
           .hz-ops-num { font-size: 32px; letter-spacing: -1.5px; }
           .hz-ops-label { font-size: 13px; max-width: 190px; }
-          .hz-logo-row { gap: 16px; flex-wrap: nowrap; }
-          .hz-logo-row img { height: 28px; }
+          .hz-trust-row { flex-wrap: wrap; }
+          .hz-logo-row { gap: 16px; flex-wrap: wrap; }
+          .hz-logo-row img { height: 24px; max-width: 70px; }
           .hz-marquee-section {
             margin-top: 36px;
             padding: 16px 0;
@@ -432,8 +439,6 @@ export default function HeroSection() {
             <div className="hz-dotgrid-wrap" aria-hidden="true">
               <div className="hz-dotgrid" ref={dotGridRef} data-parallax />
             </div>
-
-            <div className="hz-eyebrow">Operator · Builder · Tallinn, Estonia</div>
 
             <div className="hz-grid" ref={fadeRef}>
               {/* LEFT */}
@@ -482,6 +487,10 @@ export default function HeroSection() {
                     <img src="/logos/bolt.png" alt="Bolt" />
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src="/logos/wise.svg" alt="Wise" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logos/anthropic.png" alt="Anthropic" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src="/logos/n8n.svg" alt="n8n" />
                   </div>
                 </div>
                 </div>

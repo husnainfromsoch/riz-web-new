@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { ChevronDown, Home, Megaphone, Cpu, Truck } from "lucide-react";
+import { ChevronDown, Home, Megaphone, Cpu, Truck, Scale, Stethoscope, ShoppingCart, Users } from "lucide-react";
 import AnimateIn from "@/components/AnimateIn";
 
 /* ─── data - 4 selected from the full case studies list ──────────────────── */
@@ -127,6 +127,126 @@ const FEATURED_CASES = [
       delivered: "2 weeks",
     },
   },
+  {
+    id: "cs-02",
+    tag: "LAW FIRM · OPERATIONS",
+    icon: Scale,
+    title: "Client Intake Automation & Case Routing",
+    result: "12 min response · was 24-48 hrs",
+    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=400&q=80",
+    hero: { number: "12 min", label: "average first response / was 24-48 hrs" },
+    details: {
+      before: [
+        "3 hrs/day paralegal time on intake",
+        "24-48 hr response to inquiries",
+        "1 in 5 urgent matters missed same-day",
+        "Manual routing errors",
+      ],
+      after: [
+        "<12 min average first response",
+        "100% urgent matters flagged same-day",
+        "0 hrs/day paralegal triage time",
+        "97% correct practice area routing",
+      ],
+      outcomes: [
+        { number: "12 min", label: "average first response / was 24-48 hrs" },
+        { number: "3 hrs", label: "per day recovered" },
+        { number: "100%", label: "urgent matters flagged same-day" },
+      ],
+      stack: ["n8n", "Claude API", "Clio", "Calendly", "Gmail", "Slack"],
+      delivered: "2 weeks",
+    },
+  },
+  {
+    id: "cs-03",
+    tag: "HEALTHCARE · OPERATIONS",
+    icon: Stethoscope,
+    title: "Appointment Reminder & Slot Recovery",
+    result: "50% fewer no-shows · 73% slots refilled",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=80",
+    hero: { number: "50%", label: "reduction in no-shows / 18% → 9%" },
+    details: {
+      before: [
+        "18% no-show rate (32 appts/week lost)",
+        "2.5 hrs/day manual reminder calls",
+        "Cancelled slots left empty",
+        "No confirmation tracking",
+      ],
+      after: [
+        "9% no-show rate",
+        "0 hrs/day manual reminders",
+        "73% cancelled slots filled same day",
+        "Confirmation tracked automatically",
+      ],
+      outcomes: [
+        { number: "50%", label: "reduction in no-shows / 18% → 9%" },
+        { number: "2.5 hrs", label: "per day recovered" },
+        { number: "73%", label: "cancelled slots refilled same day" },
+      ],
+      stack: ["n8n", "Twilio", "Google Calendar", "Gmail"],
+      delivered: "1 week",
+    },
+  },
+  {
+    id: "cs-04",
+    tag: "E-COMMERCE · SUPPORT",
+    icon: ShoppingCart,
+    title: "AI Support Triage & Auto-Resolution",
+    result: "67% auto-resolved · 18 min response",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80",
+    hero: { number: "67%", label: "tickets auto-resolved" },
+    details: {
+      before: [
+        "120+ tickets/week, 100% manual",
+        "4-6 hr average first response",
+        "2 agents on routine queries only",
+        "No prioritisation",
+      ],
+      after: [
+        "67% tickets auto-resolved",
+        "<18 min average first response",
+        "Agents on complex tickets only",
+        "Routine queries resolved before agents start",
+      ],
+      outcomes: [
+        { number: "67%", label: "tickets auto-resolved" },
+        { number: "18 min", label: "average first response / was 4-6 hrs" },
+        { number: "24 hrs", label: "per week recovered" },
+      ],
+      stack: ["n8n", "Claude API", "Shopify", "Gmail", "Zendesk"],
+      delivered: "2 weeks",
+    },
+  },
+  {
+    id: "cs-06",
+    tag: "RECRUITMENT · HR",
+    icon: Users,
+    title: "CV Screening & Candidate Ranking",
+    result: "Same-day shortlist · 75% less time",
+    image: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=400&q=80",
+    hero: { number: "75%", label: "less recruiter screening time" },
+    details: {
+      before: [
+        "80 applications per role average",
+        "4-5 days to produce shortlist",
+        "60% of week on screening",
+        "Inconsistent scoring",
+      ],
+      after: [
+        "Same-day shortlist every role",
+        "15% of week on screening",
+        "Consistent 8-criteria scoring",
+        "Top candidates invited same day",
+      ],
+      outcomes: [
+        { number: "Same day", label: "shortlist every time / was 4-5 days" },
+        { number: "75%", label: "less recruiter screening time" },
+        { number: "0", label: "qualified CVs missed" },
+      ],
+      stack: ["n8n", "Claude API", "Airtable", "Gmail"],
+      delivered: "1 week",
+    },
+  },
 ];
 
 /* ─── component ─────────────────────────────────────────────────────────── */
@@ -171,16 +291,23 @@ export default function FeaturedCaseStudies() {
 
         .fcs-row {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 28px;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          align-items: stretch;
+          gap: 20px;
+        }
+
+        .fcs-card-wrap {
+          height: 100%;
+          display: flex;
         }
 
         .fcs-card {
           position: relative;
           background: #ffffff;
           border: 1.5px solid var(--line);
-          border-radius: 20px;
-          padding: 32px 32px 28px;
+          border-radius: 16px;
+          padding: 22px 22px 20px;
+          width: 100%;
           display: flex;
           flex-direction: column;
           cursor: pointer;
@@ -200,12 +327,12 @@ export default function FeaturedCaseStudies() {
         .fcs-card-top {
           display: flex;
           align-items: center;
-          gap: 12px;
-          margin-bottom: 22px;
+          gap: 10px;
+          margin-bottom: 16px;
         }
         .fcs-card-icon {
-          width: 40px;
-          height: 40px;
+          width: 32px;
+          height: 32px;
           border-radius: 50%;
           background: rgba(234,106,71,0.1);
           display: flex;
@@ -224,54 +351,45 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card-tag {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.72rem;
+          font-size: 0.62rem;
           font-weight: 600;
           color: #E8603C;
-          letter-spacing: 0.06em;
-          line-height: 1.4;
+          letter-spacing: 0.05em;
+          line-height: 1.35;
           text-transform: uppercase;
         }
 
         .fcs-card-stat {
-          font-size: 48px;
+          font-size: 34px;
           font-weight: 900;
           line-height: 1;
-          background: linear-gradient(135deg, #22332C 0%, #EA6A47 100%);
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: fcsStatFlow 4s ease infinite alternate;
-        }
-        @keyframes fcsStatFlow {
-          0% { background-position: 0% center; }
-          100% { background-position: 200% center; }
+          color: var(--coral);
         }
         .fcs-card-stat-desc {
-          font-size: 13px;
+          font-size: 12px;
           color: rgba(34,51,44,0.6);
-          line-height: 1.5;
-          margin: 6px 0 0;
+          line-height: 1.45;
+          margin: 5px 0 0;
         }
         .fcs-card-divider {
-          width: 28px;
+          width: 24px;
           height: 2px;
           background: #EA6A47;
           border-radius: 2px;
-          margin: 20px 0 16px;
+          margin: 16px 0 14px;
         }
         .fcs-card-title {
           font-family: var(--font-fraunces), serif;
-          font-size: 19px;
+          font-size: 16px;
           font-weight: 800;
           color: #22332C;
           line-height: 1.3;
-          margin: 0 0 8px;
+          margin: 0 0 6px;
         }
         .fcs-card-result {
-          font-size: 13.5px;
+          font-size: 12.5px;
           color: rgba(34,51,44,0.55);
-          line-height: 1.5;
+          line-height: 1.45;
           margin: 0;
           flex: 1;
         }
@@ -279,7 +397,8 @@ export default function FeaturedCaseStudies() {
           display: flex;
           justify-content: flex-end;
           align-items: center;
-          margin-top: 12px;
+          margin-top: auto;
+          padding-top: 10px;
         }
         .fcs-card-chevron {
           display: inline-flex;
@@ -470,7 +589,13 @@ export default function FeaturedCaseStudies() {
           transform: translateX(4px);
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1100px) {
+          .fcs-row {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        @media (max-width: 560px) {
           .fcs-row {
             grid-template-columns: 1fr;
           }
@@ -508,13 +633,13 @@ export default function FeaturedCaseStudies() {
             Proven results across industries.
           </h2>
           <p style={{ fontSize: 16, color: "rgba(34,51,44,0.65)", margin: 0, maxWidth: 560 }}>
-            Four systems, four industries, real numbers behind each one.
+            Eight systems, eight industries, real numbers behind each one.
           </p>
         </AnimateIn>
         <div className="fcs-header-divider" />
 
         <div className="fcs-grid">
-          {[FEATURED_CASES.slice(0, 2), FEATURED_CASES.slice(2, 4)].map((rowCases, rowIdx) => {
+          {[FEATURED_CASES.slice(0, 4), FEATURED_CASES.slice(4, 8)].map((rowCases, rowIdx) => {
             const rowHasOpen = rowCases.some((c) => c.id === openId);
             return (
               <div key={rowIdx}>
@@ -523,7 +648,7 @@ export default function FeaturedCaseStudies() {
                     const isActive = openId === row.id;
                     const Icon = row.icon;
                     return (
-                      <AnimateIn as="div" key={row.id} delay={(rowIdx * 2 + i) * 90}>
+                      <AnimateIn as="div" key={row.id} delay={(rowIdx * 4 + i) * 90} className="fcs-card-wrap">
                         <div
                           className={`fcs-card${isActive ? " active" : ""}`}
                           onClick={() => toggleCard(row)}
@@ -539,7 +664,7 @@ export default function FeaturedCaseStudies() {
                         >
                           <div className="fcs-card-top">
                             <span className="fcs-card-icon">
-                              <Icon size={19} strokeWidth={1.8} color="#EA6A47" />
+                              <Icon size={16} strokeWidth={1.8} color="#EA6A47" />
                             </span>
                             <span className="fcs-card-tag">{row.tag}</span>
                           </div>
