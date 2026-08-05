@@ -41,31 +41,6 @@ const byTheNumbersRows = [
   { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc", company: "Now" },
 ];
 
-// ─── PROCESS STEPS ──────────────────────────────────────────────────────────
-
-const processSteps = [
-  {
-    num: "01",
-    title: "Get clear",
-    body: "Before tools, before n8n, before any of it: what's the actual problem? This is where most projects fail. Not here.",
-  },
-  {
-    num: "02",
-    title: "Design the system",
-    body: "Map the workflow on paper. Decide what stays human and what doesn't. Architecture before wiring.",
-  },
-  {
-    num: "03",
-    title: "Build & test",
-    body: "Rapid iteration, you in the loop. I build, you pressure-test, we tighten until it runs without thinking.",
-  },
-  {
-    num: "04",
-    title: "Hand it over",
-    body: "Documentation, training, no lock-in. You own the machine completely.",
-  },
-];
-
 // ─── WORKFLOW STEPS (before/after toggle) ───────────────────────────────────
 
 // ─── BEFORE ICONS ──────────────────────────────────────────────
@@ -235,148 +210,6 @@ function ProofCard({ card, index, value, visible }: { card: MetricCard; index: n
   );
 }
 
-// ─── HOW I THINK - ANIMATED CHART ───────────────────────────────────────────
-
-const CHART_LINE_PATH = "M60,180 L300,150 L600,110 L900,70 L1140,30";
-const CHART_AREA_PATH = "M60,180 L300,150 L600,110 L900,70 L1140,30 L1140,220 L60,220 Z";
-const CHART_DOTS = [
-  { cx: 300, cy: 150, label: "01" },
-  { cx: 600, cy: 110, label: "02" },
-  { cx: 900, cy: 70, label: "03" },
-  { cx: 1140, cy: 30, label: "04" },
-];
-
-function HowThinkChart({ activeStep }: { activeStep: number }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const path = pathRef.current;
-    if (!path || !inView) return;
-    const length = path.getTotalLength();
-    path.style.strokeDasharray = `${length}`;
-    path.style.strokeDashoffset = `${length}`;
-    path.getBoundingClientRect();
-    path.style.transition = "stroke-dashoffset 1.8s ease-out";
-    path.style.strokeDashoffset = "0";
-  }, [inView]);
-
-  return (
-    <div ref={containerRef} style={{ height: 240, position: "relative", marginBottom: 0 }}>
-      <svg viewBox="0 0 1200 240" width="100%" height="240" preserveAspectRatio="none" style={{ display: "block", overflow: "visible" }}>
-        <defs>
-          <linearGradient id="thinkAreaGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="rgba(234,106,71,0.22)" />
-            <stop offset="100%" stopColor="rgba(234,106,71,0)" />
-          </linearGradient>
-        </defs>
-        {[40, 80, 120, 160].map((y) => (
-          <line key={y} x1={0} y1={y} x2={1200} y2={y} stroke="rgba(30,36,31,0.07)" strokeWidth={1} />
-        ))}
-        {[300, 600, 900].map((x) => (
-          <line key={x} x1={x} y1={0} x2={x} y2={200} stroke="rgba(30,36,31,0.07)" strokeWidth={1} strokeDasharray="4,4" />
-        ))}
-        <text x={0} y={16} fontFamily="var(--font-montserrat), sans-serif" fontSize={15} fontWeight={500} fill="#4A4A4A">
-          Clarity &amp; leverage, compounding →
-        </text>
-        <text x={60} y={228} textAnchor="start" fontFamily="var(--font-montserrat), sans-serif" fontSize={15} fontWeight={500} fill="#4A4A4A">
-          Vague idea
-        </text>
-        <text x={1140} y={228} textAnchor="end" fontFamily="var(--font-montserrat), sans-serif" fontSize={15} fontWeight={600} fill="#EA6A47">
-          Running system
-        </text>
-        <path d={CHART_AREA_PATH} fill="url(#thinkAreaGradient)" stroke="none" />
-        <path ref={pathRef} d={CHART_LINE_PATH} fill="none" stroke="#EA6A47" strokeWidth={3} strokeLinecap="round" />
-      </svg>
-      {/* Milestone dots rendered as real HTML circles (not SVG) so they stay
-          perfectly round even though the chart above is stretched via
-          preserveAspectRatio="none" on narrow viewports. */}
-      {CHART_DOTS.map((d, i) => {
-        const isActive = activeStep === i;
-        const delayFrac = (d.cx - 60) / (1140 - 60);
-        const popDelay = inView ? 200 + delayFrac * 1500 : 0;
-        return (
-          <div
-            key={d.label}
-            className={`think-chart-dot${isActive ? " active" : ""}`}
-            style={{
-              left: `${(d.cx / 1200) * 100}%`,
-              top: `${(d.cy / 240) * 100}%`,
-              opacity: inView ? 1 : 0,
-              transform: `translate(-50%, -50%) scale(${inView ? 1 : 0.4})`,
-              transitionDelay: `${popDelay}ms`,
-            }}
-          >
-            {d.label}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function StepIcon({ index }: { index: number }) {
-  const props = {
-    width: 22,
-    height: 22,
-    viewBox: "0 0 24 24",
-    fill: "none" as const,
-    stroke: "#EA6A47",
-    strokeWidth: 1.8,
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    style: { transition: "stroke 0.3s" },
-  };
-  switch (index) {
-    case 0:
-      return (
-        <svg {...props}>
-          <circle cx="12" cy="12" r="10" />
-          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-          <line x1="12" y1="17" x2="12.01" y2="17" />
-        </svg>
-      );
-    case 1:
-      return (
-        <svg {...props}>
-          <rect x="3" y="3" width="18" height="18" rx="2" />
-          <line x1="3" y1="9" x2="21" y2="9" />
-          <line x1="9" y1="21" x2="9" y2="9" />
-        </svg>
-      );
-    case 2:
-      return (
-        <svg {...props}>
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-        </svg>
-      );
-    default:
-      return (
-        <svg {...props}>
-          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-          <polyline points="17 6 23 6 23 12" />
-        </svg>
-      );
-  }
-}
-
 // ─── ROUTE CARD ICONS (matches "How I think" icon style) ────────────────────
 
 const routeIconProps = {
@@ -484,16 +317,6 @@ export default function Home() {
   const [activeCompany, setActiveCompany] = useState<string | null>(null);
 
   const beliefParaRefs = useRef<Array<HTMLSpanElement | null>>([]);
-
-  const [activeThinkStep, setActiveThinkStep] = useState(0);
-  const thinkChartContainerRef = useRef<HTMLDivElement>(null);
-
-  function handleThinkCardActivate(i: number) {
-    setActiveThinkStep(i);
-    if (typeof window !== "undefined" && window.innerWidth <= 640 && thinkChartContainerRef.current) {
-      thinkChartContainerRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }
 
   const PORTRAIT_AUDIO_VOLUME = 0.5;
   const PORTRAIT_FADE_IN_MS = 1000;
@@ -686,6 +509,23 @@ export default function Home() {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           gap: 28px;
+        }
+        .personality-subhead {
+          font-size: 1.2rem;
+          line-height: 1.7;
+          color: #4A524A;
+          max-width: 60ch;
+        }
+        /* Above 1200px the section container is capped at 1120px of usable
+           width (--maxw: 1200px minus 40px padding each side). At that fixed
+           width the sentence needs a ~13% smaller font to hold a single line,
+           so drop the max-width cap and nudge the size down just there. */
+        @media (min-width: 1200px) {
+          .personality-subhead {
+            font-size: 1.05rem;
+            max-width: none;
+            white-space: nowrap;
+          }
         }
         @media (max-width: 768px) {
           .proof-grid { grid-template-columns: 1fr 1fr; }
@@ -2160,14 +2000,7 @@ export default function Home() {
             </h2>
           </AnimateIn>
           <AnimateIn delay={150}>
-            <p
-              style={{
-                fontSize: "1.2rem",
-                lineHeight: 1.7,
-                color: "#4A524A",
-                maxWidth: "60ch",
-              }}
-            >
+            <p className="personality-subhead">
               I don&apos;t just build the machines. I talk about them too. Stand-up, breakdowns, the podcast. There&apos;s a human behind the automations.
             </p>
           </AnimateIn>
@@ -2194,182 +2027,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 6 - PROCESS */}
-      <section
-        className="think-section"
-        style={{
-          background: "var(--paper)",
-          position: "relative",
-          overflow: "hidden",
-          backgroundImage:
-            "radial-gradient(circle, rgba(30,36,31,0.05) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-          boxShadow: "inset 0 1px 0 rgba(30,36,31,0.06)",
-        }}
-      >
-        {/* Floating accent */}
-        <div
-          style={{
-            position: "absolute",
-            top: -100,
-            right: -100,
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(234,106,71,0.08) 0%, transparent 70%)",
-            pointerEvents: "none",
-            zIndex: 0,
-          }}
-        />
-
-        <div className="max-w-site" style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ maxWidth: 680, marginBottom: 60 }}>
-            <AnimateIn delay={80}>
-              <h2
-                style={{
-                  fontFamily: "var(--font-inter-tight), sans-serif",
-                  fontSize: 64,
-                  color: "#1E241F",
-                  fontWeight: 900,
-                  lineHeight: 1.0,
-                  marginBottom: 16,
-                }}
-              >
-                Clarity is{" "}
-                <span
-                  style={{
-                    color: "#EA6A47",
-                    fontStyle: "italic",
-                    fontFamily: "var(--font-fraunces), serif",
-                  }}
-                >
-                  step zero
-                </span>
-                .
-              </h2>
-            </AnimateIn>
-            <AnimateIn delay={150}>
-              <p
-                style={{
-                  fontFamily: "var(--font-fraunces), serif",
-                  fontSize: 16,
-                  color: "#3A403A",
-                  lineHeight: 1.7,
-                  maxWidth: 480,
-                }}
-              >
-                Most &apos;automation&apos; projects fail before a single tool is opened. This is the order that doesn&apos;t.
-              </p>
-            </AnimateIn>
-          </div>
-
-          {/* Animated chart */}
-          <AnimateIn delay={220}>
-            <div
-              ref={thinkChartContainerRef}
-              style={{
-                background: "#FFFFFF",
-                border: "1px solid #E2DACB",
-                borderRadius: 20,
-                padding: "40px 40px 0",
-                marginBottom: 0,
-              }}
-            >
-              <HowThinkChart activeStep={activeThinkStep} />
-            </div>
-          </AnimateIn>
-
-          {/* Steps */}
-          <div className="think-cards-grid" style={{ marginTop: 48 }}>
-            {processSteps.map((step, i) => {
-              const isActive = activeThinkStep === i;
-              return (
-                <AnimateIn key={step.num} delay={i * 80} className="think-card-animate">
-                  <div
-                    className={`think-card${isActive ? " active" : ""}`}
-                    role="button"
-                    tabIndex={0}
-                    onMouseEnter={() => handleThinkCardActivate(i)}
-                    onClick={() => handleThinkCardActivate(i)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") handleThinkCardActivate(i);
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "flex-start",
-                        marginBottom: 20,
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontFamily: "var(--font-geist-mono), monospace",
-                          fontSize: 12,
-                          color: "#EA6A47",
-                          letterSpacing: "0.1em",
-                          fontWeight: 700,
-                          display: "block",
-                        }}
-                      >
-                        {step.num}
-                      </span>
-                      <StepIcon index={i} />
-                    </div>
-                    <h3
-                      className="think-card-title"
-                      style={{
-                        fontFamily: "var(--font-fraunces), serif",
-                        fontSize: 20,
-                        fontWeight: 800,
-                        marginBottom: 12,
-                        lineHeight: 1.2,
-                        color: "#1E241F",
-                      }}
-                    >
-                      {step.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: 14,
-                        color: "#3A403A",
-                        lineHeight: 1.6,
-                        fontFamily: "inherit",
-                      }}
-                    >
-                      {step.body}
-                    </p>
-                  </div>
-                </AnimateIn>
-              );
-            })}
-          </div>
-
-          {/* Closing line */}
-          <AnimateIn delay={480}>
-            <p
-              style={{
-                marginTop: 56,
-                padding: "32px 0 0",
-                borderTop: "1px solid #E2DACB",
-                textAlign: "left",
-                fontSize: 18,
-                fontStyle: "italic",
-                color: "#1E241F",
-                fontFamily: "var(--font-montserrat), sans-serif",
-              }}
-            >
-              In that order. Every time
-              <span style={{ color: "#EA6A47", fontStyle: "normal" }}>.</span>
-            </p>
-          </AnimateIn>
-        </div>
-      </section>
-
-      {/* SECTION 7 - ROUTES */}
-      <section className="section-pad" style={{ background: "#FFFFFF" }}>
+      {/* SECTION 6 - ROUTES */}
+      <section className="section-pad" style={{ background: "var(--paper)" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h2
@@ -2378,25 +2037,11 @@ export default function Home() {
                 fontSize: 48,
                 color: "#22332C",
                 fontWeight: 900,
-                marginBottom: 16,
+                marginBottom: 56,
               }}
             >
               How people work with me.
             </h2>
-          </AnimateIn>
-
-          <AnimateIn delay={130}>
-            <p
-              style={{
-                fontFamily: "inherit",
-                fontSize: 16,
-                color: "rgba(34,51,44,0.6)",
-                letterSpacing: "0.04em",
-                marginBottom: 56,
-              }}
-            >
-              Four ways in. Pick the one that fits.
-            </p>
           </AnimateIn>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -2579,13 +2224,10 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="route-footnote">
-            Heavy build work → <a href="https://withsoch.com" target="_blank" rel="noopener noreferrer">Soch</a>. This site is the person and the thinking.
-          </p>
         </div>
       </section>
 
-      {/* SECTION 8 - TESTIMONIALS */}
+      {/* SECTION 7 - TESTIMONIALS */}
       <TestimonialsSection
         heading={
           <>
@@ -2603,7 +2245,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 9 - WRITING */}
+      {/* SECTION 8 - WRITING */}
       <section className="section-pad" style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
@@ -2665,7 +2307,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 10 - BOOKING */}
+      {/* SECTION 9 - BOOKING */}
       <BookingSection />
     </>
   );

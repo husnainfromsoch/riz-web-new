@@ -283,19 +283,6 @@ export default function TestimonialsSection({
           ))}
         </div>
 
-        {variant === "full" && (
-          <AnimateIn delay={gridBaseDelay + gridItems.length * 80}>
-            <div className="testimonials-strip">
-              <p className="testimonials-strip-label">
-                Trusted by operators from{" "}
-                <span className="testimonials-strip-companies">{trustedCompanies.join(" · ")}</span>
-              </p>
-              <p className="testimonials-strip-note">
-                Companies Riz has worked at. Background, not client logos.
-              </p>
-            </div>
-          </AnimateIn>
-        )}
       </div>
     </section>
   );
