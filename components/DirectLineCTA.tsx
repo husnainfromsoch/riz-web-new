@@ -77,7 +77,7 @@ export default function DirectLineCTA({
       <span className="chat-hayat-heading-accent">with me?</span>
     </>
   ),
-  description = "Thirty minutes. No deck, no pitch. Just the problem on your desk and the operator who has solved it before.",
+  description,
   primaryLabel,
   primaryHref,
   secondaryLabel,
@@ -333,9 +333,9 @@ export default function DirectLineCTA({
         <div>
           <h2 className="chat-hayat-heading">{heading}</h2>
 
-          <p className="chat-hayat-desc">{description}</p>
+          {description && <p className="chat-hayat-desc">{description}</p>}
 
-          <div className="chat-hayat-buttons">
+          <div className="chat-hayat-buttons" style={{ marginTop: description ? 0 : 8 }}>
             {primaryHref ? (
               <a href={primaryHref} className="chat-hayat-btn-primary">
                 {primaryLabel}
@@ -394,10 +394,6 @@ export default function DirectLineCTA({
               </div>
             )}
           </div>
-
-          <p className="chat-hayat-credit">
-            Rizwan Mahmood · Operator and AI Builder
-          </p>
         </div>
       </div>
     </>

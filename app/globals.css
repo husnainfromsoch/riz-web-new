@@ -1616,7 +1616,7 @@ p, li, td, th, label, input, textarea, select {
 .writing-row {
   position: relative;
   display: grid;
-  grid-template-columns: 2fr 2fr 6fr 2fr;
+  grid-template-columns: 72px 2fr 6fr 2fr;
   align-items: center;
   gap: 24px;
   padding: 38px 20px;

@@ -63,34 +63,6 @@ export default function BookingSection() {
             </span>{" "}
             session.
           </h2>
-          {/* Sub-heading */}
-          <p
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "2rem",
-              fontWeight: 700,
-              color: "#22332C",
-              marginBottom: "1.25rem",
-              lineHeight: 1.2,
-            }}
-          >
-            60 minutes, just you and me.
-          </p>
-        </AnimateIn>
-        <AnimateIn delay={160}>
-          <p
-            style={{
-              fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "1.05rem",
-              color: "var(--body)",
-              lineHeight: 1.75,
-              maxWidth: 560,
-              margin: "0 auto",
-            }}
-          >
-            Personal guidance on AI, operations, or building a system that
-            works.
-          </p>
         </AnimateIn>
       </div>
 
