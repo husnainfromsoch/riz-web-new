@@ -1,6 +1,6 @@
 "use client";
 
-const CAL_LINK = "https://cal.com/consult-with-riz/work";
+const CAL_LINK = "https://cal.com/consult-with-riz/consultingcall";
 
 export default function CalBookingButton({
   children,

@@ -15,8 +15,8 @@ const pills = [
 const timeline = [
   {
     year: "2013",
-    company: "Cambridge",
-    body: "Read Economics. Learned how systems break before they scale. First time I understood that clarity precedes everything else.",
+    company: "O and A'levels",
+    body: "Learned Bio, Maths, Business, Chemistry, Accounting and many others. Diversifying my careers options.",
     active: false,
   },
   {
