@@ -174,10 +174,6 @@ export default async function GuidePage({
       `}</style>
 
       <div className="gd-detail-wrap">
-        <nav className="gd-breadcrumb" aria-label="Breadcrumb">
-          <Link href="/guides">← all guides</Link>
-        </nav>
-
         <div className="gd-detail-tags">
           <span className="gd-pill gd-pill-topic">{guide.category}</span>
           <span className="gd-pill gd-pill-tool">{guide.tool}</span>
