@@ -1,9 +1,32 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import AnimateIn from "@/components/AnimateIn";
 import CalBookingButton from "@/components/CalModal";
 import { useParallax } from "@/hooks/useParallax";
+
+function EmailMeButton({ email, className }: { email: string; className?: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API unavailable — fall back to mailto.
+      window.location.href = `mailto:${email}`;
+    }
+  };
+
+  return (
+    <a href={`mailto:${email}`} className={className} onClick={handleClick}>
+      {copied ? "Copied!" : "Email me"}
+    </a>
+  );
+}
 
 // Official brand glyphs (simple-icons path data), rendered as transparent
 // currentColor fills - no solid box behind the mark.
@@ -389,9 +412,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
                 </div>
                 <div className="ftr-cta-actions">
                   <CalBookingButton className="ftr-btn-primary">Book a call</CalBookingButton>
-                  <a href="mailto:riz@withsoch.com" className="ftr-btn-ghost">
-                    Email me
-                  </a>
+                  <EmailMeButton email="riz@withsoch.com" className="ftr-btn-ghost" />
                 </div>
               </div>
             </AnimateIn>

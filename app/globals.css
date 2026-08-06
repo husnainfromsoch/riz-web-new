@@ -856,9 +856,8 @@ p, li, td, th, label, input, textarea, select {
   cursor: pointer;
 }
 
-.svc-tab.active {
-  background: var(--coral);
-  color: #fff;
+.svc-tab:hover {
+  color: var(--coral);
 }
 
 .svc-check-item {

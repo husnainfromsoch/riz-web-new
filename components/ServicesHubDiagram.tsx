@@ -2,20 +2,20 @@
 import { useState } from "react";
 
 /* ── geometry constants ──────────────────────────────────────────── */
-const CX = 210;          // SVG center x
-const CY = 180;          // SVG center y
-const CR = 72;           // center circle radius
-const OR = 130;          // orbit radius (center-to-node-center)
-const NR = 44;           // node circle radius
+const CX = 294;          // SVG center x
+const CY = 252;          // SVG center y
+const CR = 101;          // center circle radius
+const OR = 182;          // orbit radius (center-to-node-center)
+const NR = 62;           // node circle radius
 
 // Node positions in the initial SVG viewport
 // Consulting  -90° (top),  Projects +30° (bottom-right),  Workshops +150° (bottom-left)
 const NODES = [
-  { id: "consulting", cx: 210,                                          cy: CY - OR,       fill: "#EA6A47", num: "01", label: "CONSULTING" },
+  { id: "consulting", cx: 294,                                          cy: CY - OR,       fill: "#EA6A47", num: "01", label: "CONSULTING" },
   { id: "projects",   cx: Math.round(CX + OR * Math.cos(Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(Math.PI / 6)),  fill: "#22332C", num: "02", label: "PROJECTS"   },
   { id: "workshops",  cx: Math.round(CX + OR * Math.cos(5 * Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(5 * Math.PI / 6)), fill: "#D79A36", num: "03", label: "WORKSHOPS"  },
 ] as const;
-// → consulting (210, 50)   projects (323, 245)   workshops (97, 245)
+// → consulting (294, 70)   projects (452, 343)   workshops (136, 343)
 
 /* ── component ───────────────────────────────────────────────────── */
 export default function ServicesHubDiagram() {
@@ -40,8 +40,8 @@ export default function ServicesHubDiagram() {
 
   return (
     <svg
-      viewBox="0 0 420 360"
-      style={{ width: "100%", maxWidth: 480, height: "auto" }}
+      viewBox="0 0 588 504"
+      style={{ width: "100%", maxWidth: 640, height: "auto" }}
     >
       {/* ── spokes (inside orbit group so they track the nodes) ───── */}
       <g style={orbitStyle}>
@@ -55,14 +55,14 @@ export default function ServicesHubDiagram() {
       </g>
 
       {/* ── glow ring (static, sits on top of spokes) ─────────────── */}
-      <circle cx={CX} cy={CY} r={CR + 20} fill="none" stroke="#FFFFFF" strokeWidth="22" />
+      <circle cx={CX} cy={CY} r={CR + 28} fill="none" stroke="#FFFFFF" strokeWidth="30" />
 
       {/* ── center circle - pulse only, does NOT rotate ───────────── */}
       <g style={{ transformOrigin: `${CX}px ${CY}px`, animation: "svc-pulse 3s ease-in-out infinite" } as React.CSSProperties}>
         <circle cx={CX} cy={CY} r={CR} fill="#22332C" />
-        <text x={CX} y={CY - 14} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="10.5" fill="rgba(255,255,255,0.55)" letterSpacing="0.03em">The clearest</text>
-        <text x={CX} y={CY + 1}  textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="10.5" fill="rgba(255,255,255,0.55)">ops in</text>
-        <text x={CX} y={CY + 16} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="10.5" fill="rgba(255,255,255,0.55)">your space</text>
+        <text x={CX} y={CY - 20} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.55)" letterSpacing="0.03em">The clearest</text>
+        <text x={CX} y={CY + 2}  textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.55)">ops in</text>
+        <text x={CX} y={CY + 24} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.55)">your space</text>
       </g>
 
       {/* ── orbiting nodes ────────────────────────────────────────── */}
@@ -102,10 +102,10 @@ export default function ServicesHubDiagram() {
 
                   {/* number - Playfair, centered in circle */}
                   <text
-                    x={n.cx} y={n.cy - 8}
+                    x={n.cx} y={n.cy - 11}
                     textAnchor="middle" dominantBaseline="auto"
                     fontFamily="Playfair Display, serif"
-                    fontSize="20" fontWeight="700" fill="#fff"
+                    fontSize="28" fontWeight="700" fill="#fff"
                     style={{ pointerEvents: "none" } as React.CSSProperties}
                   >
                     {n.num}
@@ -113,10 +113,10 @@ export default function ServicesHubDiagram() {
 
                   {/* label - DM Mono, below number, stays inside circle */}
                   <text
-                    x={n.cx} y={n.cy + 13}
+                    x={n.cx} y={n.cy + 18}
                     textAnchor="middle" dominantBaseline="auto"
                     fontFamily="DM Mono, monospace"
-                    fontSize={isHovered ? "8" : "7.5"}
+                    fontSize={isHovered ? "11" : "10.5"}
                     fill={isHovered ? "#fff" : "rgba(255,255,255,0.78)"}
                     letterSpacing="0.1em"
                     style={{ pointerEvents: "none", transition: "fill 0.2s ease" } as React.CSSProperties}

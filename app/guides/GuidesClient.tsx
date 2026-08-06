@@ -6,6 +6,37 @@ import ScrollProgressBar from "@/components/ScrollProgressBar";
 import { ArrowIcon, SearchIcon } from "./icons";
 import type { GuideMeta } from "@/lib/guides";
 
+function SquiggleUnderline() {
+  const pathRef = useRef<SVGPathElement>(null);
+
+  useEffect(() => {
+    const path = pathRef.current;
+    if (!path) return;
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = `${length}`;
+    path.style.strokeDashoffset = `${length}`;
+    path.getBoundingClientRect();
+    const timer = setTimeout(() => {
+      path.style.transition = "stroke-dashoffset 0.8s ease-out";
+      path.style.strokeDashoffset = "0";
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <svg viewBox="0 0 200 16" preserveAspectRatio="none" className="gd-squiggle" aria-hidden="true">
+      <path
+        ref={pathRef}
+        d="M2 10 Q 26 2, 50 9 T 100 8 T 150 10 T 198 6"
+        fill="none"
+        stroke="var(--coral)"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function GridCard({ guide }: { guide: GuideMeta }) {
   return (
     <Link href={`/guides/${guide.slug}`} className="gd-gcard-link">
@@ -149,9 +180,9 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           flex: 0 1 auto;
         }
         .gd-hero {
-          padding: 112px 0 0;
+          padding-top: 112px;
+          padding-bottom: 64px;
           background: var(--cream);
-          text-align: center;
           position: relative;
           overflow: hidden;
         }
@@ -159,49 +190,57 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           position: relative;
           z-index: 1;
         }
-        .gd-hero-accent {
-          font-family: var(--font-caveat), 'Caveat', cursive;
-          font-size: clamp(1.4rem, 2.5vw, 1.75rem);
-          color: var(--coral);
-          display: block;
-          margin-bottom: 0.25rem;
-          transform: rotate(-2deg);
+        .gd-hero-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 64px;
+          align-items: center;
+        }
+        .gd-hero-right {
+          position: relative;
+          min-height: 320px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .gd-hero-title {
-          font-family: var(--font-fraunces), serif;
-          font-weight: 700;
-          font-size: clamp(38px, 5.5vw, 60px);
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
+          font-size: clamp(3.5rem, 7vw, 6rem);
+          line-height: 1.02;
+          font-weight: 900;
           letter-spacing: -0.5px;
-          line-height: 1.05;
           color: var(--ink);
-          margin: 0 0 1rem;
+          margin: 0 0 4rem;
         }
         .gd-hero-em {
           position: relative;
+          display: inline-block;
+          font-family: var(--font-fraunces), serif;
+          font-style: italic;
           color: var(--coral);
           white-space: nowrap;
         }
-        .gd-hero-em svg {
+        .gd-squiggle {
           position: absolute;
-          left: 0;
-          bottom: -0.18em;
-          width: 100%;
-          height: 0.28em;
-          overflow: visible;
+          left: -2px;
+          right: -2px;
+          bottom: -0.4em;
+          width: calc(100% + 4px);
+          height: 0.2em;
+          pointer-events: none;
         }
         .gd-hero-sub {
           font-family: var(--font-montserrat), sans-serif;
           font-size: 1.05rem;
           color: var(--body);
           line-height: 1.7;
-          max-width: 560px;
-          margin: 0 auto 1.75rem;
+          max-width: 48ch;
+          margin: 0 0 1.75rem;
         }
         .gd-search-wrap {
           position: relative;
           width: 100%;
           max-width: 440px;
-          margin: 0 auto;
         }
         .gd-search-icon {
           position: absolute;
@@ -476,62 +515,61 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
 
         .gd-float-wrap {
-          position: absolute;
-          right: 24px;
-          top: 30px;
-          width: 240px;
-          z-index: 2;
+          position: relative;
+          z-index: 1;
+          display: block;
+          width: 100%;
+          max-width: 320px;
         }
         .gd-float-card {
+          position: relative;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-          gap: 0.6rem;
+          gap: 0.75rem;
           text-align: left;
           text-decoration: none;
+          width: 100%;
           background: #fff;
           border: 1px solid var(--line-2);
-          border-radius: 16px;
-          padding: 1.25rem 1.35rem;
+          border-radius: 18px;
+          padding: 1.75rem;
           box-shadow: var(--shadow-lg);
-          transform: rotate(4deg);
+          transform: rotate(-1deg);
           transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
         }
         .gd-float-card:hover {
-          transform: rotate(1deg) translateY(-4px);
-          box-shadow: var(--shadow-lg);
+          transform: rotate(0deg) translateY(-4px);
+          box-shadow: 0 24px 56px rgba(34,51,44,0.16);
         }
         .gd-float-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.65rem;
+          font-size: 0.8rem;
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           color: #fff;
           background: var(--coral);
           border-radius: 999px;
-          padding: 4px 10px;
+          padding: 5px 12px;
         }
         .gd-float-title {
           font-family: var(--font-fraunces), serif;
-          font-weight: 700;
-          font-size: 1.05rem;
+          font-weight: 600;
+          font-size: 1.3rem;
           line-height: 1.35;
           color: var(--ink);
-          margin: 0;
+          margin: 0 0 1rem;
         }
         .gd-float-date {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem;
+          font-size: 0.8rem;
           color: var(--muted);
         }
         .gd-float-card .gd-gcard-read { font-size: 12px; }
         .gd-float-card:hover .gd-gcard-read {
           color: var(--coral-d);
           gap: 9px;
-        }
-        @media (max-width: 1280px) {
-          .gd-float-wrap { display: none; }
         }
 
         .gd-empty {
@@ -562,9 +600,25 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
         @media (max-width: 1024px) {
           .gd-grid { grid-template-columns: repeat(2, 1fr); }
+          .gd-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+          .gd-hero-right {
+            min-height: 0;
+            justify-content: flex-start;
+          }
+          .gd-float-wrap { max-width: 100%; }
+          .gd-float-card {
+            max-width: 100%;
+            transform: none;
+          }
+          .gd-float-card:hover {
+            transform: translateY(-4px);
+          }
         }
         @media (max-width: 767px) {
-          .gd-hero { padding: 104px 0 0; }
+          .gd-hero { padding-top: 104px; }
           .gd-filters { padding-top: 36px; }
           .gd-search-input { padding-right: 16px; }
           .gd-kbd { display: none; }
@@ -578,62 +632,57 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
 
       <section className="gd-hero">
         <div className="max-w-site">
-          <AnimateIn delay={40}>
-            <span className="gd-hero-accent">the whole library</span>
-          </AnimateIn>
-          <AnimateIn delay={80}>
-            <h1 className="gd-hero-title">
-              All the{" "}
-              <span className="gd-hero-em">
-                guides
-                <svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true">
-                  <path
-                    d="M2 9 Q 28 3, 52 7 T 98 5"
-                    fill="none"
-                    stroke="var(--coral)"
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                    opacity="0.45"
+          <div className="gd-hero-grid">
+            <div className="gd-hero-left">
+              <AnimateIn delay={80}>
+                <h1 className="gd-hero-title">
+                  All the{" "}
+                  <span className="gd-hero-em">
+                    guides
+                    <SquiggleUnderline />
+                  </span>
+                  .
+                </h1>
+              </AnimateIn>
+              <AnimateIn delay={150}>
+                <p className="gd-hero-sub">
+                  Practical automation guides for engineers and founders. Pick a topic, pick a tool,
+                  and dig in.
+                </p>
+              </AnimateIn>
+              <AnimateIn delay={220}>
+                <div className="gd-search-wrap">
+                  <span className="gd-search-icon">
+                    <SearchIcon />
+                  </span>
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    placeholder="Search guides…"
+                    aria-label="Search guides"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="gd-search-input"
                   />
-                </svg>
-              </span>
-            </h1>
-          </AnimateIn>
-          <AnimateIn delay={150}>
-            <p className="gd-hero-sub">
-              Practical automation guides for engineers and founders. Pick a topic, pick a tool,
-              and dig in.
-            </p>
-          </AnimateIn>
-          {latest && (
-            <AnimateIn delay={300} className="gd-float-wrap">
-              <Link href={`/guides/${latest.slug}`} className="gd-float-card">
-                <span className="gd-float-label">Latest guide</span>
-                <h2 className="gd-float-title">{latest.title}</h2>
-                {latest.date && <span className="gd-float-date">{latest.date}</span>}
-                <span className="gd-gcard-read">
-                  Read guide <ArrowIcon size={12} />
-                </span>
-              </Link>
-            </AnimateIn>
-          )}
-          <AnimateIn delay={220}>
-            <div className="gd-search-wrap">
-              <span className="gd-search-icon">
-                <SearchIcon />
-              </span>
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Search guides…"
-                aria-label="Search guides"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="gd-search-input"
-              />
-              <span className="gd-kbd">{kbdLabel}</span>
+                  <span className="gd-kbd">{kbdLabel}</span>
+                </div>
+              </AnimateIn>
             </div>
-          </AnimateIn>
+            <div className="gd-hero-right">
+              {latest && (
+                <AnimateIn delay={300} className="gd-float-wrap">
+                  <Link href={`/guides/${latest.slug}`} className="gd-float-card">
+                    <span className="gd-float-label">Latest guide</span>
+                    <h2 className="gd-float-title">{latest.title}</h2>
+                    {latest.date && <span className="gd-float-date">{latest.date}</span>}
+                    <span className="gd-gcard-read">
+                      Read guide <ArrowIcon size={12} />
+                    </span>
+                  </Link>
+                </AnimateIn>
+              )}
+            </div>
+          </div>
         </div>
       </section>
 

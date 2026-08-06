@@ -818,8 +818,8 @@ function CaseStudiesContent() {
           margin-bottom: 20px;
         }
         .case-hero-heading .outline-num {
-          -webkit-text-fill-color: transparent;
-          -webkit-text-stroke: 2px #22332C;
+          color: #22332C;
+          -webkit-text-fill-color: #22332C;
         }
         .case-hero-subtitle {
           font-family: inherit;
@@ -1122,9 +1122,6 @@ function CaseStudiesContent() {
                   <br />
                   Real outcomes.
                 </h1>
-                <p className="case-hero-subtitle">
-                  Across 12 industries. Every one shipped.
-                </p>
                 <div className="case-hero-inline-stats">
                   <div className="case-hero-inline-stat">
                     <span className="case-hero-inline-stat-number">12</span>

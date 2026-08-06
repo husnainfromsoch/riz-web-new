@@ -388,7 +388,7 @@ export default function About() {
                   fontWeight: 900,
                   color: "#22332C",
                   lineHeight: 1.05,
-                  marginBottom: 8,
+                  marginBottom: 4,
                 }}
               >
                 Operator. Builder.
@@ -403,7 +403,7 @@ export default function About() {
                   fontWeight: 600,
                   fontStyle: "italic",
                   color: "#EA6A47",
-                  marginBottom: 48,
+                  marginBottom: 28,
                 }}
               >
                 Occasionally funny.
@@ -417,7 +417,7 @@ export default function About() {
                   fontSize: 17,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
-                  marginBottom: 20,
+                  marginBottom: 12,
                 }}
               >
                 Ten years running operations across four continents. Cambridge. ACCA. Careem. Bolt. Wise.
@@ -431,7 +431,7 @@ export default function About() {
                   fontSize: 17,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
-                  marginBottom: 20,
+                  marginBottom: 12,
                 }}
               >
                 Now in Tallinn, building AI and figuring out what actually changes when smart people get powerful tools.
@@ -445,10 +445,10 @@ export default function About() {
                   fontSize: 17,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
-                  marginBottom: 20,
+                  marginBottom: 12,
                 }}
               >
-                I run Soch with two people I trust, record a podcast from my apartment, and I&apos;m slowly wrestling Estonian into submission.
+                I run Soch with one person I trust, record a podcast from my apartment, and I&apos;m slowly learning to speak in Estonian.
               </p>
             </AnimateIn>
 
@@ -751,8 +751,8 @@ export default function About() {
 
       <style>{`
         .about-credentials {
-          margin: 28px 0;
-          padding-top: 24px;
+          margin: 18px 0;
+          padding-top: 16px;
           border-top: 1px solid var(--line);
         }
         .about-credentials-label {
@@ -761,7 +761,7 @@ export default function About() {
           font-weight: 600;
           letter-spacing: 0.06em;
           color: var(--coral);
-          margin: 0 0 12px;
+          margin: 0 0 8px;
         }
         .about-credentials-row {
           display: flex;

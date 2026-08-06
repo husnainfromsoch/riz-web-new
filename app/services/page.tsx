@@ -606,28 +606,7 @@ export default function Services() {
             {/* left: text + pills */}
             <div>
               <AnimateIn delay={60}>
-                <h1 className="svc-hero-title">Every way to work with Riz.</h1>
-              </AnimateIn>
-              <AnimateIn delay={140}>
-                <p
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.1rem",
-                    color: "var(--body)",
-                    lineHeight: 1.72,
-                    maxWidth: 480,
-                    marginBottom: "0.5rem",
-                  }}
-                >
-                  Every service has one goal: get your operations clear enough
-                  that AI actually works for you.
-                </p>
-              </AnimateIn>
-              <AnimateIn delay={190}>
-                <p className="svc-signature">
-                  AI doesn&apos;t fix bad thinking. It scales it
-                  <span className="svc-signature-period">.</span>
-                </p>
+                <h1 className="svc-hero-title">Work with Riz.</h1>
               </AnimateIn>
               <AnimateIn delay={240}>
                 <div className="svc-tabs">
@@ -674,23 +653,12 @@ export default function Services() {
             {/* left: text */}
             <div className="svc-row-text">
               <AnimateIn>
-                <p className="svc-subline" style={sublineStyle("var(--coral)")}>Clarity before you build.</p>
+                <p className="svc-subline" style={sublineStyle("var(--coral)")}>Consult Riz.</p>
               </AnimateIn>
               <AnimateIn delay={100}>
                 <p className="svc-body" style={bodyStyle}>
-                  Most owners automate broken processes. I fix the thinking
-                  first. 1:1 advisory, fractional ops, and strategic clarity
-                  sessions. From $160/hr.
-                </p>
-              </AnimateIn>
-              <AnimateIn delay={140}>
-                <p className="svc-body" style={bodyStyle}>
-                  Every engagement starts the same way: we diagnose the process
-                  before touching a single tool. A Clarity Session maps what&apos;s
-                  actually broken, what&apos;s worth automating, and what isn&apos;t.
-                  From there, fractional advisory is a standing monthly check-in.
-                  I stay close to the numbers and flag what&apos;s next before it
-                  becomes a fire.
+                  Bring your toughest questions, vague problems or just
+                  schedule to bounce off interesting ideas
                 </p>
               </AnimateIn>
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem" }}>
@@ -736,7 +704,7 @@ export default function Services() {
             {/* left: text */}
             <div className="svc-row-text">
               <AnimateIn>
-                <p className="svc-subline" style={sublineStyle("var(--ink)")}>Systems that ship.</p>
+                <p className="svc-subline" style={sublineStyle("var(--ink)")}>Create systems with Soch.</p>
               </AnimateIn>
               <AnimateIn delay={100}>
                 <p className="svc-body" style={bodyStyle}>
@@ -872,18 +840,11 @@ export default function Services() {
 
       {/* TESTIMONIALS */}
       <TestimonialsSection
-        variant="compact"
         heading={
           <>
             Don&apos;t take <span style={{ color: "var(--coral)", fontStyle: "italic" }}>my word</span> for it.
           </>
         }
-        headingStyle={{
-          fontFamily: "var(--font-playfair), serif",
-          fontSize: "clamp(2.25rem, 3.5vw, 3rem)",
-          fontWeight: 700,
-          color: "var(--ink)",
-        }}
       />
 
       {sectionDivider}
