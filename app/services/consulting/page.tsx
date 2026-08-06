@@ -377,7 +377,7 @@ export default function ConsultingPage() {
                     fontWeight: 600,
                   }}
                 >
-                  From $160/hr · Retainers from $2,400/mo
+                  From $140/hr · Retainers from $2,400/mo
                 </span>
               </div>
               <CalBookingButton className="btn-coral">Book a call →</CalBookingButton>

@@ -21,7 +21,7 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     question: "What does this actually cost?",
     answer:
-      "Advisory starts at $160/hr, no retainer required. A single 1:1 strategy session is a flat $200. Full custom builds go through Soch and get scoped per project, since \"build me an automation\" can mean a two-week fix or a much bigger system — you'll get a real number before anything starts, not a guess.",
+      "Advisory starts at $140/hr, no retainer required. A single 1:1 strategy session is a flat $200. Full custom builds go through Soch and get scoped per project, since \"build me an automation\" can mean a two-week fix or a much bigger system — you'll get a real number before anything starts, not a guess.",
   },
   {
     question: "How long does a build actually take?",

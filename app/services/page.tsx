@@ -138,7 +138,7 @@ function ConsultingMockup() {
               marginTop: "0.15rem",
             }}
           >
-            60 min · From $160
+            60 min · From $140
           </p>
         </div>
       </div>

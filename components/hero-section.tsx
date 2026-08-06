@@ -460,7 +460,7 @@ export default function HeroSection() {
                 </p>
 
                 <ul className="hz-role-list">
-                  <li><span className="hz-role-arrow">→</span>Consulting and AI advisory, from $160/hr</li>
+                  <li><span className="hz-role-arrow">→</span>Consulting and AI advisory, from $140/hr</li>
                   <li><span className="hz-role-arrow">→</span>Automation systems built and shipped through Soch</li>
                   <li><span className="hz-role-arrow">→</span>Workshops and keynotes on AI in operations</li>
                 </ul>

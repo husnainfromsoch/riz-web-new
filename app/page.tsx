@@ -2114,7 +2114,7 @@ export default function Home() {
                   <div className="route-price-block">
                     <span className="route-price-from">From</span>
                     <span className="route-price-value">
-                      <span className="route-price-amount">$160</span>
+                      <span className="route-price-amount">$140</span>
                       <span className="route-price-suffix">/hr</span>
                     </span>
                     <CalBookingButton className="route-hero-btn">Book a call</CalBookingButton>
