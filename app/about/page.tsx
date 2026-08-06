@@ -103,25 +103,25 @@ const beyondFacts: BeyondFact[] = [
   {
     icon: Mic,
     title: "The podcast",
-    body: "Recorded from my apartment. Unscripted, mostly about work.",
+    body: "Recorded from my apartment (and sometimes a tram). Unscripted, mostly about work.",
     extra: "Latest: AI didn't break my workflow. I did.",
   },
   {
     icon: Globe,
-    title: "Four continents",
-    body: "Lived and worked across them. Tallinn stuck.",
-    extra: "Cambridge · Dubai · Karachi · Tallinn. In that order.",
+    title: "3 continents",
+    body: "Worked across them. Base is Estonia.",
+    extra: "ACCA · Asia · Middle East · Europe. In that order.",
   },
   {
     icon: Languages,
     title: "Estonian, slowly",
     body: "Wrestling it into submission. It’s winning.",
-    extra: "B2 by end of 2025. Probably.",
+    extra: "B1 by end of 2027. Probably.",
   },
   {
     icon: Handshake,
     title: "Soch",
-    body: "Built with two people I trust. Small on purpose.",
+    body: "Built with one person I trust. Small on purpose.",
     extra: "We build AI systems for owners with ops-heavy teams.",
     linkText: "withsoch.com →",
     linkHref: "https://withsoch.com",
@@ -233,13 +233,7 @@ function StatRow({
           fontSize: 32,
           fontWeight: 900,
           fontFamily: "inherit",
-          background: "linear-gradient(90deg, var(--cream), #EA6A47, #D79A36, var(--cream))",
-          backgroundSize: "300% auto",
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          animation: "statGradient 4s linear infinite",
-          animationDelay: stat.delay,
+          color: "var(--coral)",
         }}
       >
         {stat.prefix}
@@ -688,7 +682,7 @@ export default function About() {
           <AnimateIn delay={90}>
             <div className="beyond-quote">
               <span className="beyond-quote-bar" aria-hidden="true" />
-              <p>The work is serious. The rest of it, not always.</p>
+            
             </div>
           </AnimateIn>
 
@@ -1054,10 +1048,6 @@ export default function About() {
           .lesson-card:hover {
             transform: translateY(-4px) !important;
           }
-        }
-        @keyframes statGradient {
-          0% { background-position: 0% center; }
-          100% { background-position: 300% center; }
         }
         @media (max-width: 860px) {
           .longer-version-grid {
