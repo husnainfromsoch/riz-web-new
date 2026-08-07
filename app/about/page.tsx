@@ -14,40 +14,76 @@ const pills = [
 
 const timeline = [
   {
-    year: "2013",
-    company: "O and A'levels",
-    body: "Learned Bio, Maths, Business, Chemistry, Accounting and many others. Diversifying my careers options.",
-    active: false,
+    year: "2014",
+    company: "AIESEC",
+    body: "Ran business development for a student organisation and taught students to plan a career and a budget.",
+    quote: "People rarely lack information. They lack a system for using it.",
   },
   {
     year: "2015",
-    company: "Careem",
-    body: "Joined as one of the early ops hires. Scaled courier operations across multiple cities. Saved $3.9M in costs. Learned what real scale feels like.",
-    active: false,
+    company: "Perbal Clothing",
+    body: "Started a clothing brand in Pakistan and ran it for two years.",
+    quote: "A good product with bad operations is just an expensive hobby.",
+  },
+  {
+    year: "2016",
+    company: "ACCA",
+    body: "Qualified as a chartered accountant.",
+    quote: "Accounting is really training in scepticism: every number has a story, and someone is usually telling the wrong one.",
   },
   {
     year: "2018",
-    company: "Wise",
-    body: "Ran operations for payments infrastructure. Achieved 92% straight-through processing. First time I saw automation done right.",
-    active: false,
+    company: "S&P Global",
+    body: "Product operations for insurance data at a Fortune 500 financial data firm.",
+    quote: "Two years watching how large organisations actually run — slowly, and on top of somebody's undocumented spreadsheet.",
+  },
+  {
+    year: "2019",
+    company: "Careem",
+    body: "Ran delivery operations at the ridehailing company Uber bought for $3.1B.",
+    quote: "Built emergency healthcare dispatch with Pakistan's KPK health ministry and cut response time from three minutes to twenty seconds.",
+  },
+  {
+    year: "2020",
+    company: "Motive",
+    body: "Corporate strategy at a US fleet-tech unicorn, taking a certified logging product into Canada.",
+    quote: "‘Launch a market’ is thirty unglamorous tasks wearing one word.",
   },
   {
     year: "2021",
-    company: "Bolt",
-    body: "Scaled across 4 markets. Won a wrongful termination case and published every document publicly. Some lessons cost more than others.",
-    active: false,
+    company: "Bolt, and Tallinn",
+    body: "Moved to Estonia to run courier operations for Bolt's food delivery business.",
+    quote: "Landed in Tallinn in November and never left.",
+  },
+  {
+    year: "2022",
+    company: "Bolt, under pressure",
+    body: "Russia invaded Ukraine, demand collapsed, and courier cost became the company's most urgent problem.",
+    quote: "Six months later it was down from 21% to 14% of GMV across 20 countries — $3.9M saved. Constraint is the best product manager I've worked with.",
   },
   {
     year: "2023",
-    company: "Tallinn",
-    body: "Landed in Estonia and stayed. Building toward citizenship. Learning Estonian. Running Soch with two people I trust.",
-    active: false,
+    company: "Bolt, going global",
+    body: "Operational excellence across 15 countries, alongside public policy and legal.",
+    quote: "Rebuilt courier processes around the EU Workers' Directive without stopping the business. Stopped thinking of ops and product as separate jobs.",
   },
   {
-    year: "2024",
-    company: "Now",
-    body: "Building AI systems for owners who want to think clearly first, then automate. Recording a podcast. Shipping things I have no business building.",
-    active: true,
+    year: "2025",
+    company: "Wise, and a labour case",
+    body: "Bolt terminated me in March. I won at the Estonian Labour Dispute Committee and published the documents.",
+    quote: "In between: product manager at Wise, 92% straight-through reconciliation, month-end close from eight days to three.",
+  },
+  {
+    year: "2025",
+    company: "Soch",
+    body: "Co-founded an AI workflow automation agency with two people I trust.",
+    quote: "Then Academy by Soch, to teach founders to actually use the tools. Still learning Estonian. Still doing stand-up.",
+  },
+  {
+    year: "Now",
+    company: "Building",
+    body: "Building AI systems for owners who want to think clearly first and automate second. In that order, always.",
+    quote: null,
   },
 ];
 
@@ -335,6 +371,29 @@ function TrackRecordPanel() {
 
 export default function About() {
   const heroFadeRef = useScrollFadeOut<HTMLDivElement>(380);
+  const [openTimelineIndexes, setOpenTimelineIndexes] = useState<Set<number>>(
+    new Set()
+  );
+
+  const toggleTimelineItem = (index: number) => {
+    setOpenTimelineIndexes((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
+  };
+
+  const openEverything = () => {
+    setOpenTimelineIndexes((prev) =>
+      prev.size === timeline.length
+        ? new Set()
+        : new Set(timeline.map((_, i) => i))
+    );
+  };
 
   return (
     <>
@@ -517,74 +576,144 @@ export default function About() {
                 fontWeight: 900,
                 color: "#22332C",
                 opacity: 1,
-                marginBottom: 48,
+                marginBottom: 12,
               }}
             >
-              The longer version.
+              How I got here.
             </h2>
           </AnimateIn>
 
-          {timeline.map((item, i) => (
-            <AnimateIn key={item.year} delay={i * 80}>
-              <div
+          <AnimateIn delay={40}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 16,
+                marginBottom: 32,
+              }}
+            >
+              <p
                 style={{
-                  borderLeft: "2px solid var(--line)",
-                  paddingLeft: 28,
-                  marginBottom: 36,
-                  position: "relative",
+                  fontFamily: "var(--font-geist-mono), monospace",
+                  fontSize: 12,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--ink)",
+                  opacity: 0.55,
+                  margin: 0,
                 }}
               >
-                <span
+                Twelve years, in order
+              </p>
+              <button
+                type="button"
+                onClick={openEverything}
+                className="open-everything-btn"
+              >
+                {openTimelineIndexes.size === timeline.length
+                  ? "Close everything"
+                  : "Open everything"}
+              </button>
+            </div>
+          </AnimateIn>
+
+          {timeline.map((item, i) => {
+            const isOpen = openTimelineIndexes.has(i);
+            return (
+              <AnimateIn key={`${item.year}-${item.company}`} delay={i * 60}>
+                <div
+                  className={`timeline-item${isOpen ? " is-open" : ""}`}
                   style={{
-                    position: "absolute",
-                    left: -5,
-                    top: 6,
-                    width: 8,
-                    height: 8,
-                    borderRadius: "50%",
-                    background: item.active ? "#EA6A47" : "var(--line)",
-                  }}
-                />
-                <p
-                  style={{
-                    fontFamily: "var(--font-geist-mono), monospace",
-                    fontSize: 11,
-                    color: "#EA6A47",
-                    letterSpacing: "0.12em",
-                    marginBottom: 6,
-                    opacity: 1,
-                  }}
-                >
-                  {item.year}
-                </p>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-fraunces), serif",
-                    fontSize: 18,
-                    fontWeight: 800,
-                    color: "#22332C",
-                    opacity: 1,
-                    marginBottom: 6,
+                    borderLeft: "2px solid var(--line)",
+                    paddingLeft: 28,
+                    marginBottom: 8,
+                    position: "relative",
                   }}
                 >
-                  {item.company}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
-                    fontSize: 14,
-                    fontWeight: 400,
-                    color: "var(--ink)",
-                    opacity: 1,
-                    lineHeight: 1.65,
-                    margin: 0,
-                  }}
-                >
-                  {item.body}
-                </p>
-              </div>
-            </AnimateIn>
-          ))}
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: -5,
+                      top: 6,
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      background: isOpen ? "#EA6A47" : "var(--line)",
+                    }}
+                  />
+                  <button
+                    type="button"
+                    className="timeline-toggle"
+                    onClick={() => toggleTimelineItem(i)}
+                    aria-expanded={isOpen}
+                    aria-controls={`timeline-panel-${i}`}
+                  >
+                    <span className="timeline-toggle-label">
+                      <span
+                        style={{
+                          fontFamily: "var(--font-geist-mono), monospace",
+                          fontSize: 11,
+                          color: "#EA6A47",
+                          letterSpacing: "0.12em",
+                        }}
+                      >
+                        {item.year}
+                      </span>
+                      <span
+                        style={{
+                          fontFamily: "var(--font-fraunces), serif",
+                          fontSize: 18,
+                          fontWeight: 800,
+                          color: "#22332C",
+                        }}
+                      >
+                        {item.company}
+                      </span>
+                    </span>
+                    <span className="timeline-caret" aria-hidden="true">
+                      ▾
+                    </span>
+                  </button>
+
+                  <div id={`timeline-panel-${i}`} className="timeline-panel">
+                    <div className="timeline-panel-inner">
+                      <p
+                        style={{
+                          fontFamily: "var(--font-montserrat), sans-serif",
+                          fontSize: 14,
+                          fontWeight: 400,
+                          color: "var(--ink)",
+                          opacity: 1,
+                          lineHeight: 1.65,
+                          margin: "0 0 8px",
+                        }}
+                      >
+                        {item.body}
+                      </p>
+                      {item.quote && (
+                        <p
+                          style={{
+                            fontFamily: "var(--font-fraunces), serif",
+                            fontSize: 13,
+                            fontStyle: "italic",
+                            color: "var(--ink)",
+                            opacity: 0.65,
+                            lineHeight: 1.6,
+                            margin: 0,
+                            paddingLeft: 16,
+                            borderLeft: "2px solid rgba(234, 106, 71, 0.35)",
+                          }}
+                        >
+                          {item.quote}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </AnimateIn>
+            );
+          })}
         </div>
 
         {/* RIGHT - animated stats panel */}
@@ -1058,6 +1187,89 @@ export default function About() {
           .track-record-sticky {
             position: static !important;
             top: auto !important;
+          }
+        }
+
+        .open-everything-btn {
+          flex-shrink: 0;
+          background: none;
+          border: 1px solid var(--line);
+          border-radius: 999px;
+          padding: 6px 16px;
+          font-family: var(--font-geist-mono), monospace;
+          font-size: 11px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #ea6a47;
+          cursor: pointer;
+          transition:
+            border-color 0.18s ease,
+            background 0.18s ease;
+        }
+        .open-everything-btn:hover {
+          border-color: #ea6a47;
+          background: rgba(234, 106, 71, 0.06);
+        }
+
+        .timeline-item {
+          padding-top: 4px;
+          padding-bottom: 4px;
+        }
+        .timeline-toggle {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          background: none;
+          border: none;
+          margin: 0;
+          padding: 10px 0;
+          cursor: pointer;
+          text-align: left;
+        }
+        .timeline-toggle:focus-visible {
+          outline: 2px solid #ea6a47;
+          outline-offset: 2px;
+        }
+        .timeline-toggle-label {
+          display: flex;
+          align-items: baseline;
+          gap: 12px;
+        }
+        .timeline-caret {
+          flex-shrink: 0;
+          color: #ea6a47;
+          font-size: 13px;
+          transition: transform 0.2s ease;
+        }
+        .timeline-item.is-open .timeline-caret {
+          transform: rotate(-180deg);
+        }
+        .timeline-panel {
+          display: grid;
+          grid-template-rows: 0fr;
+          transition: grid-template-rows 0.25s ease;
+        }
+        .timeline-item.is-open .timeline-panel {
+          grid-template-rows: 1fr;
+        }
+        .timeline-panel > .timeline-panel-inner {
+          overflow: hidden;
+          min-height: 0;
+          min-width: 0;
+        }
+        .timeline-panel-inner {
+          padding-bottom: 16px;
+        }
+        .timeline-panel-inner p {
+          overflow-wrap: break-word;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .timeline-panel,
+          .timeline-caret {
+            transition: none !important;
           }
         }
       `}</style>

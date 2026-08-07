@@ -68,7 +68,7 @@ export default function HeroSection() {
           z-index: 1;
         }
 
-        .hz-hero { padding: 68px 0 64px; position: relative; }
+        .hz-hero { padding: 112px 0 64px; position: relative; }
 
         .hz-dotgrid-wrap {
           position: absolute;
@@ -401,7 +401,7 @@ export default function HeroSection() {
         }
 
         @media (max-width: 640px) {
-          .hz-hero { padding: 44px 0 48px; }
+          .hz-hero { padding: 96px 0 48px; }
           .hz-eyebrow { margin-top: 16px; margin-bottom: 24px; }
           .hz-intro { font-size: clamp(20px, 5.8vw, 24px); margin-bottom: 10px; }
           .hz-value-prop { font-size: 16px; margin-bottom: 24px; }
