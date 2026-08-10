@@ -1,27 +1,9 @@
 "use client";
-import { ComponentType } from "react";
 import Link from "next/link";
 import CalBookingButton from "@/components/CalModal";
 import { useParallax, useScrollFadeOut } from "@/hooks/useParallax";
 
 const PHOTO_URL = "/riz-photo-new.jpg";
-
-type MarqueeLabel = {
-  label: string;
-  img?: string;
-  w?: number;
-  icon?: ComponentType;
-};
-
-const MARQUEE_LABELS: MarqueeLabel[] = [
-  { label: "Careem", img: "/logos/careem.png", w: 111 },
-  { label: "Bolt", img: "/logos/bolt.png", w: 48 },
-  { label: "Wise", img: "/logos/wise.svg", w: 106 },
-  { label: "Anthropic", img: "/logos/anthropic.png", w: 111 },
-  { label: "n8n Builder", img: "/logos/n8n.svg", w: 28 },
-];
-
-const MARQUEE_ITEMS = [...MARQUEE_LABELS, ...MARQUEE_LABELS];
 
 export default function HeroSection() {
   const dotGridRef = useParallax<HTMLDivElement>(0.1);
@@ -51,9 +33,6 @@ export default function HeroSection() {
         @keyframes marqScroll {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .hz-marquee-inner { animation: none; }
         }
 
         .hz-section {
@@ -135,8 +114,8 @@ export default function HeroSection() {
         }
 
         .hz-headline {
-          font-size: clamp(3rem, 5vw, 4.25rem);
-          font-weight: 900;
+          font-size: clamp(3rem, 4vw, 4.25rem);
+          font-weight: 800;
           line-height: 1.05;
           letter-spacing: -3px;
           margin-bottom: 0;
@@ -325,65 +304,6 @@ export default function HeroSection() {
           filter: contrast(1.04) saturate(0.9);
         }
 
-        /* MARQUEE */
-        .hz-marquee-section {
-          position: relative;
-          border-top: 1px solid #E2DACB;
-          border-bottom: 1px solid #E2DACB;
-          background: var(--hz-cream);
-          padding: 20px 0;
-          margin-top: 52px;
-          overflow: hidden;
-          -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
-          mask-image: linear-gradient(90deg, transparent 0, #000 64px, #000 calc(100% - 64px), transparent 100%);
-        }
-        .hz-marquee-inner {
-          display: flex;
-          align-items: center;
-          gap: 18px;
-          white-space: nowrap;
-          animation: marqScroll 30s linear infinite;
-          width: max-content;
-        }
-        .hz-marquee-section:hover .hz-marquee-inner {
-          animation-play-state: paused;
-        }
-        .hz-marquee-item {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-          width: 150px;
-          height: 96px;
-          padding: 20px;
-          background: #fff;
-          border: 1px solid var(--hz-line);
-          border-radius: 18px;
-          box-shadow: 0 6px 16px -10px rgba(14,14,13,0.18);
-        }
-        .hz-marquee-icon {
-          height: 28px;
-          width: auto;
-          max-width: 100%;
-          flex-shrink: 0;
-          object-fit: contain;
-          display: block;
-        }
-        .hz-marquee-icon-svg {
-          height: 28px;
-          width: 28px;
-          flex-shrink: 0;
-          color: var(--hz-forest);
-        }
-        .hz-marquee-text {
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 14px;
-          font-weight: 700;
-          letter-spacing: 0.02em;
-          color: var(--hz-forest);
-          white-space: nowrap;
-        }
-
         .hz-trust-row {
           display: flex;
           align-items: center;
@@ -420,16 +340,6 @@ export default function HeroSection() {
           .hz-trust-row { flex-wrap: wrap; }
           .hz-logo-row { gap: 16px; flex-wrap: wrap; }
           .hz-logo-row img { height: 24px; max-width: 70px; }
-          .hz-marquee-section {
-            margin-top: 36px;
-            padding: 16px 0;
-            -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 0, #000 32px, #000 calc(100% - 32px), transparent 100%);
-          }
-          .hz-marquee-inner { gap: 14px; }
-          .hz-marquee-item { width: 122px; height: 78px; padding: 16px; border-radius: 14px; }
-          .hz-marquee-icon { height: 24px; }
-          .hz-marquee-icon-svg { height: 24px; width: 24px; }
         }
       `}</style>
 
@@ -446,15 +356,15 @@ export default function HeroSection() {
                 <p className="hz-intro">Hi, I&apos;m <span className="hz-intro-name">Riz</span>.</p>
 
                 <h1 className="hz-headline">
-                  I help owners<br />
-                  think clearly enough<br />
-                  that <span className="hz-accent">automation works.</span>
+                  I help owners think <br />
+                   clearly enough that <br />
+                  <span className="hz-accent">automation works.</span>
                 </h1>
 
                 <div className="hz-rule" />
 
                 <p className="hz-value-prop">
-                  Most owners buy tools before they fix how the work actually runs.{" "}
+                  
                   <b>AI scales whatever you feed it</b>: messy input, messy output.
                   I come in before the build, not after it breaks.
                 </p>
@@ -502,34 +412,6 @@ export default function HeroSection() {
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={PHOTO_URL} alt="Rizwan Mahmood" />
                 </div>
-              </div>
-            </div>
-
-            {/* MARQUEE STRIP: stays inside hero section */}
-            <div className="hz-marquee-section">
-              <div className="hz-marquee-inner">
-                {MARQUEE_ITEMS.map((item, i) => {
-                  const Icon = item.icon;
-                  return (
-                    <span className="hz-marquee-item" key={i}>
-                      {Icon ? (
-                        <Icon />
-                      ) : item.img ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          className="hz-marquee-icon"
-                          src={item.img}
-                          alt={item.label}
-                          width={item.w}
-                          height={28}
-                          loading="eager"
-                        />
-                      ) : (
-                        <span className="hz-marquee-text">{item.label}</span>
-                      )}
-                    </span>
-                  );
-                })}
               </div>
             </div>
           </div>

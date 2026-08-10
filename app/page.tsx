@@ -21,15 +21,6 @@ function formatRowDate(pubDate: string): string {
 const PORTRAIT_URL =
   "https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a3a46d312c6d02c8e46bab1_691d97efffebe375af48ce33_Remove_GMNI-removebg-preview.png";
 
-// ─── PROOF CARDS ────────────────────────────────────────────────────────────
-
-const metricCards = [
-  { verb: "Saved",         prefix: "$", target: 3.9,  suffix: "M", isFloat: true,  label: "Courier costs saved · Careem" },
-  { verb: "Achieved",      prefix: "",  target: 92,   suffix: "%", isFloat: false, label: "Straight-through processing · Wise" },
-  { verb: "Dispatch time", prefix: "",  target: 20,   suffix: "s", isFloat: false, label: "Down from 3 min · Careem" },
-  { verb: "Scaled across", prefix: "",  target: 4,    suffix: "",  isFloat: false, label: "Markets scaled across · Bolt" },
-];
-
 // ─── BY THE NUMBERS ──────────────────────────────────────────────────────────
 
 const byTheNumbersRows = [
@@ -146,70 +137,6 @@ const afterIconFns = [BaAfterZap, BaAfterSearch, BaAfterArrowRight, BaAfterCheck
 // ─── COMPANY LOGOS ──────────────────────────────────────────────────────────
 
 
-// ─── PROOF CARD COMPONENT ────────────────────────────────────────────────────
-
-type MetricCard = { verb: string; prefix: string; target: number; suffix: string; isFloat: boolean; label: string };
-
-function ProofCard({ card, index, value, visible }: { card: MetricCard; index: number; value: number; visible: boolean }) {
-  const [hovered, setHovered] = useState(false);
-  const display = card.isFloat
-    ? `${card.prefix}${value.toFixed(1)}${card.suffix}`
-    : `${card.prefix}${Math.round(value)}${card.suffix}`;
-  const [labelDesc, labelCompany] = card.label.split("·").map((s) => s.trim());
-  return (
-    <div
-      style={{
-        background: "#ffffff",
-        border: `1px solid ${hovered ? "#EA6A47" : "var(--line)"}`,
-        borderRadius: 16,
-        padding: "28px 24px",
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
-        transition: "all 0.25s ease",
-        transform: hovered ? "translateY(-5px)" : "none",
-        boxShadow: hovered ? "0 8px 32px rgba(234,106,71,0.1)" : "none",
-        cursor: "default",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <p className="meta-label" style={{ margin: 0 }}>
-        {card.verb}
-      </p>
-      <p style={{
-        fontSize: 52,
-        fontWeight: 900,
-        color: "#22332C",
-        lineHeight: 1,
-        margin: 0,
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(8px)",
-        transition: `opacity .4s ease ${index * 150}ms, transform .4s ease ${index * 150}ms`,
-        backgroundImage: "linear-gradient(135deg, #22332C 0%, #EA6A47 100%)",
-        backgroundSize: "200% auto",
-        WebkitBackgroundClip: "text",
-        backgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-        animation: `numGradient 4s ease infinite alternate ${index * 0.5}s`,
-      }}>
-        {display}
-      </p>
-      <div style={{ width: 32, height: 2, background: "#EA6A47", borderRadius: 2, margin: "4px 0" }} />
-      <p style={{
-        fontSize: 13,
-        fontWeight: 500,
-        color: "rgba(34,51,44,0.7)",
-        lineHeight: 1.4,
-        margin: 0,
-      }}>
-        {labelDesc}
-        {labelCompany ? <> · <span style={{ color: "#EA6A47", fontWeight: 600 }}>{labelCompany}</span></> : null}
-      </p>
-    </div>
-  );
-}
-
 // ─── ROUTE CARD ICONS (matches "How I think" icon style) ────────────────────
 
 const routeIconProps = {
@@ -305,11 +232,6 @@ export default function Home() {
   const toggleClickAudioCtxRef = useRef<AudioContext | null>(null);
   const audioFadeRafRef = useRef<number | null>(null);
 
-  const proofSectionRef = useRef<HTMLElement | null>(null);
-  const proofTriggeredRef = useRef(false);
-  const [proofNums, setProofNums] = useState([0, 0, 0, 0]);
-  const [proofVisible, setProofVisible] = useState(false);
-
   const byTheNumbersRef = useRef<HTMLElement | null>(null);
   const byTheNumbersTriggeredRef = useRef(false);
   const [visibleNumberRows, setVisibleNumberRows] = useState([false, false, false, false, false, false]);
@@ -393,40 +315,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const el = proofSectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting || proofTriggeredRef.current) return;
-        proofTriggeredRef.current = true;
-        setProofVisible(true);
-        const duration = 2000;
-        const stagger = 150;
-        metricCards.forEach(({ target }, i) => {
-          const startDelay = i * stagger;
-          const startTime = performance.now() + startDelay;
-          function tick(now: number) {
-            if (now < startTime) { requestAnimationFrame(tick); return; }
-            const p = Math.min((now - startTime) / duration, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            setProofNums((prev) => {
-              const next = [...prev];
-              next[i] = target * eased;
-              return next;
-            });
-            if (p < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-        });
-        observer.disconnect();
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     const el = byTheNumbersRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -505,11 +393,6 @@ export default function Home() {
           from { transform: translateX(-50%) rotate(0deg); }
           to   { transform: translateX(-50%) rotate(360deg); }
         }
-        .proof-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 28px;
-        }
         .personality-subhead {
           font-size: 1.2rem;
           line-height: 1.7;
@@ -526,12 +409,6 @@ export default function Home() {
             max-width: none;
             white-space: nowrap;
           }
-        }
-        @media (max-width: 768px) {
-          .proof-grid { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 480px) {
-          .proof-grid { grid-template-columns: 1fr; }
         }
         /* ===== ROUTES - "How people work with me" ===== */
         .route-hero-v2 {
@@ -919,11 +796,6 @@ export default function Home() {
           0%   { background-position: 0% center }
           100% { background-position: 300% center }
         }
-        @keyframes numGradient {
-          0%   { background-position: 0% center }
-          100% { background-position: 200% center }
-        }
-
         /* ===== BELIEVE SECTION ===== */
         .believe-content-wrap {
           display: grid;
@@ -1215,27 +1087,6 @@ export default function Home() {
 
       {/* SECTION 1 - HERO */}
       <HeroSection />
-
-      {/* SECTION 2 - PROOF */}
-      <section
-        ref={proofSectionRef}
-        className="section-pad"
-        style={{ background: "var(--paper)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}
-      >
-        <div className="max-w-site">
-          <div className="proof-grid">
-            {metricCards.map((card, i) => (
-              <ProofCard
-                key={i}
-                card={card}
-                index={i}
-                value={proofNums[i]}
-                visible={proofVisible}
-              />
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* SECTION 3 - WHAT I BELIEVE */}
       <section id="what-i-believe" className="believe-section-pad" style={{ position: "relative", zIndex: 1 }}>
