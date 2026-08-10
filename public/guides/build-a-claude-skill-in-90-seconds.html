@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build a Claude Skill in 90 Seconds</title>
+<meta name="guide-date" content="2026-08-04" />
+<meta name="guide-excerpt" content="There is a file you can write in plain English that makes Claude work like it was custom-trained for your job. It is called a Skill, and it takes about 90 seconds to set up." />
+<meta name="guide-category" content="AI Productivity" />
+<meta name="guide-tool" content="Claude" />
+<style>
+  :root{
+    --coral:#EA6A47;--coral-deep:#C8502F;
+    --cream:#F5EFE0;--cream-2:#FBF7EE;
+    --charcoal:#3D3D3D;--charcoal-soft:#5A5754;--line:#E4DCC9;
+    --code-bg:#000000;--code-head:#1A1815;--code-fg:#F3ECDD;--code-accent:#F0A488;--code-border:#262320;
+    --wrap:760px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--charcoal);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.68;font-size:18px;-webkit-font-smoothing:antialiased;}
+  a{color:var(--coral-deep);text-decoration:none;border-bottom:1px solid rgba(200,80,47,.28);}
+  a:hover{border-bottom-color:var(--coral-deep);}
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--coral);z-index:50;transition:width .1s linear;}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+  .lede{font-size:21px;color:var(--charcoal-soft);max-width:60ch;margin:0 0 18px;}
+  .quickrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:22px 0 6px;font-size:14px;color:var(--charcoal-soft);}
+  .skip{display:inline-flex;align-items:center;gap:7px;background:var(--cream-2);border:1px solid var(--line);border-radius:999px;padding:8px 16px;color:var(--charcoal);font-weight:600;}
+  .skip:hover{border-color:var(--coral);color:var(--coral-deep);}
+  .readtime{opacity:.85;}
+  h2{font-size:clamp(24px,3.5vw,31px);margin:2.1em 0 .5em;letter-spacing:-.01em;color:var(--charcoal);scroll-margin-top:24px;}
+  h3{font-size:20px;margin:1.7em 0 .4em;color:var(--charcoal);}
+  p{margin:0 0 1.05em;}
+  strong{color:var(--charcoal);font-weight:700;}
+  .muted{color:var(--charcoal-soft);}
+  .divider{position:relative;height:1px;background:var(--line);border:0;margin:58px 0 6px;}
+  .divider::before{content:"";position:absolute;left:0;top:-2px;width:44px;height:4px;background:var(--coral);border-radius:2px;}
+  ol,ul{margin:0 0 1.2em;padding-left:1.35em;}li{margin:.45em 0;}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0 8px;}
+  .step-card{background:var(--cream-2);border:1px solid var(--line);border-radius:14px;padding:18px 16px;}
+  .step-card .n{font-weight:800;color:var(--coral);font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+  .step-card .t{font-weight:700;margin-bottom:4px;}
+  .step-card .d{font-size:15px;color:var(--charcoal-soft);}
+  ol.flow{list-style:none;padding-left:0;counter-reset:step;}
+  ol.flow>li{counter-increment:step;position:relative;padding:14px 18px 14px 60px;margin:10px 0;background:var(--cream-2);border:1px solid var(--line);border-radius:12px;}
+  ol.flow>li::before{content:counter(step);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:8px;background:var(--coral);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;}
+  .callout{border-left:4px solid var(--coral);background:var(--cream-2);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0 22px;}
+  .callout .tag{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-deep);font-weight:800;margin-bottom:5px;}
+  .callout p:last-child{margin-bottom:0;}
+  .prompt{position:relative;margin:26px 0 30px;}
+  .prompt-head{display:flex;align-items:center;justify-content:space-between;background:var(--code-head);border-radius:12px 12px 0 0;padding:9px 14px 9px 16px;border:1px solid var(--code-border);border-bottom:none;}
+  .prompt-head .lbl{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--code-accent);font-weight:700;}
+  .copy-btn{background:transparent;color:#D9D2C4;border:1px solid #3A3733;border-radius:7px;font-size:12.5px;padding:4px 11px;cursor:pointer;transition:all .15s;font-family:inherit;}
+  .copy-btn:hover{background:var(--coral);color:#fff;border-color:var(--coral);}
+  pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--code-border);border-top:none;border-radius:0 0 12px 12px;padding:20px 22px;margin:0;overflow-x:auto;font-size:14.5px;line-height:1.62;font-family:"SF Mono",SFMono-Regular,ui-monospace,Menlo,Consolas,monospace;}
+  pre .brk{color:var(--code-accent);font-weight:600;}
+  .ex{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:16px;}
+  .ex td{border-bottom:1px solid var(--line);padding:11px 6px;vertical-align:top;}
+  .ex td:first-child{color:var(--coral-deep);font-weight:700;width:140px;white-space:nowrap;}
+  .honest li{margin:.55em 0;}
+  .cta{margin-top:44px;background:var(--charcoal);color:var(--cream);border-radius:18px;padding:32px 30px;}
+  .cta h2{color:#fff;margin:0 0 .35em;}
+  .cta p{color:#DAD3C4;margin-bottom:1em;}
+  .cta a.button{display:inline-block;background:var(--coral);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;border:none;}
+  .cta a.button:hover{background:var(--coral-deep);}
+  .cta a{color:#F3B39C;}
+  .guide-foot{margin:34px 0 90px;padding-top:22px;border-top:1px solid var(--line);color:var(--charcoal-soft);font-size:15px;}
+  .foot-follow{font-size:17px;color:var(--charcoal);}
+  .guide-foot a{color:var(--coral-deep);}
+  .foot-meta{margin-top:10px;font-size:14px;}
+  @media(max-width:640px){body{font-size:17px;}.steps3{grid-template-columns:1fr;}.ex td:first-child{width:100px;}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.progress{transition:none;}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="wrap">
+
+  <p class="lede">There is a file you can write in plain English that makes Claude work like it was custom-trained for your job. It is called a Skill. No code, no configuration screens, no API keys. One folder, one file, about 90 seconds of your time.</p>
+
+  <div class="quickrow">
+    <a class="skip" href="#build">↓ Skip to the build steps</a>
+    <span class="readtime">4 min read · Claude, any plan</span>
+  </div>
+
+  <img src="images/build-a-claude-skill-in-90-seconds.webp" alt="A plain text file open in a code editor, with a folder structure showing a Claude skill named meeting-notes alongside the skill markdown file" style="width:100%;border-radius:16px;margin:22px 0 8px;border:1px solid var(--line);">
+
+  <h2>What a Skill actually is</h2>
+
+  <p>A Skill is not a plugin, a fine-tuned model, or anything that requires a developer. It is a single Markdown file that lives in a named folder. The file tells Claude two things: when to use this set of instructions, and what to do when it does. That is the entire structure.</p>
+
+  <p>The difference in practice is significant. Without a Skill, you explain your format every time you open a new conversation. With one, Claude already knows. Paste your raw material, get your structured output, no preamble required.</p>
+
+  <div class="callout">
+    <span class="tag">The core idea</span>
+    <p>Write your instructions once, the way you would brief a new hire. Claude reads the file and applies it consistently, every single session, without you re-explaining yourself.</p>
+  </div>
+
+  <div class="steps3">
+    <div class="step-card">
+      <div class="n">Part 1</div>
+      <div class="t">One line at the top</div>
+      <div class="d">A single sentence describing when this Skill applies.</div>
+    </div>
+    <div class="step-card">
+      <div class="n">Part 2</div>
+      <div class="t">Plain-English instructions</div>
+      <div class="d">A few sentences written like you are briefing a capable new hire.</div>
+    </div>
+    <div class="step-card">
+      <div class="n">Part 3</div>
+      <div class="t">Drop the folder in</div>
+      <div class="d">Claude picks it up automatically. No restart, no extra steps.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 id="build">How to build one in 90 seconds</h2>
+
+  <ol class="flow">
+    <li><strong>Name your folder after the job it does.</strong> Something like <code>meeting-notes</code> or <code>weekly-report</code>. The name is just for your own navigation, not something Claude reads.</li>
+    <li><strong>Create a file inside it called <code>SKILL.md</code>.</strong> That filename is what Claude recognises. Capitalisation matters.</li>
+    <li><strong>Write one trigger line at the top.</strong> Example: "Use this when I paste a meeting transcript." One sentence is enough. It tells Claude when to activate the Skill rather than behaving generically.</li>
+    <li><strong>Add your instructions below it.</strong> Write them the way you would explain the task to someone on their first day. Be specific about the output format, what to look for, and anything you always want flagged. Three to five sentences covers most jobs.</li>
+    <li><strong>Drop the folder into Claude's designated Skills directory.</strong> Claude picks it up without any restart. Open a new conversation and paste your raw material.</li>
+  </ol>
+
+  <hr class="divider">
+
+  <h2>A real example: meeting-notes</h2>
+
+  <p>Here is the Skill file used for turning messy transcripts into structured notes. The entire file is below, and the instructions are three sentences:</p>
+
+  <div class="prompt">
+    <div class="prompt-head"><span class="lbl">SKILL.md · meeting-notes</span><button class="copy-btn" data-target="p1">Copy</button></div>
+    <pre id="p1"><span class="brk">Use this when I paste a meeting transcript.</span>
+
+Pull out every decision, the owner responsible for it, and the
+deadline if one was mentioned. Present the results as a table
+with three columns: Decision, Owner, Deadline. If any decision
+has no owner listed, flag it in a separate row marked
+"Unassigned" so nothing slips through without accountability.</pre>
+  </div>
+
+  <p>The result, after pasting a 40-minute transcript: a table built automatically, three decisions listed, one flagged as unassigned because nobody claimed it in the meeting. No format negotiation, no follow-up prompt asking Claude to restructure the output.</p>
+
+  <p>Same Skill, same output structure, every time.</p>
+
+  <hr class="divider">
+
+  <h2>Skills worth building for common jobs</h2>
+
+  <p>If you repeat a task more than a few times a week and you always want the same output shape, it is a candidate for a Skill. A few patterns that translate well:</p>
+
+  <table class="ex">
+    <tr><td>Transcripts</td><td>Extract decisions, actions, owners, and deadlines. Flag anything unassigned.</td></tr>
+    <tr><td>Client emails</td><td>Summarise the request, the tone, and any implicit deadline in three bullet points before drafting a reply.</td></tr>
+    <tr><td>Research dumps</td><td>Pull out the three most relevant points for a specific audience, cite the source line, discard everything else.</td></tr>
+    <tr><td>Weekly reports</td><td>Restructure raw notes into a fixed template: wins, blockers, next steps, one number that matters.</td></tr>
+    <tr><td>Feedback review</td><td>Group comments by theme, note sentiment, surface the one thing that comes up most often.</td></tr>
+  </table>
+
+  <hr class="divider">
+
+  <h2>Writing instructions that actually work</h2>
+
+  <p>The quality of the output is almost entirely determined by the specificity of the instructions. A few things that consistently make Skills more reliable:</p>
+
+  <ul>
+    <li><strong>Name the output format explicitly.</strong> "Put it in a table" beats "organise it clearly." Claude follows format instructions precisely when they are precise.</li>
+    <li><strong>Tell it what to do with the exception, not just the standard case.</strong> The meeting-notes Skill is useful because it handles the unassigned case. Skills that only describe the happy path produce inconsistent output when the happy path does not appear.</li>
+    <li><strong>Write at the level of a capable new hire, not a machine.</strong> Avoid jargon that only makes sense inside your head. If the instruction would confuse a smart person reading it for the first time, it will produce inconsistent results.</li>
+    <li><strong>Keep it short.</strong> Three to six sentences covers almost every recurring task. Longer files do not produce better output and are harder to maintain.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2 id="honest">The honest bit</h2>
+
+  <ul class="honest">
+    <li><strong>Skills do not replace judgment on genuinely complex or novel tasks.</strong> They are for things you already know how to do that you want to stop explaining repeatedly.</li>
+    <li><strong>The trigger line matters.</strong> If it is too vague, Claude may apply the Skill when you do not want it. Be specific about the input type, not just the job type.</li>
+    <li><strong>You will probably revise the instructions after the first real use.</strong> The first version is rarely the final version. Run it on a real piece of work before considering it finished.</li>
+    <li><strong>Skills work because the instructions are stored, not because Claude learns permanently.</strong> If you change how you want the output structured, update the file. Claude reads it fresh each session.</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Want the exact template to copy and adapt?</h2>
+    <p>The four-sentence meeting-notes template is ready to send. DM "SKILL" and it goes straight to you, formatted and ready to drop in. Or book a call if you want a set of Skills built around your specific workflow.</p>
+    <p><a class="button" href="https://cal.com/consult-with-riz/work" target="_blank" rel="noopener noreferrer">Book a call →</a></p>
+  </div>
+
+  <div class="guide-foot">
+    <p class="foot-follow">Follow <a href="https://www.instagram.com/etz.riz/reels/" target="_blank" rel="noopener noreferrer">@itsriz</a> for AI tips every single day.</p>
+    <p class="foot-meta">Written by <strong>Riz</strong></p>
+  </div>
+
+</div>
+
+<script>
+  var bar=document.getElementById('progress');
+  function upd(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop||document.body.scrollTop)/max*100:0)+'%';}
+  document.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.dataset.target);var text=el.innerText;
+      function done(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old;},1500);}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(function(){fallback(text,done);});}
+      else{fallback(text,done);}
+    });
+  });
+  function fallback(text,cb){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);cb();}
+</script>
+
+</body>
+</html>
