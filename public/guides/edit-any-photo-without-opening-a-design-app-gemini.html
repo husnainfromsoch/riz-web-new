@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Any Photo Without Opening a Design App (Gemini)</title>
+<meta name="guide-date" content="2026-08-04" />
+<meta name="guide-excerpt" content="You don't need Photoshop or a separate app to edit a photo anymore. One skill, three steps, and Gemini does the work directly in your browser." />
+<meta name="guide-category" content="AI Tools" />
+<meta name="guide-tool" content="Gemini" />
+<style>
+  :root{
+    --coral:#EA6A47;--coral-deep:#C8502F;
+    --cream:#F5EFE0;--cream-2:#FBF7EE;
+    --charcoal:#3D3D3D;--charcoal-soft:#5A5754;--line:#E4DCC9;
+    --code-bg:#000000;--code-head:#1A1815;--code-fg:#F3ECDD;--code-accent:#F0A488;--code-border:#262320;
+    --wrap:760px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--charcoal);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.68;font-size:18px;-webkit-font-smoothing:antialiased;}
+  a{color:var(--coral-deep);text-decoration:none;border-bottom:1px solid rgba(200,80,47,.28);}
+  a:hover{border-bottom-color:var(--coral-deep);}
+  .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--coral);z-index:50;transition:width .1s linear;}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+  .lede{font-size:21px;color:var(--charcoal-soft);max-width:60ch;margin:0 0 18px;}
+  h2{font-size:clamp(24px,3.5vw,31px);margin:2.1em 0 .5em;letter-spacing:-.01em;color:var(--charcoal);scroll-margin-top:24px;}
+  h3{font-size:20px;margin:1.7em 0 .4em;color:var(--charcoal);}
+  p{margin:0 0 1.05em;}
+  strong{color:var(--charcoal);font-weight:700;}
+  .muted{color:var(--charcoal-soft);}
+  .divider{position:relative;height:1px;background:var(--line);border:0;margin:58px 0 6px;}
+  .divider::before{content:"";position:absolute;left:0;top:-2px;width:44px;height:4px;background:var(--coral);border-radius:2px;}
+  ol,ul{margin:0 0 1.2em;padding-left:1.35em;}li{margin:.45em 0;}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0 8px;}
+  .step-card{background:var(--cream-2);border:1px solid var(--line);border-radius:14px;padding:18px 16px;}
+  .step-card .n{font-weight:800;color:var(--coral);font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+  .step-card .t{font-weight:700;margin-bottom:4px;}
+  .step-card .d{font-size:15px;color:var(--charcoal-soft);}
+  ol.flow{list-style:none;padding-left:0;counter-reset:step;}
+  ol.flow>li{counter-increment:step;position:relative;padding:14px 18px 14px 60px;margin:10px 0;background:var(--cream-2);border:1px solid var(--line);border-radius:12px;}
+  ol.flow>li::before{content:counter(step);position:absolute;left:16px;top:14px;width:30px;height:30px;border-radius:8px;background:var(--coral);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;}
+  .callout{border-left:4px solid var(--coral);background:var(--cream-2);border-radius:0 12px 12px 0;padding:16px 20px;margin:18px 0 22px;}
+  .callout .tag{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral-deep);font-weight:800;margin-bottom:5px;}
+  .callout p:last-child{margin-bottom:0;}
+  .prompt{position:relative;margin:26px 0 30px;}
+  .prompt-head{display:flex;align-items:center;justify-content:space-between;background:var(--code-head);border-radius:12px 12px 0 0;padding:9px 14px 9px 16px;border:1px solid var(--code-border);border-bottom:none;}
+  .prompt-head .lbl{font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--code-accent);font-weight:700;}
+  .copy-btn{background:transparent;color:#D9D2C4;border:1px solid #3A3733;border-radius:7px;font-size:12.5px;padding:4px 11px;cursor:pointer;transition:all .15s;font-family:inherit;}
+  .copy-btn:hover{background:var(--coral);color:#fff;border-color:var(--coral);}
+  pre{background:var(--code-bg);color:var(--code-fg);border:1px solid var(--code-border);border-top:none;border-radius:0 0 12px 12px;padding:20px 22px;margin:0;overflow-x:auto;font-size:14.5px;line-height:1.62;font-family:"SF Mono",SFMono-Regular,ui-monospace,Menlo,Consolas,monospace;}
+  pre .brk{color:var(--code-accent);font-weight:600;}
+  .ex{width:100%;border-collapse:collapse;margin:14px 0 8px;font-size:16px;}
+  .ex td{border-bottom:1px solid var(--line);padding:11px 6px;vertical-align:top;}
+  .ex td:first-child{color:var(--coral-deep);font-weight:700;width:120px;white-space:nowrap;}
+  .honest li{margin:.55em 0;}
+  .cta{margin-top:44px;background:var(--charcoal);color:var(--cream);border-radius:18px;padding:32px 30px;}
+  .cta h2{color:#fff;margin:0 0 .35em;}
+  .cta p{color:#DAD3C4;margin-bottom:1em;}
+  .cta a.button{display:inline-block;background:var(--coral);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;border:none;}
+  .cta a.button:hover{background:var(--coral-deep);}
+  .cta a{color:#F3B39C;}
+  .guide-foot{margin:34px 0 90px;padding-top:22px;border-top:1px solid var(--line);color:var(--charcoal-soft);font-size:15px;}
+  .foot-follow{font-size:17px;color:var(--charcoal);}
+  .guide-foot a{color:var(--coral-deep);}
+  .foot-meta{margin-top:10px;font-size:14px;}
+  @media(max-width:640px){body{font-size:17px;}.steps3{grid-template-columns:1fr;}.ex td:first-child{width:96px;}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.progress{transition:none;}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="wrap">
+
+  <p class="lede">You don't need Photoshop, or even a separate app, to edit a photo anymore. It's already sitting in your browser. One skill makes this actually work.</p>
+
+  <img src="images/edit-any-photo-without-opening-a-design-app-gemini.webp" alt="Editing a photo using Gemini in a browser, with a specific text prompt describing the change" style="width:100%;border-radius:16px;margin:22px 0 8px;border:1px solid var(--line);">
+
+  <h2>The three-step method</h2>
+
+  <p>Most people either skip photo editing entirely because they don't have Photoshop, or they open three apps and still end up with something underwhelming. Gemini removes both problems. Here's the whole workflow:</p>
+
+  <div class="steps3">
+    <div class="step-card">
+      <div class="n">Step 1</div>
+      <div class="t">Open the photo in Gemini</div>
+      <div class="d">Chrome's sidebar, the Gemini app, or drop it into Google Slides. Same tool underneath.</div>
+    </div>
+    <div class="step-card">
+      <div class="n">Step 2</div>
+      <div class="t">Say the exact change</div>
+      <div class="d">Not "enhance this." One specific instruction: what to remove, replace, or change.</div>
+    </div>
+    <div class="step-card">
+      <div class="n">Step 3</div>
+      <div class="t">Get the result immediately</div>
+      <div class="d">It edits the actual image and shows you the result. No download, no re-upload, no second app.</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 id="how-to-open">Where to open the photo</h2>
+
+  <p>You have three entry points, and all of them use the same Gemini model underneath. Pick whichever fits your workflow:</p>
+
+  <ol class="flow">
+    <li><strong>Chrome's sidebar.</strong> Open any image in Chrome, then open the Gemini sidebar from the top-right corner. The image is already there, ready to edit without any uploading.</li>
+    <li><strong>The Gemini web app.</strong> Go to gemini.google.com, click the image upload icon in the prompt bar, and drop in your photo. Works from any browser on any device.</li>
+    <li><strong>Google Slides.</strong> Insert the image into a slide, click it, and use the "Ask Gemini" option from the toolbar. Good if you're already editing visuals for a presentation.</li>
+  </ol>
+
+  <hr class="divider">
+
+  <h2 id="prompts">How to write a prompt that actually works</h2>
+
+  <p>This is the single thing that separates a useful edit from a frustrating one. Gemini responds to specificity the same way a human editor would: vague instructions produce vague results, specific instructions produce exact results.</p>
+
+  <div class="callout">
+    <span class="tag">The rule</span>
+    <p>One specific instruction gets one clean edit. Stack multiple changes into a single prompt and the results get muddier. Do them one at a time.</p>
+  </div>
+
+  <p>The difference between a prompt that works and one that doesn't usually comes down to whether you named the thing and described the change:</p>
+
+  <table class="ex">
+    <tr><td>Vague</td><td>"Make this look better" or "enhance this photo" — Gemini guesses what you mean and rarely guesses right.</td></tr>
+    <tr><td>Specific</td><td>"Remove the person standing in the background on the left" — one subject, one action, one result.</td></tr>
+    <tr><td>Vague</td><td>"Fix the lighting" — fix it how? Brighter? Warmer? Less shadow?</td></tr>
+    <tr><td>Specific</td><td>"Make the sky look like a golden hour sunset" — clear subject, clear target state.</td></tr>
+    <tr><td>Vague</td><td>"Change the colors" — which element? To what?</td></tr>
+    <tr><td>Specific</td><td>"Change the shirt from red to navy blue" — exact element, exact destination.</td></tr>
+  </table>
+
+  <hr class="divider">
+
+  <h2>Five prompts that work first try</h2>
+
+  <p>These are ready to copy and paste. Swap in the specific details from your own photo where indicated:</p>
+
+  <div class="prompt">
+    <div class="prompt-head"><span class="lbl">Background removal</span><button class="copy-btn" data-target="p1">Copy</button></div>
+    <pre id="p1">Remove the <span class="brk">[person / object / sign]</span> in the background and fill it with the surrounding scenery.</pre>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head"><span class="lbl">Sky replacement</span><button class="copy-btn" data-target="p2">Copy</button></div>
+    <pre id="p2">Replace the sky with a dramatic golden hour sunset, keeping the foreground lighting consistent.</pre>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head"><span class="lbl">Colour change</span><button class="copy-btn" data-target="p3">Copy</button></div>
+    <pre id="p3">Change the <span class="brk">[shirt / car / bag]</span> from <span class="brk">[current colour]</span> to <span class="brk">[target colour]</span>. Keep everything else the same.</pre>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head"><span class="lbl">Distraction cleanup</span><button class="copy-btn" data-target="p4">Copy</button></div>
+    <pre id="p4">Remove the <span class="brk">[bin / cable / watermark]</span> in the <span class="brk">[bottom-left / centre / top-right]</span> of the image.</pre>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head"><span class="lbl">Lighting adjustment</span><button class="copy-btn" data-target="p5">Copy</button></div>
+    <pre id="p5">Brighten the subject's face without changing the background exposure.</pre>
+  </div>
+
+  <hr class="divider">
+
+  <h2>The honest bit</h2>
+
+  <ul class="honest">
+    <li><strong>Complex removals sometimes need a second attempt.</strong> If the first result looks patchy, describe the fill more explicitly: "fill with grass matching the rest of the lawn" rather than leaving Gemini to guess.</li>
+    <li><strong>It works best on clearly separated elements.</strong> Removing a distinct object from a plain background is easier than separating two overlapping subjects. The more visually distinct the thing you're editing, the cleaner the result.</li>
+    <li><strong>This isn't a replacement for professional retouching.</strong> Product photography, print work, or anything that needs pixel-level control still belongs in a dedicated tool. This is for quick, practical edits where good enough is genuinely good enough.</li>
+    <li><strong>Availability varies by region and account type.</strong> Image editing in Gemini is rolling out progressively. If you don't see it yet, the Gemini app on mobile tends to have it before the web sidebar does.</li>
+  </ul>
+
+  <div class="cta">
+    <h2>Want to learn what else Gemini can do for your business? 🤖</h2>
+    <p>There's a lot more sitting in the tools you already have. A short call is enough to find the highest-leverage ones for your specific workflow.</p>
+    <p><a class="button" href="https://cal.com/consult-with-riz/work" target="_blank" rel="noopener noreferrer">Book a call →</a></p>
+  </div>
+
+  <div class="guide-foot">
+    <p class="foot-follow">Follow <a href="https://www.instagram.com/etz.riz/reels/" target="_blank" rel="noopener noreferrer">@itsriz</a> for AI tips every single day.</p>
+    <p class="foot-meta">Written by <strong>Riz</strong></p>
+  </div>
+
+</div>
+
+<script>
+  var bar=document.getElementById('progress');
+  function upd(){var h=document.documentElement;var max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?(h.scrollTop||document.body.scrollTop)/max*100:0)+'%';}
+  document.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);upd();
+
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.dataset.target);var text=el.innerText;
+      function done(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old;},1500);}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(function(){fallback(text,done);});}
+      else{fallback(text,done);}
+    });
+  });
+  function fallback(text,cb){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);cb();}
+</script>
+
+</body>
+</html>
