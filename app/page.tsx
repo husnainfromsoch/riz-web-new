@@ -1087,7 +1087,7 @@ export default function Home() {
         /* ===== BELIEVE SECTION ===== */
         .believe-content-wrap {
           display: grid;
-          grid-template-columns: 1fr 340px;
+          grid-template-columns: 1fr 420px;
           gap: 80px;
           /* stretch (not start): the photo column must span the full section
              height or position: sticky on the photo has no room to travel */
