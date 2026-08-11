@@ -16,8 +16,8 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const [darkHero, setDarkHero] = useState(false);
-  const [navOffset, setNavOffset] = useState(null);
-  const logoRef = useRef(null);
+  const [navOffset, setNavOffset] = useState<number | null>(null);
+  const logoRef = useRef<HTMLAnchorElement>(null);
   const pathname = usePathname();
 
   // Align the nav group's left edge with the hero photo's left edge (when present),
