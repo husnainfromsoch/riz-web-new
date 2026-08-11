@@ -716,13 +716,13 @@ function CaseStudiesContent() {
           padding-left: 20px;
         }
         .proof-row-num {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 12px;
           color: var(--row-accent, #EA6A47);
           letter-spacing: 0.1em;
         }
         .proof-row-tag {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.8rem;
           font-weight: 600;
           color: var(--row-accent, #E8603C);
@@ -843,7 +843,7 @@ function CaseStudiesContent() {
           font-family: inherit;
         }
         .case-hero-inline-stat-label {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.8rem;
           font-weight: 600;
           color: #E8603C;
@@ -869,7 +869,7 @@ function CaseStudiesContent() {
           box-shadow: 0 8px 32px rgba(234,106,71,0.1);
         }
         .case-stat-card-label {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.8rem;
           font-weight: 600;
           color: #E8603C;
@@ -978,7 +978,7 @@ function CaseStudiesContent() {
           background: rgba(255,255,255,0.1);
           border: 1px solid rgba(255,255,255,0.15);
           color: var(--cream);
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 11px;
           padding: 6px 14px;
           border-radius: 100px;
@@ -1016,7 +1016,7 @@ function CaseStudiesContent() {
           border-right: 1px solid var(--line);
         }
         .case-panel-label-sm {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.8rem;
           font-weight: 600;
           color: #E8603C;
@@ -1064,7 +1064,7 @@ function CaseStudiesContent() {
           -webkit-text-fill-color: transparent;
         }
         .case-stat-v2-desc {
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 11px;
           color: #948D7E;
           letter-spacing: 0.04em;
@@ -1080,7 +1080,7 @@ function CaseStudiesContent() {
           border: 1px solid var(--line);
           border-radius: 4px;
           padding: 4px 10px;
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 10px;
           color: #22332C;
           font-weight: 500;

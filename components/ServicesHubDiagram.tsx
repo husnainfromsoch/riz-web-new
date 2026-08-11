@@ -115,7 +115,7 @@ export default function ServicesHubDiagram() {
                   <text
                     x={n.cx} y={n.cy + 18}
                     textAnchor="middle" dominantBaseline="auto"
-                    fontFamily="DM Mono, monospace"
+                    fontFamily="var(--font-dm-mono), monospace"
                     fontSize={isHovered ? "11" : "10.5"}
                     fill={isHovered ? "#fff" : "rgba(255,255,255,0.78)"}
                     letterSpacing="0.1em"

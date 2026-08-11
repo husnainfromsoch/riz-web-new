@@ -34,6 +34,9 @@
   --btn-radius: 8px;
 
   /* Typography — remap legacy font variables to new system */
+  --font-montserrat: var(--font-poppins);
+  --font-fraunces: var(--font-poppins);
+  --font-geist-mono: var(--font-poppins);
   --font-inter-tight: var(--font-montserrat);
   --font-playfair: var(--font-inter-tight);
   --font-dm-sans: var(--font-inter-tight);

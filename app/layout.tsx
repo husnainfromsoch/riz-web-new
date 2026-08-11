@@ -1,31 +1,16 @@
 import type { Metadata } from "next";
-import { Montserrat, Geist_Mono, Fraunces } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AudioProvider } from "@/contexts/audio-context";
 import { AudioPlayer } from "@/components/AudioPlayer";
 
-const montserrat = Montserrat({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
-  variable: "--font-montserrat",
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--font-geist-mono",
-  display: "swap",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["400", "600", "700", "900"],
-  style: ["normal", "italic"],
-  variable: "--font-fraunces",
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -44,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${fraunces.variable} ${geistMono.variable} h-full`}
+      className={`${poppins.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
         <AudioProvider>

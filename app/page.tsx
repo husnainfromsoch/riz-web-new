@@ -1270,7 +1270,7 @@ export default function Home() {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          font-family: 'Geist Mono', var(--font-geist-mono), monospace;
+          font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 13px;
           font-weight: 700;
           color: #C17A5A;
