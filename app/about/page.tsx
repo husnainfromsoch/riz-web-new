@@ -268,7 +268,6 @@ function StatRow({
         style={{
           fontSize: 32,
           fontWeight: 900,
-          fontFamily: "inherit",
           color: "var(--coral)",
         }}
       >
@@ -286,7 +285,6 @@ function StatRow({
         <span
           style={{
             display: "block",
-            fontFamily: "var(--font-geist-mono), monospace",
             fontSize: 9,
             color: "rgba(243,236,221,0.75)",
             letterSpacing: "0.08em",
@@ -331,7 +329,6 @@ function TrackRecordPanel() {
     >
       <p
         style={{
-          fontFamily: "var(--font-geist-mono), monospace",
           fontSize: 11,
           color: "#EA6A47",
           letterSpacing: "0.12em",
@@ -358,7 +355,6 @@ function TrackRecordPanel() {
             fontStyle: "italic",
             color: "rgba(243,236,221,0.65)",
             lineHeight: 1.7,
-            fontFamily: "inherit",
             margin: 0,
           }}
         >
@@ -436,7 +432,6 @@ export default function About() {
             <AnimateIn delay={60}>
               <h1
                 style={{
-                  fontFamily: "var(--font-inter-tight), sans-serif",
                   fontSize: "clamp(3rem, 5vw, 4.25rem)",
                   fontWeight: 900,
                   color: "#22332C",
@@ -451,7 +446,6 @@ export default function About() {
             <AnimateIn delay={120}>
               <p
                 style={{
-                  fontFamily: "var(--font-fraunces), serif",
                   fontSize: 24,
                   fontWeight: 600,
                   fontStyle: "italic",
@@ -466,7 +460,6 @@ export default function About() {
             <AnimateIn delay={180}>
               <p
                 style={{
-                  fontFamily: "var(--font-inter-tight), sans-serif",
                   fontSize: 17,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
@@ -480,7 +473,6 @@ export default function About() {
             <AnimateIn delay={240}>
               <p
                 style={{
-                  fontFamily: "var(--font-inter-tight), sans-serif",
                   fontSize: 17,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
@@ -494,7 +486,6 @@ export default function About() {
             <AnimateIn delay={300}>
               <p
                 style={{
-                  fontFamily: "var(--font-inter-tight), sans-serif",
                   fontSize: 17,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
@@ -571,7 +562,6 @@ export default function About() {
           <AnimateIn>
             <h2
               style={{
-                fontFamily: "var(--font-fraunces), serif",
                 fontSize: 36,
                 fontWeight: 900,
                 color: "#22332C",
@@ -595,7 +585,6 @@ export default function About() {
             >
               <p
                 style={{
-                  fontFamily: "var(--font-geist-mono), monospace",
                   fontSize: 12,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
@@ -652,7 +641,6 @@ export default function About() {
                     <span className="timeline-toggle-label">
                       <span
                         style={{
-                          fontFamily: "var(--font-geist-mono), monospace",
                           fontSize: 11,
                           color: "#EA6A47",
                           letterSpacing: "0.12em",
@@ -662,7 +650,6 @@ export default function About() {
                       </span>
                       <span
                         style={{
-                          fontFamily: "var(--font-fraunces), serif",
                           fontSize: 18,
                           fontWeight: 800,
                           color: "#22332C",
@@ -680,7 +667,6 @@ export default function About() {
                     <div className="timeline-panel-inner">
                       <p
                         style={{
-                          fontFamily: "var(--font-montserrat), sans-serif",
                           fontSize: 14,
                           fontWeight: 400,
                           color: "var(--ink)",
@@ -694,7 +680,6 @@ export default function About() {
                       {item.quote && (
                         <p
                           style={{
-                            fontFamily: "var(--font-fraunces), serif",
                             fontSize: 13,
                             fontStyle: "italic",
                             color: "var(--ink)",
@@ -728,7 +713,6 @@ export default function About() {
           <AnimateIn delay={60}>
             <h2
               style={{
-                fontFamily: "var(--font-inter-tight), sans-serif",
                 fontSize: 36,
                 fontWeight: 900,
                 color: "#22332C",
@@ -764,7 +748,6 @@ export default function About() {
                   </p>
                   <h3
                     style={{
-                      fontFamily: "var(--font-fraunces), serif",
                       fontSize: 16,
                       fontWeight: 700,
                       color: "#22332C",
@@ -775,7 +758,6 @@ export default function About() {
                   </h3>
                   <p
                     style={{
-                      fontFamily: "var(--font-inter-tight), sans-serif",
                       fontSize: 14,
                       color: "rgba(34,51,44,0.72)",
                       lineHeight: 1.7,
@@ -879,7 +861,6 @@ export default function About() {
           border-top: 1px solid var(--line);
         }
         .about-credentials-label {
-          font-family: var(--font-geist-mono), monospace;
           font-size: 0.8rem;
           font-weight: 600;
           letter-spacing: 0.06em;
@@ -907,7 +888,6 @@ export default function About() {
           font-size: 0.95rem;
           font-weight: 500;
           font-variant: small-caps;
-          font-family: var(--font-inter-tight), sans-serif;
           letter-spacing: 0.02em;
           cursor: default;
         }
@@ -936,7 +916,6 @@ export default function About() {
           font-size: 15px;
           font-weight: 700;
           letter-spacing: 0.02em;
-          font-family: var(--font-inter-tight), sans-serif;
           text-decoration: none;
           width: fit-content;
           transition: all 0.22s ease;
@@ -966,7 +945,6 @@ export default function About() {
           object-fit: cover;
         }
         .beyond-heading {
-          font-family: var(--font-fraunces), serif;
           font-size: 36px;
           font-weight: 900;
           color: #22332C;
@@ -992,7 +970,6 @@ export default function About() {
           border-radius: 2px;
         }
         .beyond-quote p {
-          font-family: var(--font-fraunces), serif;
           font-style: italic;
           font-size: 17px;
           color: rgba(34,51,44,0.6);
@@ -1032,7 +1009,6 @@ export default function About() {
           align-items: baseline;
           gap: 8px;
           margin: 12px 0 0;
-          font-family: var(--font-fraunces), serif;
           font-style: italic;
           font-size: 13px;
           color: rgba(34,51,44,0.5);
@@ -1084,7 +1060,6 @@ export default function About() {
           transform: scale(1.15);
         }
         .beyond-row-content h3 {
-          font-family: var(--font-fraunces), serif;
           font-size: 1.3rem;
           font-weight: 800;
           color: #22332C;
@@ -1095,7 +1070,6 @@ export default function About() {
           color: #EA6A47;
         }
         .beyond-row-content p {
-          font-family: var(--font-inter-tight), sans-serif;
           font-size: 14.5px;
           color: rgba(34,51,44,0.65);
           line-height: 1.7;
@@ -1107,7 +1081,6 @@ export default function About() {
         }
         .beyond-row-link {
           color: #EA6A47;
-          font-family: var(--font-geist-mono), monospace;
           font-size: 12px;
           font-weight: 600;
           text-decoration: none;
@@ -1154,7 +1127,6 @@ export default function About() {
           box-shadow: 0 18px 32px rgba(34,51,44,0.14);
         }
         .lesson-card-number {
-          font-family: var(--font-geist-mono), monospace;
           font-size: 11px;
           color: var(--lesson-accent, #EA6A47);
           opacity: 0.55;
@@ -1196,7 +1168,6 @@ export default function About() {
           border: 1px solid var(--line);
           border-radius: 999px;
           padding: 6px 16px;
-          font-family: var(--font-geist-mono), monospace;
           font-size: 11px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
