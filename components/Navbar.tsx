@@ -1,8 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import CalBookingButton from "@/components/CalModal";
 
 const navLinks = [
   { label: "Services", href: "/services" },
@@ -17,7 +16,34 @@ export default function Navbar() {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const [darkHero, setDarkHero] = useState(false);
+  const [navOffset, setNavOffset] = useState(null);
+  const logoRef = useRef(null);
   const pathname = usePathname();
+
+  // Align the nav group's left edge with the hero photo's left edge (when present),
+  // while keeping the logo untouched and the nav right-aligned otherwise.
+  useEffect(() => {
+    const recompute = () => {
+      const logoEl = logoRef.current;
+      if (!logoEl) return;
+      const photoEl = document.querySelector(".hz-photo-card");
+      if (!photoEl) {
+        setNavOffset(null); // fallback: right-align within the navbar
+        return;
+      }
+      const photoLeft = photoEl.getBoundingClientRect().left;
+      const logoRight = logoEl.getBoundingClientRect().right;
+      const diff = photoLeft - logoRight;
+      setNavOffset(diff > 40 ? diff : null);
+    };
+
+    const raf = requestAnimationFrame(recompute);
+    window.addEventListener("resize", recompute);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", recompute);
+    };
+  }, [pathname, scrolled]);
 
   useEffect(() => {
     let lastY = window.scrollY;
@@ -85,10 +111,10 @@ export default function Navbar() {
       }}
     >
       <div
-        className="max-w-site flex items-center justify-between"
+        className="max-w-site flex items-center justify-between md:justify-start"
         style={{ height: scrolled ? 60 : 68, transition: "height 0.25s ease" }}
       >
-        <Link href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
+        <Link ref={logoRef} href="/" className="flex items-center gap-2" style={{ textDecoration: "none" }}>
           <span
             className="animate-pulse-dot"
             style={{
@@ -114,7 +140,10 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav
+          className="hidden md:flex items-center gap-8"
+          style={{ marginLeft: navOffset != null ? navOffset : "auto" }}
+        >
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -133,9 +162,6 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <CalBookingButton className="btn-coral">
-            Book a call
-          </CalBookingButton>
         </nav>
 
         {/* Hamburger */}
@@ -201,13 +227,6 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <CalBookingButton
-            className="btn-coral"
-            style={{ marginTop: "0.5rem", textAlign: "center" }}
-            onClick={() => setOpen(false)}
-          >
-            Book a call
-          </CalBookingButton>
         </div>
       </div>
     </header>

@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import AnimateIn from "@/components/AnimateIn";
 import BookingSection from "@/components/BookingSection";
 import HeroSection from "@/components/hero-section";
-import DirectLineCTA from "@/components/DirectLineCTA";
 import TestimonialsSection from "@/components/Testimonials";
 import CalBookingButton from "@/components/CalModal";
 import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
@@ -20,6 +19,63 @@ function formatRowDate(pubDate: string): string {
 
 const PORTRAIT_URL =
   "https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a3a46d312c6d02c8e46bab1_691d97efffebe375af48ce33_Remove_GMNI-removebg-preview.png";
+
+// ─── ASK-AN-AI POPUP (identical prompt/options/behavior as components/DirectLineCTA.tsx) ──
+const AI_PROMPT =
+  "I'm about to talk with Rizwan Mahmood, an operator and AI builder who's worked at Careem, Bolt, and Wise, and now runs the AI studio Soch. Help me think through what to ask him and where he might genuinely be useful.";
+
+const ENCODED_AI_PROMPT = encodeURIComponent(AI_PROMPT);
+
+function AskAiChatGPTIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width={26} height={26} fill="#0D0D0D" aria-hidden="true">
+      <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 5.7332A4.485 4.485 0 0 1 4.7213 3.7823v5.6772a.7664.7664 0 0 0 .3879.6765l5.8428 3.3685-2.02 1.1685a.0757.0757 0 0 1-.071 0l-4.8455-2.7935A4.504 4.504 0 0 1 2.35 5.7332zm16.5963 3.8558L13.0932 6.2151l2.02-1.1638a.0757.0757 0 0 1 .071 0l4.8404 2.7935a4.4992 4.4992 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.6813zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 6.8449V4.5125a.0662.0662 0 0 1 .0284-.0615l4.8404-2.7899a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0623a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.4599a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997z" />
+    </svg>
+  );
+}
+
+function AskAiClaudeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width={26} height={26} fill="none" aria-hidden="true">
+      <g stroke="#D97757" strokeWidth={2.2} strokeLinecap="round">
+        <line x1="12" y1="2" x2="12" y2="8" />
+        <line x1="12" y1="16" x2="12" y2="22" />
+        <line x1="2" y1="12" x2="8" y2="12" />
+        <line x1="16" y1="12" x2="22" y2="12" />
+        <line x1="4.9" y1="4.9" x2="9.2" y2="9.2" />
+        <line x1="14.8" y1="14.8" x2="19.1" y2="19.1" />
+        <line x1="19.1" y1="4.9" x2="14.8" y2="9.2" />
+        <line x1="9.2" y1="14.8" x2="4.9" y2="19.1" />
+      </g>
+    </svg>
+  );
+}
+
+function AskAiPerplexityIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width={26} height={26} fill="#1F1F1F" aria-hidden="true">
+      <path d="M22.3977 7.0896h-2.3106V.0676l-7.5094 6.3542V.1577h-1.1554v6.1966L4.0765 0v7.0896H1.6026v10.3976h2.4739v6.3542l6.7591-6.4471v6.4471h1.1554v-6.5372l6.6521 6.5372v-6.4471h2.4739V7.0896zM13.7331 2.6199v4.4697l-3.4763 3.0011V5.9497l3.4763-3.3298zm-8.4212.0177L8.7 5.9603v4.1354L5.3119 7.1618V2.6376zM2.7579 8.2449h1.9989v6.5518l-1.9989-1.7212V8.2449zm1.1958 8.3218l3.7592 3.2371v2.6903l-3.7592-3.5772v-2.3502zm4.9146 4.1697v-5.6524l-3.7395-3.2202V9.5807l4.895 4.2255v6.9302zm1.1554-6.9433l4.895-4.2223v3.4693l-3.7592 3.2192v5.6533l-1.1358.923v-6.9425zm8.6541 2.6905l-3.7592 3.5772v-2.6906l3.7592-3.2367v2.3501zM21.2421 13.078l-1.9989 1.7212V8.2449h1.9989v4.8331z" />
+    </svg>
+  );
+}
+
+const ASK_AI_OPTIONS = [
+  {
+    name: "ChatGPT",
+    href: `https://chat.openai.com/?q=${ENCODED_AI_PROMPT}`,
+    icon: <AskAiChatGPTIcon />,
+  },
+  {
+    name: "Claude",
+    href: `https://claude.ai/new?q=${ENCODED_AI_PROMPT}`,
+    icon: <AskAiClaudeIcon />,
+  },
+  {
+    name: "Perplexity",
+    href: `https://www.perplexity.ai/search?q=${ENCODED_AI_PROMPT}`,
+    icon: <AskAiPerplexityIcon />,
+  },
+];
 
 // ─── BY THE NUMBERS ──────────────────────────────────────────────────────────
 
@@ -222,6 +278,29 @@ export default function Home() {
       })
       .catch(() => {});
   }, []);
+
+  const [aiPickerOpen, setAiPickerOpen] = useState(false);
+  const aiWrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!aiPickerOpen) return;
+
+    function handlePointerDown(e: MouseEvent) {
+      if (aiWrapRef.current && !aiWrapRef.current.contains(e.target as Node)) {
+        setAiPickerOpen(false);
+      }
+    }
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setAiPickerOpen(false);
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [aiPickerOpen]);
 
   const [believeHovered, setBelieveHovered] = useState(false);
   const [audioState, setAudioState] = useState<'idle' | 'playing' | 'paused'>('idle');
@@ -687,6 +766,215 @@ export default function Home() {
         @media (max-width: 768px) {
           .route-cards-row {
             grid-template-columns: 1fr;
+          }
+        }
+        /* ===== MERGED HERO - "Have a chat with me?" + Consulting & coaching ===== */
+        .merged-hero {
+          padding: 32px 52px 24px;
+        }
+        .merged-hero-grid {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          grid-template-areas:
+            "photo text  price"
+            "photo cta   price"
+            "proof proof proof";
+          gap: 32px;
+          align-items: start;
+        }
+        .merged-hero-photo-col {
+          grid-area: photo;
+          align-self: start;
+          margin-top: 4px;
+        }
+        .merged-hero-text {
+          grid-area: text;
+        }
+        .merged-hero-photo {
+          width: 128px;
+          height: 128px;
+          min-width: 128px;
+          min-height: 128px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: top center;
+          border: 5px solid #ffffff;
+          box-shadow: 0 10px 24px rgba(34,51,44,0.2);
+          display: block;
+        }
+        .merged-hero-heading {
+          font-family: var(--font-fraunces), serif;
+          font-size: 34px;
+          font-weight: 900;
+          color: #22332C;
+          line-height: 1.1;
+          margin: 14px 0 0;
+        }
+        .merged-hero-heading-accent {
+          font-style: italic;
+          color: #EA6A47;
+        }
+        .merged-hero-desc {
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 15px;
+          color: rgba(34,51,44,0.65);
+          line-height: 1.7;
+          max-width: 460px;
+          margin: 8px 0 0;
+        }
+        .merged-hero-price {
+          grid-area: price;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: center;
+          gap: 6px;
+          text-align: right;
+          height: 100%;
+        }
+        .merged-cta-row {
+          grid-area: cta;
+          display: flex;
+          align-items: center;
+          gap: 28px;
+          width: fit-content;
+          margin-top: 14px;
+          padding-top: 14px;
+          border-top: 1px solid var(--line);
+        }
+        .merged-ladder-ai {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .merged-door-btn {
+          font-size: 14px;
+          padding: 12px 22px;
+        }
+        .merged-ai-popover {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .merged-ai-popover-link {
+          position: relative;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 8px 20px rgba(34,51,44,0.18), 0 2px 6px rgba(34,51,44,0.1);
+          text-decoration: none;
+          animation: mergedAiPopoverIn 150ms ease-out backwards;
+          transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .merged-ai-popover-link:hover,
+        .merged-ai-popover-link:focus-visible {
+          transform: scale(1.1);
+          box-shadow: 0 12px 26px rgba(34,51,44,0.24), 0 4px 10px rgba(34,51,44,0.14);
+        }
+        .merged-ai-popover-link svg {
+          width: 26px;
+          height: 26px;
+        }
+        @keyframes mergedAiPopoverIn {
+          from {
+            opacity: 0;
+            transform: scale(0.5);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .merged-ai-popover-label {
+          position: absolute;
+          bottom: calc(100% + 8px);
+          left: 50%;
+          transform: translateX(-50%);
+          white-space: nowrap;
+          font-family: var(--font-dm-sans), sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          color: #22332C;
+          background: #ffffff;
+          padding: 4px 10px;
+          border-radius: 100px;
+          box-shadow: 0 4px 12px rgba(34,51,44,0.14);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.18s ease;
+        }
+        .merged-ai-popover-link:hover .merged-ai-popover-label,
+        .merged-ai-popover-link:focus-visible .merged-ai-popover-label {
+          opacity: 1;
+        }
+        .merged-proof {
+          grid-area: proof;
+          margin-top: 14px;
+          padding-top: 14px;
+          border-top: 1px solid var(--line);
+        }
+        @media (max-width: 640px) {
+          .merged-hero {
+            padding: 28px 24px 20px;
+          }
+          .merged-hero-grid {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+              "photo"
+              "text"
+              "price"
+              "cta"
+              "proof";
+            justify-items: center;
+            text-align: center;
+          }
+          .merged-hero-desc {
+            max-width: none;
+          }
+          .merged-hero-price {
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            height: auto;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--line);
+          }
+          .merged-cta-row {
+            flex-wrap: wrap;
+            justify-content: center;
+            width: auto;
+            margin-top: 0;
+            padding-top: 0;
+            border-top: none;
+          }
+          .merged-ladder-ai {
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          .merged-ai-popover {
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+          }
+          @keyframes mergedAiPopoverIn {
+            from {
+              opacity: 0;
+              transform: scale(0.5);
+            }
+            to {
+              opacity: 1;
+              transform: scale(1);
+            }
+          }
+          .merged-proof {
+            justify-content: center;
           }
         }
         .thesis-grid {
@@ -1879,7 +2167,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 6 - ROUTES */}
-      <section className="section-pad" style={{ background: "var(--paper)" }}>
+      <section id="how-people-work-with-me" className="section-pad" style={{ background: "var(--paper)" }}>
         <div className="max-w-site">
           <AnimateIn delay={80}>
             <h2
@@ -1896,80 +2184,111 @@ export default function Home() {
           </AnimateIn>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {/* ROW 1 - Consulting featured */}
+            {/* ROW 1 - Consulting & "Have a chat with me?" merged hero */}
             <AnimateIn delay={200}>
-              <div className="route-hero-v2">
+              <div className="route-hero-v2 merged-hero">
                 <div className="route-hero-texture" aria-hidden="true" />
                 <div className="route-hero-glow" aria-hidden="true" />
 
-                <div className="route-hero-grid">
-                  {/* LEFT - tag, title, description, authority row */}
-                  <div>
+                <div className="merged-hero-grid">
+                  {/* Portrait */}
+                  <div className="merged-hero-photo-col">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="/riz-photo-new.jpg"
+                      alt="Rizwan Mahmood"
+                      className="merged-hero-photo"
+                    />
+                  </div>
+
+                  {/* Eyebrow, headline, description */}
+                  <div className="merged-hero-text">
                     <span className="route-tag-chip route-tag-chip--coral" style={{ marginBottom: 16 }}>
                       1:1 ADVISORY
                     </span>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-fraunces), serif",
-                        fontSize: 32,
-                        fontWeight: 800,
-                        color: "#22332C",
-                        marginBottom: 10,
-                      }}
-                    >
-                      Consulting & coaching
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: 15,
-                        color: "rgba(34,51,44,0.65)",
-                        lineHeight: 1.7,
-                        maxWidth: 520,
-                      }}
-                    >
+                    <h3 className="merged-hero-heading">
+                      Have a chat <span className="merged-hero-heading-accent">with me?</span>
+                    </h3>
+                    <p className="merged-hero-desc">
                       1:1 advisory and fractional ops for owners and the small teams around them. I come in, we get clear, we build the system.
                     </p>
-
-                    <div className="route-authority-row">
-                      <span className="route-authority-chip">
-                        <span className="route-authority-icon">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z" />
-                          </svg>
-                        </span>
-                        10+ yrs ops · Careem · Bolt · Wise
-                      </span>
-                      <span className="route-authority-chip">
-                        <span className="route-authority-icon">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="10" />
-                            <line x1="2" y1="12" x2="22" y2="12" />
-                            <path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z" />
-                          </svg>
-                        </span>
-                        4 continents
-                      </span>
-                      <span className="route-authority-chip">
-                        <span className="route-authority-icon">
-                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20 6L9 17l-5-5" />
-                          </svg>
-                        </span>
-                        Anthropic Partner
-                      </span>
-                    </div>
                   </div>
 
-                  {/* RIGHT - pricing block */}
-                  <div className="route-price-block">
+                  {/* Price block - right side, stacked vertically */}
+                  <div className="merged-hero-price">
                     <span className="route-price-from">From</span>
                     <span className="route-price-value">
                       <span className="route-price-amount">$140</span>
                       <span className="route-price-suffix">/hr</span>
                     </span>
-                    <CalBookingButton className="route-hero-btn">Book a call</CalBookingButton>
                     <span className="route-trust-line">30-min intro call · no obligation</span>
+                  </div>
+
+                  {/* CTAs - left, under headline/description */}
+                  <div className="merged-cta-row">
+                    <CalBookingButton className="route-hero-btn">Book a call →</CalBookingButton>
+
+                    <div className="merged-ladder-ai" ref={aiWrapRef}>
+                      <button
+                        type="button"
+                        className="route-btn-ghost merged-door-btn"
+                        onClick={() => setAiPickerOpen((open) => !open)}
+                        aria-expanded={aiPickerOpen}
+                        aria-haspopup="menu"
+                      >
+                        Ask an AI about Riz →
+                      </button>
+
+                      {aiPickerOpen && (
+                        <div className="merged-ai-popover" role="menu">
+                          {ASK_AI_OPTIONS.map((opt, i) => (
+                            <a
+                              key={opt.name}
+                              href={opt.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="merged-ai-popover-link"
+                              style={{ animationDelay: `${i * 50}ms` }}
+                              aria-label={`Ask ${opt.name} about Riz`}
+                              role="menuitem"
+                            >
+                              {opt.icon}
+                              <span className="merged-ai-popover-label" aria-hidden="true">{opt.name}</span>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Proof strip */}
+                  <div className="route-authority-row merged-proof">
+                    <span className="route-authority-chip">
+                      <span className="route-authority-icon">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01z" />
+                        </svg>
+                      </span>
+                      10+ yrs ops · Careem · Bolt · Wise
+                    </span>
+                    <span className="route-authority-chip">
+                      <span className="route-authority-icon">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <line x1="2" y1="12" x2="22" y2="12" />
+                          <path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z" />
+                        </svg>
+                      </span>
+                      4 continents
+                    </span>
+                    <span className="route-authority-chip">
+                      <span className="route-authority-icon">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                      </span>
+                      Anthropic Partner
+                    </span>
                   </div>
                 </div>
               </div>
@@ -2086,15 +2405,6 @@ export default function Home() {
           </>
         }
       />
-
-      {/* SECTION - HAVE A CHAT */}
-      <section className="section-pad" style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-        <div className="max-w-site">
-          <AnimateIn>
-            <DirectLineCTA />
-          </AnimateIn>
-        </div>
-      </section>
 
       {/* SECTION 8 - WRITING */}
       <section className="section-pad" style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>

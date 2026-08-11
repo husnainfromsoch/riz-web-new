@@ -544,7 +544,7 @@ export default function About() {
             </AnimateIn>
 
             <AnimateIn delay={420}>
-              <Link href="/services" className="about-cta">
+              <Link href="/#how-people-work-with-me" className="about-cta">
                 Have a chat with me?
               </Link>
             </AnimateIn>
