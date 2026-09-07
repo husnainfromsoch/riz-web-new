@@ -21,12 +21,32 @@ This matters: a shallow clone of the default branch shows an almost-empty
 |---|---|
 | **`v2.1`** | **Production → aiwithriz.com** |
 | `fix/cv-accuracy` | Corrections against the Sep 2026 CV + `CV-AUDIT.md`. Ready to merge |
+| `v3-fonts` | `fix/cv-accuracy` + the design preview's type stack (Archivo / Inter Tight / IBM Plex Mono). Colours and animations unchanged |
 | `preview/v2-dskin` | Homepage design preview at `public/preview/v2.html`. Experimental |
 | `fix/cal-link-guides` | Cal link fix |
 | `about-font-preview` | Font experiment on `/about` |
 | `services-font-preview` | Font experiment on `/services` |
 | `main` | This stale skeleton. Do not build on it |
 | `experiment` | Scratch |
+
+## Fonts
+
+`app/layout.tsx` loads the typefaces; `app/globals.css` then aliases eight
+legacy variable names onto them, so no selector has to change when the stack
+does. **Map by role, not by name** — `--font-inter-tight` is the *display* face
+in the components (28 declarations including `.hz-headline`), not the body face.
+
+| Role | Legacy variables | `v2.1` | `v3-fonts` |
+|---|---|---|---|
+| Display | `--font-inter-tight`, `--font-fraunces`, `--font-playfair`, `--font-bebas` | Poppins | Archivo |
+| Body | `--font-montserrat`, `--font-dm-sans` | Poppins | Inter Tight |
+| Mono | `--font-geist-mono`, `--font-dm-mono` | Poppins | IBM Plex Mono |
+
+On `v2.1` every alias points at Poppins, so the whole site is Poppins despite
+the naming. `/guides` additionally loads Caveat for handwriting, independently.
+
+Watch for declarations written as `'Inter Tight', var(--font-inter-tight)` —
+literal first means they ignore the variable entirely.
 
 ## Deploying
 
