@@ -1570,10 +1570,10 @@ export default function Home() {
                 background: "linear-gradient(to bottom, #C17A5A 0%, rgba(193,122,90,0.12) 100%)",
               }} />
               {([
-                { company: "Careem", year: "2015" },
-                { company: "Wise",   year: "2018" },
+                { company: "Careem", year: "2019" },
                 { company: "Bolt",   year: "2021" },
-                { company: "Now",    year: "2024", highlight: true },
+                { company: "Wise",   year: "2025" },
+                { company: "Now",    year: "2026", highlight: true },
               ] as { company: string; year: string; highlight?: boolean }[]).map((item, i) => {
                 const isActive = activeCompany === item.company;
                 const isDefaultHighlight = !!item.highlight && activeCompany === null;
