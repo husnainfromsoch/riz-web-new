@@ -505,7 +505,8 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-panel-list li {
           font-size: 14px;
-          color: #4A4A45;
+          color: #22332C;
+          font-weight: 500;
           line-height: 1.7;
         }
         .fcs-panel-list.after li {

@@ -1033,7 +1033,8 @@ function CaseStudiesContent() {
         }
         .case-panel-list-v2 li {
           font-size: 14px;
-          color: #4A4A45;
+          color: #22332C;
+          font-weight: 500;
           line-height: 1.7;
         }
         .case-panel-list-v2.after li {
