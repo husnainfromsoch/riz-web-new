@@ -2,7 +2,7 @@
 
 import { useEffect, useId } from "react";
 import { getCalApi } from "@calcom/embed-react";
-import { playPopSound } from "@/lib/pop-sound";
+import { playPopSound } from "@/lib/sounds";
 
 const CAL_LINK = "https://cal.com/consult-with-riz/consultingcall";
 const CAL_NAMESPACE = "consultingcall";
