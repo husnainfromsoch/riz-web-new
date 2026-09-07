@@ -205,7 +205,7 @@ export default function BookingSection() {
                     lineHeight: 1.1,
                   }}
                 >
-                  $200 / session
+                  $140 / session
                 </p>
               </div>
               <CalBookingButton className="btn-coral" style={{ flexShrink: 0 }}>

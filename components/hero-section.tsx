@@ -376,7 +376,7 @@ export default function HeroSection() {
                 </ul>
 
                 <div className="hz-cta-row">
-                  <CalBookingButton className="hz-btn-primary">Book a 30-min call →</CalBookingButton>
+                  <CalBookingButton className="hz-btn-primary">Book a 60-min call →</CalBookingButton>
                   <Link href="/case-studies" className="hz-btn-secondary">See what I&apos;ve built</Link>
                 </div>
 

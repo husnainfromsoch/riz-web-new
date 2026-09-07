@@ -2221,7 +2221,7 @@ export default function Home() {
                       <span className="route-price-amount">$140</span>
                       <span className="route-price-suffix">/hr</span>
                     </span>
-                    <span className="route-trust-line">30-min intro call · no obligation</span>
+                    <span className="route-trust-line">60-min intro call · no obligation</span>
                   </div>
 
                   {/* CTAs - left, under headline/description */}
