@@ -51,7 +51,7 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
             <span
               style={{
                 fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.68rem",
+                fontSize: "0.875rem",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -65,7 +65,7 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
           <h2
             style={{
               fontFamily: "var(--font-playfair), serif",
-              fontSize: "clamp(1.4rem, 2.5vw, 1.75rem)",
+              fontSize: "clamp(1.5rem, 2.5vw, 1.75rem)",
               color: "var(--ink)",
               fontWeight: 700,
               marginBottom: "1.25rem",
@@ -82,7 +82,7 @@ function CaseCard({ c, i }: { c: typeof cases[0]; i: number }) {
                 key={r}
                 style={{
                   fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.72rem",
+                  fontSize: "0.875rem",
                   fontWeight: 500,
                   color: "var(--coral)",
                   background: "rgba(234,106,71,0.07)",
@@ -155,7 +155,7 @@ export default function CaseStudies() {
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
+                fontSize: "clamp(2.25rem, 4vw, 3rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
@@ -169,7 +169,7 @@ export default function CaseStudies() {
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.1rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 lineHeight: 1.7,
                 maxWidth: 540,
@@ -197,7 +197,7 @@ export default function CaseStudies() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
                 color: "#fff",
                 fontWeight: 700,
                 marginBottom: "1rem",
@@ -211,7 +211,7 @@ export default function CaseStudies() {
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontSize: "1rem",
-                color: "var(--faint)",
+                color: "var(--faint-on-dark)",
                 marginBottom: "2rem",
               }}
             >
@@ -221,7 +221,7 @@ export default function CaseStudies() {
           <AnimateIn delay={200}>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link href="/services/consulting" className="btn-coral">Book a call →</Link>
-              <a href="mailto:riz@withsoch.com" className="btn-ghost" style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}>riz@withsoch.com</a>
+              <a href="mailto:riz@withsoch.com" className="btn-ghost" style={{ color: "var(--faint-on-dark)", borderColor: "rgba(255,255,255,0.2)" }}>riz@withsoch.com</a>
             </div>
           </AnimateIn>
         </div>

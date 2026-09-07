@@ -74,7 +74,7 @@ export default function About() {
                       fontFamily: "var(--font-playfair), serif",
                       fontWeight: 700,
                       fontSize: "4rem",
-                      color: "rgba(255,255,255,0.25)",
+                      color: "rgba(255,255,255,0.72)",
                     }}
                   >
                     Riz
@@ -92,7 +92,7 @@ export default function About() {
                 <h1
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(2rem, 4vw, 2.8rem)",
+                    fontSize: "clamp(2rem, 4vw, 2.875rem)",
                     lineHeight: 1.2,
                     color: "var(--ink)",
                     fontWeight: 700,
@@ -107,7 +107,7 @@ export default function About() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.05rem",
+                    fontSize: "1.125rem",
                     color: "var(--body)",
                     lineHeight: 1.75,
                     marginBottom: "1.25rem",
@@ -120,7 +120,7 @@ export default function About() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.05rem",
+                    fontSize: "1.125rem",
                     color: "var(--body)",
                     lineHeight: 1.75,
                     marginBottom: "2rem",
@@ -154,7 +154,7 @@ export default function About() {
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontWeight: 600,
-                  fontSize: "0.9rem",
+                  fontSize: "1rem",
                   color: "var(--muted)",
                   letterSpacing: "0.04em",
                 }}
@@ -173,7 +173,7 @@ export default function About() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "3rem",
@@ -197,7 +197,7 @@ export default function About() {
                   <h3
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.2rem",
+                      fontSize: "1.25rem",
                       color: "var(--ink)",
                       fontWeight: 700,
                       marginBottom: "0.75rem",
@@ -208,7 +208,7 @@ export default function About() {
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.95rem",
+                      fontSize: "1rem",
                       color: "var(--body)",
                       lineHeight: 1.7,
                     }}
@@ -237,7 +237,7 @@ export default function About() {
               <p
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.3rem, 2.5vw, 1.65rem)",
+                  fontSize: "clamp(1.375rem, 2.5vw, 1.75rem)",
                   color: "var(--ink)",
                   fontStyle: "italic",
                   lineHeight: 1.65,
@@ -299,7 +299,7 @@ export default function About() {
                       style={{
                         fontFamily: "var(--font-dm-sans), sans-serif",
                         fontWeight: 600,
-                        fontSize: "0.9rem",
+                        fontSize: "1rem",
                         color: "var(--ink)",
                         marginBottom: "0.25rem",
                       }}
@@ -309,7 +309,7 @@ export default function About() {
                     <p
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.72rem",
+                        fontSize: "0.875rem",
                         color: "var(--muted)",
                       }}
                     >
@@ -331,7 +331,7 @@ export default function About() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                  fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                   color: "#fff",
                   fontWeight: 700,
                   marginBottom: "1rem",
@@ -344,8 +344,8 @@ export default function About() {
               <p
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "1.05rem",
-                  color: "var(--faint)",
+                  fontSize: "1.125rem",
+                  color: "var(--faint-on-dark)",
                   lineHeight: 1.7,
                   marginBottom: "2rem",
                 }}

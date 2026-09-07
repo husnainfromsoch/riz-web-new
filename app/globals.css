@@ -5,9 +5,12 @@
   --cream: #F3ECDD;
   --cream-2: #F8F3E9;
   --ink: #22332C;
-  --body: #4A4A4A;
-  --muted: #8A857B;
-  --faint: #B7B1A4;
+  --body: #333333;
+  --muted: #55514A;
+  --faint: #5E594E;
+  /* --faint is for light grounds; on the dark ink blocks it has to go
+     lighter, not darker, or contrast collapses */
+  --faint-on-dark: #B7B1A4;
   --coral: #EA6A47;
   --coral-d: #CE5430;
   --amber: #D79A36;
@@ -19,6 +22,15 @@
   --ease: cubic-bezier(.2,.7,.2,1);
   --background: var(--bg);
   --foreground: var(--ink);
+
+  /* type stack, mapped by role */
+  --font-display: var(--font-archivo);
+  --font-body: var(--font-intertight);
+  --font-mono: var(--font-plexmono);
+  /* legacy names kept so existing declarations keep resolving */
+  --font-playfair: var(--font-display);
+  --font-dm-sans: var(--font-body);
+  --font-dm-mono: var(--font-mono);
 }
 
 @theme inline {
@@ -37,17 +49,17 @@ html {
 body {
   background: var(--bg);
   color: var(--body);
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body), sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-display), sans-serif;
   color: var(--ink);
 }
 
 .font-mono-dm {
-  font-family: 'DM Mono', monospace;
+  font-family: var(--font-mono), monospace;
 }
 
 @keyframes pulse-dot {
@@ -111,9 +123,9 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   padding: 0.75rem 1.75rem;
   border-radius: 6px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   transition: background 0.2s ease;
   display: inline-block;
   text-decoration: none;
@@ -130,9 +142,9 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--ink);
   padding: 0.75rem 1.75rem;
   border-radius: 6px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
   border: 1.5px solid var(--line-2);
   transition: border-color 0.2s ease, color 0.2s ease;
   display: inline-block;
@@ -146,8 +158,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-eyebrow {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.75rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -159,8 +171,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.25rem 0.75rem;
   border-radius: 99px;
   background: var(--cream);
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.875rem;
   color: var(--muted);
   font-weight: 500;
   letter-spacing: 0.05em;

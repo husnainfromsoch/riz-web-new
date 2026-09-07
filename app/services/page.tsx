@@ -38,7 +38,7 @@ export default function Services() {
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
+                fontSize: "clamp(2.25rem, 4vw, 3rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
@@ -53,7 +53,7 @@ export default function Services() {
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.1rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 lineHeight: 1.7,
                 maxWidth: 520,
@@ -86,7 +86,7 @@ export default function Services() {
                   <span
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.72rem",
+                      fontSize: "0.875rem",
                       color: "var(--coral)",
                       fontWeight: 600,
                       letterSpacing: "0.06em",
@@ -111,7 +111,7 @@ export default function Services() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.05rem",
+                    fontSize: "1.125rem",
                     color: "var(--body)",
                     lineHeight: 1.7,
                     maxWidth: 620,
@@ -120,7 +120,7 @@ export default function Services() {
                   {s.body}
                 </p>
                 <div>
-                  <Link href={s.href} className="btn-coral" style={{ fontSize: "0.9rem" }}>
+                  <Link href={s.href} className="btn-coral" style={{ fontSize: "1rem" }}>
                     {s.cta}
                   </Link>
                 </div>
@@ -137,7 +137,7 @@ export default function Services() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+                fontSize: "clamp(1.625rem, 3vw, 2.25rem)",
                 color: "#fff",
                 fontWeight: 700,
                 marginBottom: "1rem",
@@ -151,7 +151,7 @@ export default function Services() {
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontSize: "1rem",
-                color: "var(--faint)",
+                color: "var(--faint-on-dark)",
                 marginBottom: "2rem",
               }}
             >

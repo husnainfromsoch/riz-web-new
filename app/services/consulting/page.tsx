@@ -36,7 +36,7 @@ export default function ConsultingPage() {
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
+                fontSize: "clamp(2.25rem, 4vw, 3rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
@@ -51,7 +51,7 @@ export default function ConsultingPage() {
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.1rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 lineHeight: 1.7,
                 maxWidth: 520,
@@ -70,7 +70,7 @@ export default function ConsultingPage() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.6rem, 2.5vw, 2rem)",
+                fontSize: "clamp(1.625rem, 2.5vw, 2rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "2.5rem",
@@ -94,7 +94,7 @@ export default function ConsultingPage() {
                   <h3
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.15rem",
+                      fontSize: "1.25rem",
                       color: "var(--ink)",
                       fontWeight: 700,
                       marginBottom: "0.65rem",
@@ -105,7 +105,7 @@ export default function ConsultingPage() {
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
+                      fontSize: "1rem",
                       color: "var(--body)",
                       lineHeight: 1.7,
                     }}
@@ -134,7 +134,7 @@ export default function ConsultingPage() {
               <span
                 style={{
                   fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.75rem",
+                  fontSize: "0.875rem",
                   color: "var(--coral)",
                   fontWeight: 600,
                   letterSpacing: "0.06em",
@@ -146,7 +146,7 @@ export default function ConsultingPage() {
               <span
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "1.1rem",
+                  fontSize: "1.125rem",
                   color: "var(--ink)",
                   fontWeight: 600,
                 }}
@@ -166,7 +166,7 @@ export default function ConsultingPage() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.6rem, 2.5vw, 2rem)",
+                  fontSize: "clamp(1.625rem, 2.5vw, 2rem)",
                   color: "var(--ink)",
                   fontWeight: 700,
                   marginBottom: "0.75rem",
@@ -201,7 +201,7 @@ export default function ConsultingPage() {
                   <p
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.2rem",
+                      fontSize: "1.25rem",
                       color: "var(--coral)",
                       fontWeight: 600,
                     }}
@@ -222,7 +222,7 @@ export default function ConsultingPage() {
                       <label
                         style={{
                           fontFamily: "var(--font-dm-mono), monospace",
-                          fontSize: "0.7rem",
+                          fontSize: "0.875rem",
                           fontWeight: 500,
                           letterSpacing: "0.08em",
                           textTransform: "uppercase",
@@ -245,7 +245,7 @@ export default function ConsultingPage() {
                           border: "1px solid var(--line-2)",
                           borderRadius: 6,
                           fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "0.95rem",
+                          fontSize: "1rem",
                           color: "var(--ink)",
                           background: "#fff",
                           outline: "none",
@@ -257,7 +257,7 @@ export default function ConsultingPage() {
                     <label
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.7rem",
+                        fontSize: "0.875rem",
                         fontWeight: 500,
                         letterSpacing: "0.08em",
                         textTransform: "uppercase",
@@ -280,7 +280,7 @@ export default function ConsultingPage() {
                         border: "1px solid var(--line-2)",
                         borderRadius: 6,
                         fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.95rem",
+                        fontSize: "1rem",
                         color: "var(--ink)",
                         background: "#fff",
                         outline: "none",

@@ -74,7 +74,7 @@ export default function Blog() {
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
+                fontSize: "clamp(2.25rem, 4vw, 3rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
@@ -88,7 +88,7 @@ export default function Blog() {
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.05rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 lineHeight: 1.7,
                 marginBottom: "2rem",
@@ -113,7 +113,7 @@ export default function Blog() {
                 border: "1px solid var(--line-2)",
                 borderRadius: 8,
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "0.95rem",
+                fontSize: "1rem",
                 color: "var(--ink)",
                 background: "#fff",
                 outline: "none",
@@ -137,7 +137,7 @@ export default function Blog() {
                     borderColor: activeTag === tag ? "var(--coral)" : "var(--line-2)",
                     background: activeTag === tag ? "rgba(234,106,71,0.08)" : "transparent",
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.72rem",
+                    fontSize: "0.875rem",
                     color: activeTag === tag ? "var(--coral)" : "var(--muted)",
                     cursor: "pointer",
                     transition: "all 0.15s",
@@ -189,7 +189,7 @@ export default function Blog() {
                       <span
                         style={{
                           fontFamily: "var(--font-dm-mono), monospace",
-                          fontSize: "0.68rem",
+                          fontSize: "0.875rem",
                           color: "var(--faint)",
                           letterSpacing: "0.06em",
                         }}
@@ -201,7 +201,7 @@ export default function Blog() {
                     <h2
                       style={{
                         fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.1rem",
+                        fontSize: "1.125rem",
                         fontWeight: 600,
                         color: "var(--ink)",
                         lineHeight: 1.4,

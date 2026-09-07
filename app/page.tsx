@@ -56,7 +56,7 @@ function FlowCard() {
           <span
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.72rem",
+              fontSize: "0.875rem",
               textTransform: "uppercase",
               letterSpacing: "0.1em",
               color: "var(--muted)",
@@ -67,7 +67,7 @@ function FlowCard() {
           <button
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.68rem",
+              fontSize: "0.875rem",
               color: "var(--muted)",
               background: "none",
               border: "1px solid var(--line-2)",
@@ -115,7 +115,7 @@ function FlowCard() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.65rem",
+                    fontSize: "0.875rem",
                     color: active === i ? "var(--coral)" : "var(--muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
@@ -129,7 +129,7 @@ function FlowCard() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.85rem",
+                    fontSize: "0.875rem",
                     color: active === i ? "var(--ink)" : "var(--body)",
                     fontWeight: active === i ? 600 : 400,
                     transition: "all 0.3s ease",
@@ -142,7 +142,7 @@ function FlowCard() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.65rem",
+                    fontSize: "0.875rem",
                     color: "var(--amber)",
                     whiteSpace: "nowrap",
                   }}
@@ -151,7 +151,7 @@ function FlowCard() {
                 </span>
               )}
               {node.type === "output" && active === i && (
-                <span style={{ color: "var(--coral)", fontSize: "0.9rem", fontWeight: 700 }}>✓</span>
+                <span style={{ color: "var(--coral)", fontSize: "1rem", fontWeight: 700 }}>✓</span>
               )}
             </div>
           ))}
@@ -364,7 +364,7 @@ export default function Home() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.75rem",
+                    fontSize: "0.875rem",
                     fontWeight: 500,
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
@@ -379,7 +379,7 @@ export default function Home() {
                 <h1
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(2.8rem, 6vw, 5rem)",
+                    fontSize: "clamp(2.875rem, 6vw, 5rem)",
                     lineHeight: 1.12,
                     color: "var(--ink)",
                     marginBottom: "1.5rem",
@@ -394,7 +394,7 @@ export default function Home() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.1rem",
+                    fontSize: "1.125rem",
                     color: "var(--body)",
                     lineHeight: 1.75,
                     marginBottom: "2rem",
@@ -446,7 +446,7 @@ export default function Home() {
                   <span
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.75rem",
+                      fontSize: "0.875rem",
                       fontWeight: 600,
                       color: "var(--coral)",
                       letterSpacing: "0.06em",
@@ -457,7 +457,7 @@ export default function Home() {
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
+                      fontSize: "1rem",
                       color: "var(--body)",
                       lineHeight: 1.65,
                     }}
@@ -482,7 +482,7 @@ export default function Home() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                  fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                   color: "var(--ink)",
                   fontWeight: 700,
                   marginBottom: "2.5rem",
@@ -501,7 +501,7 @@ export default function Home() {
                 <p
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
+                    fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
                     color: "var(--body)",
                     lineHeight: 1.7,
                     marginBottom: "1.5rem",
@@ -516,7 +516,7 @@ export default function Home() {
               <p
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
+                  fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
                   color: "var(--ink)",
                   lineHeight: 1.7,
                   marginBottom: "1.5rem",
@@ -535,7 +535,7 @@ export default function Home() {
                 <p
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
+                    fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
                     color: "var(--body)",
                     lineHeight: 1.7,
                     marginBottom: "1.5rem",
@@ -551,7 +551,7 @@ export default function Home() {
                 <p
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.4rem, 2.5vw, 1.75rem)",
+                    fontSize: "clamp(1.5rem, 2.5vw, 1.75rem)",
                     color: "var(--ink)",
                     fontWeight: 700,
                     marginBottom: "0.5rem",
@@ -562,7 +562,7 @@ export default function Home() {
                 <p
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "clamp(1.2rem, 2vw, 1.45rem)",
+                    fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
                     color: "var(--coral)",
                     fontStyle: "italic",
                   }}
@@ -585,7 +585,7 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "0.75rem",
@@ -662,7 +662,7 @@ export default function Home() {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.68rem",
+                        fontSize: "0.875rem",
                         fontWeight: 500,
                         letterSpacing: "0.1em",
                         textTransform: "uppercase",
@@ -676,7 +676,7 @@ export default function Home() {
                   <h3
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.2rem",
+                      fontSize: "1.25rem",
                       color: "var(--ink)",
                       fontWeight: 700,
                       lineHeight: 1.3,
@@ -687,7 +687,7 @@ export default function Home() {
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
+                      fontSize: "1rem",
                       color: "var(--body)",
                       lineHeight: 1.7,
                       flex: 1,
@@ -699,7 +699,7 @@ export default function Home() {
                   <p
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.65rem",
+                      fontSize: "0.875rem",
                       fontWeight: 500,
                       letterSpacing: "0.1em",
                       color: "var(--faint)",
@@ -737,7 +737,7 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "0.75rem",
@@ -806,7 +806,7 @@ export default function Home() {
                   <span
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.78rem",
+                      fontSize: "0.875rem",
                       fontWeight: 500,
                       color: "rgba(255,255,255,0.9)",
                     }}
@@ -816,8 +816,8 @@ export default function Home() {
                   <span
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.68rem",
-                      color: "rgba(255,255,255,0.6)",
+                      fontSize: "0.875rem",
+                      color: "rgba(255,255,255,0.72)",
                     }}
                   >
                     {tile.duration}
@@ -839,7 +839,7 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "0.75rem",
@@ -884,7 +884,7 @@ export default function Home() {
                         right: -20,
                         top: "1.25rem",
                         color: "var(--faint)",
-                        fontSize: "1.1rem",
+                        fontSize: "1.125rem",
                         fontWeight: 300,
                         zIndex: 1,
                       }}
@@ -903,7 +903,7 @@ export default function Home() {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "1.8rem",
+                        fontSize: "1.875rem",
                         fontWeight: 600,
                         color: "var(--coral)",
                         opacity: 0.4,
@@ -917,7 +917,7 @@ export default function Home() {
                     <h3
                       style={{
                         fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.1rem",
+                        fontSize: "1.125rem",
                         color: "var(--ink)",
                         fontWeight: 700,
                         marginBottom: "0.65rem",
@@ -962,7 +962,7 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "2.5rem",
@@ -983,7 +983,7 @@ export default function Home() {
               <span
                 style={{
                   fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.72rem",
+                  fontSize: "0.875rem",
                   color: "var(--muted)",
                   letterSpacing: "0.06em",
                   textTransform: "uppercase",
@@ -1021,7 +1021,7 @@ export default function Home() {
                       <p
                         style={{
                           fontFamily: "var(--font-playfair), serif",
-                          fontSize: "1.1rem",
+                          fontSize: "1.125rem",
                           color: "var(--ink)",
                           fontWeight: 600,
                           marginBottom: "0.25rem",
@@ -1044,7 +1044,7 @@ export default function Home() {
                         <span
                           style={{
                             fontFamily: "var(--font-dm-mono), monospace",
-                            fontSize: "0.72rem",
+                            fontSize: "0.875rem",
                             color: "var(--coral)",
                             letterSpacing: "0.06em",
                           }}
@@ -1082,7 +1082,7 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "0.75rem",
@@ -1123,7 +1123,7 @@ export default function Home() {
                   <p
                     style={{
                       fontFamily: "var(--font-dm-mono), monospace",
-                      fontSize: "0.68rem",
+                      fontSize: "0.875rem",
                       color: "var(--faint)",
                       letterSpacing: "0.06em",
                       textTransform: "uppercase",
@@ -1134,7 +1134,7 @@ export default function Home() {
                   <h3
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.05rem",
+                      fontSize: "1.125rem",
                       fontWeight: 600,
                       color: "var(--ink)",
                       lineHeight: 1.4,
@@ -1185,7 +1185,7 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)",
+                fontSize: "clamp(1.875rem, 3.5vw, 2.625rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 lineHeight: 1.25,
@@ -1199,7 +1199,7 @@ export default function Home() {
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.05rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 lineHeight: 1.75,
                 marginBottom: "2rem",

@@ -169,7 +169,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
               <span
                 style={{
                   fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.72rem",
+                  fontSize: "0.875rem",
                   color: "var(--faint)",
                 }}
               >
@@ -179,7 +179,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 4vw, 2.75rem)",
+                fontSize: "clamp(1.875rem, 4vw, 2.75rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
@@ -199,7 +199,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             <p
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.1rem, 1.8vw, 1.3rem)",
+                fontSize: "clamp(1.125rem, 1.8vw, 1.375rem)",
                 color: "var(--body)",
                 lineHeight: 1.8,
                 marginBottom: "2rem",
@@ -216,7 +216,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                     key={i}
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
+                      fontSize: "clamp(1.25rem, 2vw, 1.5rem)",
                       color: "var(--ink)",
                       fontWeight: 700,
                       margin: "2.5rem 0 1rem",
@@ -239,7 +239,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                     <p
                       style={{
                         fontFamily: "var(--font-playfair), serif",
-                        fontSize: "clamp(1rem, 1.6vw, 1.15rem)",
+                        fontSize: "clamp(1rem, 1.6vw, 1.25rem)",
                         fontStyle: "italic",
                         color: "var(--ink)",
                         lineHeight: 1.7,
@@ -255,7 +255,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                   key={i}
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1.05rem",
+                    fontSize: "1.125rem",
                     color: "var(--body)",
                     lineHeight: 1.85,
                     marginBottom: "1.5rem",

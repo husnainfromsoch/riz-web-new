@@ -33,7 +33,7 @@ export default function ProjectsPage() {
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
+                fontSize: "clamp(2.25rem, 4vw, 3rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
@@ -48,7 +48,7 @@ export default function ProjectsPage() {
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.1rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 lineHeight: 1.7,
                 maxWidth: 520,
@@ -67,7 +67,7 @@ export default function ProjectsPage() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.6rem, 2.5vw, 2rem)",
+                fontSize: "clamp(1.625rem, 2.5vw, 2rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "2.5rem",
@@ -91,7 +91,7 @@ export default function ProjectsPage() {
                   <h3
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.15rem",
+                      fontSize: "1.25rem",
                       color: "var(--ink)",
                       fontWeight: 700,
                       marginBottom: "0.65rem",
@@ -102,7 +102,7 @@ export default function ProjectsPage() {
                   <p
                     style={{
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.9rem",
+                      fontSize: "1rem",
                       color: "var(--body)",
                       lineHeight: 1.7,
                     }}
@@ -139,7 +139,7 @@ export default function ProjectsPage() {
                 <span
                   style={{
                     fontFamily: "var(--font-playfair), serif",
-                    fontSize: "1.1rem",
+                    fontSize: "1.125rem",
                     color: "var(--ink)",
                     fontWeight: 700,
                   }}
@@ -160,7 +160,7 @@ export default function ProjectsPage() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
+                  fontSize: "clamp(1.625rem, 2.5vw, 2.25rem)",
                   color: "#fff",
                   fontWeight: 700,
                   marginBottom: "1rem",
@@ -174,7 +174,7 @@ export default function ProjectsPage() {
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontSize: "1rem",
-                  color: "var(--faint)",
+                  color: "var(--faint-on-dark)",
                   lineHeight: 1.7,
                   marginBottom: "2rem",
                 }}
@@ -190,7 +190,7 @@ export default function ProjectsPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-ghost"
-                  style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}
+                  style={{ color: "var(--faint-on-dark)", borderColor: "rgba(255,255,255,0.2)" }}
                 >
                   Visit withsoch.com ↗
                 </a>

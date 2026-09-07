@@ -64,7 +64,7 @@ export default function Footer() {
                 style={{
                   fontFamily: "var(--font-playfair), serif",
                   fontWeight: 700,
-                  fontSize: "1.4rem",
+                  fontSize: "1.5rem",
                   color: "var(--ink)",
                   letterSpacing: "-0.02em",
                 }}
@@ -100,7 +100,7 @@ export default function Footer() {
             <p
               style={{
                 fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.7rem",
+                fontSize: "0.875rem",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -136,7 +136,7 @@ export default function Footer() {
             <p
               style={{
                 fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.7rem",
+                fontSize: "0.875rem",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -174,7 +174,7 @@ export default function Footer() {
             <p
               style={{
                 fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.7rem",
+                fontSize: "0.875rem",
                 fontWeight: 500,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
@@ -222,12 +222,12 @@ export default function Footer() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ color: "var(--coral)", fontSize: "0.6rem" }}>●</span>
+            <span style={{ color: "var(--coral)", fontSize: "0.875rem" }}>●</span>
             <a
               href="mailto:riz@withsoch.com"
               style={{
                 fontFamily: "var(--font-dm-mono), monospace",
-                fontSize: "0.78rem",
+                fontSize: "0.875rem",
                 color: "var(--muted)",
                 textDecoration: "none",
               }}
@@ -238,7 +238,7 @@ export default function Footer() {
           <p
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.72rem",
+              fontSize: "0.875rem",
               color: "var(--faint)",
               letterSpacing: "0.04em",
             }}

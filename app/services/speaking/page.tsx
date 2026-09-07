@@ -36,7 +36,7 @@ export default function SpeakingPage() {
             <h1
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(2.2rem, 4vw, 3rem)",
+                fontSize: "clamp(2.25rem, 4vw, 3rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
                 fontWeight: 700,
@@ -50,7 +50,7 @@ export default function SpeakingPage() {
             <p
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1.1rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 lineHeight: 1.7,
                 maxWidth: 520,
@@ -71,7 +71,7 @@ export default function SpeakingPage() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.5rem, 2.5vw, 1.8rem)",
+                  fontSize: "clamp(1.5rem, 2.5vw, 1.875rem)",
                   color: "var(--ink)",
                   fontWeight: 700,
                   marginBottom: "2rem",
@@ -92,7 +92,7 @@ export default function SpeakingPage() {
                     <h3
                       style={{
                         fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.1rem",
+                        fontSize: "1.125rem",
                         color: "var(--ink)",
                         fontWeight: 600,
                         marginBottom: "0.5rem",
@@ -103,7 +103,7 @@ export default function SpeakingPage() {
                     <p
                       style={{
                         fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.9rem",
+                        fontSize: "1rem",
                         color: "var(--body)",
                         lineHeight: 1.7,
                       }}
@@ -122,7 +122,7 @@ export default function SpeakingPage() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.5rem, 2.5vw, 1.8rem)",
+                  fontSize: "clamp(1.5rem, 2.5vw, 1.875rem)",
                   color: "var(--ink)",
                   fontWeight: 700,
                   marginBottom: "2rem",
@@ -146,7 +146,7 @@ export default function SpeakingPage() {
                       padding: "1.1rem 1.5rem",
                       borderBottom: i < formats.length - 1 ? "1px solid var(--line)" : "none",
                       fontFamily: "var(--font-dm-sans), sans-serif",
-                      fontSize: "0.95rem",
+                      fontSize: "1rem",
                       color: "var(--body)",
                       display: "flex",
                       alignItems: "center",
@@ -154,13 +154,13 @@ export default function SpeakingPage() {
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                      <span style={{ color: "var(--coral)", fontSize: "0.55rem" }}>●</span>
+                      <span style={{ color: "var(--coral)", fontSize: "0.875rem" }}>●</span>
                       <span style={{ fontWeight: 500, color: "var(--ink)" }}>{f.label}</span>
                     </div>
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.72rem",
+                        fontSize: "0.875rem",
                         color: "var(--muted)",
                       }}
                     >
@@ -182,7 +182,7 @@ export default function SpeakingPage() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
+                  fontSize: "clamp(1.625rem, 2.5vw, 2.25rem)",
                   color: "#fff",
                   fontWeight: 700,
                   marginBottom: "1rem",
@@ -196,7 +196,7 @@ export default function SpeakingPage() {
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
                   fontSize: "1rem",
-                  color: "var(--faint)",
+                  color: "var(--faint-on-dark)",
                   lineHeight: 1.7,
                   marginBottom: "2rem",
                 }}
@@ -210,7 +210,7 @@ export default function SpeakingPage() {
                 <Link
                   href="/services/consulting#book"
                   className="btn-ghost"
-                  style={{ color: "var(--faint)", borderColor: "rgba(255,255,255,0.2)" }}
+                  style={{ color: "var(--faint-on-dark)", borderColor: "rgba(255,255,255,0.2)" }}
                 >
                   Fill out a brief →
                 </Link>

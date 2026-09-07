@@ -1,28 +1,33 @@
 import type { Metadata } from "next";
-import { Playfair_Display, DM_Sans, DM_Mono } from "next/font/google";
+import { Archivo, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const playfair = Playfair_Display({
+// v3 type stack: Archivo for display, Inter Tight for body,
+// IBM Plex Mono for figures and labels. The old --font-playfair /
+// --font-dm-sans / --font-dm-mono names are kept as role aliases in
+// globals.css so existing declarations keep resolving.
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const interTight = Inter_Tight({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-  variable: "--font-playfair",
+  variable: "--font-intertight",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
-
-const dmMono = DM_Mono({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
-  variable: "--font-dm-mono",
+  variable: "--font-plexmono",
   display: "swap",
 });
 
@@ -38,7 +43,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} h-full`}
+      className={`${archivo.variable} ${interTight.variable} ${plexMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
         <Navbar />
