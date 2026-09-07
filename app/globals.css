@@ -33,15 +33,20 @@
   --btn-height: 52px;
   --btn-radius: 8px;
 
-  /* Typography — remap legacy font variables to new system */
-  --font-montserrat: var(--font-poppins);
-  --font-fraunces: var(--font-poppins);
-  --font-geist-mono: var(--font-poppins);
-  --font-inter-tight: var(--font-montserrat);
-  --font-playfair: var(--font-inter-tight);
-  --font-dm-sans: var(--font-inter-tight);
-  --font-dm-mono: var(--font-geist-mono);
-  --font-bebas: var(--font-inter-tight);
+  /* Typography — v3 stack. Three real roles, then the legacy variable names
+     remapped onto them so no selector has to change. */
+  --font-display: var(--font-archivo);
+  --font-body: var(--font-intertight);
+  --font-mono: var(--font-plexmono);
+
+  --font-fraunces: var(--font-display);
+  --font-playfair: var(--font-display);
+  --font-bebas: var(--font-display);
+  --font-montserrat: var(--font-body);
+  --font-inter-tight: var(--font-body);
+  --font-dm-sans: var(--font-body);
+  --font-geist-mono: var(--font-mono);
+  --font-dm-mono: var(--font-mono);
 }
 
 @theme inline {
@@ -81,7 +86,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-montserrat), sans-serif;
+  font-family: var(--font-display), sans-serif;
   color: var(--ink);
   font-weight: 900;
   line-height: 1.05;
