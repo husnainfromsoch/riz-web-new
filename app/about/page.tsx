@@ -285,7 +285,7 @@ function StatRow({
         <span
           style={{
             display: "block",
-            fontSize: 9,
+            fontSize: 12,
             color: "rgba(243,236,221,0.75)",
             letterSpacing: "0.08em",
             marginTop: 2,
@@ -329,7 +329,7 @@ function TrackRecordPanel() {
     >
       <p
         style={{
-          fontSize: 11,
+          fontSize: 13,
           color: "#EA6A47",
           letterSpacing: "0.12em",
           marginBottom: 32,
@@ -585,7 +585,7 @@ export default function About() {
             >
               <p
                 style={{
-                  fontSize: 12,
+                  fontSize: 14,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
                   color: "var(--ink)",
@@ -641,7 +641,7 @@ export default function About() {
                     <span className="timeline-toggle-label">
                       <span
                         style={{
-                          fontSize: 11,
+                          fontSize: 13,
                           color: "#EA6A47",
                           letterSpacing: "0.12em",
                         }}

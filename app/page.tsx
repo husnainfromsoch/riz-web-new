@@ -1915,7 +1915,7 @@ export default function Home() {
                                 color: "var(--cream)",
                                 opacity: 1,
                                 fontFamily: "var(--font-montserrat), sans-serif",
-                                fontSize: 10,
+                                fontSize: 12,
                                 borderRadius: 4,
                                 padding: "3px 8px",
                                 flexShrink: 0,
@@ -1923,7 +1923,7 @@ export default function Home() {
                             </div>
                             <p style={{
                               fontFamily: "var(--font-montserrat), sans-serif",
-                              fontSize: 12,
+                              fontSize: 14,
                               color: "rgba(34,51,44,0.6)",
                               opacity: 1,
                               margin: 0,
@@ -1955,7 +1955,7 @@ export default function Home() {
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: 10,
+                      fontSize: 12,
                       fontWeight: 700,
                       letterSpacing: "0.08em",
                       color: isAfter ? "rgba(34,51,44,0.35)" : "#22332C",
@@ -1994,7 +1994,7 @@ export default function Home() {
                     </button>
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: 10,
+                      fontSize: 12,
                       fontWeight: 700,
                       letterSpacing: "0.08em",
                       color: isAfter ? "#EA6A47" : "rgba(34,51,44,0.35)",
@@ -2079,7 +2079,7 @@ export default function Home() {
                               background: "#22332C",
                               color: "var(--cream)",
                               fontFamily: "var(--font-montserrat), sans-serif",
-                              fontSize: 10,
+                              fontSize: 12,
                               borderRadius: 4,
                               padding: "3px 8px",
                               flexShrink: 0,
@@ -2087,7 +2087,7 @@ export default function Home() {
                           </div>
                           <p style={{
                             fontFamily: "var(--font-montserrat), sans-serif",
-                            fontSize: 12,
+                            fontSize: 14,
                             color: "rgba(34,51,44,0.6)",
                             margin: 0,
                           }}>{step.sub}</p>
