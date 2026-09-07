@@ -569,7 +569,7 @@ export default function Home() {
         .route-price-from {
           font-family: var(--font-geist-mono), monospace;
           font-size: 14px;
-          color: rgba(34,51,44,0.5);
+          color: rgba(34,51,44,0.72);
           letter-spacing: 0.08em;
           text-transform: uppercase;
         }
@@ -589,12 +589,12 @@ export default function Home() {
         .route-price-suffix {
           font-family: var(--font-geist-mono), monospace;
           font-size: 14px;
-          color: rgba(34,51,44,0.5);
+          color: rgba(34,51,44,0.72);
         }
         .route-trust-line {
           font-family: var(--font-montserrat), sans-serif;
           font-size: 14px;
-          color: rgba(34,51,44,0.45);
+          color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
           margin-top: 4px;
         }
@@ -819,7 +819,7 @@ export default function Home() {
         .merged-hero-desc {
           font-family: var(--font-dm-sans), sans-serif;
           font-size: 16px;
-          color: rgba(34,51,44,0.65);
+          color: rgba(34,51,44,0.72);
           line-height: 1.7;
           max-width: 460px;
           margin: 8px 0 0;
@@ -1311,7 +1311,7 @@ export default function Home() {
         .work-row-result {
           font-family: inherit;
           font-size: 14px;
-          color: rgba(34,51,44,0.62);
+          color: rgba(34,51,44,0.72);
           line-height: 1.5;
           flex: 1 1 30%;
           min-width: 0;
@@ -1799,7 +1799,7 @@ export default function Home() {
                           style={{
                             fontFamily: "var(--font-dm-sans), sans-serif",
                             fontSize: "1.25rem",
-                            color: hoveredNumberRow === i ? "#EA6A47" : "#C5BDB4",
+                            color: hoveredNumberRow === i ? "#EA6A47" : "var(--faint)",
                             transition: "color 0.3s ease",
                           }}
                         >
@@ -1839,7 +1839,7 @@ export default function Home() {
             <p style={{
               fontFamily: "var(--font-montserrat), sans-serif",
               fontSize: 16,
-              color: "rgba(34,51,44,0.6)",
+              color: "rgba(34,51,44,0.72)",
               textAlign: "center",
               marginBottom: "2rem",
             }}>
@@ -1924,7 +1924,7 @@ export default function Home() {
                             <p style={{
                               fontFamily: "var(--font-montserrat), sans-serif",
                               fontSize: 14,
-                              color: "rgba(34,51,44,0.6)",
+                              color: "rgba(34,51,44,0.72)",
                               opacity: 1,
                               margin: 0,
                             }}>{step.subBefore}</p>
@@ -1958,7 +1958,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 700,
                       letterSpacing: "0.08em",
-                      color: isAfter ? "rgba(34,51,44,0.35)" : "#22332C",
+                      color: isAfter ? "rgba(34,51,44,0.72)" : "#22332C",
                       transition: "color 0.3s ease",
                     }}>MANUAL</span>
                     <button
@@ -1997,7 +1997,7 @@ export default function Home() {
                       fontSize: 14,
                       fontWeight: 700,
                       letterSpacing: "0.08em",
-                      color: isAfter ? "#EA6A47" : "rgba(34,51,44,0.35)",
+                      color: isAfter ? "#EA6A47" : "rgba(34,51,44,0.72)",
                       transition: "color 0.3s ease",
                     }}>AUTOMATED</span>
                   </div>
@@ -2088,7 +2088,7 @@ export default function Home() {
                           <p style={{
                             fontFamily: "var(--font-montserrat), sans-serif",
                             fontSize: 14,
-                            color: "rgba(34,51,44,0.6)",
+                            color: "rgba(34,51,44,0.72)",
                             margin: 0,
                           }}>{step.sub}</p>
                         </div>

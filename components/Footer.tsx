@@ -251,7 +251,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         .ftr-tagline {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 14px;
-          color: rgba(34,51,44,0.55);
+          color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
           margin: 0 0 24px;
         }
@@ -270,7 +270,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 14px;
           letter-spacing: 0.08em;
-          color: rgba(34,51,44,0.65);
+          color: rgba(34,51,44,0.72);
           text-decoration: none;
           transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
         }
@@ -288,7 +288,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         .ftr-footnote {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 14px;
-          color: rgba(34,51,44,0.45);
+          color: rgba(34,51,44,0.72);
           margin: 20px 0 0;
         }
         .ftr-col-heading {
@@ -333,7 +333,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 1rem;
           font-weight: 500;
-          color: rgba(34,51,44,0.45);
+          color: rgba(34,51,44,0.72);
           margin-bottom: 14px;
         }
         .ftr-static-inline {

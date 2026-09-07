@@ -367,7 +367,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card-stat-desc {
           font-size: 14px;
-          color: rgba(34,51,44,0.6);
+          color: rgba(34,51,44,0.72);
           line-height: 1.45;
           margin: 5px 0 0;
         }
@@ -388,7 +388,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card-result {
           font-size: 16px;
-          color: rgba(34,51,44,0.55);
+          color: rgba(34,51,44,0.72);
           line-height: 1.45;
           margin: 0;
           flex: 1;
@@ -632,7 +632,7 @@ export default function FeaturedCaseStudies() {
           <h2 style={{ fontSize: 40, fontWeight: 900, color: "#22332C", marginBottom: 12 }}>
             Proven results across industries.
           </h2>
-          <p style={{ fontSize: 16, color: "rgba(34,51,44,0.65)", margin: 0, maxWidth: 560 }}>
+          <p style={{ fontSize: 16, color: "rgba(34,51,44,0.72)", margin: 0, maxWidth: 560 }}>
             Eight systems, eight industries, real numbers behind each one.
           </p>
         </AnimateIn>
@@ -708,7 +708,7 @@ export default function FeaturedCaseStudies() {
                         <ul className="fcs-panel-list">
                           {panelCase.details.before.map((item, idx) => (
                             <li key={idx}>
-                              <span style={{ color: "rgba(34,51,44,0.25)" }}>→ </span>
+                              <span style={{ color: "rgba(34,51,44,0.72)" }}>→ </span>
                               {item}
                             </li>
                           ))}

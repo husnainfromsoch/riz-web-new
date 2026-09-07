@@ -738,7 +738,7 @@ function CaseStudiesContent() {
         }
         .proof-row-result {
           font-size: 14px;
-          color: rgba(34,51,44,0.6);
+          color: rgba(34,51,44,0.72);
           line-height: 1.5;
         }
         .proof-row-arrow {
@@ -824,7 +824,7 @@ function CaseStudiesContent() {
         .case-hero-subtitle {
           font-family: inherit;
           font-size: 16px;
-          color: rgba(34,51,44,0.65);
+          color: rgba(34,51,44,0.72);
           margin-bottom: 36px;
         }
         .case-hero-inline-stats {
@@ -901,7 +901,7 @@ function CaseStudiesContent() {
         }
         .case-stat-card-desc {
           font-size: 14px;
-          color: rgba(34,51,44,0.6);
+          color: rgba(34,51,44,0.72);
           line-height: 1.4;
         }
 
@@ -1229,7 +1229,7 @@ function CaseStudiesContent() {
                       <ul className="case-panel-list-v2">
                         {row.details.before.map((item, i) => (
                           <li key={i}>
-                            <span style={{ color: "rgba(34,51,44,0.25)" }}>→ </span>
+                            <span style={{ color: "rgba(34,51,44,0.72)" }}>→ </span>
                             {item}
                           </li>
                         ))}

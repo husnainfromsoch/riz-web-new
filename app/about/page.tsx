@@ -353,7 +353,7 @@ function TrackRecordPanel() {
           style={{
             fontSize: 14,
             fontStyle: "italic",
-            color: "rgba(243,236,221,0.65)",
+            color: "rgba(243,236,221,0.72)",
             lineHeight: 1.7,
             margin: 0,
           }}
@@ -972,7 +972,7 @@ export default function About() {
         .beyond-quote p {
           font-style: italic;
           font-size: 18px;
-          color: rgba(34,51,44,0.6);
+          color: rgba(34,51,44,0.72);
           margin: 0;
           text-align: left;
         }
@@ -1011,7 +1011,7 @@ export default function About() {
           margin: 12px 0 0;
           font-style: italic;
           font-size: 14px;
-          color: rgba(34,51,44,0.5);
+          color: rgba(34,51,44,0.72);
         }
         .beyond-caption-dash {
           color: #EA6A47;
@@ -1071,13 +1071,13 @@ export default function About() {
         }
         .beyond-row-content p {
           font-size: 16px;
-          color: rgba(34,51,44,0.65);
+          color: rgba(34,51,44,0.72);
           line-height: 1.7;
           margin: 0;
         }
         .beyond-row-extra {
           margin-top: 6px !important;
-          color: rgba(34,51,44,0.5) !important;
+          color: rgba(34,51,44,0.72) !important;
         }
         .beyond-row-link {
           color: #EA6A47;

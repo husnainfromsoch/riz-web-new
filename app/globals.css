@@ -1137,7 +1137,7 @@ p, li, td, th, label, input, textarea, select {
   flex-wrap: wrap;
   font-family: var(--font-dm-mono), monospace;
   font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 @media (max-width: 1279px) {
@@ -1677,8 +1677,11 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .writing-row-date {
-  font-size: 1rem;
-  letter-spacing: 0.06em;
+  /* matches .writing-row-index so the year/month reads as large as "01" */
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
   color: var(--muted);
 }
 
@@ -1777,6 +1780,7 @@ p, li, td, th, label, input, textarea, select {
     padding: 28px 4px;
   }
   .writing-row-index { grid-area: index; font-size: 1.75rem; }
+  .writing-row-date { font-size: 1.75rem; }
   .writing-row-cta { grid-area: cta; }
   .writing-row-meta { grid-area: meta; flex-direction: row; align-items: center; gap: 14px; }
   .writing-row-body { grid-area: body; }
