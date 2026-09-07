@@ -276,7 +276,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           top: 50%;
           transform: translateY(-50%);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem;
+          font-size: 0.825rem;
           color: var(--muted);
           border: 1px solid var(--line-2);
           border-radius: 6px;
@@ -340,7 +340,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-results-count {
           display: inline-block;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           letter-spacing: 0.04em;
           color: var(--body);
         }
@@ -364,7 +364,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           border-radius: 8px;
           padding: 5px 12px;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           font-weight: 600;
           color: var(--body);
           cursor: pointer;
@@ -382,7 +382,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           gap: 10px;
         }
         .gd-sort-label {
-          font-size: 0.7rem;
+          font-size: 0.825rem;
         }
         .gd-sort-btn {
           display: flex;
@@ -544,7 +544,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-float-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 0.925rem;
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -563,10 +563,10 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-float-date {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 0.925rem;
           color: var(--muted);
         }
-        .gd-float-card .gd-gcard-read { font-size: 12px; }
+        .gd-float-card .gd-gcard-read { font-size: 14px; }
         .gd-float-card:hover .gd-gcard-read {
           color: var(--coral-d);
           gap: 9px;

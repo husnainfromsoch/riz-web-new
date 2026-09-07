@@ -96,7 +96,7 @@ export default function ConsultingPage() {
         }
         .consulting-eyebrow {
           font-family: var(--font-dm-mono), monospace;
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           color: var(--coral);
           font-weight: 600;
           letter-spacing: 0.1em;
@@ -169,7 +169,7 @@ export default function ConsultingPage() {
           background: var(--coral);
           color: #fff;
           font-family: var(--font-dm-mono), monospace;
-          font-size: 0.8rem;
+          font-size: 0.925rem;
           font-weight: 600;
           display: flex;
           align-items: center;
@@ -360,7 +360,7 @@ export default function ConsultingPage() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.75rem",
+                    fontSize: "0.875rem",
                     color: "var(--coral)",
                     fontWeight: 600,
                     letterSpacing: "0.06em",
@@ -479,7 +479,7 @@ export default function ConsultingPage() {
                       <label
                         style={{
                           fontFamily: "var(--font-dm-mono), monospace",
-                          fontSize: "0.7rem",
+                          fontSize: "0.825rem",
                           fontWeight: 500,
                           letterSpacing: "0.08em",
                           textTransform: "uppercase",
@@ -504,7 +504,7 @@ export default function ConsultingPage() {
                     <label
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.7rem",
+                        fontSize: "0.825rem",
                         fontWeight: 500,
                         letterSpacing: "0.08em",
                         textTransform: "uppercase",

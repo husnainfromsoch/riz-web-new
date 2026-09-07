@@ -136,7 +136,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.8rem",
+                        fontSize: "0.925rem",
                         color: "var(--faint)",
                         letterSpacing: "0.06em",
                       }}
@@ -179,7 +179,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.8rem",
+                        fontSize: "0.925rem",
                         fontWeight: 600,
                         letterSpacing: "0.06em",
                         color: "var(--coral)",

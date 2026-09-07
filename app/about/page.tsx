@@ -861,7 +861,7 @@ export default function About() {
           border-top: 1px solid var(--line);
         }
         .about-credentials-label {
-          font-size: 0.8rem;
+          font-size: 0.925rem;
           font-weight: 600;
           letter-spacing: 0.06em;
           color: var(--coral);
@@ -1081,7 +1081,7 @@ export default function About() {
         }
         .beyond-row-link {
           color: #EA6A47;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 600;
           text-decoration: none;
         }
@@ -1127,7 +1127,7 @@ export default function About() {
           box-shadow: 0 18px 32px rgba(34,51,44,0.14);
         }
         .lesson-card-number {
-          font-size: 11px;
+          font-size: 13px;
           color: var(--lesson-accent, #EA6A47);
           opacity: 0.55;
           margin: 0 0 12px;
@@ -1168,7 +1168,7 @@ export default function About() {
           border: 1px solid var(--line);
           border-radius: 999px;
           padding: 6px 16px;
-          font-size: 11px;
+          font-size: 13px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           color: #ea6a47;

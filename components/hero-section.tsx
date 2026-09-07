@@ -68,7 +68,7 @@ export default function HeroSection() {
 
         .hz-eyebrow {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 500;
           letter-spacing: 0.06em;
           text-transform: uppercase;

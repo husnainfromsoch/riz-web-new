@@ -258,7 +258,7 @@ export default function DirectLineCTA({
           transform: translateX(-50%);
           white-space: nowrap;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 600;
           color: #22332C;
           background: #ffffff;

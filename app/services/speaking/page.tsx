@@ -319,14 +319,14 @@ export default function SpeakingPage() {
                         }}
                       >
                         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                          <span style={{ color: "var(--coral)", fontSize: "0.55rem" }}>●</span>
+                          <span style={{ color: "var(--coral)", fontSize: "0.75rem" }}>●</span>
                           <span className="format-row-label">{f.label}</span>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                           <span
                             style={{
                               fontFamily: "var(--font-dm-mono), monospace",
-                              fontSize: "0.72rem",
+                              fontSize: "0.845rem",
                               color: "var(--muted)",
                             }}
                           >

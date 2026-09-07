@@ -541,7 +541,7 @@ export default function Home() {
           align-items: center;
           gap: 8px;
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 11px;
+          font-size: 13px;
           font-weight: 500;
           color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
@@ -568,7 +568,7 @@ export default function Home() {
         }
         .route-price-from {
           font-family: var(--font-geist-mono), monospace;
-          font-size: 11px;
+          font-size: 13px;
           color: rgba(34,51,44,0.5);
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -593,7 +593,7 @@ export default function Home() {
         }
         .route-trust-line {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 10.5px;
+          font-size: 12.5px;
           color: rgba(34,51,44,0.45);
           letter-spacing: 0.02em;
           margin-top: 4px;
@@ -621,7 +621,7 @@ export default function Home() {
           display: inline-flex;
           width: fit-content;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 10px;
+          font-size: 12px;
           font-weight: 600;
           letter-spacing: 0.1em;
           padding: 4px 12px;
@@ -677,7 +677,7 @@ export default function Home() {
         }
         .route-authority-line {
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 11px;
+          font-size: 13px;
           font-weight: 500;
           color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
@@ -898,7 +898,7 @@ export default function Home() {
           transform: translateX(-50%);
           white-space: nowrap;
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 11px;
+          font-size: 13px;
           font-weight: 600;
           color: #22332C;
           background: #ffffff;
@@ -1292,7 +1292,7 @@ export default function Home() {
           display: inline-flex;
           width: fit-content;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 10.5px;
+          font-size: 12.5px;
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -1520,7 +1520,7 @@ export default function Home() {
                     WebkitBackdropFilter: "blur(8px)",
                     color: "#ffffff",
                     fontFamily: "'Geist Mono', monospace",
-                    fontSize: "12px",
+                    fontSize: "14px",
                     letterSpacing: "0.1em",
                     padding: "12px 20px",
                     textAlign: "center" as const,
@@ -1616,7 +1616,7 @@ export default function Home() {
                     )}
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: "0.74rem",
+                      fontSize: "0.865rem",
                       fontWeight: 500,
                       color: "#5C5750",
                       marginLeft: "0.45rem",
@@ -1658,7 +1658,7 @@ export default function Home() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.8rem",
+                    fontSize: "0.925rem",
                     color: "#5C5750",
                   }}
                 >
@@ -1669,7 +1669,7 @@ export default function Home() {
                   onClick={() => setActiveCompany(null)}
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.78rem",
+                    fontSize: "0.905rem",
                     color: "#EA6A47",
                     background: "none",
                     border: "none",
@@ -1754,7 +1754,7 @@ export default function Home() {
                         <span
                           style={{
                             fontFamily: "var(--font-dm-mono), monospace",
-                            fontSize: "0.58rem",
+                            fontSize: "0.75rem",
                             fontWeight: 600,
                             letterSpacing: "0.04em",
                             color: "#C17A5A",

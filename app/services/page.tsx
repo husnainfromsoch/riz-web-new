@@ -133,7 +133,7 @@ function ConsultingMockup() {
           <p
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.73rem",
+              fontSize: "0.855rem",
               color: "rgba(255,255,255,0.72)",
               marginTop: "0.15rem",
             }}
@@ -191,7 +191,7 @@ function ConsultingMockup() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.65rem",
+                    fontSize: "0.775rem",
                     color: "rgba(255,255,255,0.78)",
                   }}
                 >
@@ -275,7 +275,7 @@ function wfNode(
       <span
         style={{
           fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.78rem",
+          fontSize: "0.905rem",
           color: textColor,
           whiteSpace: "nowrap",
         }}
@@ -321,7 +321,7 @@ function ProjectsMockup() {
           <span
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.8rem",
+              fontSize: "0.925rem",
               color: "var(--coral)",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -415,7 +415,7 @@ function ProjectsMockup() {
                   borderRadius: 99,
                   background: "rgba(255,255,255,0.06)",
                   fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.75rem",
+                  fontSize: "0.875rem",
                   color: "rgba(255,255,255,0.38)",
                 }}
               >
@@ -525,7 +525,7 @@ function WorkshopsMockup() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.63rem",
+                    fontSize: "0.755rem",
                     color: "var(--muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
