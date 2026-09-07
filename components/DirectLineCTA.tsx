@@ -167,7 +167,7 @@ export default function DirectLineCTA({
         .chat-hayat-desc {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 16px;
-          color: rgba(34,51,44,0.7);
+          color: rgba(34,51,44,0.72);
           line-height: 1.7;
           margin: 0 0 28px;
           max-width: 440px;
@@ -183,7 +183,7 @@ export default function DirectLineCTA({
           background: #22332C;
           color: var(--cream);
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 600;
           padding: 14px 28px;
           border-radius: 100px;
@@ -203,7 +203,7 @@ export default function DirectLineCTA({
           background: #ffffff;
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 600;
           padding: 14px 28px;
           border-radius: 100px;
@@ -258,7 +258,7 @@ export default function DirectLineCTA({
           transform: translateX(-50%);
           white-space: nowrap;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 600;
           color: #22332C;
           background: #ffffff;
@@ -285,8 +285,8 @@ export default function DirectLineCTA({
         }
         .chat-hayat-credit {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 13px;
-          color: rgba(34,51,44,0.7);
+          font-size: 14px;
+          color: rgba(34,51,44,0.72);
           font-style: italic;
           margin: 20px 0 0;
         }

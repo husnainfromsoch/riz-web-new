@@ -59,7 +59,7 @@ export default async function GuidePage({
         }
         .gd-breadcrumb {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.72rem;
+          font-size: 0.875rem;
           letter-spacing: 0.04em;
           color: var(--muted);
           margin-bottom: 1.25rem;
@@ -101,7 +101,7 @@ export default async function GuidePage({
           flex-wrap: wrap;
           gap: 10px;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.78rem;
+          font-size: 1rem;
           color: var(--muted);
         }
         .gd-detail-dot { opacity: 0.5; }

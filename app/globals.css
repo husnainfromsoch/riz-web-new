@@ -5,16 +5,16 @@
   --cream: #F1EBDE;
   --cream-2: var(--cream);
   --ink: #22332C;
-  --body: #4A4A4A;
-  --muted: #8A857B;
-  --faint: #B7B1A4;
+  --body: #333333;
+  --muted: #55514A;
+  --faint: #5E594E;
   --coral: #EA6A47;
   --coral-d: #CE5430;
   --amber: #D79A36;
   --line: #E2DACB;
   --line-2: #D9D1C0;
   --paper: #F5F0E8;
-  --ink2: #5A6660;
+  --ink2: #3C4642;
   --shadow: 0 6px 22px rgba(34,51,44,.07);
   --shadow-lg: 0 20px 48px rgba(34,51,44,.13);
   --maxw: 1200px;
@@ -33,15 +33,24 @@
   --btn-height: 52px;
   --btn-radius: 8px;
 
-  /* Typography — remap legacy font variables to new system */
-  --font-montserrat: var(--font-poppins);
-  --font-fraunces: var(--font-poppins);
-  --font-geist-mono: var(--font-poppins);
-  --font-inter-tight: var(--font-montserrat);
-  --font-playfair: var(--font-inter-tight);
-  --font-dm-sans: var(--font-inter-tight);
-  --font-dm-mono: var(--font-geist-mono);
-  --font-bebas: var(--font-inter-tight);
+  /* Typography — v3 stack. Three real roles, then the legacy variable names
+     remapped onto them so no selector has to change. */
+  --font-display: var(--font-archivo);
+  --font-body: var(--font-intertight);
+  --font-mono: var(--font-plexmono);
+
+  /* Display: --font-inter-tight is the site's headline face in practice —
+     28 declarations including .hz-headline — whatever its name suggests. */
+  --font-inter-tight: var(--font-display);
+  --font-fraunces: var(--font-display);
+  --font-playfair: var(--font-display);
+  --font-bebas: var(--font-display);
+  /* Body */
+  --font-montserrat: var(--font-body);
+  --font-dm-sans: var(--font-body);
+  /* Mono */
+  --font-geist-mono: var(--font-mono);
+  --font-dm-mono: var(--font-mono);
 }
 
 @theme inline {
@@ -81,7 +90,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-montserrat), sans-serif;
+  font-family: var(--font-display), sans-serif;
   color: var(--ink);
   font-weight: 900;
   line-height: 1.05;
@@ -90,17 +99,17 @@ h1, h2, h3, h4, h5, h6 {
 /* Hero headlines (h1) vs section headings (h2) get distinct scales */
 h1 { font-size: clamp(3rem, 5vw, 4.25rem); line-height: 1.05; }
 h2 { font-size: clamp(2.25rem, 3.5vw, 3rem); line-height: 1.1; }
-h3 { font-size: clamp(1.3rem, 2vw, 1.5rem); line-height: 1.35; }
+h3 { font-size: clamp(1.375rem, 2vw, 1.5rem); line-height: 1.35; }
 
 p, li, td, th, label, input, textarea, select {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.7;
 }
 
 .meta-label {
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -300,7 +309,7 @@ p, li, td, th, label, input, textarea, select {
    ============================================================ */
 .text-body {
   color: rgba(34,51,44,0.75);
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   line-height: 1.7;
   opacity: 1;
 }
@@ -312,7 +321,7 @@ p, li, td, th, label, input, textarea, select {
   padding: 4px 12px;
   border-radius: var(--radius-chip);
   font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -361,7 +370,7 @@ p, li, td, th, label, input, textarea, select {
 }
 .gd-pill {
   font-family: var(--font-montserrat), sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.875rem;
   border-radius: 999px;
   padding: 5px 14px;
   line-height: 1.3;
@@ -392,7 +401,7 @@ p, li, td, th, label, input, textarea, select {
   align-items: center;
   gap: 6px;
   font-family: var(--font-montserrat), sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--coral);
   transition: color 0.2s ease, gap 0.2s ease;
@@ -543,7 +552,7 @@ p, li, td, th, label, input, textarea, select {
   background: var(--coral);
   color: #FFFFFF;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -648,7 +657,7 @@ p, li, td, th, label, input, textarea, select {
   top: 14px;
   left: 14px;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.1em;
   padding: 5px 10px;
@@ -724,7 +733,7 @@ p, li, td, th, label, input, textarea, select {
 
 .pc-title {
   font-family: var(--font-fraunces), serif;
-  font-size: 0.98rem;
+  font-size: 1rem;
   font-weight: 800;
   color: #fff;
   line-height: 1.3;
@@ -732,7 +741,7 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .pc-desc {
-  font-size: 0.78rem;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.75);
   line-height: 1.45;
   margin: 0;
@@ -823,14 +832,14 @@ p, li, td, th, label, input, textarea, select {
 .svc-subline {
   font-family: var(--font-playfair), serif;
   font-style: italic;
-  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  font-size: clamp(1.5rem, 2.2vw, 1.75rem);
   line-height: 1.25;
   margin-bottom: 1.25rem;
 }
 
 .svc-body {
   font-family: var(--font-dm-sans), sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   line-height: 1.7;
   max-width: 480px;
   margin-bottom: 1.75rem;
@@ -882,7 +891,7 @@ p, li, td, th, label, input, textarea, select {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 0.68rem;
+  font-size: 0.875rem;
   font-weight: 700;
   margin-top: 0.05rem;
 }
@@ -934,7 +943,7 @@ p, li, td, th, label, input, textarea, select {
 .svc-hero-brand-word {
   font-family: var(--font-playfair), serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.125rem;
   color: var(--ink);
   letter-spacing: -0.02em;
 }
@@ -942,7 +951,7 @@ p, li, td, th, label, input, textarea, select {
 .svc-signature {
   font-family: var(--font-playfair), serif;
   font-style: italic;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--muted);
   margin: -0.5rem 0 2rem;
 }
@@ -1057,7 +1066,7 @@ p, li, td, th, label, input, textarea, select {
   }
 
   .svc-body {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     line-height: 1.7;
     max-width: 55ch;
   }
@@ -1127,8 +1136,8 @@ p, li, td, th, label, input, textarea, select {
   gap: 1.1rem;
   flex-wrap: wrap;
   font-family: var(--font-dm-mono), monospace;
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 @media (max-width: 1279px) {
@@ -1196,7 +1205,7 @@ p, li, td, th, label, input, textarea, select {
   z-index: 1;
   font-family: var(--font-fraunces), serif;
   font-weight: 600;
-  font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
   line-height: 1.5;
   color: var(--ink);
   margin: 0 0 28px;
@@ -1276,7 +1285,7 @@ p, li, td, th, label, input, textarea, select {
 .testimonials-featured-company {
   font-family: var(--font-montserrat), sans-serif;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--coral-d);
   background: rgba(234, 106, 71, 0.12);
   padding: 3px 10px;
@@ -1296,7 +1305,7 @@ p, li, td, th, label, input, textarea, select {
   border-bottom: 1px solid rgba(234, 106, 71, 0.35);
   font-family: var(--font-montserrat), sans-serif;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--coral-d);
   text-decoration: none;
   cursor: pointer;
@@ -1311,7 +1320,7 @@ p, li, td, th, label, input, textarea, select {
 .testimonials-readmore-card {
   align-self: flex-start;
   margin-top: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--coral);
   transition: gap 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
@@ -1368,12 +1377,12 @@ p, li, td, th, label, input, textarea, select {
 .testimonials-author-name {
   font-family: var(--font-montserrat), sans-serif;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--ink);
 }
 
 .testimonials-author-role {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -1432,7 +1441,7 @@ p, li, td, th, label, input, textarea, select {
   right: 14px;
   font-family: var(--font-montserrat), sans-serif;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--coral-d);
@@ -1470,7 +1479,7 @@ p, li, td, th, label, input, textarea, select {
 
 .testimonials-strip-label {
   font-family: var(--font-montserrat), sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1483,7 +1492,7 @@ p, li, td, th, label, input, textarea, select {
 
 .testimonials-strip-note {
   margin-top: 6px;
-  font-size: 11px;
+  font-size: 14px;
   color: var(--faint);
   font-style: italic;
   text-transform: none;
@@ -1668,8 +1677,11 @@ p, li, td, th, label, input, textarea, select {
 }
 
 .writing-row-date {
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
+  /* matches .writing-row-index so the year/month reads as large as "01" */
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
   color: var(--muted);
 }
 
@@ -1681,7 +1693,7 @@ p, li, td, th, label, input, textarea, select {
   padding: 4px 12px;
   border: 1px solid var(--coral);
   border-radius: var(--radius-chip);
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1699,7 +1711,7 @@ p, li, td, th, label, input, textarea, select {
   display: inline-block;
   font-family: var(--font-fraunces), serif;
   font-weight: 600;
-  font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+  font-size: clamp(1.5rem, 1.9vw, 2rem);
   line-height: 1.3;
   color: var(--ink);
   transition: color 0.25s ease, transform 0.25s ease;
@@ -1728,7 +1740,7 @@ p, li, td, th, label, input, textarea, select {
 
 .writing-row-excerpt {
   font-family: var(--font-montserrat), sans-serif;
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted);
   display: -webkit-box;
@@ -1745,7 +1757,7 @@ p, li, td, th, label, input, textarea, select {
 .writing-row-cta {
   justify-self: end;
   font-family: var(--font-geist-mono), monospace;
-  font-size: 0.8rem;
+  font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--ink);
@@ -1768,6 +1780,7 @@ p, li, td, th, label, input, textarea, select {
     padding: 28px 4px;
   }
   .writing-row-index { grid-area: index; font-size: 1.75rem; }
+  .writing-row-date { font-size: 1.75rem; }
   .writing-row-cta { grid-area: cta; }
   .writing-row-meta { grid-area: meta; flex-direction: row; align-items: center; gap: 14px; }
   .writing-row-body { grid-area: body; }

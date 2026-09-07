@@ -1,16 +1,33 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Archivo, Inter_Tight, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AudioProvider } from "@/contexts/audio-context";
 import { AudioPlayer } from "@/components/AudioPlayer";
 
-const poppins = Poppins({
+// v3 type stack, lifted from the design preview: Archivo for display,
+// Inter Tight for body, IBM Plex Mono for figures and labels.
+const archivo = Archivo({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
-  variable: "--font-poppins",
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-intertight",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plexmono",
   display: "swap",
 });
 
@@ -29,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} h-full`}
+      className={`${archivo.variable} ${interTight.variable} ${plexMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased">
         <AudioProvider>

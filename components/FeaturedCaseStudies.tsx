@@ -351,7 +351,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card-tag {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.62rem;
+          font-size: 0.875rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.05em;
@@ -366,8 +366,8 @@ export default function FeaturedCaseStudies() {
           color: var(--coral);
         }
         .fcs-card-stat-desc {
-          font-size: 12px;
-          color: rgba(34,51,44,0.6);
+          font-size: 14px;
+          color: rgba(34,51,44,0.72);
           line-height: 1.45;
           margin: 5px 0 0;
         }
@@ -387,8 +387,8 @@ export default function FeaturedCaseStudies() {
           margin: 0 0 6px;
         }
         .fcs-card-result {
-          font-size: 12.5px;
-          color: rgba(34,51,44,0.55);
+          font-size: 16px;
+          color: rgba(34,51,44,0.72);
           line-height: 1.45;
           margin: 0;
           flex: 1;
@@ -402,7 +402,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card-chevron {
           display: inline-flex;
-          color: #948D7E;
+          color: #5E594E;
           transition: color 0.2s ease-out, transform 0.2s ease-out;
         }
         .fcs-card:hover .fcs-card-chevron {
@@ -462,7 +462,7 @@ export default function FeaturedCaseStudies() {
           border: 1px solid rgba(255,255,255,0.15);
           color: var(--cream);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 11px;
+          font-size: 14px;
           padding: 6px 14px;
           border-radius: 100px;
           cursor: pointer;
@@ -504,8 +504,9 @@ export default function FeaturedCaseStudies() {
           margin: 0;
         }
         .fcs-panel-list li {
-          font-size: 13px;
-          color: #4A4A45;
+          font-size: 14px;
+          color: #22332C;
+          font-weight: 500;
           line-height: 1.7;
         }
         .fcs-panel-list.after li {
@@ -536,8 +537,8 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-stat-desc {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 11px;
-          color: #948D7E;
+          font-size: 14px;
+          color: #5E594E;
           letter-spacing: 0.04em;
           margin-top: 2px;
         }
@@ -552,12 +553,12 @@ export default function FeaturedCaseStudies() {
           border-radius: 4px;
           padding: 4px 10px;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 10px;
+          font-size: 14px;
           color: #22332C;
           font-weight: 500;
         }
         .fcs-delivered-value {
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 700;
           color: #22332C;
         }
@@ -632,7 +633,7 @@ export default function FeaturedCaseStudies() {
           <h2 style={{ fontSize: 40, fontWeight: 900, color: "#22332C", marginBottom: 12 }}>
             Proven results across industries.
           </h2>
-          <p style={{ fontSize: 16, color: "rgba(34,51,44,0.65)", margin: 0, maxWidth: 560 }}>
+          <p style={{ fontSize: 16, color: "rgba(34,51,44,0.72)", margin: 0, maxWidth: 560 }}>
             Eight systems, eight industries, real numbers behind each one.
           </p>
         </AnimateIn>
@@ -708,7 +709,7 @@ export default function FeaturedCaseStudies() {
                         <ul className="fcs-panel-list">
                           {panelCase.details.before.map((item, idx) => (
                             <li key={idx}>
-                              <span style={{ color: "rgba(34,51,44,0.25)" }}>→ </span>
+                              <span style={{ color: "rgba(34,51,44,0.72)" }}>→ </span>
                               {item}
                             </li>
                           ))}

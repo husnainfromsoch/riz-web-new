@@ -195,7 +195,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-weight: 700;
-          font-size: 15px;
+          font-size: 16px;
           padding: 0 28px;
           min-height: var(--btn-height);
           border-radius: var(--btn-radius);
@@ -216,7 +216,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-weight: 700;
-          font-size: 15px;
+          font-size: 16px;
           padding: 0 28px;
           min-height: var(--btn-height);
           border-radius: var(--btn-radius);
@@ -250,8 +250,8 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         }
         .ftr-tagline {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 12px;
-          color: rgba(34,51,44,0.55);
+          font-size: 14px;
+          color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
           margin: 0 0 24px;
         }
@@ -268,9 +268,9 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           border-radius: 999px;
           border: 1px solid rgba(34,51,44,0.18);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 10.5px;
+          font-size: 14px;
           letter-spacing: 0.08em;
-          color: rgba(34,51,44,0.65);
+          color: rgba(34,51,44,0.72);
           text-decoration: none;
           transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
         }
@@ -287,13 +287,13 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         }
         .ftr-footnote {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 11px;
-          color: rgba(34,51,44,0.45);
+          font-size: 14px;
+          color: rgba(34,51,44,0.72);
           margin: 20px 0 0;
         }
         .ftr-col-heading {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 1rem;
           letter-spacing: 0.06em;
           text-transform: uppercase;
           color: #EA6A47;
@@ -333,7 +333,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 1rem;
           font-weight: 500;
-          color: rgba(34,51,44,0.45);
+          color: rgba(34,51,44,0.72);
           margin-bottom: 14px;
         }
         .ftr-static-inline {

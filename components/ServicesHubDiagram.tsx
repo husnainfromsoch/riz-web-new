@@ -60,9 +60,9 @@ export default function ServicesHubDiagram() {
       {/* ── center circle - pulse only, does NOT rotate ───────────── */}
       <g style={{ transformOrigin: `${CX}px ${CY}px`, animation: "svc-pulse 3s ease-in-out infinite" } as React.CSSProperties}>
         <circle cx={CX} cy={CY} r={CR} fill="#22332C" />
-        <text x={CX} y={CY - 20} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.55)" letterSpacing="0.03em">The clearest</text>
-        <text x={CX} y={CY + 2}  textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.55)">ops in</text>
-        <text x={CX} y={CY + 24} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.55)">your space</text>
+        <text x={CX} y={CY - 20} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.72)" letterSpacing="0.03em">The clearest</text>
+        <text x={CX} y={CY + 2}  textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.72)">ops in</text>
+        <text x={CX} y={CY + 24} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.72)">your space</text>
       </g>
 
       {/* ── orbiting nodes ────────────────────────────────────────── */}

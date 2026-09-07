@@ -231,7 +231,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-hero-sub {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 1.05rem;
+          font-size: 1.125rem;
           color: var(--body);
           line-height: 1.7;
           max-width: 48ch;
@@ -258,7 +258,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           border: 1px solid var(--line-2);
           border-radius: 12px;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.95rem;
+          font-size: 1rem;
           color: var(--ink);
           background: #fff;
           outline: none;
@@ -276,7 +276,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           top: 50%;
           transform: translateY(-50%);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.7rem;
+          font-size: 0.875rem;
           color: var(--muted);
           border: 1px solid var(--line-2);
           border-radius: 6px;
@@ -298,7 +298,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-filter-script {
           font-family: var(--font-caveat), 'Caveat', cursive;
-          font-size: 1.3rem;
+          font-size: 1.375rem;
           color: var(--coral);
           display: block;
           margin-bottom: 10px;
@@ -312,7 +312,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-filter-pill {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           font-weight: 600;
           color: var(--ink);
           background: #fff;
@@ -340,7 +340,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-results-count {
           display: inline-block;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           letter-spacing: 0.04em;
           color: var(--body);
         }
@@ -364,7 +364,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           border-radius: 8px;
           padding: 5px 12px;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           font-weight: 600;
           color: var(--body);
           cursor: pointer;
@@ -382,7 +382,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           gap: 10px;
         }
         .gd-sort-label {
-          font-size: 0.7rem;
+          font-size: 0.875rem;
         }
         .gd-sort-btn {
           display: flex;
@@ -393,7 +393,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           border: 1px solid var(--line-2);
           border-radius: 12px;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           font-weight: 600;
           color: var(--ink);
           background: #fff;
@@ -438,7 +438,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           border-radius: 8px;
           padding: 9px 12px;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           font-weight: 600;
           color: var(--ink);
           cursor: pointer;
@@ -504,7 +504,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           align-items: center;
           gap: 6px;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 700;
           color: var(--coral);
           transition: color 0.2s ease, gap 0.2s ease;
@@ -544,7 +544,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-float-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 1rem;
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -556,17 +556,17 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-float-title {
           font-family: var(--font-fraunces), serif;
           font-weight: 600;
-          font-size: 1.3rem;
+          font-size: 1.375rem;
           line-height: 1.35;
           color: var(--ink);
           margin: 0 0 1rem;
         }
         .gd-float-date {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 1rem;
           color: var(--muted);
         }
-        .gd-float-card .gd-gcard-read { font-size: 12px; }
+        .gd-float-card .gd-gcard-read { font-size: 14px; }
         .gd-float-card:hover .gd-gcard-read {
           color: var(--coral-d);
           gap: 9px;
@@ -586,13 +586,13 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-empty-title {
           font-family: var(--font-fraunces), serif;
           font-weight: 600;
-          font-size: 1.4rem;
+          font-size: 1.5rem;
           color: var(--ink);
           margin: 0;
         }
         .gd-empty-body {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 0.95rem;
+          font-size: 1rem;
           color: var(--body);
           line-height: 1.6;
           margin: 0 0 0.5rem;

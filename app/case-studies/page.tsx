@@ -717,13 +717,13 @@ function CaseStudiesContent() {
         }
         .proof-row-num {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 12px;
+          font-size: 14px;
           color: var(--row-accent, #EA6A47);
           letter-spacing: 0.1em;
         }
         .proof-row-tag {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 1rem;
           font-weight: 600;
           color: var(--row-accent, #E8603C);
           letter-spacing: 0.08em;
@@ -738,12 +738,12 @@ function CaseStudiesContent() {
         }
         .proof-row-result {
           font-size: 14px;
-          color: rgba(34,51,44,0.6);
+          color: rgba(34,51,44,0.72);
           line-height: 1.5;
         }
         .proof-row-arrow {
           display: inline-flex;
-          color: #948D7E;
+          color: #5E594E;
           transition: color 0.2s ease-out, transform 0.2s ease-out;
           justify-self: end;
         }
@@ -824,7 +824,7 @@ function CaseStudiesContent() {
         .case-hero-subtitle {
           font-family: inherit;
           font-size: 16px;
-          color: rgba(34,51,44,0.65);
+          color: rgba(34,51,44,0.72);
           margin-bottom: 36px;
         }
         .case-hero-inline-stats {
@@ -844,7 +844,7 @@ function CaseStudiesContent() {
         }
         .case-hero-inline-stat-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 1rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.08em;
@@ -870,7 +870,7 @@ function CaseStudiesContent() {
         }
         .case-stat-card-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 1rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.08em;
@@ -900,8 +900,8 @@ function CaseStudiesContent() {
           margin: 8px 0;
         }
         .case-stat-card-desc {
-          font-size: 12px;
-          color: rgba(34,51,44,0.6);
+          font-size: 14px;
+          color: rgba(34,51,44,0.72);
           line-height: 1.4;
         }
 
@@ -979,7 +979,7 @@ function CaseStudiesContent() {
           border: 1px solid rgba(255,255,255,0.15);
           color: var(--cream);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 11px;
+          font-size: 14px;
           padding: 6px 14px;
           border-radius: 100px;
           cursor: pointer;
@@ -1017,7 +1017,7 @@ function CaseStudiesContent() {
         }
         .case-panel-label-sm {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.8rem;
+          font-size: 1rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.08em;
@@ -1032,8 +1032,9 @@ function CaseStudiesContent() {
           margin: 0;
         }
         .case-panel-list-v2 li {
-          font-size: 13px;
-          color: #4A4A45;
+          font-size: 14px;
+          color: #22332C;
+          font-weight: 500;
           line-height: 1.7;
         }
         .case-panel-list-v2.after li {
@@ -1065,8 +1066,8 @@ function CaseStudiesContent() {
         }
         .case-stat-v2-desc {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 11px;
-          color: #948D7E;
+          font-size: 14px;
+          color: #5E594E;
           letter-spacing: 0.04em;
           margin-top: 2px;
         }
@@ -1081,7 +1082,7 @@ function CaseStudiesContent() {
           border-radius: 4px;
           padding: 4px 10px;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 10px;
+          font-size: 14px;
           color: #22332C;
           font-weight: 500;
         }
@@ -1089,7 +1090,7 @@ function CaseStudiesContent() {
           margin-top: 16px;
         }
         .case-delivered-v2-value {
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 700;
           color: #22332C;
         }
@@ -1229,7 +1230,7 @@ function CaseStudiesContent() {
                       <ul className="case-panel-list-v2">
                         {row.details.before.map((item, i) => (
                           <li key={i}>
-                            <span style={{ color: "rgba(34,51,44,0.25)" }}>→ </span>
+                            <span style={{ color: "rgba(34,51,44,0.72)" }}>→ </span>
                             {item}
                           </li>
                         ))}

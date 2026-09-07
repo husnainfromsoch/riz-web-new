@@ -18,7 +18,7 @@ export default function HeroSection() {
           --hz-black: #0E0E0D;
           --hz-coral: #EA6A47;
           --hz-amber: #D79A36;
-          --hz-muted: #948D7E;
+          --hz-muted: #5E594E;
           --hz-line: var(--line);
         }
 
@@ -68,7 +68,7 @@ export default function HeroSection() {
 
         .hz-eyebrow {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 500;
           letter-spacing: 0.06em;
           text-transform: uppercase;
@@ -188,7 +188,7 @@ export default function HeroSection() {
           padding: 0 1.75rem;
           min-height: var(--btn-height);
           border-radius: var(--btn-radius);
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 600;
           display: inline-flex;
           align-items: center;
@@ -211,7 +211,7 @@ export default function HeroSection() {
           justify-content: center;
           border-radius: var(--btn-radius);
           border: 1.5px solid var(--hz-line);
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 500;
           transition: border-color 0.22s, color 0.22s;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
@@ -326,7 +326,7 @@ export default function HeroSection() {
           .hz-intro { font-size: clamp(20px, 5.8vw, 24px); margin-bottom: 10px; }
           .hz-value-prop { font-size: 16px; margin-bottom: 24px; }
           .hz-role-list { margin-bottom: 24px; }
-          .hz-role-list li { font-size: 15px; padding: 11px 0; }
+          .hz-role-list li { font-size: 16px; padding: 11px 0; }
           .hz-cta-row { margin-bottom: 24px; }
           .hz-btn-primary, .hz-btn-secondary { flex: 1 1 auto; }
           .hz-trust-row {
@@ -336,7 +336,7 @@ export default function HeroSection() {
             gap: 10px 24px;
           }
           .hz-ops-num { font-size: 32px; letter-spacing: -1.5px; }
-          .hz-ops-label { font-size: 13px; max-width: 190px; }
+          .hz-ops-label { font-size: 14px; max-width: 190px; }
           .hz-trust-row { flex-wrap: wrap; }
           .hz-logo-row { gap: 16px; flex-wrap: wrap; }
           .hz-logo-row img { height: 24px; max-width: 70px; }

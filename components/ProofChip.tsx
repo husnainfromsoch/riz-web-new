@@ -14,7 +14,7 @@ export function ProofChip({ icon, children }: { icon: React.ReactNode; children:
         alignItems: "center",
         gap: 8,
         fontFamily: "var(--font-montserrat), sans-serif",
-        fontSize: 11,
+        fontSize: 14,
         color: "var(--muted)",
         letterSpacing: "0.02em",
       }}

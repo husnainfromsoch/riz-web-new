@@ -113,7 +113,7 @@ function ConsultingMockup() {
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
-            fontSize: "1.1rem",
+            fontSize: "1.125rem",
             color: "#fff",
           }}
         >
@@ -124,7 +124,7 @@ function ConsultingMockup() {
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontWeight: 600,
-              fontSize: "1.05rem",
+              fontSize: "1.125rem",
               color: "#fff",
             }}
           >
@@ -133,7 +133,7 @@ function ConsultingMockup() {
           <p
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.73rem",
+              fontSize: "0.875rem",
               color: "rgba(255,255,255,0.72)",
               marginTop: "0.15rem",
             }}
@@ -191,8 +191,8 @@ function ConsultingMockup() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.65rem",
-                    color: "rgba(255,255,255,0.78)",
+                    fontSize: "0.875rem",
+                    color: "#FFFFFF",
                   }}
                 >
                   Selected
@@ -215,7 +215,7 @@ function ConsultingMockup() {
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontWeight: 600,
-              fontSize: "0.9rem",
+              fontSize: "1rem",
               color: "#fff",
             }}
           >
@@ -269,13 +269,13 @@ function wfNode(
           }}
         />
       )}
-      <span style={{ fontSize: "0.85rem", color: isActive ? "var(--coral)" : iconColor }}>
+      <span style={{ fontSize: "0.875rem", color: isActive ? "var(--coral)" : iconColor }}>
         {icon}
       </span>
       <span
         style={{
           fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.78rem",
+          fontSize: "1rem",
           color: textColor,
           whiteSpace: "nowrap",
         }}
@@ -287,7 +287,7 @@ function wfNode(
 }
 
 const wfArrow = (
-  <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.9rem", flexShrink: 0 }}>
+  <span style={{ color: "rgba(255,255,255,0.72)", fontSize: "1rem", flexShrink: 0 }}>
     →
   </span>
 );
@@ -321,7 +321,7 @@ function ProjectsMockup() {
           <span
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.8rem",
+              fontSize: "1rem",
               color: "var(--coral)",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -335,7 +335,7 @@ function ProjectsMockup() {
               alignItems: "center",
               gap: "0.4rem",
               fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "0.82rem",
+              fontSize: "0.875rem",
               color: "#4ade80",
             }}
           >
@@ -359,7 +359,7 @@ function ProjectsMockup() {
           <div className="wf-flow-row">
             {wfNode("▶", "New Lead", "rgba(234,106,71,0.22)", "rgba(234,106,71,0.4)", "rgba(255,255,255,0.9)", "var(--coral)", isStep(0))}
             {wfArrow}
-            {wfNode("⋯", "Tag Filter", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(1))}
+            {wfNode("⋯", "Tag Filter", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.72)", isStep(1))}
             {wfArrow}
             {wfNode("✳", "Enrich", "rgba(215,154,54,0.18)", "rgba(215,154,54,0.35)", "rgba(255,255,255,0.85)", "var(--amber)", isStep(2))}
           </div>
@@ -369,9 +369,9 @@ function ProjectsMockup() {
 
           {/* row 2 */}
           <div className="wf-flow-row">
-            {wfNode("✦", "Claude Draft", "rgba(167,139,250,0.16)", "rgba(167,139,250,0.4)", "rgba(255,255,255,0.88)", "#A78BFA", isStep(3))}
+            {wfNode("✦", "Claude Draft", "rgba(167,139,250,0.16)", "rgba(167,139,250,0.4)", "rgba(255,255,255,0.88)", "#C4B5FD", isStep(3))}
             {wfArrow}
-            {wfNode("◎", "Human Review", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(4))}
+            {wfNode("◎", "Human Review", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.72)", isStep(4))}
           </div>
 
           {/* connector: row 2 down into row 3 */}
@@ -379,9 +379,9 @@ function ProjectsMockup() {
 
           {/* row 3 */}
           <div className="wf-flow-row">
-            {wfNode("□", "CRM Save", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(5))}
+            {wfNode("□", "CRM Save", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.72)", isStep(5))}
             {wfArrow}
-            {wfNode("✉", "Notify", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.35)", isStep(6))}
+            {wfNode("✉", "Notify", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.72)", isStep(6))}
           </div>
         </div>
 
@@ -415,8 +415,8 @@ function ProjectsMockup() {
                   borderRadius: 99,
                   background: "rgba(255,255,255,0.06)",
                   fontFamily: "var(--font-dm-mono), monospace",
-                  fontSize: "0.75rem",
-                  color: "rgba(255,255,255,0.38)",
+                  fontSize: "0.875rem",
+                  color: "rgba(255,255,255,0.72)",
                 }}
               >
                 {t}
@@ -466,7 +466,7 @@ function WorkshopsMockup() {
         <h4
           style={{
             fontFamily: "var(--font-playfair), serif",
-            fontSize: "1.3rem",
+            fontSize: "1.375rem",
             fontWeight: 700,
             color: "var(--ink)",
             lineHeight: 1.2,
@@ -479,8 +479,8 @@ function WorkshopsMockup() {
         <p
           style={{
             fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "0.85rem",
-            color: "rgba(34,51,44,0.6)",
+            fontSize: "0.875rem",
+            color: "var(--ink)",
           }}
         >
           In-person or remote
@@ -525,7 +525,7 @@ function WorkshopsMockup() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.63rem",
+                    fontSize: "0.875rem",
                     color: "var(--muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
@@ -562,7 +562,7 @@ function WorkshopsMockup() {
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontWeight: 600,
-              fontSize: "0.9rem",
+              fontSize: "1rem",
               color: "var(--ink)",
             }}
           >
@@ -744,7 +744,7 @@ export default function Services() {
                     color: "#fff",
                     fontFamily: "var(--font-dm-sans), sans-serif",
                     fontWeight: 600,
-                    fontSize: "0.95rem",
+                    fontSize: "1rem",
                     textDecoration: "none",
                   }}
                 >
@@ -815,7 +815,7 @@ export default function Services() {
                     color: "var(--ink)",
                     fontFamily: "var(--font-dm-sans), sans-serif",
                     fontWeight: 600,
-                    fontSize: "0.95rem",
+                    fontSize: "1rem",
                     textDecoration: "none",
                     border: "none",
                     cursor: "pointer",

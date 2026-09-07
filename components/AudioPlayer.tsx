@@ -29,7 +29,7 @@ export function AudioPlayer() {
         style={{
           color: "#EA6A47",
           fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.72rem",
+          fontSize: "0.875rem",
           animation: "pulse-dot 1.4s ease-in-out infinite",
         }}
       >
@@ -39,7 +39,7 @@ export function AudioPlayer() {
         style={{
           color: "#EA6A47",
           fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.72rem",
+          fontSize: "0.875rem",
         }}
       >
         playing
