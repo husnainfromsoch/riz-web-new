@@ -39,12 +39,16 @@
   --font-body: var(--font-intertight);
   --font-mono: var(--font-plexmono);
 
+  /* Display: --font-inter-tight is the site's headline face in practice —
+     28 declarations including .hz-headline — whatever its name suggests. */
+  --font-inter-tight: var(--font-display);
   --font-fraunces: var(--font-display);
   --font-playfair: var(--font-display);
   --font-bebas: var(--font-display);
+  /* Body */
   --font-montserrat: var(--font-body);
-  --font-inter-tight: var(--font-body);
   --font-dm-sans: var(--font-body);
+  /* Mono */
   --font-geist-mono: var(--font-mono);
   --font-dm-mono: var(--font-mono);
 }

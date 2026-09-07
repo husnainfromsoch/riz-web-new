@@ -1094,12 +1094,12 @@ export default function Home() {
           align-items: stretch;
         }
         .believe-section-title {
-          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 52px; font-weight: 900; letter-spacing: -2.5px;
           line-height: 1.03; margin-bottom: 40px; color: var(--ink);
         }
         .belief-para-merged {
-          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 20px; line-height: 1.65; color: var(--ink);
         }
         .belief-sentence {
@@ -1180,7 +1180,7 @@ export default function Home() {
           padding: 8px 14px; border-radius: 100px;
         }
         .believe-pn-name {
-          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 13px; font-weight: 700; font-style: italic;
           background: linear-gradient(110deg, var(--cream), #EA6A47, #D79A36, var(--cream));
           background-size: 250% auto;
@@ -1342,7 +1342,7 @@ export default function Home() {
           margin-top: 28px;
           background: #22332C;
           color: var(--cream);
-          font-family: 'Inter Tight', var(--font-inter-tight), sans-serif;
+          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 14px;
           font-weight: 600;
           padding: 12px 26px;
@@ -1476,7 +1476,7 @@ export default function Home() {
                     border: "1px solid rgba(255,255,255,0.15)",
                     whiteSpace: "nowrap" as const,
                     zIndex: 4,
-                    fontFamily: "'Inter Tight', var(--font-inter-tight), sans-serif",
+                    fontFamily: "var(--font-inter-tight), 'Inter Tight', sans-serif",
                   }}>
                     ♪ Click to hear me
                   </div>
