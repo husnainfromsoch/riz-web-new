@@ -80,10 +80,10 @@ const ASK_AI_OPTIONS = [
 // ─── BY THE NUMBERS ──────────────────────────────────────────────────────────
 
 const byTheNumbersRows = [
-  { num: "01", stat: "$3.9M",      subtitle: "Courier costs saved · Careem",                         company: "Careem" },
+  { num: "01", stat: "$3.9M",      subtitle: "Courier costs saved · Bolt",                           company: "Bolt" },
   { num: "02", stat: "92%",        subtitle: "Straight-through processing · Wise",                    company: "Wise" },
   { num: "03", stat: "20s",        subtitle: "Dispatch time, down from 3 min · Careem",               company: "Careem" },
-  { num: "04", stat: "4 Markets",  subtitle: "Scaled across · Bolt",                                  company: "Bolt" },
+  { num: "04", stat: "15 Countries", subtitle: "Courier reporting frameworks · Bolt",                 company: "Bolt" },
   { num: "05", stat: "Zero code",  subtitle: "Shipped a browser game anyway",                         company: "Now" },
   { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc", company: "Now" },
 ];
