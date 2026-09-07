@@ -2,6 +2,7 @@
 
 import { useEffect, useId } from "react";
 import { getCalApi } from "@calcom/embed-react";
+import { playPopSound } from "@/lib/pop-sound";
 
 const CAL_LINK = "https://cal.com/consult-with-riz/consultingcall";
 const CAL_NAMESPACE = "consultingcall";
@@ -45,6 +46,10 @@ export default function CalBookingButton({
   }, []);
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Every "Book a call" trigger on the site renders through this component,
+    // so the click sound only needs to live here.
+    playPopSound();
+
     // Stop the native anchor from navigating/opening a new tab on its own.
     // Cal's embed script uses a delegated click listener (not the anchor's
     // default action) to open the popup, so preventDefault() here doesn't
