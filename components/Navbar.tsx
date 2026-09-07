@@ -151,7 +151,7 @@ export default function Navbar() {
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontWeight: 500,
-                fontSize: "0.95rem",
+                fontSize: "1rem",
                 color: textColor,
                 textDecoration: "none",
                 transition: "color 0.2s ease",
@@ -218,7 +218,7 @@ export default function Navbar() {
               style={{
                 fontFamily: "var(--font-dm-sans), sans-serif",
                 fontWeight: 500,
-                fontSize: "1.05rem",
+                fontSize: "1.125rem",
                 color: "var(--body)",
                 textDecoration: "none",
                 padding: "0.5rem 0",

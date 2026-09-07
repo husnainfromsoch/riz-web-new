@@ -90,7 +90,7 @@ export default function BookingSection() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.925rem",
+                    fontSize: "1rem",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                     color: "var(--coral)",
@@ -120,7 +120,7 @@ export default function BookingSection() {
                       <span
                         style={{
                           fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "0.925rem",
+                          fontSize: "1rem",
                           color: "var(--body)",
                           lineHeight: 1.65,
                         }}
@@ -137,7 +137,7 @@ export default function BookingSection() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.925rem",
+                    fontSize: "1rem",
                     letterSpacing: "0.12em",
                     textTransform: "uppercase",
                     color: "var(--coral)",
@@ -167,7 +167,7 @@ export default function BookingSection() {
                       <span
                         style={{
                           fontFamily: "var(--font-dm-sans), sans-serif",
-                          fontSize: "0.925rem",
+                          fontSize: "1rem",
                           color: "var(--body)",
                           lineHeight: 1.65,
                         }}

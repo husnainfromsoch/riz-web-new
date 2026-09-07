@@ -84,7 +84,7 @@ export default function SpeakingPage() {
               <p
                 style={{
                   fontFamily: "var(--font-dm-sans), sans-serif",
-                  fontSize: "1.1rem",
+                  fontSize: "1.125rem",
                   color: "var(--body)",
                   lineHeight: 1.7,
                   maxWidth: 520,
@@ -162,7 +162,7 @@ export default function SpeakingPage() {
         .format-row {
           padding: 1.35rem 1.5rem;
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 0.95rem;
+          font-size: 1rem;
           color: var(--body);
           display: flex;
           align-items: center;
@@ -176,7 +176,7 @@ export default function SpeakingPage() {
         }
         .format-row-label {
           font-family: var(--font-playfair), serif;
-          font-size: 1.05rem;
+          font-size: 1.125rem;
           font-weight: 600;
           color: var(--ink);
           transition: color 0.22s ease;
@@ -212,7 +212,7 @@ export default function SpeakingPage() {
           padding-left: 1.25rem;
           border-left: 2px solid var(--coral);
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 0.85rem;
+          font-size: 0.875rem;
           line-height: 1.7;
           color: var(--body);
         }
@@ -227,7 +227,7 @@ export default function SpeakingPage() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.5rem, 2.5vw, 1.8rem)",
+                  fontSize: "clamp(1.5rem, 2.5vw, 1.875rem)",
                   color: "var(--ink)",
                   fontWeight: 700,
                   marginBottom: "2rem",
@@ -248,7 +248,7 @@ export default function SpeakingPage() {
                     <h3
                       style={{
                         fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.1rem",
+                        fontSize: "1.125rem",
                         color: "var(--ink)",
                         fontWeight: 600,
                         marginBottom: "0.5rem",
@@ -259,7 +259,7 @@ export default function SpeakingPage() {
                     <p
                       style={{
                         fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.9rem",
+                        fontSize: "1rem",
                         color: "var(--body)",
                         lineHeight: 1.7,
                       }}
@@ -278,7 +278,7 @@ export default function SpeakingPage() {
               <h2
                 style={{
                   fontFamily: "var(--font-playfair), serif",
-                  fontSize: "clamp(1.5rem, 2.5vw, 1.8rem)",
+                  fontSize: "clamp(1.5rem, 2.5vw, 1.875rem)",
                   color: "var(--ink)",
                   fontWeight: 700,
                   marginBottom: "2rem",
@@ -319,14 +319,14 @@ export default function SpeakingPage() {
                         }}
                       >
                         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                          <span style={{ color: "var(--coral)", fontSize: "0.75rem" }}>●</span>
+                          <span style={{ color: "var(--coral)", fontSize: "0.875rem" }}>●</span>
                           <span className="format-row-label">{f.label}</span>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                           <span
                             style={{
                               fontFamily: "var(--font-dm-mono), monospace",
-                              fontSize: "0.845rem",
+                              fontSize: "0.875rem",
                               color: "var(--muted)",
                             }}
                           >

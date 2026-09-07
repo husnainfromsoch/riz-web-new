@@ -113,7 +113,7 @@ function ConsultingMockup() {
             alignItems: "center",
             justifyContent: "center",
             flexShrink: 0,
-            fontSize: "1.1rem",
+            fontSize: "1.125rem",
             color: "#fff",
           }}
         >
@@ -124,7 +124,7 @@ function ConsultingMockup() {
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontWeight: 600,
-              fontSize: "1.05rem",
+              fontSize: "1.125rem",
               color: "#fff",
             }}
           >
@@ -133,7 +133,7 @@ function ConsultingMockup() {
           <p
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.855rem",
+              fontSize: "0.875rem",
               color: "rgba(255,255,255,0.72)",
               marginTop: "0.15rem",
             }}
@@ -191,7 +191,7 @@ function ConsultingMockup() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.775rem",
+                    fontSize: "0.875rem",
                     color: "rgba(255,255,255,0.78)",
                   }}
                 >
@@ -215,7 +215,7 @@ function ConsultingMockup() {
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontWeight: 600,
-              fontSize: "0.9rem",
+              fontSize: "1rem",
               color: "#fff",
             }}
           >
@@ -269,13 +269,13 @@ function wfNode(
           }}
         />
       )}
-      <span style={{ fontSize: "0.85rem", color: isActive ? "var(--coral)" : iconColor }}>
+      <span style={{ fontSize: "0.875rem", color: isActive ? "var(--coral)" : iconColor }}>
         {icon}
       </span>
       <span
         style={{
           fontFamily: "var(--font-dm-mono), monospace",
-          fontSize: "0.905rem",
+          fontSize: "1rem",
           color: textColor,
           whiteSpace: "nowrap",
         }}
@@ -287,7 +287,7 @@ function wfNode(
 }
 
 const wfArrow = (
-  <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "0.9rem", flexShrink: 0 }}>
+  <span style={{ color: "rgba(255,255,255,0.18)", fontSize: "1rem", flexShrink: 0 }}>
     →
   </span>
 );
@@ -321,7 +321,7 @@ function ProjectsMockup() {
           <span
             style={{
               fontFamily: "var(--font-dm-mono), monospace",
-              fontSize: "0.925rem",
+              fontSize: "1rem",
               color: "var(--coral)",
               letterSpacing: "0.12em",
               textTransform: "uppercase",
@@ -335,7 +335,7 @@ function ProjectsMockup() {
               alignItems: "center",
               gap: "0.4rem",
               fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "0.82rem",
+              fontSize: "0.875rem",
               color: "#4ade80",
             }}
           >
@@ -466,7 +466,7 @@ function WorkshopsMockup() {
         <h4
           style={{
             fontFamily: "var(--font-playfair), serif",
-            fontSize: "1.3rem",
+            fontSize: "1.375rem",
             fontWeight: 700,
             color: "var(--ink)",
             lineHeight: 1.2,
@@ -479,7 +479,7 @@ function WorkshopsMockup() {
         <p
           style={{
             fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "0.85rem",
+            fontSize: "0.875rem",
             color: "rgba(34,51,44,0.6)",
           }}
         >
@@ -525,7 +525,7 @@ function WorkshopsMockup() {
                 <p
                   style={{
                     fontFamily: "var(--font-dm-mono), monospace",
-                    fontSize: "0.755rem",
+                    fontSize: "0.875rem",
                     color: "var(--muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
@@ -562,7 +562,7 @@ function WorkshopsMockup() {
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontWeight: 600,
-              fontSize: "0.9rem",
+              fontSize: "1rem",
               color: "var(--ink)",
             }}
           >
@@ -744,7 +744,7 @@ export default function Services() {
                     color: "#fff",
                     fontFamily: "var(--font-dm-sans), sans-serif",
                     fontWeight: 600,
-                    fontSize: "0.95rem",
+                    fontSize: "1rem",
                     textDecoration: "none",
                   }}
                 >
@@ -815,7 +815,7 @@ export default function Services() {
                     color: "var(--ink)",
                     fontFamily: "var(--font-dm-sans), sans-serif",
                     fontWeight: 600,
-                    fontSize: "0.95rem",
+                    fontSize: "1rem",
                     textDecoration: "none",
                     border: "none",
                     cursor: "pointer",

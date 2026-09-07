@@ -195,7 +195,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-weight: 700;
-          font-size: 15px;
+          font-size: 16px;
           padding: 0 28px;
           min-height: var(--btn-height);
           border-radius: var(--btn-radius);
@@ -216,7 +216,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-weight: 700;
-          font-size: 15px;
+          font-size: 16px;
           padding: 0 28px;
           min-height: var(--btn-height);
           border-radius: var(--btn-radius);
@@ -268,7 +268,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           border-radius: 999px;
           border: 1px solid rgba(34,51,44,0.18);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 12.5px;
+          font-size: 14px;
           letter-spacing: 0.08em;
           color: rgba(34,51,44,0.65);
           text-decoration: none;
@@ -287,13 +287,13 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         }
         .ftr-footnote {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 13px;
+          font-size: 14px;
           color: rgba(34,51,44,0.45);
           margin: 20px 0 0;
         }
         .ftr-col-heading {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.925rem;
+          font-size: 1rem;
           letter-spacing: 0.06em;
           text-transform: uppercase;
           color: #EA6A47;

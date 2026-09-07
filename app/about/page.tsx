@@ -285,7 +285,7 @@ function StatRow({
         <span
           style={{
             display: "block",
-            fontSize: 12,
+            fontSize: 14,
             color: "rgba(243,236,221,0.75)",
             letterSpacing: "0.08em",
             marginTop: 2,
@@ -329,7 +329,7 @@ function TrackRecordPanel() {
     >
       <p
         style={{
-          fontSize: 13,
+          fontSize: 14,
           color: "#EA6A47",
           letterSpacing: "0.12em",
           marginBottom: 32,
@@ -460,7 +460,7 @@ export default function About() {
             <AnimateIn delay={180}>
               <p
                 style={{
-                  fontSize: 17,
+                  fontSize: 18,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
                   marginBottom: 12,
@@ -473,7 +473,7 @@ export default function About() {
             <AnimateIn delay={240}>
               <p
                 style={{
-                  fontSize: 17,
+                  fontSize: 18,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
                   marginBottom: 12,
@@ -486,7 +486,7 @@ export default function About() {
             <AnimateIn delay={300}>
               <p
                 style={{
-                  fontSize: 17,
+                  fontSize: 18,
                   color: "rgba(34,51,44,0.75)",
                   lineHeight: 1.7,
                   marginBottom: 12,
@@ -641,7 +641,7 @@ export default function About() {
                     <span className="timeline-toggle-label">
                       <span
                         style={{
-                          fontSize: 13,
+                          fontSize: 14,
                           color: "#EA6A47",
                           letterSpacing: "0.12em",
                         }}
@@ -680,7 +680,7 @@ export default function About() {
                       {item.quote && (
                         <p
                           style={{
-                            fontSize: 13,
+                            fontSize: 14,
                             fontStyle: "italic",
                             color: "var(--ink)",
                             opacity: 0.65,
@@ -861,7 +861,7 @@ export default function About() {
           border-top: 1px solid var(--line);
         }
         .about-credentials-label {
-          font-size: 0.925rem;
+          font-size: 1rem;
           font-weight: 600;
           letter-spacing: 0.06em;
           color: var(--coral);
@@ -875,7 +875,7 @@ export default function About() {
         }
         .about-credentials-dot {
           color: #EA6A47;
-          font-size: 13px;
+          font-size: 14px;
         }
         .about-pill {
           display: inline-flex;
@@ -885,7 +885,7 @@ export default function About() {
           border: none;
           color: #22332C;
           padding: 0;
-          font-size: 0.95rem;
+          font-size: 1rem;
           font-weight: 500;
           font-variant: small-caps;
           letter-spacing: 0.02em;
@@ -913,7 +913,7 @@ export default function About() {
           color: var(--cream);
           padding: 18px 40px;
           border-radius: 8px;
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 700;
           letter-spacing: 0.02em;
           text-decoration: none;
@@ -971,7 +971,7 @@ export default function About() {
         }
         .beyond-quote p {
           font-style: italic;
-          font-size: 17px;
+          font-size: 18px;
           color: rgba(34,51,44,0.6);
           margin: 0;
           text-align: left;
@@ -1010,7 +1010,7 @@ export default function About() {
           gap: 8px;
           margin: 12px 0 0;
           font-style: italic;
-          font-size: 13px;
+          font-size: 14px;
           color: rgba(34,51,44,0.5);
         }
         .beyond-caption-dash {
@@ -1060,7 +1060,7 @@ export default function About() {
           transform: scale(1.15);
         }
         .beyond-row-content h3 {
-          font-size: 1.3rem;
+          font-size: 1.375rem;
           font-weight: 800;
           color: #22332C;
           margin: 0 0 8px;
@@ -1070,7 +1070,7 @@ export default function About() {
           color: #EA6A47;
         }
         .beyond-row-content p {
-          font-size: 14.5px;
+          font-size: 16px;
           color: rgba(34,51,44,0.65);
           line-height: 1.7;
           margin: 0;
@@ -1127,7 +1127,7 @@ export default function About() {
           box-shadow: 0 18px 32px rgba(34,51,44,0.14);
         }
         .lesson-card-number {
-          font-size: 13px;
+          font-size: 14px;
           color: var(--lesson-accent, #EA6A47);
           opacity: 0.55;
           margin: 0 0 12px;
@@ -1168,7 +1168,7 @@ export default function About() {
           border: 1px solid var(--line);
           border-radius: 999px;
           padding: 6px 16px;
-          font-size: 13px;
+          font-size: 14px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           color: #ea6a47;
@@ -1211,7 +1211,7 @@ export default function About() {
         .timeline-caret {
           flex-shrink: 0;
           color: #ea6a47;
-          font-size: 13px;
+          font-size: 14px;
           transition: transform 0.2s ease;
         }
         .timeline-item.is-open .timeline-caret {

@@ -473,7 +473,7 @@ export default function Home() {
           to   { transform: translateX(-50%) rotate(360deg); }
         }
         .personality-subhead {
-          font-size: 1.2rem;
+          font-size: 1.25rem;
           line-height: 1.7;
           color: #4A524A;
           max-width: 60ch;
@@ -484,7 +484,7 @@ export default function Home() {
            so drop the max-width cap and nudge the size down just there. */
         @media (min-width: 1200px) {
           .personality-subhead {
-            font-size: 1.05rem;
+            font-size: 1.125rem;
             max-width: none;
             white-space: nowrap;
           }
@@ -541,7 +541,7 @@ export default function Home() {
           align-items: center;
           gap: 8px;
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 500;
           color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
@@ -568,7 +568,7 @@ export default function Home() {
         }
         .route-price-from {
           font-family: var(--font-geist-mono), monospace;
-          font-size: 13px;
+          font-size: 14px;
           color: rgba(34,51,44,0.5);
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -593,7 +593,7 @@ export default function Home() {
         }
         .route-trust-line {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 12.5px;
+          font-size: 14px;
           color: rgba(34,51,44,0.45);
           letter-spacing: 0.02em;
           margin-top: 4px;
@@ -604,7 +604,7 @@ export default function Home() {
           color: #ffffff;
           padding: 14px 32px;
           border-radius: 10px;
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 700;
           text-decoration: none;
           white-space: nowrap;
@@ -621,7 +621,7 @@ export default function Home() {
           display: inline-flex;
           width: fit-content;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 12px;
+          font-size: 14px;
           font-weight: 600;
           letter-spacing: 0.1em;
           padding: 4px 12px;
@@ -677,7 +677,7 @@ export default function Home() {
         }
         .route-authority-line {
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 500;
           color: rgba(34,51,44,0.72);
           letter-spacing: 0.02em;
@@ -697,7 +697,7 @@ export default function Home() {
           color: var(--cream);
           padding: 10px 20px;
           border-radius: 8px;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 600;
           text-decoration: none;
           border: none;
@@ -723,7 +723,7 @@ export default function Home() {
           color: #22332C;
           padding: 10px 20px;
           border-radius: 8px;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 600;
           text-decoration: none;
           cursor: pointer;
@@ -818,7 +818,7 @@ export default function Home() {
         }
         .merged-hero-desc {
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 15px;
+          font-size: 16px;
           color: rgba(34,51,44,0.65);
           line-height: 1.7;
           max-width: 460px;
@@ -898,7 +898,7 @@ export default function Home() {
           transform: translateX(-50%);
           white-space: nowrap;
           font-family: var(--font-dm-sans), sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 600;
           color: #22332C;
           background: #ffffff;
@@ -1181,7 +1181,7 @@ export default function Home() {
         }
         .believe-pn-name {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 13px; font-weight: 700; font-style: italic;
+          font-size: 14px; font-weight: 700; font-style: italic;
           background: linear-gradient(110deg, var(--cream), #EA6A47, #D79A36, var(--cream));
           background-size: 250% auto;
           -webkit-background-clip: text; background-clip: text;
@@ -1271,7 +1271,7 @@ export default function Home() {
           justify-content: center;
           flex-shrink: 0;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 700;
           color: #C17A5A;
           transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
@@ -1292,7 +1292,7 @@ export default function Home() {
           display: inline-flex;
           width: fit-content;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 12.5px;
+          font-size: 14px;
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -1303,7 +1303,7 @@ export default function Home() {
         }
         .work-row-title {
           font-family: var(--font-fraunces), serif;
-          font-size: 19px;
+          font-size: 20px;
           font-weight: 800;
           color: #22332C;
           line-height: 1.3;
@@ -1325,8 +1325,8 @@ export default function Home() {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          color: #948D7E;
-          font-size: 15px;
+          color: #5E594E;
+          font-size: 16px;
           transition: all 0.25s ease;
         }
         .work-row:hover .work-row-arrow {
@@ -1470,7 +1470,7 @@ export default function Home() {
                     color: "#ffffff",
                     padding: "10px 20px",
                     borderRadius: "100px",
-                    fontSize: "13px",
+                    fontSize: "14px",
                     fontWeight: 600,
                     letterSpacing: "0.05em",
                     border: "1px solid rgba(255,255,255,0.15)",
@@ -1551,7 +1551,7 @@ export default function Home() {
             <h2 style={{
               fontFamily: "var(--font-playfair), serif",
               fontWeight: 700,
-              fontSize: "clamp(2.6rem, 5vw, 3.75rem)",
+              fontSize: "clamp(2.625rem, 5vw, 3.75rem)",
               lineHeight: 1.08,
               marginBottom: "1.75rem",
             }}>
@@ -1616,7 +1616,7 @@ export default function Home() {
                     )}
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: "0.865rem",
+                      fontSize: "0.875rem",
                       fontWeight: 500,
                       color: "#5C5750",
                       marginLeft: "0.45rem",
@@ -1629,7 +1629,7 @@ export default function Home() {
 
             <p style={{
               fontFamily: "var(--font-fraunces), serif",
-              fontSize: "clamp(1.05rem, 1.5vw, 1.2rem)",
+              fontSize: "clamp(1.125rem, 1.5vw, 1.25rem)",
               fontStyle: "normal",
               color: "#4A5868",
               lineHeight: 1.7,
@@ -1658,7 +1658,7 @@ export default function Home() {
                 <span
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.925rem",
+                    fontSize: "1rem",
                     color: "#5C5750",
                   }}
                 >
@@ -1669,7 +1669,7 @@ export default function Home() {
                   onClick={() => setActiveCompany(null)}
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "0.905rem",
+                    fontSize: "1rem",
                     color: "#EA6A47",
                     background: "none",
                     border: "none",
@@ -1754,7 +1754,7 @@ export default function Home() {
                         <span
                           style={{
                             fontFamily: "var(--font-dm-mono), monospace",
-                            fontSize: "0.75rem",
+                            fontSize: "0.875rem",
                             fontWeight: 600,
                             letterSpacing: "0.04em",
                             color: "#C17A5A",
@@ -1782,7 +1782,7 @@ export default function Home() {
                         <p
                           style={{
                             fontFamily: "var(--font-dm-sans), sans-serif",
-                            fontSize: "0.82rem",
+                            fontSize: "0.875rem",
                             color: "#22332C",
                             opacity: 0.95,
                             margin: 0,
@@ -1915,7 +1915,7 @@ export default function Home() {
                                 color: "var(--cream)",
                                 opacity: 1,
                                 fontFamily: "var(--font-montserrat), sans-serif",
-                                fontSize: 12,
+                                fontSize: 14,
                                 borderRadius: 4,
                                 padding: "3px 8px",
                                 flexShrink: 0,
@@ -1955,7 +1955,7 @@ export default function Home() {
                   <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: 700,
                       letterSpacing: "0.08em",
                       color: isAfter ? "rgba(34,51,44,0.35)" : "#22332C",
@@ -1994,7 +1994,7 @@ export default function Home() {
                     </button>
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: 700,
                       letterSpacing: "0.08em",
                       color: isAfter ? "#EA6A47" : "rgba(34,51,44,0.35)",
@@ -2079,7 +2079,7 @@ export default function Home() {
                               background: "#22332C",
                               color: "var(--cream)",
                               fontFamily: "var(--font-montserrat), sans-serif",
-                              fontSize: 12,
+                              fontSize: 14,
                               borderRadius: 4,
                               padding: "3px 8px",
                               flexShrink: 0,
@@ -2413,7 +2413,7 @@ export default function Home() {
             <h2
               style={{
                 fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
                 fontWeight: 700,
                 marginBottom: "0.75rem",

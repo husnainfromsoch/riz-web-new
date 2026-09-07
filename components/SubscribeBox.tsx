@@ -18,7 +18,7 @@ export default function SubscribeBox() {
       <h3
         style={{
           fontFamily: "var(--font-playfair), serif",
-          fontSize: "1.2rem",
+          fontSize: "1.25rem",
           color: "var(--ink)",
           fontWeight: 700,
           marginBottom: "0.5rem",
@@ -29,7 +29,7 @@ export default function SubscribeBox() {
       <p
         style={{
           fontFamily: "var(--font-dm-sans), sans-serif",
-          fontSize: "0.9rem",
+          fontSize: "1rem",
           color: "var(--muted)",
           marginBottom: "1.25rem",
         }}
@@ -40,7 +40,7 @@ export default function SubscribeBox() {
         <p
           style={{
             fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "0.9rem",
+            fontSize: "1rem",
             color: "var(--coral)",
             fontWeight: 600,
           }}
@@ -65,7 +65,7 @@ export default function SubscribeBox() {
               border: "1px solid var(--line-2)",
               borderRadius: 6,
               fontFamily: "var(--font-dm-sans), sans-serif",
-              fontSize: "0.9rem",
+              fontSize: "1rem",
               color: "var(--ink)",
               background: "#fff",
               outline: "none",

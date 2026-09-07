@@ -106,7 +106,7 @@ export default function FAQSection() {
         .faq-eyebrow {
           font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas,
             monospace;
-          font-size: 13px;
+          font-size: 14px;
           letter-spacing: 0.15em;
           text-transform: uppercase;
           color: #e8603c;
@@ -160,7 +160,7 @@ export default function FAQSection() {
           cursor: pointer;
           text-align: left;
           font-family: Lora, Georgia, serif;
-          font-size: 17px;
+          font-size: 18px;
           font-weight: 700;
           color: #3d3d3d;
         }
@@ -219,7 +219,7 @@ export default function FAQSection() {
           padding: 0 24px 20px;
           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
             Helvetica, Arial, sans-serif;
-          font-size: 15.5px;
+          font-size: 16px;
           line-height: 1.65;
           color: #5a5754;
         }

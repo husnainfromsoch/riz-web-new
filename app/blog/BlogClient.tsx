@@ -134,7 +134,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         }
         .writing-hero-sub {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 1.15rem;
+          font-size: 1.25rem;
           color: var(--body);
           line-height: 1.7;
           max-width: 48ch;
@@ -162,7 +162,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           border: 1px solid var(--line-2);
           border-radius: 12px;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 0.95rem;
+          font-size: 1rem;
           color: var(--ink);
           background: #fff;
           outline: none;
@@ -180,7 +180,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           top: 50%;
           transform: translateY(-50%);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.825rem;
+          font-size: 0.875rem;
           color: var(--muted);
           border: 1px solid var(--line-2);
           border-radius: 6px;
@@ -244,7 +244,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         .writing-featured-tag {
           display: inline-block;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.925rem;
+          font-size: 1rem;
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -253,7 +253,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         }
         .writing-featured-title {
           font-family: var(--font-fraunces), serif;
-          font-size: 1.3rem;
+          font-size: 1.375rem;
           font-weight: 600;
           color: var(--ink);
           line-height: 1.35;
@@ -264,7 +264,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           align-items: center;
           gap: 8px;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 0.925rem;
+          font-size: 1rem;
           color: var(--muted);
           margin-bottom: 0.5rem;
         }
@@ -283,7 +283,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         }
         .writing-divider-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.925rem;
+          font-size: 1rem;
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
@@ -343,7 +343,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         }
         .blog-post-paid-pill {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.825rem;
+          font-size: 0.875rem;
           font-weight: 600;
           letter-spacing: 0.06em;
           text-transform: uppercase;
@@ -483,7 +483,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.925rem",
+                        fontSize: "1rem",
                         color: "var(--faint)",
                         letterSpacing: "0.06em",
                       }}
@@ -496,7 +496,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
                   <h2
                     style={{
                       fontFamily: "var(--font-playfair), serif",
-                      fontSize: "1.1rem",
+                      fontSize: "1.125rem",
                       fontWeight: 600,
                       color: "var(--ink)",
                       lineHeight: 1.4,

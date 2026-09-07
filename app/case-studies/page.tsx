@@ -723,7 +723,7 @@ function CaseStudiesContent() {
         }
         .proof-row-tag {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.925rem;
+          font-size: 1rem;
           font-weight: 600;
           color: var(--row-accent, #E8603C);
           letter-spacing: 0.08em;
@@ -743,7 +743,7 @@ function CaseStudiesContent() {
         }
         .proof-row-arrow {
           display: inline-flex;
-          color: #948D7E;
+          color: #5E594E;
           transition: color 0.2s ease-out, transform 0.2s ease-out;
           justify-self: end;
         }
@@ -844,7 +844,7 @@ function CaseStudiesContent() {
         }
         .case-hero-inline-stat-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.925rem;
+          font-size: 1rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.08em;
@@ -870,7 +870,7 @@ function CaseStudiesContent() {
         }
         .case-stat-card-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.925rem;
+          font-size: 1rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.08em;
@@ -979,7 +979,7 @@ function CaseStudiesContent() {
           border: 1px solid rgba(255,255,255,0.15);
           color: var(--cream);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 13px;
+          font-size: 14px;
           padding: 6px 14px;
           border-radius: 100px;
           cursor: pointer;
@@ -1017,7 +1017,7 @@ function CaseStudiesContent() {
         }
         .case-panel-label-sm {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.925rem;
+          font-size: 1rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.08em;
@@ -1032,7 +1032,7 @@ function CaseStudiesContent() {
           margin: 0;
         }
         .case-panel-list-v2 li {
-          font-size: 13px;
+          font-size: 14px;
           color: #4A4A45;
           line-height: 1.7;
         }
@@ -1065,8 +1065,8 @@ function CaseStudiesContent() {
         }
         .case-stat-v2-desc {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 13px;
-          color: #948D7E;
+          font-size: 14px;
+          color: #5E594E;
           letter-spacing: 0.04em;
           margin-top: 2px;
         }
@@ -1081,7 +1081,7 @@ function CaseStudiesContent() {
           border-radius: 4px;
           padding: 4px 10px;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 12px;
+          font-size: 14px;
           color: #22332C;
           font-weight: 500;
         }
@@ -1089,7 +1089,7 @@ function CaseStudiesContent() {
           margin-top: 16px;
         }
         .case-delivered-v2-value {
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 700;
           color: #22332C;
         }

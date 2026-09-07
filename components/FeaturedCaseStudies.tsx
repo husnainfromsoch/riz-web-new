@@ -351,7 +351,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card-tag {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 0.75rem;
+          font-size: 0.875rem;
           font-weight: 600;
           color: #E8603C;
           letter-spacing: 0.05em;
@@ -387,7 +387,7 @@ export default function FeaturedCaseStudies() {
           margin: 0 0 6px;
         }
         .fcs-card-result {
-          font-size: 14.5px;
+          font-size: 16px;
           color: rgba(34,51,44,0.55);
           line-height: 1.45;
           margin: 0;
@@ -402,7 +402,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card-chevron {
           display: inline-flex;
-          color: #948D7E;
+          color: #5E594E;
           transition: color 0.2s ease-out, transform 0.2s ease-out;
         }
         .fcs-card:hover .fcs-card-chevron {
@@ -462,7 +462,7 @@ export default function FeaturedCaseStudies() {
           border: 1px solid rgba(255,255,255,0.15);
           color: var(--cream);
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 13px;
+          font-size: 14px;
           padding: 6px 14px;
           border-radius: 100px;
           cursor: pointer;
@@ -504,7 +504,7 @@ export default function FeaturedCaseStudies() {
           margin: 0;
         }
         .fcs-panel-list li {
-          font-size: 13px;
+          font-size: 14px;
           color: #4A4A45;
           line-height: 1.7;
         }
@@ -536,8 +536,8 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-stat-desc {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 13px;
-          color: #948D7E;
+          font-size: 14px;
+          color: #5E594E;
           letter-spacing: 0.04em;
           margin-top: 2px;
         }
@@ -552,12 +552,12 @@ export default function FeaturedCaseStudies() {
           border-radius: 4px;
           padding: 4px 10px;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
-          font-size: 12px;
+          font-size: 14px;
           color: #22332C;
           font-weight: 500;
         }
         .fcs-delivered-value {
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 700;
           color: #22332C;
         }

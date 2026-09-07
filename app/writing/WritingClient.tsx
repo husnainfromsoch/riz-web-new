@@ -45,7 +45,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
             border: "1px solid var(--line-2)",
             borderRadius: 8,
             fontFamily: "var(--font-dm-sans), sans-serif",
-            fontSize: "0.95rem",
+            fontSize: "1rem",
             color: "var(--ink)",
             background: "#fff",
             outline: "none",
@@ -136,7 +136,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-mono), monospace",
-                        fontSize: "0.925rem",
+                        fontSize: "1rem",
                         color: "var(--faint)",
                         letterSpacing: "0.06em",
                       }}
@@ -147,7 +147,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                     <h2
                       style={{
                         fontFamily: "var(--font-playfair), serif",
-                        fontSize: "1.05rem",
+                        fontSize: "1.125rem",
                         fontWeight: 700,
                         color: "var(--ink)",
                         lineHeight: 1.4,
@@ -179,7 +179,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                     <span
                       style={{
                         fontFamily: "var(--font-dm-sans), sans-serif",
-                        fontSize: "0.925rem",
+                        fontSize: "1rem",
                         fontWeight: 600,
                         letterSpacing: "0.06em",
                         color: "var(--coral)",

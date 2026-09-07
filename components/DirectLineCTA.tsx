@@ -183,7 +183,7 @@ export default function DirectLineCTA({
           background: #22332C;
           color: var(--cream);
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 600;
           padding: 14px 28px;
           border-radius: 100px;
@@ -203,7 +203,7 @@ export default function DirectLineCTA({
           background: #ffffff;
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 15px;
+          font-size: 16px;
           font-weight: 600;
           padding: 14px 28px;
           border-radius: 100px;
@@ -285,7 +285,7 @@ export default function DirectLineCTA({
         }
         .chat-hayat-credit {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 13px;
+          font-size: 14px;
           color: rgba(34,51,44,0.7);
           font-style: italic;
           margin: 20px 0 0;
