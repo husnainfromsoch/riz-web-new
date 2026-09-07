@@ -10,6 +10,7 @@ import CalBookingButton from "@/components/CalModal";
 import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
 import PersonalityCarousel from "@/components/PersonalityCarousel";
 import { type SubstackPost, FALLBACK_POSTS } from "@/lib/substack";
+import { playToggleSound } from "@/lib/sounds";
 
 function formatRowDate(pubDate: string): string {
   const parsed = new Date(pubDate);
@@ -308,7 +309,6 @@ export default function Home() {
   const [hoveredBACard, setHoveredBACard] = useState<number | null>(null);
   const beforeAfterRef = useRef<HTMLElement>(null);
   const portraitAudioRef = useRef<HTMLAudioElement | null>(null);
-  const toggleClickAudioCtxRef = useRef<AudioContext | null>(null);
   const audioFadeRafRef = useRef<number | null>(null);
 
   const byTheNumbersRef = useRef<HTMLElement | null>(null);
@@ -417,34 +417,8 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  // Toggle now only changes state on manual click (see playToggleSound + button onClick below) —
-  // the auto-toggling demo animation has been removed entirely.
-  function playToggleSound() {
-    if (typeof window === "undefined") return;
-    try {
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-      if (!AudioCtx) return;
-      if (!toggleClickAudioCtxRef.current) {
-        toggleClickAudioCtxRef.current = new AudioCtx();
-      }
-      const ctx = toggleClickAudioCtxRef.current;
-      if (ctx.state === "suspended") ctx.resume();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sine";
-      const now = ctx.currentTime;
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.13);
-    } catch {
-      // Fail silently - e.g. Web Audio unsupported or blocked before user gesture.
-    }
-  }
+  // Toggle only changes state on manual click; the auto-toggling demo
+  // animation has been removed entirely. The sound lives in lib/sounds.ts.
 
   useEffect(() => {
     const els = beliefParaRefs.current.filter(Boolean) as HTMLSpanElement[];
