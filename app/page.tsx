@@ -7,17 +7,10 @@ import BookingSection from "@/components/BookingSection";
 import HeroSection from "@/components/hero-section";
 import TestimonialsSection from "@/components/Testimonials";
 import CalBookingButton from "@/components/CalModal";
-import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
 import PersonalityCarousel from "@/components/PersonalityCarousel";
-import { type SubstackPost, FALLBACK_POSTS } from "@/lib/substack";
 import { playToggleSound } from "@/lib/sounds";
 import WhatIDo from "@/components/blocks/WhatIDo";
-
-function formatRowDate(pubDate: string): string {
-  const parsed = new Date(pubDate);
-  if (Number.isNaN(parsed.getTime())) return "";
-  return `${parsed.getFullYear()} · ${String(parsed.getMonth() + 1).padStart(2, "0")}`;
-}
+import ByTheNumbers from "@/components/blocks/ByTheNumbers";
 
 const PORTRAIT_URL =
   "https://cdn.prod.website-files.com/68e7ded517d0693d2c345250/6a3a46d312c6d02c8e46bab1_691d97efffebe375af48ce33_Remove_GMNI-removebg-preview.png";
@@ -81,14 +74,6 @@ const ASK_AI_OPTIONS = [
 
 // ─── BY THE NUMBERS ──────────────────────────────────────────────────────────
 
-const byTheNumbersRows = [
-  { num: "01", stat: "$3.9M",      subtitle: "Courier costs saved · Bolt",                           company: "Bolt" },
-  { num: "02", stat: "92%",        subtitle: "Straight-through processing · Wise",                    company: "Wise" },
-  { num: "03", stat: "20s",        subtitle: "Dispatch time, down from 3 min · Careem",               company: "Careem" },
-  { num: "04", stat: "15 Countries", subtitle: "Courier reporting frameworks · Bolt",                 company: "Bolt" },
-  { num: "05", stat: "Zero code",  subtitle: "Shipped a browser game anyway",                         company: "Now" },
-  { num: "06", stat: "Won",        subtitle: "Wrongful termination case · Bolt, published every doc", company: "Now" },
-];
 
 // ─── WORKFLOW STEPS (before/after toggle) ───────────────────────────────────
 
@@ -270,16 +255,6 @@ function ClickableCard({
 // ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
-  const [blogPosts, setBlogPosts] = useState<SubstackPost[]>(FALLBACK_POSTS);
-
-  useEffect(() => {
-    fetch("/api/writing-posts")
-      .then((res) => (res.ok ? res.json() : null))
-      .then((posts: SubstackPost[] | null) => {
-        if (posts && posts.length > 0) setBlogPosts(posts);
-      })
-      .catch(() => {});
-  }, []);
 
   const [aiPickerOpen, setAiPickerOpen] = useState(false);
   const aiWrapRef = useRef<HTMLDivElement>(null);
@@ -311,11 +286,6 @@ export default function Home() {
   const portraitAudioRef = useRef<HTMLAudioElement | null>(null);
   const audioFadeRafRef = useRef<number | null>(null);
 
-  const byTheNumbersRef = useRef<HTMLElement | null>(null);
-  const byTheNumbersTriggeredRef = useRef(false);
-  const [visibleNumberRows, setVisibleNumberRows] = useState([false, false, false, false, false, false]);
-  const [hoveredNumberRow, setHoveredNumberRow] = useState<number | null>(null);
-  const [activeCompany, setActiveCompany] = useState<string | null>(null);
 
 
   const PORTRAIT_AUDIO_VOLUME = 0.5;
@@ -392,29 +362,6 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const el = byTheNumbersRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting || byTheNumbersTriggeredRef.current) return;
-        byTheNumbersTriggeredRef.current = true;
-        byTheNumbersRows.forEach((_, i) => {
-          setTimeout(() => {
-            setVisibleNumberRows((prev) => {
-              const next = [...prev];
-              next[i] = true;
-              return next;
-            });
-          }, i * 150);
-        });
-        observer.disconnect();
-      },
-      { threshold: 0.15 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
   // Toggle only changes state on manual click; the auto-toggling demo
   // animation has been removed entirely. The sound lives in lib/sounds.ts.
@@ -1013,14 +960,6 @@ export default function Home() {
           .ba-arrow-h { display: none; }
           .ba-arrow-v { display: flex; padding: 6px 0; }
         }
-        @keyframes timelineIn {
-          from { opacity: 0; transform: translateX(-14px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes pulseNode {
-          0%, 100% { box-shadow: 0 0 0 5px rgba(255,92,53,0.18); }
-          50%       { box-shadow: 0 0 0 11px rgba(255,92,53,0.06); }
-        }
         @keyframes ba-dash-pulse {
           0%, 100% { opacity: 0.35; }
           50%       { opacity: 0.9; }
@@ -1218,283 +1157,11 @@ export default function Home() {
           same slot: straight after the hero, before the numbers. */}
       <WhatIDo />
 
-      {/* BY THE NUMBERS */}
-      <section
-        ref={byTheNumbersRef}
-        className="section-pad"
-        style={{ background: "var(--cream)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}
-      >
-        <div className="max-w-site by-numbers-grid">
-
-          {/* LEFT SIDE */}
-          <div style={{ paddingRight: "4rem", paddingBottom: "2.5rem", height: "fit-content" }}>
-            <h2 style={{
-              fontFamily: "var(--font-playfair), serif",
-              fontWeight: 600,
-              fontSize: "clamp(2.625rem, 5vw, 3.75rem)",
-              lineHeight: 1.08,
-              marginBottom: "1.75rem",
-            }}>
-              <span style={{ color: "#22332C", display: "block" }}>By the</span>
-              <span style={{ color: "#ff5c35", display: "block" }}>numbers.</span>
-            </h2>
-
-            {/* Animated career timeline */}
-            <div style={{ position: "relative", marginBottom: "2rem" }}>
-              <div style={{
-                position: "absolute",
-                left: 11,
-                top: 12,
-                bottom: 12,
-                width: 2,
-                background: "linear-gradient(to bottom, #C17A5A 0%, rgba(193,122,90,0.12) 100%)",
-              }} />
-              {([
-                { company: "Careem", year: "2019" },
-                { company: "Bolt",   year: "2021" },
-                { company: "Wise",   year: "2025" },
-                { company: "Now",    year: "2026", highlight: true },
-              ] as { company: string; year: string; highlight?: boolean }[]).map((item, i) => {
-                const isActive = activeCompany === item.company;
-                const isDefaultHighlight = !!item.highlight && activeCompany === null;
-                const showCoral = isActive || isDefaultHighlight;
-                const logoSrc = ({"Careem": "/logos/careem.png", "Bolt": "/logos/bolt.png", "Wise": "/logos/wise.svg"} as Record<string, string>)[item.company];
-                return (
-                <div
-                  key={i}
-                  onClick={() => setActiveCompany(activeCompany === item.company ? null : item.company)}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "0.875rem",
-                    marginBottom: i < 3 ? "1.5rem" : 0,
-                    opacity: 0,
-                    animation: `timelineIn 0.5s ease forwards ${0.15 + i * 0.12}s`,
-                    cursor: "pointer",
-                    userSelect: "none" as const,
-                  }}
-                >
-                  <div style={{
-                    width: 24, height: 24,
-                    borderRadius: "50%",
-                    border: `2px solid ${showCoral ? "#ff5c35" : "#C17A5A"}`,
-                    background: showCoral ? "#ff5c35" : "var(--cream)",
-                    flexShrink: 0,
-                    position: "relative",
-                    zIndex: 1,
-                    transition: "background 0.3s ease, border-color 0.3s ease",
-                    animation: showCoral ? "pulseNode 2.2s ease-in-out infinite" : "none",
-                  }} />
-                  <div style={{ display: "flex", alignItems: "center", flexWrap: "nowrap" }}>
-                    {logoSrc && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={logoSrc}
-                        alt={item.company}
-                        style={{ height: 52, maxWidth: 120, width: "auto", objectFit: "contain", flexShrink: 0, marginRight: "0.7rem" }}
-                      />
-                    )}
-                    <span style={{
-                      fontFamily: "var(--font-montserrat), sans-serif",
-                      fontSize: "0.875rem",
-                      fontWeight: 500,
-                      color: "#5C5750",
-                      marginLeft: "0.45rem",
-                    }}>{item.year}</span>
-                  </div>
-                </div>
-                );
-              })}
-            </div>
-
-            <p style={{
-              fontFamily: "var(--font-fraunces), serif",
-              fontSize: "clamp(1.125rem, 1.5vw, 1.25rem)",
-              fontStyle: "normal",
-              color: "#4A5868",
-              lineHeight: 1.7,
-              maxWidth: 300,
-              marginBottom: "1.75rem",
-            }}>
-              What ten years inside high-growth operations actually adds up to. A track record, not a theory.
-            </p>
-
-          </div>
-
-          {/* RIGHT SIDE */}
-          <div>
-            {activeCompany !== null && (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginBottom: "0.75rem",
-                  paddingBottom: "0.75rem",
-                  borderBottom: "1px solid #D8D0C4",
-                  animation: "timelineIn 0.3s ease",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1rem",
-                    color: "#5C5750",
-                  }}
-                >
-                  Showing stats for{" "}
-                  <b style={{ color: "#22332C" }}>{activeCompany}</b>
-                </span>
-                <button
-                  onClick={() => setActiveCompany(null)}
-                  style={{
-                    fontFamily: "var(--font-dm-sans), sans-serif",
-                    fontSize: "1rem",
-                    color: "#ff5c35",
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                  }}
-                >
-                  × Clear filter
-                </button>
-              </div>
-            )}
-            {(() => {
-              const lastVisibleIndex = byTheNumbersRows.reduce(
-                (acc, r, idx) =>
-                  activeCompany === null || r.company === activeCompany ? idx : acc,
-                -1
-              );
-              return byTheNumbersRows.map((row, i) => {
-                const isRevealed = visibleNumberRows[i];
-                const isVisible = activeCompany === null || row.company === activeCompany;
-                const rowOpacity = !isRevealed ? 0 : isVisible ? 1 : 0;
-                const rowTransform = !isRevealed ? "translateY(20px)" : "translateY(0)";
-                const rowTransition = !isRevealed
-                  ? `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`
-                  : "opacity 0.3s ease";
-                const rowBorderLeft = activeCompany !== null
-                  ? "2px solid #ff5c35"
-                  : hoveredNumberRow === i
-                  ? "3px solid #ff5c35"
-                  : "3px solid transparent";
-                const rowBackground = activeCompany !== null
-                  ? "rgba(255,92,53,0.04)"
-                  : hoveredNumberRow === i
-                  ? "#F0E8DC"
-                  : "transparent";
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      overflow: "hidden",
-                      maxHeight: isVisible ? 300 : 0,
-                      transition: "max-height 0.4s ease",
-                    }}
-                  >
-                    <div
-                      onMouseEnter={() => setHoveredNumberRow(i)}
-                      onMouseLeave={() => setHoveredNumberRow(null)}
-                      style={{
-                        paddingTop: isVisible ? "28px" : "0px",
-                        paddingBottom: isVisible ? "28px" : "0px",
-                        paddingLeft: "20px",
-                        paddingRight: 0,
-                        borderTop: isVisible ? "1px solid #D8D0C4" : "0px solid transparent",
-                        borderBottom:
-                          i === lastVisibleIndex && isVisible ? "1px solid #D8D0C4" : "none",
-                        borderLeft: rowBorderLeft,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "1.5rem",
-                        cursor: "default",
-                        background: rowBackground,
-                        position: "relative",
-                        opacity: rowOpacity,
-                        transform: rowTransform,
-                        transition: `${rowTransition}, padding-top 0.4s ease, padding-bottom 0.4s ease, border-color 0.3s ease, background 0.3s ease, border-left-color 0.3s ease`,
-                        boxSizing: "border-box" as const,
-                      }}
-                    >
-                      {/* Circled number - coral outline only */}
-                      <div
-                        style={{
-                          width: 32,
-                          height: 32,
-                          borderRadius: "50%",
-                          border: "1.5px solid #C17A5A",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "var(--font-dm-mono), monospace",
-                            fontSize: "0.875rem",
-                            fontWeight: 600,
-                            letterSpacing: "0.04em",
-                            color: "#C17A5A",
-                          }}
-                        >
-                          {row.num}
-                        </span>
-                      </div>
-
-                      {/* Content */}
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <p
-                          style={{
-                            display: "inline-block",
-                            fontFamily: "var(--font-playfair), serif",
-                            fontSize: "56px",
-                            fontWeight: 600,
-                            lineHeight: 1,
-                            margin: "0 0 6px",
-                            color: "var(--coral)",
-                          }}
-                        >
-                          {row.stat}
-                        </p>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-dm-sans), sans-serif",
-                            fontSize: "0.875rem",
-                            color: "#22332C",
-                            opacity: 0.95,
-                            margin: 0,
-                            lineHeight: 1.5,
-                          }}
-                        >
-                          {row.subtitle}
-                        </p>
-                      </div>
-
-                      {/* Arrow - always visible, turns coral on hover */}
-                      <div style={{ flexShrink: 0 }}>
-                        <span
-                          style={{
-                            fontFamily: "var(--font-dm-sans), sans-serif",
-                            fontSize: "1.25rem",
-                            color: hoveredNumberRow === i ? "#ff5c35" : "var(--faint)",
-                            transition: "color 0.3s ease",
-                          }}
-                        >
-                          →
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              });
-            })()}
-          </div>
-
-        </div>
-      </section>
+      {/* BY THE NUMBERS
+          The board: one row per company, chronological, no filter. Markup
+          and styles live in components/blocks/ByTheNumbers.tsx and the
+          .bnum-* block at the end of globals.css. */}
+      <ByTheNumbers />
 
       {/* SECTION 1.5 - BEFORE / AFTER TOGGLE */}
       <section
@@ -1791,9 +1458,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION 4B - FEATURED CASE STUDIES (expandable preview) */}
-      <FeaturedCaseStudies />
-
       {/* SECTION 5 - PERSONALITY (video carousel) */}
       <section
         className="section-pad"
@@ -2084,68 +1748,6 @@ export default function Home() {
           </>
         }
       />
-
-      {/* SECTION 8 - WRITING */}
-      <section className="section-pad" style={{ background: "#FFFFFF", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-        <div className="max-w-site">
-          <AnimateIn delay={80}>
-            <h2
-              style={{
-                fontFamily: "var(--font-playfair), serif",
-                fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
-                color: "var(--ink)",
-                fontWeight: 600,
-                marginBottom: "0.75rem",
-              }}
-            >
-              I think{" "}
-              <span style={{ color: "var(--coral)" }}>out loud.</span>
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={150}>
-            <p
-              style={{
-                fontFamily: "var(--font-dm-sans), sans-serif",
-                fontSize: "1rem",
-                color: "var(--muted)",
-                marginBottom: "2.5rem",
-              }}
-            >
-              Notes on automation, operations, and using AI without losing the plot. New stuff most weeks.
-            </p>
-          </AnimateIn>
-
-          <div className="writing-list">
-            {blogPosts.slice(0, 3).map((post, i) => (
-              <AnimateIn key={post.link} delay={i * 80} className="writing-row-animate">
-                <a href={post.link} target="_blank" rel="noopener noreferrer" className="writing-row">
-                  <span className="writing-row-index">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="writing-row-meta">
-                    <span className="writing-row-date">{formatRowDate(post.pubDate)}</span>
-                    {post.categories[0] && <span className="writing-row-chip">{post.categories[0]}</span>}
-                  </span>
-                  <span className="writing-row-body">
-                    <span className="writing-row-title">
-                      {post.title}
-                      <span className="writing-row-title-mark">*</span>
-                    </span>
-                    <span className="writing-row-excerpt">{post.excerpt}</span>
-                  </span>
-                  <span className="writing-row-cta">Read →</span>
-                </a>
-              </AnimateIn>
-            ))}
-          </div>
-
-          <AnimateIn delay={400}>
-            <div style={{ marginTop: "2.5rem", textAlign: "center" }}>
-              <Link href="/blog" className="btn-ghost">
-                Read everything <span className="writing-cta-arrow">→</span>
-              </Link>
-            </div>
-          </AnimateIn>
-        </div>
-      </section>
 
       {/* SECTION 9 - BOOKING */}
       <BookingSection />
