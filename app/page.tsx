@@ -11,6 +11,7 @@ import FeaturedCaseStudies from "@/components/FeaturedCaseStudies";
 import PersonalityCarousel from "@/components/PersonalityCarousel";
 import { type SubstackPost, FALLBACK_POSTS } from "@/lib/substack";
 import { playToggleSound } from "@/lib/sounds";
+import WhatIDo from "@/components/blocks/WhatIDo";
 
 function formatRowDate(pubDate: string): string {
   const parsed = new Date(pubDate);
@@ -303,7 +304,6 @@ export default function Home() {
     };
   }, [aiPickerOpen]);
 
-  const [believeHovered, setBelieveHovered] = useState(false);
   const [audioState, setAudioState] = useState<'idle' | 'playing' | 'paused'>('idle');
   const [isAfter, setIsAfter] = useState(false);
   const [hoveredBACard, setHoveredBACard] = useState<number | null>(null);
@@ -317,7 +317,6 @@ export default function Home() {
   const [hoveredNumberRow, setHoveredNumberRow] = useState<number | null>(null);
   const [activeCompany, setActiveCompany] = useState<string | null>(null);
 
-  const beliefParaRefs = useRef<Array<HTMLSpanElement | null>>([]);
 
   const PORTRAIT_AUDIO_VOLUME = 0.5;
   const PORTRAIT_FADE_IN_MS = 1000;
@@ -419,20 +418,6 @@ export default function Home() {
 
   // Toggle only changes state on manual click; the auto-toggling demo
   // animation has been removed entirely. The sound lives in lib/sounds.ts.
-
-  useEffect(() => {
-    const els = beliefParaRefs.current.filter(Boolean) as HTMLSpanElement[];
-    if (!els.length) return;
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add("visible"), i * 110);
-        }
-      });
-    }, { threshold: 0.1 });
-    els.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
 
   return (
     <>
@@ -1057,128 +1042,6 @@ export default function Home() {
           0%   { background-position: 0% center }
           100% { background-position: 300% center }
         }
-        /* ===== BELIEVE SECTION ===== */
-        .believe-content-wrap {
-          display: grid;
-          grid-template-columns: 1fr 420px;
-          gap: 80px;
-          /* stretch (not start): the photo column must span the full section
-             height or position: sticky on the photo has no room to travel */
-          align-items: stretch;
-        }
-        .believe-section-title {
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem); font-weight: 500; letter-spacing: -0.014em;
-          line-height: 1.06; margin-bottom: 40px; color: var(--ink);
-        }
-        .belief-para-merged {
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 20px; line-height: 1.65; color: var(--ink);
-        }
-        .belief-sentence {
-          display: inline-block;
-          opacity: 0; transform: translateY(14px);
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .belief-sentence.visible { opacity: 1; transform: translateY(0); }
-        .belief-sentence.key-line {
-          font-family: var(--font-fraunces), serif;
-          font-size: 22px; font-weight: 600; letter-spacing: -0.012em;
-        }
-        .coral-word { color: var(--coral); }
-        .believe-closing {
-          background: transparent;
-          border-top: 1px solid var(--line);
-          padding-top: 48px;
-          margin-top: 48px;
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 4px;
-        }
-        .believe-closing-main {
-          font-family: var(--font-fraunces), serif;
-          font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
-          line-height: 1.16;
-          letter-spacing: -0.012em;
-          font-weight: 500;
-          color: #22332C;
-        }
-        .believe-closing-italic {
-          font-family: var(--font-montserrat), sans-serif;
-          font-size: 18px; font-weight: 600; font-style: normal;
-          color: #ff5c35;
-          margin-bottom: 16px;
-        }
-        .believe-closing-cta {
-          background: #22332C; color: var(--cream);
-          padding: 12px 24px; border-radius: 100px;
-          font-size: 14px; font-weight: 600;
-          text-decoration: none; white-space: nowrap;
-          display: inline-flex; align-items: center; gap: 8px;
-          width: fit-content;
-          transition: all 0.22s ease;
-        }
-        .believe-closing-cta:hover {
-          background: #ff5c35;
-          transform: translateY(-2px);
-        }
-        .believe-photo-col {
-          position: relative;
-        }
-        .believe-photo-container {
-          position: sticky; top: 112px;
-          cursor: pointer; user-select: none;
-        }
-        .believe-photo-frame {
-          position: relative; overflow: hidden; border-radius: 16px;
-        }
-        .believe-photo-img {
-          width: 100%; border-radius: 24px; display: block;
-          filter: contrast(1.04) saturate(0.92);
-          transition: filter 0.4s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-        }
-        .believe-photo-container:hover .believe-photo-img {
-          filter: contrast(1.04) saturate(0.92) brightness(0.75);
-          transform: scale(0.97) translateY(-6px);
-        }
-        .believe-photo-overlay {
-          position: absolute; inset: 0; border-radius: 24px;
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center; gap: 16px;
-          opacity: 0; transition: opacity 0.35s ease;
-          background: rgba(12,12,11,0.15); z-index: 3;
-        }
-        .believe-photo-nameplate {
-          position: absolute; top: 20px; left: 20px; z-index: 4;
-          background: rgba(243,236,221,.1); backdrop-filter: blur(8px);
-          border: 1px solid rgba(243,236,221,.15);
-          padding: 8px 14px; border-radius: 100px;
-        }
-        .believe-pn-name {
-          font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 14px; font-weight: 600;          background: linear-gradient(110deg, var(--cream), #ff5c35, #D79A36, var(--cream));
-          background-size: 250% auto;
-          -webkit-background-clip: text; background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: believeNameFlow 7s ease-in-out infinite;
-        }
-        @keyframes believeNameFlow {
-          0%, 100% { background-position: 0%; }
-          50% { background-position: 100%; }
-        }
-        .believe-section-pad {
-          padding: 112px 0;
-        }
-        @media (max-width: 767px) {
-          .believe-section-pad { padding-top: 64px; padding-bottom: 64px; }
-        }
-        @media (max-width: 960px) {
-          .believe-content-wrap { grid-template-columns: 1fr; gap: 48px; }
-          .believe-photo-col { position: static; }
-          /* single-column stacking: photo stays in flow, no sticky */
-          .believe-photo-container { position: relative; top: auto; }
-        }
         @keyframes terminalIn {
           from { opacity: 0; transform: translateX(-8px); }
           to   { opacity: 1; transform: translateX(0); }
@@ -1350,167 +1213,10 @@ export default function Home() {
       {/* SECTION 1 - HERO */}
       <HeroSection />
 
-      {/* SECTION 3 - WHAT I BELIEVE */}
-      <section id="what-i-believe" className="believe-section-pad" style={{ position: "relative", zIndex: 1 }}>
-        <div className="max-w-site">
-
-          <div className="believe-content-wrap">
-
-            {/* LEFT - text */}
-            <div>
-              <h2 className="believe-section-title">What I actually believe.</h2>
-
-              <div>
-                <p className="belief-para-merged">
-                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[0] = el; }}>
-                    Everyone&apos;s selling AI like it&apos;s a brain you can rent. It isn&apos;t.{" "}
-                  </span>
-                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[1] = el; }}>
-                    AI doesn&apos;t think for you. It thinks <em>like</em> you, faster and at scale.{" "}
-                  </span>
-                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[2] = el; }}>
-                    Feed it muddled thinking and you get muddled output. Just more of it.{" "}
-                  </span>
-                  <span className="belief-sentence key-line" ref={(el) => { beliefParaRefs.current[3] = el; }}>
-                    Feed it clarity and it becomes <span className="coral-word">leverage.</span>{" "}
-                  </span>
-                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[4] = el; }}>
-                    So the work was never &quot;add AI.&quot; The work is: get clear on the actual problem, design the system, then let the machine run it.{" "}
-                  </span>
-                  <span className="belief-sentence" ref={(el) => { beliefParaRefs.current[5] = el; }}>
-                    The teams I watched scale weren&apos;t the ones with the best tools. They were the ones who thought clearly before they built.
-                  </span>
-                </p>
-              </div>
-
-              <div className="believe-closing">
-                <div className="believe-closing-main">That&apos;s the whole game.</div>
-                <div className="believe-closing-italic">Think first. Then automate.</div>
-                <Link href="/about" className="believe-closing-cta">
-                  About Riz →
-                </Link>
-              </div>
-            </div>
-
-            {/* RIGHT - photo */}
-            <div className="believe-photo-col">
-              <div
-                className="believe-photo-container portrait-wrapper"
-                onMouseEnter={() => setBelieveHovered(true)}
-                onMouseLeave={() => setBelieveHovered(false)}
-                onClick={handleAudioClick}
-              >
-
-                <div className="believe-photo-nameplate">
-                  <div className="believe-pn-name">Rizwan Mahmood</div>
-                </div>
-
-                <div className="believe-photo-frame">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    className="believe-photo-img"
-                    src="/Photos/riz-restaurant.jpg"
-                    alt="Rizwan Mahmood"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      objectPosition: "center top",
-                      borderRadius: 16,
-                    }}
-                  />
-                </div>
-
-                {/* Equalizer badge - always visible while playing, independent of hover, so it reads as "sound is on" */}
-                {audioState === 'playing' && (
-                  <div className="portrait-eq-badge" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                )}
-
-                {/* Idle pill - hidden by default, appears on hover, disappears once audio starts */}
-                {audioState === 'idle' && (
-                  <div className="hear-me-pill" style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    background: "rgba(0,0,0,0.75)",
-                    backdropFilter: "blur(8px)",
-                    WebkitBackdropFilter: "blur(8px)",
-                    color: "#ffffff",
-                    padding: "10px 20px",
-                    borderRadius: "100px",
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    letterSpacing: "0.05em",
-                    border: "1px solid rgba(255,255,255,0.15)",
-                    whiteSpace: "nowrap" as const,
-                    zIndex: 4,
-                    fontFamily: "var(--font-inter-tight), 'Inter Tight', sans-serif",
-                  }}>
-                    ♪ Click to hear me
-                  </div>
-                )}
-
-                {/* Vinyl - shown when hovered+playing, or any paused state */}
-                {audioState !== 'idle' && (audioState === 'paused' || believeHovered) && (
-                  <div style={{
-                    position: "absolute",
-                    bottom: 60,
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: 130,
-                    height: 130,
-                    zIndex: 3,
-                    animation: audioState === 'playing' ? "spin 3s linear infinite" : "none",
-                    pointerEvents: "none" as const,
-                  }}>
-                    <svg viewBox="0 0 130 130" width="130" height="130">
-                      <circle cx="65" cy="65" r="63" fill="#1a1a1a" />
-                      <circle cx="65" cy="65" r="56" fill="none" stroke="#2d2d2d" strokeWidth="1.5" />
-                      <circle cx="65" cy="65" r="50" fill="none" stroke="#2d2d2d" strokeWidth="1" />
-                      <circle cx="65" cy="65" r="44" fill="none" stroke="#2d2d2d" strokeWidth="1" />
-                      <circle cx="65" cy="65" r="37" fill="none" stroke="#2d2d2d" strokeWidth="1" />
-                      <circle cx="65" cy="65" r="30" fill="none" stroke="#2d2d2d" strokeWidth="1" />
-                      <circle cx="65" cy="65" r="23" fill="#ff5c35" />
-                      <circle cx="65" cy="65" r="5" fill="#111111" />
-                    </svg>
-                  </div>
-                )}
-
-                {/* Status bar - shown when hovered+playing, or any paused state */}
-                {audioState !== 'idle' && (audioState === 'paused' || believeHovered) && (
-                  <div style={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    background: "rgba(0,0,0,0.75)",
-                    backdropFilter: "blur(8px)",
-                    WebkitBackdropFilter: "blur(8px)",
-                    color: "#ffffff",
-                    fontFamily: "'Geist Mono', monospace",
-                    fontSize: "14px",
-                    letterSpacing: "0.1em",
-                    padding: "12px 20px",
-                    textAlign: "center" as const,
-                    zIndex: 4,
-                    pointerEvents: "none" as const,
-                  }}>
-                    {audioState === 'playing' ? 'NOW PLAYING · CLICK TO PAUSE' : 'PAUSED · CLICK TO RESUME'}
-                  </div>
-                )}
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      {/* SECTION 3 - WHAT I DO
+          Replaces the old "What I actually believe" essay block, in the
+          same slot: straight after the hero, before the numbers. */}
+      <WhatIDo />
 
       {/* BY THE NUMBERS */}
       <section

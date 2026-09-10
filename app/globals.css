@@ -14,6 +14,14 @@
   --line: #E2DACB;
   --line-2: #D9D1C0;
   --paper: #F5F0E8;
+  /* One step lighter than --paper. The service cards step white → this →
+     --paper → --cream, which is how the section bands itself without a
+     single divider. */
+  --paper-light: #FDFBF6;
+  /* Referenced by the icon tiles, the CTA card and the arrow ring, but never
+     actually defined — they were all rendering transparent. The soft tint
+     between cream and coral. */
+  --peach: #FFE8DD;
   --ink2: #3C4642;
   --shadow: 0 6px 22px rgba(34,51,44,.07);
   --shadow-lg: 0 20px 48px rgba(34,51,44,.13);
@@ -323,7 +331,6 @@ html {
   .animate-in,
   [data-reveal],
   .writing-row-animate,
-  .belief-para,
   .oc-card {
     opacity: 1 !important;
     transform: none !important;
@@ -1891,3 +1898,327 @@ html {
   transform: translateX(4px);
 }
 
+.text-ramp {
+  color: var(--coral);
+  background: linear-gradient(90deg, var(--ink) 0%, var(--coral) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===========================================================================
+   BLOCK VOCABULARY
+
+   The shared kit the big homepage/about sections are built from: a dark pill
+   eyebrow, a display heading whose tail carries the tonal ramp, and two sizes
+   of soft card that nest inside each other.
+
+   Deliberately flat — no shadows. Separation comes from the tone step between
+   --paper-light, --paper and --cream, which is what the third tier was for.
+=========================================================================== */
+
+.pill-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.95rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.block-head { display: flex; flex-direction: column; align-items: flex-start; gap: 1.1rem; }
+.block-head.is-center { align-items: center; text-align: center; }
+
+.block-title {
+  font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem);
+  line-height: 1.08;
+  letter-spacing: -0.014em;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 0;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+.block-head.is-center .block-title { max-width: 26ch; }
+
+.block-lede {
+  font-size: clamp(1.0rem, 0.96rem + 0.3vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--body);
+  margin: 0;
+  max-width: 48ch;
+}
+
+/* The outer container. Big radius, deepest of the three warm tones. */
+.soft-panel {
+  background: var(--cream);
+  border-radius: 24px;
+  padding: clamp(1.25rem, 0.9rem + 1.4vw, 2rem);
+}
+
+/* The inner object. One step lighter than whatever it sits on, so nesting
+   reads without a single border. */
+.soft-card {
+  background: var(--paper);
+  border-radius: 18px;
+  padding: clamp(1.4rem, 1.1rem + 1.2vw, 2rem);
+}
+
+/* ---------------------------------------------------------------------------
+   What I do — mosaic grid
+
+   Four tile sizes on a 6-column grid with dense packing, so the cards
+   interlock instead of sitting in tidy rows. Copy is written to the tile,
+   not the other way round: the small and tall tiles carry shorter bodies.
+--------------------------------------------------------------------------- */
+.whatido { background: var(--bg); }
+.whatido-title { max-width: 20ch; }
+
+/* Six cards placed around a reserved centre, with a hub in the void and
+   connectors measured to each card. Rows 3-4 of columns 3-4 are deliberately
+   left empty — that hole is the whole composition. */
+.wid-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+.wid-card { display: flex; flex-direction: column; position: relative; z-index: 1; }
+
+/* Mosaic: cards span the grid at four different widths, with columns 3-4 of
+   rows 3-4 left empty for the hub. Cards are free to reach across the middle
+   because the connectors target the nearest point on a card's border rather
+   than one nominated edge — a card above the hub is simply entered through
+   its bottom. */
+/* The mosaic as it was. Four tile widths spanning the grid, with columns
+   3-4 of rows 3-4 left empty for the hub. */
+.wid-tl { grid-area: 1 / 1 / 3 / 5; }
+.wid-tr { grid-area: 1 / 5 / 3 / 7; }
+.wid-ml { grid-area: 3 / 1 / 5 / 3; }
+.wid-mr { grid-area: 3 / 5 / 5 / 7; }
+.wid-bl { grid-area: 5 / 1 / 7 / 4; }
+.wid-br { grid-area: 5 / 4 / 7 / 7; }
+.wid-cta   { grid-area: 7 / 1 / 8 / 5; }
+.wid-quiet { grid-area: 7 / 5 / 8 / 7; }
+
+.wid-hub {
+  grid-area: 3 / 3 / 5 / 5;
+  place-self: center;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: clamp(7rem, 10vw, 9.5rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--coral);
+  color: #fff;
+  box-shadow: 0 0 0 10px var(--peach);
+}
+/* Barely there on purpose: a slow breath so the hub reads as alive without
+   becoming another thing competing for attention against six looping icons.
+   
+   The ring pulses rather than the button scaling. Scaling the element makes
+   it a permanently moving hit target — it never settles, which is worse for
+   anyone with a motor impairment and stops automated tooling being able to
+   click it at all. Growing the box-shadow spread looks the same and leaves
+   the button's box exactly where it is. */
+@media (prefers-reduced-motion: no-preference) {
+  .wid-hub { animation: hub-breathe 5.5s ease-in-out infinite; }
+  @keyframes hub-breathe {
+    0%, 100% { box-shadow: 0 0 0 9px var(--peach); }
+    50%      { box-shadow: 0 0 0 15px var(--peach); }
+  }
+}
+
+.wid-hub span {
+  font-size: clamp(1.4rem, 1.1rem + 0.9vw, 1.85rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+
+/* the connectors, drawn under the cards */
+.wid-spokes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+/* Node-editor connectors: a thin line, a port at each end, an arrowhead
+   landing on the card. */
+.wid-spokes .spoke-line {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.wid-spokes .spoke-head { fill: var(--coral); }
+.wid-spokes .spoke-port {
+  fill: var(--bg);
+  stroke: var(--coral);
+  stroke-width: 2;
+}
+
+/* The diagram needs room. Below 1280 the mosaic tightens until the gaps
+   between cards are narrower than any curve can thread — verified by
+   sampling every rendered path against every card rect at seven widths, and
+   1280 is where the last route stops fitting. Rather than ship a connector
+   that visibly cuts through a card, the whole thing becomes a plain stack:
+   no void, no hub, no wiring. */
+@media (max-width: 1279px) {
+  .wid-card { grid-area: auto !important; grid-column: span 3 !important; }
+  .wid-hub, .wid-spokes { display: none; }
+}
+@media (max-width: 720px) {
+  .wid-grid { grid-template-columns: 1fr !important; }
+  .wid-card { grid-column: auto !important; }
+}
+
+.wid-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: var(--peach);
+  color: var(--coral-d);
+  margin-bottom: 1.4rem;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.wid-icon svg { width: 25px; height: 25px; overflow: visible; }
+.wid-card:hover .wid-icon { background: var(--coral); color: #fff; }
+
+.wid-title {
+  font-size: clamp(1.1rem, 1rem + 0.35vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  line-height: 1.2;
+  color: var(--ink);
+  margin: 0 0 0.6rem;
+}
+.wid-body { font-size: 15.5px; line-height: 1.6; color: var(--body); margin: 0; }
+
+.wid-cta { background: var(--peach); }
+.wid-cta-btn { margin-top: auto; align-self: flex-start; }
+.wid-cta .wid-body { margin-bottom: 1.25rem; }
+.wid-quiet { background: var(--cream); }
+.wid-link {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--coral-d);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+}
+.wid-card { transition: background-color 0.25s var(--ease); }
+.wid-card:hover { background: var(--paper-light); }
+.wid-cta:hover { background: #ffdccd; }
+.wid-quiet:hover { background: var(--paper); }
+
+/* ---------------------------------------------------------------------------
+   Icon motion — always running.
+
+   Each icon loops on a 5.2s cycle: the tile pops, the moving part does the
+   thing the service does, then it rests. Most of the cycle is rest, which is
+   what keeps six simultaneous loops from reading as a fairground.
+
+   --stagger is set per card from the render, so they fire in sequence down
+   the grid rather than all at once.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* The pop: a quick overshoot and settle, to catch the eye. */
+  .wid-icon { animation: ic-pop 3.2s var(--ease) var(--stagger, 0s) infinite; }
+
+  /* Hover replaces the loop with a single fast pop that starts on the frame
+     the pointer lands. Without this the tile only reacts when its own cycle
+     next comes round, which read as lag. */
+  .wid-card:hover .wid-icon { animation: ic-pop-now 0.4s var(--ease) 0s 1; }
+  @keyframes ic-pop-now {
+    0%   { transform: scale(1); }
+    38%  { transform: scale(1.18); }
+    68%  { transform: scale(0.96); }
+    100% { transform: scale(1); }
+  }
+  @keyframes ic-pop {
+    0%, 0.1%   { transform: scale(1); }
+    5%         { transform: scale(1.16); }
+    12%        { transform: scale(0.97); }
+    19%, 100%  { transform: scale(1); }
+  }
+
+  .ic-scan, .ic-needle, .ic-travel, .ic-type, .ic-deal, .ic-lean {
+    animation-duration: 3.2s;
+    animation-timing-function: var(--ease);
+    animation-iteration-count: infinite;
+    animation-delay: var(--stagger, 0s);
+  }
+
+  /* the scan sweeps the block, then rests */
+  .ic-scan { animation-name: ic-scan; opacity: 0; }
+  @keyframes ic-scan {
+    0%       { transform: translateY(0); opacity: 0; }
+    6%, 22%  { opacity: 0.9; }
+    28%      { transform: translateY(9px); opacity: 0; }
+    100%     { transform: translateY(9px); opacity: 0; }
+  }
+
+  /* the dial takes its reading and returns */
+  .ic-needle { animation-name: ic-needle; }
+  @keyframes ic-needle {
+    0%        { transform: rotate(-38deg); }
+    14%       { transform: rotate(56deg); }
+    22%       { transform: rotate(48deg); }
+    46%, 100% { transform: rotate(-38deg); }
+  }
+
+  /* a payload crosses the wire */
+  .ic-travel { animation-name: ic-travel; }
+  @keyframes ic-travel {
+    0%       { transform: translateX(0); opacity: 0; }
+    6%, 20%  { opacity: 1; }
+    26%      { transform: translateX(6px); opacity: 0; }
+    100%     { transform: translateX(6px); opacity: 0; }
+  }
+
+  /* the agent types a burst, then waits */
+  .ic-type { animation-name: ic-type; }
+  .ic-type-2 { animation-delay: calc(var(--stagger, 0s) + 0.12s) !important; }
+  .ic-type-3 { animation-delay: calc(var(--stagger, 0s) + 0.24s) !important; }
+  @keyframes ic-type {
+    0%, 24%, 100% { transform: translateY(0); opacity: 0.5; }
+    6%            { transform: translateY(-2.5px); opacity: 1; }
+    12%           { transform: translateY(0); opacity: 0.8; }
+    18%           { transform: translateY(-2.5px); opacity: 1; }
+  }
+
+  /* the deal advances a stage, then a new one appears at the start */
+  .ic-deal { animation-name: ic-deal; }
+  @keyframes ic-deal {
+    0%        { transform: translate(0, 0); opacity: 1; }
+    16%       { transform: translate(8px, 5.5px); opacity: 1; }
+    30%       { transform: translate(8px, 5.5px); opacity: 0; }
+    31%       { transform: translate(0, 0); opacity: 0; }
+    38%, 100% { transform: translate(0, 0); opacity: 1; }
+  }
+
+  /* the room leans in and back */
+  .ic-lean { animation-name: ic-lean-l; }
+  .ic-lean-2 { animation-name: ic-lean-r; }
+  @keyframes ic-lean-l {
+    0%, 100% { transform: translate(0, 0); }
+    12%, 24% { transform: translate(1.2px, -1.2px); }
+  }
+  @keyframes ic-lean-r {
+    0%, 100% { transform: translate(0, 0); }
+    12%, 24% { transform: translate(-1.2px, -1.2px); }
+  }
+}
