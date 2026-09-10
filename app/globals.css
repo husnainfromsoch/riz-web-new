@@ -158,6 +158,37 @@ p, li, td, th, label, input, textarea, select {
   line-height: 1.6;
 }
 
+/* ---------------------------------------------------------------------------
+   No italics anywhere.
+
+   Two separate things have to be true for that to hold, and only one of them
+   is "delete the italic declarations":
+
+   1. Several elements are italic by UA default — em, i, cite, dfn, var,
+      address, and q in some stylesheets. Removing our own declarations does
+      nothing for those; they need an explicit normal. The tags stay, because
+      <em> carries emphasis semantics a screen reader announces. Only the
+      slant goes.
+
+   2. If a font-style: italic ever survives or gets added back, and the family
+      has no italic cut loaded, the browser SYNTHESISES one by shearing the
+      upright glyphs. That faux-oblique is the "slanted but not really italic"
+      case — it is not a real cut, it just skews the outlines, and it looks
+      noticeably cheap at display sizes. font-synthesis-style: none forbids it
+      outright, so the worst case is upright text rather than sheared text.
+
+   Synthetic *weight* is deliberately left enabled: 400/500/600/700 are all
+   real cuts here, but disabling it would be a silent trap if a heavier weight
+   is ever used without being loaded.
+--------------------------------------------------------------------------- */
+em, i, cite, dfn, var, address, q, blockquote {
+  font-style: normal;
+}
+
+html {
+  font-synthesis-style: none;
+}
+
 /* 12px, not 16px. At 1rem/600 an uppercase mono label reads as a second
    headline competing with the real one; at 12px with wider tracking it reads
    as instrumentation, which is what it is. Colour is unchanged. */
@@ -887,7 +918,6 @@ p, li, td, th, label, input, textarea, select {
 
 .svc-subline {
   font-family: var(--font-playfair), serif;
-  font-style: italic;
   font-size: clamp(1.5rem, 2.2vw, 1.75rem);
   line-height: 1.25;
   margin-bottom: 1.25rem;
@@ -1006,7 +1036,6 @@ p, li, td, th, label, input, textarea, select {
 
 .svc-signature {
   font-family: var(--font-playfair), serif;
-  font-style: italic;
   font-size: 1rem;
   color: var(--muted);
   margin: -0.5rem 0 2rem;
@@ -1550,7 +1579,6 @@ p, li, td, th, label, input, textarea, select {
   margin-top: 6px;
   font-size: 14px;
   color: var(--faint);
-  font-style: italic;
   text-transform: none;
   letter-spacing: normal;
 }
@@ -1783,7 +1811,6 @@ p, li, td, th, label, input, textarea, select {
   margin-left: 8px;
   color: var(--coral);
   font-family: var(--font-fraunces), serif;
-  font-style: italic;
   opacity: 0;
   transform: rotate(-12deg) translateX(-4px);
   transition: opacity 0.25s ease, transform 0.25s ease;

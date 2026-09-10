@@ -181,7 +181,6 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         }
         .ftr-cta-accent {
           color: #ff5c35;
-          font-style: italic;
         }
         .ftr-cta-actions {
           display: flex;

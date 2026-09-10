@@ -121,7 +121,6 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           position: relative;
           display: inline-block;
           font-family: var(--font-fraunces), serif;
-          font-style: italic;
           color: var(--coral);
         }
         .writing-squiggle {

@@ -163,7 +163,6 @@ export default function DirectLineCTA({
         }
         .chat-hayat-heading-accent {
           color: #ff5c35;
-          font-style: italic;
         }
         .chat-hayat-desc {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
@@ -288,7 +287,6 @@ export default function DirectLineCTA({
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
           font-size: 14px;
           color: rgba(34,51,44,0.72);
-          font-style: italic;
           margin: 20px 0 0;
         }
         @media (max-width: 768px) {

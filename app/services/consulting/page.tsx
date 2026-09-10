@@ -210,7 +210,7 @@ export default function ConsultingPage() {
                 }}
               >
                 Clarity before{" "}
-                <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+                <span style={{ fontFamily: "var(--font-fraunces), serif", color: "var(--coral)" }}>
                   systems
                 </span>
                 .

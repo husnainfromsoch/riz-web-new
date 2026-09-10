@@ -104,6 +104,13 @@
   .foot-meta{margin-top:10px;font-size:14px;}
   @media(max-width:640px){body{font-size:17px;}.steps3{grid-template-columns:1fr;}.linkcards{grid-template-columns:1fr;}.ex td:first-child{width:96px;}.decision-row{grid-template-columns:1fr;}}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}.progress{transition:none;}}
+
+  /* No italics anywhere on the site. <em> keeps its emphasis semantics for
+     screen readers; only the slant goes. font-synthesis-style guards against
+     the browser shearing upright glyphs into a faux-oblique if a
+     font-style: italic is ever added back. */
+  em, i, cite, dfn, var, address, q { font-style: normal; }
+  html { font-synthesis-style: none; }
 </style>
 </head>
 <body>

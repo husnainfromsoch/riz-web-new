@@ -352,7 +352,6 @@ function TrackRecordPanel() {
         <p
           style={{
             fontSize: 14,
-            fontStyle: "italic",
             color: "rgba(243,236,221,0.72)",
             lineHeight: 1.7,
             margin: 0,
@@ -448,7 +447,6 @@ export default function About() {
                 style={{
                   fontSize: 24,
                   fontWeight: 600,
-                  fontStyle: "italic",
                   color: "#ff5c35",
                   marginBottom: 28,
                 }}
@@ -681,7 +679,6 @@ export default function About() {
                         <p
                           style={{
                             fontSize: 14,
-                            fontStyle: "italic",
                             color: "var(--ink)",
                             opacity: 0.65,
                             lineHeight: 1.6,
@@ -955,7 +952,6 @@ export default function About() {
         }
         .beyond-heading-accent {
           color: #ff5c35;
-          font-style: italic;
           font-weight: 600;
         }
         .beyond-quote {
@@ -972,7 +968,6 @@ export default function About() {
           border-radius: 2px;
         }
         .beyond-quote p {
-          font-style: italic;
           font-size: 18px;
           color: rgba(34,51,44,0.72);
           margin: 0;
@@ -1011,7 +1006,6 @@ export default function About() {
           align-items: baseline;
           gap: 8px;
           margin: 12px 0 0;
-          font-style: italic;
           font-size: 14px;
           color: rgba(34,51,44,0.72);
         }

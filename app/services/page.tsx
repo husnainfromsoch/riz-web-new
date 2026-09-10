@@ -842,7 +842,7 @@ export default function Services() {
       <TestimonialsSection
         heading={
           <>
-            Don&apos;t take <span style={{ color: "var(--coral)", fontStyle: "italic" }}>my word</span> for it.
+            Don&apos;t take <span style={{ color: "var(--coral)" }}>my word</span> for it.
           </>
         }
       />

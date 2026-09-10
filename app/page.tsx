@@ -712,7 +712,6 @@ export default function Home() {
           margin-top: 24px;
           text-align: center;
           font-family: var(--font-dm-sans), sans-serif;
-          font-style: italic;
           font-size: 14px;
           font-weight: 500;
           color: rgba(34,51,44,0.72);
@@ -788,7 +787,6 @@ export default function Home() {
           margin: 14px 0 0;
         }
         .merged-hero-heading-accent {
-          font-style: italic;
           color: #ff5c35;
         }
         .merged-hero-desc {
@@ -1159,8 +1157,7 @@ export default function Home() {
         }
         .believe-pn-name {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 14px; font-weight: 600; font-style: italic;
-          background: linear-gradient(110deg, var(--cream), #ff5c35, #D79A36, var(--cream));
+          font-size: 14px; font-weight: 600;          background: linear-gradient(110deg, var(--cream), #ff5c35, #D79A36, var(--cream));
           background-size: 250% auto;
           -webkit-background-clip: text; background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -1533,7 +1530,7 @@ export default function Home() {
               marginBottom: "1.75rem",
             }}>
               <span style={{ color: "#22332C", display: "block" }}>By the</span>
-              <span style={{ color: "#ff5c35", fontStyle: "italic", display: "block" }}>numbers.</span>
+              <span style={{ color: "#ff5c35", display: "block" }}>numbers.</span>
             </h2>
 
             {/* Animated career timeline */}
@@ -1811,7 +1808,7 @@ export default function Home() {
               textAlign: "center",
             }}>
               You&apos;re the bottleneck.{" "}
-              <span style={{ color: "#ff5c35", fontStyle: "italic" }}>Or the system is.</span>
+              <span style={{ color: "#ff5c35" }}>Or the system is.</span>
             </h2>
             <p style={{
               fontFamily: "var(--font-montserrat), sans-serif",
@@ -2353,7 +2350,6 @@ export default function Home() {
                   <p
                     style={{
                       fontFamily: "var(--font-fraunces), serif",
-                      fontStyle: "italic",
                       fontSize: 14,
                       fontWeight: 600,
                       color: "#ff5c35",
@@ -2378,7 +2374,7 @@ export default function Home() {
       <TestimonialsSection
         heading={
           <>
-            Don&apos;t take <span style={{ color: "var(--coral)", fontStyle: "italic" }}>my word</span> for it.
+            Don&apos;t take <span style={{ color: "var(--coral)" }}>my word</span> for it.
           </>
         }
       />
@@ -2397,7 +2393,7 @@ export default function Home() {
               }}
             >
               I think{" "}
-              <span style={{ color: "var(--coral)", fontStyle: "italic" }}>out loud.</span>
+              <span style={{ color: "var(--coral)" }}>out loud.</span>
             </h2>
           </AnimateIn>
           <AnimateIn delay={150}>
