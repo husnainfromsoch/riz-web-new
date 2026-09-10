@@ -74,7 +74,7 @@ export default function SpeakingPage() {
                 }}
               >
                 On stages and{" "}
-                <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+                <span style={{ fontFamily: "var(--font-fraunces), serif", color: "var(--coral)" }}>
                   in rooms
                 </span>
                 .

@@ -103,7 +103,6 @@ export default function HeroSection() {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
         }
         .hz-intro-name {
-          font-style: italic;
           font-weight: 600;
           background: linear-gradient(110deg, #ff5c35, #D79A36, #E8527A, #ff5c35);
           background-size: 300% auto;

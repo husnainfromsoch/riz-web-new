@@ -59,7 +59,7 @@ export default function ProjectsPage() {
               }}
             >
               Custom AI{" "}
-              <span style={{ fontFamily: "var(--font-fraunces), serif", fontStyle: "italic", color: "var(--coral)" }}>
+              <span style={{ fontFamily: "var(--font-fraunces), serif", color: "var(--coral)" }}>
                 workflow
               </span>
               {" "}automations.

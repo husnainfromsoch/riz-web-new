@@ -7,9 +7,12 @@ import { AudioProvider } from "@/contexts/audio-context";
 import { AudioPlayer } from "@/components/AudioPlayer";
 
 // One family carries display and body. 400/500 do the work, 600/700 cover
-// the semibold and bold cases. Italics are the real cut, not a synthesised
-// slant — several accent phrases are set in italic at display size, where a
-// faux-oblique is obvious.
+// the semibold and bold cases.
+//
+// Upright only — the italic cut is deliberately not loaded, because nothing
+// on the site is italic any more. globals.css also sets
+// font-synthesis-style: none, so a stray font-style: italic renders upright
+// rather than being sheared into a faux-oblique.
 //
 // The variable names the rest of the CSS references are remapped onto this
 // one font in globals.css, so pointing them all here is the whole swap. Mono
@@ -18,7 +21,7 @@ import { AudioPlayer } from "@/components/AudioPlayer";
 const wixMadeforText = Wix_Madefor_Text({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   variable: "--font-wix-madefor-text",
   display: "swap",
 });
