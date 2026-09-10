@@ -205,10 +205,10 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-hero-title {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: clamp(3.5rem, 7vw, 6rem);
+          font-size: clamp(2.4rem, 1.5rem + 3vw, 3.7rem);
           line-height: 1.02;
-          font-weight: 900;
-          letter-spacing: -0.5px;
+          letter-spacing: -0.018em;
+          font-weight: 500;
           color: var(--ink);
           margin: 0 0 4rem;
         }
@@ -268,7 +268,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         .gd-search-input::placeholder { color: var(--muted); }
         .gd-search-input:focus {
           border-color: var(--coral);
-          box-shadow: 0 0 0 4px rgba(234,106,71,0.12);
+          box-shadow: 0 0 0 4px rgba(255,92,53,0.12);
         }
         .gd-kbd {
           position: absolute;
@@ -406,7 +406,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-sort-btn.is-open {
           border-color: var(--coral);
-          box-shadow: 0 0 0 4px rgba(234,106,71,0.12);
+          box-shadow: 0 0 0 4px rgba(255,92,53,0.12);
         }
         .gd-sort-chevron {
           display: flex;
@@ -445,7 +445,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           transition: background 0.15s ease, color 0.15s ease;
         }
         .gd-sort-option:hover {
-          background: rgba(234,106,71,0.1);
+          background: rgba(255,92,53,0.1);
           color: var(--coral);
         }
         .gd-sort-option.is-selected {
@@ -492,7 +492,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
         }
         .gd-gcard-title {
           font-family: var(--font-fraunces), serif;
-          font-weight: 700;
+          font-weight: 600;
           font-size: 1.25rem;
           line-height: 1.35;
           color: var(--ink);
@@ -505,7 +505,7 @@ export default function GuidesClient({ guides }: { guides: GuideMeta[] }) {
           gap: 6px;
           font-family: var(--font-montserrat), sans-serif;
           font-size: 14px;
-          font-weight: 700;
+          font-weight: 600;
           color: var(--coral);
           transition: color 0.2s ease, gap 0.2s ease;
         }

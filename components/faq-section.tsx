@@ -109,15 +109,17 @@ export default function FAQSection() {
           font-size: 14px;
           letter-spacing: 0.15em;
           text-transform: uppercase;
-          color: #e8603c;
-          font-weight: 700;
+          color: #ff5c35;
+          font-weight: 600;
           margin: 0 0 12px;
           text-align: center;
         }
         .faq-heading {
-          font-family: Lora, Georgia, "Times New Roman", serif;
-          font-size: clamp(28px, 4vw, 38px);
-          font-weight: 700;
+          font-family: var(--font-display), sans-serif;
+          font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem);
+          line-height: 1.06;
+          letter-spacing: -0.014em;
+          font-weight: 500;
           color: #3d3d3d;
           text-align: center;
           margin: 0 0 48px;
@@ -139,13 +141,13 @@ export default function FAQSection() {
             transform 0.18s ease;
         }
         .faq-item:hover {
-          border-color: rgba(234, 106, 71, 0.4);
+          border-color: rgba(255,92,53, 0.4);
           box-shadow: 0 6px 18px rgba(61, 61, 61, 0.06);
           transform: translateY(-1px);
         }
         .faq-item.is-open {
-          border-color: #ea6a47;
-          box-shadow: 0 8px 22px rgba(234, 106, 71, 0.1);
+          border-color: #ff5c35;
+          box-shadow: 0 8px 22px rgba(255,92,53, 0.1);
         }
         .faq-question {
           width: 100%;
@@ -161,11 +163,11 @@ export default function FAQSection() {
           text-align: left;
           font-family: Lora, Georgia, serif;
           font-size: 18px;
-          font-weight: 700;
+          font-weight: 600;
           color: #3d3d3d;
         }
         .faq-question:focus-visible {
-          outline: 2px solid #ea6a47;
+          outline: 2px solid #ff5c35;
           outline-offset: -2px;
         }
         .faq-icon {
@@ -178,7 +180,7 @@ export default function FAQSection() {
         .faq-icon::after {
           content: "";
           position: absolute;
-          background: #ea6a47;
+          background: #ff5c35;
           border-radius: 2px;
           transition:
             transform 0.2s ease,

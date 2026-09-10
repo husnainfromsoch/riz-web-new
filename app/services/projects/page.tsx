@@ -53,7 +53,7 @@ export default function ProjectsPage() {
                 fontSize: "clamp(2.25rem, 4vw, 3rem)",
                 lineHeight: 1.2,
                 color: "var(--ink)",
-                fontWeight: 700,
+                fontWeight: 600,
                 marginBottom: "1.25rem",
                 maxWidth: 600,
               }}
@@ -150,7 +150,7 @@ export default function ProjectsPage() {
                 fontFamily: "var(--font-playfair), serif",
                 fontSize: "clamp(1.625rem, 2.5vw, 2rem)",
                 color: "var(--ink)",
-                fontWeight: 700,
+                fontWeight: 600,
                 marginBottom: "2.5rem",
               }}
             >
@@ -174,7 +174,7 @@ export default function ProjectsPage() {
                       fontFamily: "var(--font-playfair), serif",
                       fontSize: "1.25rem",
                       color: "var(--ink)",
-                      fontWeight: 700,
+                      fontWeight: 600,
                       marginBottom: "0.65rem",
                     }}
                   >
@@ -229,7 +229,7 @@ export default function ProjectsPage() {
                     fontFamily: "var(--font-playfair), serif",
                     fontSize: "1.125rem",
                     color: "var(--ink)",
-                    fontWeight: 700,
+                    fontWeight: 600,
                   }}
                 >
                   Project-based. Starts at $3,500.

@@ -168,7 +168,7 @@ const lessons = [
   {
     title: "Clarity before tools.",
     body: "Every failed automation I've seen started with the wrong question. Fix the thinking first.",
-    accent: "#C24629",
+    accent: "#e8431b",
     rotate: -1.5,
     offsetY: 0,
   },
@@ -267,7 +267,7 @@ function StatRow({
       <span
         style={{
           fontSize: 32,
-          fontWeight: 900,
+          fontWeight: 500,
           color: "var(--coral)",
         }}
       >
@@ -330,7 +330,7 @@ function TrackRecordPanel() {
       <p
         style={{
           fontSize: 14,
-          color: "#EA6A47",
+          color: "#ff5c35",
           letterSpacing: "0.12em",
           marginBottom: 32,
         }}
@@ -433,7 +433,7 @@ export default function About() {
               <h1
                 style={{
                   fontSize: "clamp(3rem, 5vw, 4.25rem)",
-                  fontWeight: 900,
+                  fontWeight: 500,
                   color: "#22332C",
                   lineHeight: 1.05,
                   marginBottom: 4,
@@ -449,7 +449,7 @@ export default function About() {
                   fontSize: 24,
                   fontWeight: 600,
                   fontStyle: "italic",
-                  color: "#EA6A47",
+                  color: "#ff5c35",
                   marginBottom: 28,
                 }}
               >
@@ -563,7 +563,7 @@ export default function About() {
             <h2
               style={{
                 fontSize: 36,
-                fontWeight: 900,
+                fontWeight: 500,
                 color: "#22332C",
                 opacity: 1,
                 marginBottom: 12,
@@ -628,7 +628,7 @@ export default function About() {
                       width: 8,
                       height: 8,
                       borderRadius: "50%",
-                      background: isOpen ? "#EA6A47" : "var(--line)",
+                      background: isOpen ? "#ff5c35" : "var(--line)",
                     }}
                   />
                   <button
@@ -642,7 +642,7 @@ export default function About() {
                       <span
                         style={{
                           fontSize: 14,
-                          color: "#EA6A47",
+                          color: "#ff5c35",
                           letterSpacing: "0.12em",
                         }}
                       >
@@ -651,7 +651,7 @@ export default function About() {
                       <span
                         style={{
                           fontSize: 18,
-                          fontWeight: 800,
+                          fontWeight: 600,
                           color: "#22332C",
                         }}
                       >
@@ -687,7 +687,7 @@ export default function About() {
                             lineHeight: 1.6,
                             margin: 0,
                             paddingLeft: 16,
-                            borderLeft: "2px solid rgba(234, 106, 71, 0.35)",
+                            borderLeft: "2px solid rgba(255,92,53, 0.35)",
                           }}
                         >
                           {item.quote}
@@ -714,7 +714,7 @@ export default function About() {
             <h2
               style={{
                 fontSize: 36,
-                fontWeight: 900,
+                fontWeight: 500,
                 color: "#22332C",
                 marginBottom: 48,
               }}
@@ -749,7 +749,7 @@ export default function About() {
                   <h3
                     style={{
                       fontSize: 16,
-                      fontWeight: 700,
+                      fontWeight: 600,
                       color: "#22332C",
                       marginBottom: 8,
                     }}
@@ -874,7 +874,7 @@ export default function About() {
           gap: 10px;
         }
         .about-credentials-dot {
-          color: #EA6A47;
+          color: #ff5c35;
           font-size: 14px;
         }
         .about-pill {
@@ -892,10 +892,10 @@ export default function About() {
           cursor: default;
         }
         .about-pill-featured {
-          color: #EA6A47;
+          color: #ff5c35;
         }
         .about-pill-icon {
-          color: #EA6A47;
+          color: #ff5c35;
           flex-shrink: 0;
         }
         .about-pill-logo {
@@ -914,14 +914,14 @@ export default function About() {
           padding: 18px 40px;
           border-radius: 8px;
           font-size: 16px;
-          font-weight: 700;
+          font-weight: 600;
           letter-spacing: 0.02em;
           text-decoration: none;
           width: fit-content;
           transition: all 0.22s ease;
         }
         .about-cta:hover {
-          background: #EA6A47;
+          background: #ff5c35;
           transform: translateY(-2px);
         }
         @media (max-width: 860px) {
@@ -945,16 +945,18 @@ export default function About() {
           object-fit: cover;
         }
         .beyond-heading {
-          font-size: 36px;
-          font-weight: 900;
+          font-size: clamp(1.6rem, 1.35rem + 1.1vw, 2.15rem);
+          line-height: 1.12;
+          letter-spacing: -0.013em;
+          font-weight: 500;
           color: #22332C;
           max-width: 640px;
           margin: 0 0 56px;
         }
         .beyond-heading-accent {
-          color: #EA6A47;
+          color: #ff5c35;
           font-style: italic;
-          font-weight: 800;
+          font-weight: 600;
         }
         .beyond-quote {
           display: flex;
@@ -966,7 +968,7 @@ export default function About() {
           width: 3px;
           height: 30px;
           flex-shrink: 0;
-          background: #EA6A47;
+          background: #ff5c35;
           border-radius: 2px;
         }
         .beyond-quote p {
@@ -1014,9 +1016,9 @@ export default function About() {
           color: rgba(34,51,44,0.72);
         }
         .beyond-caption-dash {
-          color: #EA6A47;
+          color: #ff5c35;
           font-style: normal;
-          font-weight: 700;
+          font-weight: 600;
         }
         .beyond-list {
           display: flex;
@@ -1041,7 +1043,7 @@ export default function About() {
           top: 0;
           bottom: 0;
           width: 0;
-          background: #EA6A47;
+          background: #ff5c35;
           transition: width 0.25s ease;
         }
         .beyond-row:hover {
@@ -1052,7 +1054,7 @@ export default function About() {
         }
         .beyond-row-icon {
           flex-shrink: 0;
-          color: #EA6A47;
+          color: #ff5c35;
           margin-top: 4px;
           transition: transform 0.25s ease;
         }
@@ -1061,13 +1063,13 @@ export default function About() {
         }
         .beyond-row-content h3 {
           font-size: 1.375rem;
-          font-weight: 800;
+          font-weight: 600;
           color: #22332C;
           margin: 0 0 8px;
           transition: color 0.25s ease;
         }
         .beyond-row:hover .beyond-row-content h3 {
-          color: #EA6A47;
+          color: #ff5c35;
         }
         .beyond-row-content p {
           font-size: 16px;
@@ -1080,7 +1082,7 @@ export default function About() {
           color: rgba(34,51,44,0.72) !important;
         }
         .beyond-row-link {
-          color: #EA6A47;
+          color: #ff5c35;
           font-size: 14px;
           font-weight: 600;
           text-decoration: none;
@@ -1128,7 +1130,7 @@ export default function About() {
         }
         .lesson-card-number {
           font-size: 14px;
-          color: var(--lesson-accent, #EA6A47);
+          color: var(--lesson-accent, #ff5c35);
           opacity: 0.55;
           margin: 0 0 12px;
           display: inline-block;
@@ -1171,15 +1173,15 @@ export default function About() {
           font-size: 14px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #ea6a47;
+          color: #ff5c35;
           cursor: pointer;
           transition:
             border-color 0.18s ease,
             background 0.18s ease;
         }
         .open-everything-btn:hover {
-          border-color: #ea6a47;
-          background: rgba(234, 106, 71, 0.06);
+          border-color: #ff5c35;
+          background: rgba(255,92,53, 0.06);
         }
 
         .timeline-item {
@@ -1200,7 +1202,7 @@ export default function About() {
           text-align: left;
         }
         .timeline-toggle:focus-visible {
-          outline: 2px solid #ea6a47;
+          outline: 2px solid #ff5c35;
           outline-offset: 2px;
         }
         .timeline-toggle-label {
@@ -1210,7 +1212,7 @@ export default function About() {
         }
         .timeline-caret {
           flex-shrink: 0;
-          color: #ea6a47;
+          color: #ff5c35;
           font-size: 14px;
           transition: transform 0.2s ease;
         }

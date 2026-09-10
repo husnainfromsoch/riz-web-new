@@ -279,7 +279,7 @@ export default function FeaturedCaseStudies() {
       <style>{`
         .fcs-header-divider {
           height: 1px;
-          background: linear-gradient(90deg, #EA6A47, var(--line) 60%);
+          background: linear-gradient(90deg, #ff5c35, var(--line) 60%);
           margin: 28px 0 44px;
         }
 
@@ -317,11 +317,11 @@ export default function FeaturedCaseStudies() {
         .fcs-card:hover {
           transform: translateY(-6px);
           box-shadow: 0 20px 48px rgba(34,51,44,0.16);
-          border-color: #EA6A47;
+          border-color: #ff5c35;
         }
         .fcs-card.active {
-          border-color: #EA6A47;
-          box-shadow: 0 12px 32px rgba(234,106,71,0.14);
+          border-color: #ff5c35;
+          box-shadow: 0 12px 32px rgba(255,92,53,0.14);
         }
 
         .fcs-card-top {
@@ -334,7 +334,7 @@ export default function FeaturedCaseStudies() {
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          background: rgba(234,106,71,0.1);
+          background: rgba(255,92,53,0.1);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -343,7 +343,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-card:hover .fcs-card-icon,
         .fcs-card.active .fcs-card-icon {
-          background: #EA6A47;
+          background: #ff5c35;
         }
         .fcs-card:hover .fcs-card-icon svg,
         .fcs-card.active .fcs-card-icon svg {
@@ -353,7 +353,7 @@ export default function FeaturedCaseStudies() {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 0.875rem;
           font-weight: 600;
-          color: #E8603C;
+          color: #ff5c35;
           letter-spacing: 0.05em;
           line-height: 1.35;
           text-transform: uppercase;
@@ -361,7 +361,7 @@ export default function FeaturedCaseStudies() {
 
         .fcs-card-stat {
           font-size: 34px;
-          font-weight: 900;
+          font-weight: 500;
           line-height: 1;
           color: var(--coral);
         }
@@ -374,14 +374,14 @@ export default function FeaturedCaseStudies() {
         .fcs-card-divider {
           width: 24px;
           height: 2px;
-          background: #EA6A47;
+          background: #ff5c35;
           border-radius: 2px;
           margin: 16px 0 14px;
         }
         .fcs-card-title {
           font-family: var(--font-fraunces), serif;
           font-size: 16px;
-          font-weight: 800;
+          font-weight: 600;
           color: #22332C;
           line-height: 1.3;
           margin: 0 0 6px;
@@ -406,11 +406,11 @@ export default function FeaturedCaseStudies() {
           transition: color 0.2s ease-out, transform 0.2s ease-out;
         }
         .fcs-card:hover .fcs-card-chevron {
-          color: #EA6A47;
+          color: #ff5c35;
           transform: scale(1.15);
         }
         .fcs-card.active .fcs-card-chevron {
-          color: #EA6A47;
+          color: #ff5c35;
           transform: rotate(180deg);
         }
         .fcs-card.active:hover .fcs-card-chevron {
@@ -453,7 +453,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-panel-header-title {
           font-size: 16px;
-          font-weight: 700;
+          font-weight: 600;
           color: var(--cream);
           font-family: var(--font-fraunces), serif;
         }
@@ -492,7 +492,7 @@ export default function FeaturedCaseStudies() {
         .fcs-panel-image-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(234,106,71,0.3) 0%, transparent 60%);
+          background: linear-gradient(135deg, rgba(255,92,53,0.3) 0%, transparent 60%);
         }
         .fcs-panel-col-ba {
           padding: 32px 28px;
@@ -515,21 +515,21 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-panel-divider {
           height: 1px;
-          background: linear-gradient(90deg, #EA6A47, var(--line));
+          background: linear-gradient(90deg, #ff5c35, var(--line));
           margin: 16px 0;
         }
         .fcs-panel-col-outcomes {
           padding: 32px 28px;
         }
         .fcs-stat {
-          border-left: 3px solid #EA6A47;
+          border-left: 3px solid #ff5c35;
           padding-left: 14px;
           margin-bottom: 20px;
         }
         .fcs-stat-number {
           font-size: 26px;
-          font-weight: 900;
-          background: linear-gradient(90deg, #22332C, #EA6A47);
+          font-weight: 500;
+          background: linear-gradient(90deg, #22332C, #ff5c35);
           background-size: 200% auto;
           -webkit-background-clip: text;
           background-clip: text;
@@ -559,7 +559,7 @@ export default function FeaturedCaseStudies() {
         }
         .fcs-delivered-value {
           font-size: 16px;
-          font-weight: 700;
+          font-weight: 600;
           color: #22332C;
         }
 
@@ -579,7 +579,7 @@ export default function FeaturedCaseStudies() {
           transition: background 0.22s ease, transform 0.22s ease;
         }
         .fcs-view-all:hover {
-          background: #EA6A47;
+          background: #ff5c35;
           transform: translateY(-2px) scale(1.02);
         }
         .fcs-view-all-arrow {
@@ -623,14 +623,14 @@ export default function FeaturedCaseStudies() {
             border-color: var(--line);
           }
           .fcs-card.active:hover {
-            border-color: #EA6A47;
+            border-color: #ff5c35;
           }
         }
       `}</style>
 
       <div className="max-w-site">
         <AnimateIn>
-          <h2 style={{ fontSize: 40, fontWeight: 900, color: "#22332C", marginBottom: 12 }}>
+          <h2 style={{ fontSize: 40, fontWeight: 500, color: "#22332C", marginBottom: 12 }}>
             Proven results across industries.
           </h2>
           <p style={{ fontSize: 16, color: "rgba(34,51,44,0.72)", margin: 0, maxWidth: 560 }}>
@@ -665,7 +665,7 @@ export default function FeaturedCaseStudies() {
                         >
                           <div className="fcs-card-top">
                             <span className="fcs-card-icon">
-                              <Icon size={16} strokeWidth={1.8} color="#EA6A47" />
+                              <Icon size={16} strokeWidth={1.8} color="#ff5c35" />
                             </span>
                             <span className="fcs-card-tag">{row.tag}</span>
                           </div>
@@ -719,7 +719,7 @@ export default function FeaturedCaseStudies() {
                         <ul className="fcs-panel-list after">
                           {panelCase.details.after.map((item, idx) => (
                             <li key={idx}>
-                              <span style={{ color: "#EA6A47" }}>→ </span>
+                              <span style={{ color: "#ff5c35" }}>→ </span>
                               {item}
                             </li>
                           ))}

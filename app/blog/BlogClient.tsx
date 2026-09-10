@@ -110,9 +110,10 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         }
         .writing-hero-title {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: clamp(3.5rem, 7vw, 6rem);
+          font-size: clamp(2.4rem, 1.5rem + 3vw, 3.7rem);
           line-height: 1.02;
-          font-weight: 900;
+          letter-spacing: -0.018em;
+          font-weight: 500;
           color: var(--ink);
           margin: 0 0 1.1rem;
         }
@@ -172,7 +173,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
         .writing-search-input::placeholder { color: var(--muted); }
         .writing-search-input:focus {
           border-color: var(--coral);
-          box-shadow: 0 0 0 4px rgba(234,106,71,0.12);
+          box-shadow: 0 0 0 4px rgba(255,92,53,0.12);
         }
         .writing-kbd {
           position: absolute;
@@ -248,7 +249,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #E8603C;
+          color: #ff5c35;
           margin-bottom: 0.75rem;
         }
         .writing-featured-title {
@@ -287,7 +288,7 @@ export default function BlogClient({ posts }: { posts: SubstackPost[] }) {
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #E8603C;
+          color: #ff5c35;
           white-space: nowrap;
         }
         .writing-divider-rule {

@@ -81,9 +81,9 @@ export default async function GuidePage({
         .gd-detail-title {
           font-family: var(--font-fraunces), serif;
           font-weight: 600;
-          font-size: clamp(28px, 4vw, 40px);
-          letter-spacing: -0.5px;
-          line-height: 1.15;
+          font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem);
+          line-height: 1.06;
+          letter-spacing: -0.014em;
           color: var(--ink);
           margin: 0 0 1.25rem;
         }

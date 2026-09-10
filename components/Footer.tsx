@@ -116,7 +116,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           position: relative;
           background: var(--paper);
           overflow: hidden;
-          border-top: 1px solid #EA6A47;
+          border-top: 1px solid #ff5c35;
           padding: 56px clamp(20px, 5vw, 60px) 40px;
         }
         .ftr-dotgrid {
@@ -133,7 +133,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           right: -100px;
           width: 560px;
           height: 560px;
-          background: radial-gradient(circle, rgba(234,106,71,0.16), transparent 70%);
+          background: radial-gradient(circle, rgba(255,92,53,0.16), transparent 70%);
           pointer-events: none;
           z-index: 0;
         }
@@ -142,7 +142,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           right: -2%;
           bottom: -10%;
           font-family: var(--font-fraunces), serif;
-          font-weight: 900;
+          font-weight: 500;
           font-size: clamp(6rem, 20vw, 22rem);
           line-height: 0.8;
           letter-spacing: -0.02em;
@@ -171,15 +171,16 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         }
         .ftr-cta-headline {
           font-family: var(--font-fraunces), serif;
-          font-weight: 700;
-          font-size: clamp(2rem, 4vw, 3.25rem);
-          line-height: 1.1;
+          font-weight: 500;
+          font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem);
+          line-height: 1.06;
+          letter-spacing: -0.014em;
           color: #22332C;
           max-width: 620px;
           margin: 0;
         }
         .ftr-cta-accent {
-          color: #EA6A47;
+          color: #ff5c35;
           font-style: italic;
         }
         .ftr-cta-actions {
@@ -191,10 +192,10 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          background: #EA6A47;
+          background: #ff5c35;
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-weight: 700;
+          font-weight: 600;
           font-size: 16px;
           padding: 0 28px;
           min-height: var(--btn-height);
@@ -205,7 +206,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           transition: background 0.2s ease, transform 0.2s ease;
         }
         .ftr-btn-primary:hover {
-          background: #CE5430;
+          background: #e8431b;
           transform: translateY(-2px);
         }
         .ftr-btn-ghost {
@@ -215,7 +216,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           background: transparent;
           color: #22332C;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-weight: 700;
+          font-weight: 600;
           font-size: 16px;
           padding: 0 28px;
           min-height: var(--btn-height);
@@ -225,13 +226,13 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           transition: border-color 0.2s ease, color 0.2s ease;
         }
         .ftr-btn-ghost:hover {
-          border-color: #EA6A47;
-          color: #EA6A47;
+          border-color: #ff5c35;
+          color: #ff5c35;
         }
 
         .ftr-divider {
           height: 1px;
-          background: rgba(234,106,71,0.4);
+          background: rgba(255,92,53,0.4);
           margin-bottom: 56px;
         }
 
@@ -243,7 +244,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
         }
         .ftr-brand-name {
           font-family: var(--font-fraunces), serif;
-          font-weight: 700;
+          font-weight: 500;
           font-size: 1.75rem;
           color: #22332C;
           margin: 0 0 8px;
@@ -279,8 +280,8 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           transition: transform 0.2s ease;
         }
         .ftr-social-chip:hover {
-          border-color: var(--brand, #EA6A47);
-          color: var(--brand, #EA6A47);
+          border-color: var(--brand, #ff5c35);
+          color: var(--brand, #ff5c35);
         }
         .ftr-social-chip:hover svg {
           transform: scale(1.12);
@@ -296,7 +297,7 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           font-size: 1rem;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          color: #EA6A47;
+          color: #ff5c35;
           margin: 0 0 18px;
         }
         .ftr-link {
@@ -317,11 +318,11 @@ export default function Footer({ showCta }: { showCta?: boolean } = {}) {
           left: -16px;
           top: 0;
           opacity: 0;
-          color: #EA6A47;
+          color: #ff5c35;
           transition: opacity 0.2s ease, left 0.2s ease;
         }
         .ftr-link:hover {
-          color: #EA6A47;
+          color: #ff5c35;
           padding-left: 18px;
         }
         .ftr-link:hover::before {

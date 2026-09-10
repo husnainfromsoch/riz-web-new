@@ -24,7 +24,7 @@ export function ProofChip({ icon, children }: { icon: React.ReactNode; children:
           width: 18,
           height: 18,
           borderRadius: "50%",
-          background: "rgba(234,106,71,0.1)",
+          background: "rgba(255,92,53,0.1)",
           color: "var(--coral)",
           display: "flex",
           alignItems: "center",

@@ -120,7 +120,7 @@ export default function DirectLineCTA({
           grid-template-columns: auto 1fr;
           gap: 52px;
           align-items: center;
-          box-shadow: 0 24px 64px rgba(234,106,71,0.14), 0 4px 16px rgba(34,51,44,0.06);
+          box-shadow: 0 24px 64px rgba(255,92,53,0.14), 0 4px 16px rgba(34,51,44,0.06);
         }
         .chat-hayat-card::before {
           content: "";
@@ -154,14 +154,15 @@ export default function DirectLineCTA({
         }
         .chat-hayat-heading {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 40px;
-          font-weight: 900;
+          font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem);
+          line-height: 1.06;
+          letter-spacing: -0.014em;
+          font-weight: 500;
           color: #22332C;
-          line-height: 1.2;
           margin: 0 0 16px;
         }
         .chat-hayat-heading-accent {
-          color: #EA6A47;
+          color: #ff5c35;
           font-style: italic;
         }
         .chat-hayat-desc {
@@ -191,7 +192,7 @@ export default function DirectLineCTA({
           transition: background 0.25s ease;
         }
         .chat-hayat-btn-primary:hover {
-          background: #EA6A47;
+          background: #ff5c35;
         }
         button.chat-hayat-btn-primary {
           border: none;

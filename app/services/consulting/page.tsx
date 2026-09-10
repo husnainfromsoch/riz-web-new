@@ -57,13 +57,13 @@ export default function ConsultingPage() {
           padding: 2rem;
           padding-top: calc(2rem + 4px);
           background: #fff;
-          box-shadow: 0 16px 40px rgba(234,106,71,0.10), 0 4px 14px rgba(34,51,44,0.05);
+          box-shadow: 0 16px 40px rgba(255,92,53,0.10), 0 4px 14px rgba(34,51,44,0.05);
           transition: transform 0.18s ease, box-shadow 0.18s ease;
           overflow: hidden;
         }
         .consulting-format-card:hover {
           transform: translateY(-2px);
-          box-shadow: 0 20px 48px rgba(234,106,71,0.16), 0 6px 18px rgba(34,51,44,0.08);
+          box-shadow: 0 20px 48px rgba(255,92,53,0.16), 0 6px 18px rgba(34,51,44,0.08);
         }
         .consulting-format-card::before {
           content: "";
@@ -115,7 +115,7 @@ export default function ConsultingPage() {
           gap: 1rem;
           flex-wrap: wrap;
           justify-content: space-between;
-          box-shadow: 0 16px 40px rgba(234,106,71,0.10), 0 4px 14px rgba(34,51,44,0.05);
+          box-shadow: 0 16px 40px rgba(255,92,53,0.10), 0 4px 14px rgba(34,51,44,0.05);
         }
         .consulting-form-input {
           width: 100%;
@@ -204,7 +204,7 @@ export default function ConsultingPage() {
                   fontSize: "clamp(2.25rem, 4vw, 3rem)",
                   lineHeight: 1.2,
                   color: "var(--ink)",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   marginBottom: "1.25rem",
                   maxWidth: 580,
                 }}
@@ -263,7 +263,7 @@ export default function ConsultingPage() {
           border-radius: 8px 32px 32px 32px;
           overflow: hidden;
           transform: rotate(1.5deg);
-          box-shadow: 0 24px 56px rgba(234,106,71,0.18), 0 8px 22px rgba(34,51,44,0.08);
+          box-shadow: 0 24px 56px rgba(255,92,53,0.18), 0 8px 22px rgba(34,51,44,0.08);
           will-change: transform;
         }
         @media (max-width: 1024px) {
@@ -304,7 +304,7 @@ export default function ConsultingPage() {
                 fontFamily: "var(--font-playfair), serif",
                 fontSize: "clamp(1.625rem, 2.5vw, 2rem)",
                 color: "var(--ink)",
-                fontWeight: 700,
+                fontWeight: 600,
                 marginBottom: "2.5rem",
               }}
             >
@@ -323,7 +323,7 @@ export default function ConsultingPage() {
                       fontFamily: "var(--font-playfair), serif",
                       fontSize: "1.25rem",
                       color: "var(--ink)",
-                      fontWeight: 700,
+                      fontWeight: 600,
                       marginBottom: "0.65rem",
                     }}
                   >
@@ -397,7 +397,7 @@ export default function ConsultingPage() {
                   fontFamily: "var(--font-playfair), serif",
                   fontSize: "clamp(1.625rem, 2.5vw, 2rem)",
                   color: "var(--ink)",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   marginBottom: "0.75rem",
                 }}
               >

@@ -92,7 +92,7 @@ const byTheNumbersRows = [
 // ─── WORKFLOW STEPS (before/after toggle) ───────────────────────────────────
 
 // ─── BEFORE ICONS ──────────────────────────────────────────────
-function BaBeforeInbox({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaBeforeInbox({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/>
@@ -100,14 +100,14 @@ function BaBeforeInbox({ stroke = "#EA6A47" }: { stroke?: string }) {
     </svg>
   );
 }
-function BaBeforeHourglass({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaBeforeHourglass({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M5 22h14M5 2h14M17 22v-4.172a2 2 0 00-.586-1.414L12 12l-4.414 4.414A2 2 0 007 17.828V22M7 2v4.172a2 2 0 00.586 1.414L12 12l4.414-4.414A2 2 0 0017 6.172V2"/>
     </svg>
   );
 }
-function BaBeforeUser({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaBeforeUser({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
@@ -115,7 +115,7 @@ function BaBeforeUser({ stroke = "#EA6A47" }: { stroke?: string }) {
     </svg>
   );
 }
-function BaBeforeWarn({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaBeforeWarn({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
@@ -125,14 +125,14 @@ function BaBeforeWarn({ stroke = "#EA6A47" }: { stroke?: string }) {
   );
 }
 // ─── AFTER ICONS ──────────────────────────────────────────────
-function BaAfterZap({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaAfterZap({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
     </svg>
   );
 }
-function BaAfterSearch({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaAfterSearch({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="11" cy="11" r="8"/>
@@ -140,7 +140,7 @@ function BaAfterSearch({ stroke = "#EA6A47" }: { stroke?: string }) {
     </svg>
   );
 }
-function BaAfterArrowRight({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaAfterArrowRight({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <line x1="5" y1="12" x2="19" y2="12"/>
@@ -148,7 +148,7 @@ function BaAfterArrowRight({ stroke = "#EA6A47" }: { stroke?: string }) {
     </svg>
   );
 }
-function BaAfterCheck({ stroke = "#EA6A47" }: { stroke?: string }) {
+function BaAfterCheck({ stroke = "#ff5c35" }: { stroke?: string }) {
   return (
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={stroke} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
@@ -201,7 +201,7 @@ const routeIconProps = {
   height: 22,
   viewBox: "0 0 24 24",
   fill: "none" as const,
-  stroke: "#EA6A47",
+  stroke: "#ff5c35",
   strokeWidth: 1.8,
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
@@ -492,7 +492,7 @@ export default function Home() {
           width: 420px;
           height: 420px;
           transform: translateY(-50%);
-          background: radial-gradient(circle, rgba(234,106,71,0.12) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(255,92,53,0.12) 0%, transparent 70%);
           pointer-events: none;
           z-index: 0;
         }
@@ -524,8 +524,8 @@ export default function Home() {
           width: 18px;
           height: 18px;
           border-radius: 50%;
-          background: rgba(234,106,71,0.16);
-          color: #EA6A47;
+          background: rgba(255,92,53,0.16);
+          color: #ff5c35;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -556,7 +556,7 @@ export default function Home() {
         .route-price-amount {
           font-family: var(--font-fraunces), serif;
           font-size: 44px;
-          font-weight: 800;
+          font-weight: 500;
           color: #22332C;
           line-height: 1;
         }
@@ -574,12 +574,12 @@ export default function Home() {
         }
         .route-hero-btn {
           display: inline-block;
-          background: #EA6A47;
+          background: #ff5c35;
           color: #ffffff;
           padding: 14px 32px;
           border-radius: 10px;
           font-size: 16px;
-          font-weight: 700;
+          font-weight: 600;
           text-decoration: none;
           white-space: nowrap;
           border: none;
@@ -588,7 +588,7 @@ export default function Home() {
           transition: all 0.22s;
         }
         .route-hero-btn:hover {
-          background: #c85535;
+          background: #e8431b;
           transform: translateY(-2px);
         }
         .route-tag-chip {
@@ -606,8 +606,8 @@ export default function Home() {
           color: #22332C;
         }
         .route-tag-chip--coral {
-          background: rgba(234,106,71,0.12);
-          color: #EA6A47;
+          background: rgba(255,92,53,0.12);
+          color: #ff5c35;
         }
         .route-cards-row {
           display: grid;
@@ -634,7 +634,7 @@ export default function Home() {
           border-color: #22332C;
         }
         .route-card-v2:hover .route-card-title {
-          color: #EA6A47;
+          color: #ff5c35;
         }
         .route-card-icon {
           position: absolute;
@@ -644,7 +644,7 @@ export default function Home() {
         .route-card-title {
           font-family: var(--font-fraunces), serif;
           font-size: 20px;
-          font-weight: 800;
+          font-weight: 600;
           color: #22332C;
           padding-right: 30px;
           transition: color 0.25s ease;
@@ -680,7 +680,7 @@ export default function Home() {
           transition: background 0.22s ease;
         }
         .route-btn-primary:hover {
-          background: #EA6A47;
+          background: #ff5c35;
         }
         .route-btn-arrow {
           display: inline-block;
@@ -718,7 +718,7 @@ export default function Home() {
           color: rgba(34,51,44,0.72);
         }
         .route-footnote a {
-          color: #EA6A47;
+          color: #ff5c35;
           text-decoration: none;
         }
         .route-footnote a:hover {
@@ -780,15 +780,16 @@ export default function Home() {
         }
         .merged-hero-heading {
           font-family: var(--font-fraunces), serif;
-          font-size: 34px;
-          font-weight: 900;
+          font-size: clamp(1.6rem, 1.35rem + 1.1vw, 2.15rem);
+          line-height: 1.12;
+          letter-spacing: -0.013em;
+          font-weight: 500;
           color: #22332C;
-          line-height: 1.1;
           margin: 14px 0 0;
         }
         .merged-hero-heading-accent {
           font-style: italic;
-          color: #EA6A47;
+          color: #ff5c35;
         }
         .merged-hero-desc {
           font-family: var(--font-dm-sans), sans-serif;
@@ -1034,8 +1035,8 @@ export default function Home() {
           to   { opacity: 1; transform: translateX(0); }
         }
         @keyframes pulseNode {
-          0%, 100% { box-shadow: 0 0 0 5px rgba(234,106,71,0.18); }
-          50%       { box-shadow: 0 0 0 11px rgba(234,106,71,0.06); }
+          0%, 100% { box-shadow: 0 0 0 5px rgba(255,92,53,0.18); }
+          50%       { box-shadow: 0 0 0 11px rgba(255,92,53,0.06); }
         }
         @keyframes ba-dash-pulse {
           0%, 100% { opacity: 0.35; }
@@ -1069,8 +1070,8 @@ export default function Home() {
         }
         .believe-section-title {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 52px; font-weight: 900; letter-spacing: -2.5px;
-          line-height: 1.03; margin-bottom: 40px; color: var(--ink);
+          font-size: clamp(2.05rem, 1.4rem + 2.3vw, 3.1rem); font-weight: 500; letter-spacing: -0.014em;
+          line-height: 1.06; margin-bottom: 40px; color: var(--ink);
         }
         .belief-para-merged {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
@@ -1084,7 +1085,7 @@ export default function Home() {
         .belief-sentence.visible { opacity: 1; transform: translateY(0); }
         .belief-sentence.key-line {
           font-family: var(--font-fraunces), serif;
-          font-size: 22px; font-weight: 800; letter-spacing: -.3px;
+          font-size: 22px; font-weight: 600; letter-spacing: -0.012em;
         }
         .coral-word { color: var(--coral); }
         .believe-closing {
@@ -1099,13 +1100,16 @@ export default function Home() {
         }
         .believe-closing-main {
           font-family: var(--font-fraunces), serif;
-          font-size: 28px; font-weight: 900;
+          font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
+          line-height: 1.16;
+          letter-spacing: -0.012em;
+          font-weight: 500;
           color: #22332C;
         }
         .believe-closing-italic {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 18px; font-weight: 700; font-style: normal;
-          color: #EA6A47;
+          font-size: 18px; font-weight: 600; font-style: normal;
+          color: #ff5c35;
           margin-bottom: 16px;
         }
         .believe-closing-cta {
@@ -1118,7 +1122,7 @@ export default function Home() {
           transition: all 0.22s ease;
         }
         .believe-closing-cta:hover {
-          background: #EA6A47;
+          background: #ff5c35;
           transform: translateY(-2px);
         }
         .believe-photo-col {
@@ -1155,8 +1159,8 @@ export default function Home() {
         }
         .believe-pn-name {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
-          font-size: 14px; font-weight: 700; font-style: italic;
-          background: linear-gradient(110deg, var(--cream), #EA6A47, #D79A36, var(--cream));
+          font-size: 14px; font-weight: 600; font-style: italic;
+          background: linear-gradient(110deg, var(--cream), #ff5c35, #D79A36, var(--cream));
           background-size: 250% auto;
           -webkit-background-clip: text; background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -1177,7 +1181,6 @@ export default function Home() {
           .believe-photo-col { position: static; }
           /* single-column stacking: photo stays in flow, no sticky */
           .believe-photo-container { position: relative; top: auto; }
-          .believe-section-title { font-size: 36px; }
         }
         @keyframes terminalIn {
           from { opacity: 0; transform: translateX(-8px); }
@@ -1193,7 +1196,7 @@ export default function Home() {
         }
         .terminal-cursor::after {
           content: "█";
-          color: #EA6A47;
+          color: #ff5c35;
           animation: blink 1s step-end infinite;
           margin-left: 4px;
         }
@@ -1232,7 +1235,7 @@ export default function Home() {
         .work-row:hover {
           transform: translateY(-5px);
           box-shadow: 0 14px 36px rgba(34,51,44,0.10);
-          border-color: #EA6A47;
+          border-color: #ff5c35;
         }
         .work-row-badge {
           width: 44px;
@@ -1246,13 +1249,13 @@ export default function Home() {
           flex-shrink: 0;
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 14px;
-          font-weight: 700;
+          font-weight: 600;
           color: #C17A5A;
           transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
         }
         .work-row:hover .work-row-badge {
-          background: #EA6A47;
-          border-color: #EA6A47;
+          background: #ff5c35;
+          border-color: #ff5c35;
           color: #fff;
         }
         .work-row-body {
@@ -1270,15 +1273,15 @@ export default function Home() {
           font-weight: 600;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: #EA6A47;
-          background: rgba(234,106,71,0.08);
+          color: #ff5c35;
+          background: rgba(255,92,53,0.08);
           padding: 3px 10px;
           border-radius: 100px;
         }
         .work-row-title {
           font-family: var(--font-fraunces), serif;
           font-size: 20px;
-          font-weight: 800;
+          font-weight: 600;
           color: #22332C;
           line-height: 1.3;
         }
@@ -1304,8 +1307,8 @@ export default function Home() {
           transition: all 0.25s ease;
         }
         .work-row:hover .work-row-arrow {
-          background: #EA6A47;
-          border-color: #EA6A47;
+          background: #ff5c35;
+          border-color: #ff5c35;
           color: #fff;
           transform: translate(2px, -2px);
         }
@@ -1325,7 +1328,7 @@ export default function Home() {
           transition: background 0.22s ease, transform 0.22s ease;
         }
         .work-view-all:hover {
-          background: #EA6A47;
+          background: #ff5c35;
           transform: translateY(-2px);
         }
         @media (max-width: 640px) {
@@ -1476,7 +1479,7 @@ export default function Home() {
                       <circle cx="65" cy="65" r="44" fill="none" stroke="#2d2d2d" strokeWidth="1" />
                       <circle cx="65" cy="65" r="37" fill="none" stroke="#2d2d2d" strokeWidth="1" />
                       <circle cx="65" cy="65" r="30" fill="none" stroke="#2d2d2d" strokeWidth="1" />
-                      <circle cx="65" cy="65" r="23" fill="#EA6A47" />
+                      <circle cx="65" cy="65" r="23" fill="#ff5c35" />
                       <circle cx="65" cy="65" r="5" fill="#111111" />
                     </svg>
                   </div>
@@ -1524,13 +1527,13 @@ export default function Home() {
           <div style={{ paddingRight: "4rem", paddingBottom: "2.5rem", height: "fit-content" }}>
             <h2 style={{
               fontFamily: "var(--font-playfair), serif",
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: "clamp(2.625rem, 5vw, 3.75rem)",
               lineHeight: 1.08,
               marginBottom: "1.75rem",
             }}>
               <span style={{ color: "#22332C", display: "block" }}>By the</span>
-              <span style={{ color: "#EA6A47", fontStyle: "italic", display: "block" }}>numbers.</span>
+              <span style={{ color: "#ff5c35", fontStyle: "italic", display: "block" }}>numbers.</span>
             </h2>
 
             {/* Animated career timeline */}
@@ -1571,8 +1574,8 @@ export default function Home() {
                   <div style={{
                     width: 24, height: 24,
                     borderRadius: "50%",
-                    border: `2px solid ${showCoral ? "#EA6A47" : "#C17A5A"}`,
-                    background: showCoral ? "#EA6A47" : "var(--cream)",
+                    border: `2px solid ${showCoral ? "#ff5c35" : "#C17A5A"}`,
+                    background: showCoral ? "#ff5c35" : "var(--cream)",
                     flexShrink: 0,
                     position: "relative",
                     zIndex: 1,
@@ -1644,7 +1647,7 @@ export default function Home() {
                   style={{
                     fontFamily: "var(--font-dm-sans), sans-serif",
                     fontSize: "1rem",
-                    color: "#EA6A47",
+                    color: "#ff5c35",
                     background: "none",
                     border: "none",
                     cursor: "pointer",
@@ -1670,12 +1673,12 @@ export default function Home() {
                   ? `opacity 0.5s ease ${i * 0.15}s, transform 0.5s ease ${i * 0.15}s`
                   : "opacity 0.3s ease";
                 const rowBorderLeft = activeCompany !== null
-                  ? "2px solid #EA6A47"
+                  ? "2px solid #ff5c35"
                   : hoveredNumberRow === i
-                  ? "3px solid #EA6A47"
+                  ? "3px solid #ff5c35"
                   : "3px solid transparent";
                 const rowBackground = activeCompany !== null
-                  ? "rgba(234,106,71,0.04)"
+                  ? "rgba(255,92,53,0.04)"
                   : hoveredNumberRow === i
                   ? "#F0E8DC"
                   : "transparent";
@@ -1745,7 +1748,7 @@ export default function Home() {
                             display: "inline-block",
                             fontFamily: "var(--font-playfair), serif",
                             fontSize: "56px",
-                            fontWeight: 700,
+                            fontWeight: 600,
                             lineHeight: 1,
                             margin: "0 0 6px",
                             color: "var(--coral)",
@@ -1773,7 +1776,7 @@ export default function Home() {
                           style={{
                             fontFamily: "var(--font-dm-sans), sans-serif",
                             fontSize: "1.25rem",
-                            color: hoveredNumberRow === i ? "#EA6A47" : "var(--faint)",
+                            color: hoveredNumberRow === i ? "#ff5c35" : "var(--faint)",
                             transition: "color 0.3s ease",
                           }}
                         >
@@ -1802,13 +1805,13 @@ export default function Home() {
               fontFamily: "var(--font-playfair), serif",
               fontSize: "clamp(2rem, 4vw, 52px)",
               color: "#22332C",
-              fontWeight: 700,
+              fontWeight: 600,
               marginBottom: "0.75rem",
               letterSpacing: "0.02em",
               textAlign: "center",
             }}>
               You&apos;re the bottleneck.{" "}
-              <span style={{ color: "#EA6A47", fontStyle: "italic" }}>Or the system is.</span>
+              <span style={{ color: "#ff5c35", fontStyle: "italic" }}>Or the system is.</span>
             </h2>
             <p style={{
               fontFamily: "var(--font-montserrat), sans-serif",
@@ -1847,7 +1850,7 @@ export default function Home() {
                 }}>
                   <div style={{ marginBottom: 20 }}>
                     <p className="meta-label" style={{ margin: "0 0 8px" }}>BEFORE</p>
-                    <p style={{ fontSize: 22, fontWeight: 700, color: "#22332C", opacity: 1, margin: 0 }}>
+                    <p style={{ fontSize: 22, fontWeight: 600, color: "#22332C", opacity: 1, margin: 0 }}>
                       You&apos;re the bottleneck.
                     </p>
                   </div>
@@ -1881,7 +1884,7 @@ export default function Home() {
                           </div>
                           <div style={{ flex: 1 }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
-                              <p style={{ fontSize: 16, fontWeight: 700, color: "#22332C", opacity: 1, margin: 0 }}>
+                              <p style={{ fontSize: 16, fontWeight: 600, color: "#22332C", opacity: 1, margin: 0 }}>
                                 {step.labelBefore}
                               </p>
                               <span style={{
@@ -1930,7 +1933,7 @@ export default function Home() {
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
                       fontSize: 14,
-                      fontWeight: 700,
+                      fontWeight: 600,
                       letterSpacing: "0.08em",
                       color: isAfter ? "rgba(34,51,44,0.72)" : "#22332C",
                       transition: "color 0.3s ease",
@@ -1945,7 +1948,7 @@ export default function Home() {
                         width: 64,
                         height: 36,
                         borderRadius: 100,
-                        background: isAfter ? "#EA6A47" : "rgba(34,51,44,0.15)",
+                        background: isAfter ? "#ff5c35" : "rgba(34,51,44,0.15)",
                         border: "none",
                         cursor: "pointer",
                         position: "relative",
@@ -1969,9 +1972,9 @@ export default function Home() {
                     <span style={{
                       fontFamily: "var(--font-montserrat), sans-serif",
                       fontSize: 14,
-                      fontWeight: 700,
+                      fontWeight: 600,
                       letterSpacing: "0.08em",
-                      color: isAfter ? "#EA6A47" : "rgba(34,51,44,0.72)",
+                      color: isAfter ? "#ff5c35" : "rgba(34,51,44,0.72)",
                       transition: "color 0.3s ease",
                     }}>AUTOMATED</span>
                   </div>
@@ -1979,7 +1982,7 @@ export default function Home() {
 
                 {/* RIGHT - AFTER */}
                 <div className="ba-panel-after" style={{
-                  background: "rgba(234,106,71,0.035)",
+                  background: "rgba(255,92,53,0.035)",
                   border: "1px solid var(--line)",
                   borderRadius: "0 20px 20px 0",
                   padding: "40px 36px",
@@ -1992,7 +1995,7 @@ export default function Home() {
                 }}>
                   <div style={{ marginBottom: 20 }}>
                     <p className="meta-label" style={{ margin: "0 0 8px" }}>AFTER</p>
-                    <p style={{ fontSize: 22, fontWeight: 700, color: "#22332C", margin: 0 }}>
+                    <p style={{ fontSize: 22, fontWeight: 600, color: "#22332C", margin: 0 }}>
                       The system runs itself.
                     </p>
                   </div>
@@ -2004,9 +2007,9 @@ export default function Home() {
                   ] as { title: string; sub: string; badge: string; icon: string }[]).map((step, i) => (
                     <div key={step.title}>
                       <div style={{
-                        background: "rgba(234,106,71,0.06)",
+                        background: "rgba(255,92,53,0.06)",
                         border: "1px solid var(--line)",
-                        borderLeft: "3px solid #EA6A47",
+                        borderLeft: "3px solid #ff5c35",
                         borderRadius: 14,
                         padding: "14px 18px",
                         display: "flex",
@@ -2021,32 +2024,32 @@ export default function Home() {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          background: "rgba(234,106,71,0.14)",
+                          background: "rgba(255,92,53,0.14)",
                         }}>
                           {step.icon === "zap" && (
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
                             </svg>
                           )}
                           {step.icon === "search" && (
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                             </svg>
                           )}
                           {step.icon === "arrow" && (
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                             </svg>
                           )}
                           {step.icon === "check" && (
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
                             </svg>
                           )}
                         </div>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 2 }}>
-                            <p style={{ fontSize: 16, fontWeight: 700, color: "#22332C", margin: 0 }}>
+                            <p style={{ fontSize: 16, fontWeight: 600, color: "#22332C", margin: 0 }}>
                               {step.title}
                             </p>
                             <span style={{
@@ -2069,7 +2072,7 @@ export default function Home() {
                       </div>
                       {i < 3 && (
                         <div style={{ display: "flex", justifyContent: "center", padding: "5px 0" }}>
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#EA6A47" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff5c35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
                           </svg>
                         </div>
@@ -2104,7 +2107,7 @@ export default function Home() {
               style={{
                 fontFamily: "var(--font-playfair), serif",
                 fontSize: "48px",
-                fontWeight: 900,
+                fontWeight: 500,
                 color: "#1E241F",
                 marginBottom: "12px",
               }}
@@ -2149,7 +2152,7 @@ export default function Home() {
                 fontFamily: "var(--font-playfair), serif",
                 fontSize: 48,
                 color: "#22332C",
-                fontWeight: 900,
+                fontWeight: 500,
                 marginBottom: 56,
               }}
             >
@@ -2352,8 +2355,8 @@ export default function Home() {
                       fontFamily: "var(--font-fraunces), serif",
                       fontStyle: "italic",
                       fontSize: 14,
-                      fontWeight: 700,
-                      color: "#EA6A47",
+                      fontWeight: 600,
+                      color: "#ff5c35",
                     }}
                   >
                     Free. Always.
@@ -2389,7 +2392,7 @@ export default function Home() {
                 fontFamily: "var(--font-playfair), serif",
                 fontSize: "clamp(1.875rem, 3vw, 2.5rem)",
                 color: "var(--ink)",
-                fontWeight: 700,
+                fontWeight: 600,
                 marginBottom: "0.75rem",
               }}
             >
