@@ -330,7 +330,6 @@ html {
 
   .animate-in,
   [data-reveal],
-  .writing-row-animate,
   .oc-card {
     opacity: 1 !important;
     transform: none !important;
@@ -1708,196 +1707,6 @@ html {
   color: #ff5c35;
 }
 
-/* ============================================================
-   WRITING SECTION — editorial index list
-   ============================================================ */
-.writing-list {
-  border-top: 1px solid var(--line);
-}
-
-.writing-row {
-  position: relative;
-  display: grid;
-  grid-template-columns: 72px 2fr 6fr 2fr;
-  align-items: center;
-  gap: 24px;
-  padding: 38px 20px;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-  background: var(--cream);
-  transition: background 0.25s ease;
-  overflow: hidden;
-}
-
-.writing-row::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;
-  height: 0%;
-  background: var(--coral);
-  transition: height 0.3s var(--ease);
-}
-
-.writing-row:hover {
-  background: #fff;
-}
-
-.writing-row:hover::before {
-  height: 100%;
-}
-
-.writing-row-index {
-  font-family: var(--font-fraunces), serif;
-  font-weight: 400;
-  font-size: clamp(2rem, 3vw, 2.75rem);
-  color: var(--faint);
-  transition: color 0.25s ease;
-}
-
-.writing-row:hover .writing-row-index {
-  color: var(--coral);
-}
-
-.writing-row-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-family: var(--font-geist-mono), monospace;
-}
-
-.writing-row-date {
-  /* matches .writing-row-index so the year/month reads as large as "01" */
-  font-size: clamp(2rem, 3vw, 2.75rem);
-  line-height: 1.05;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-  color: var(--muted);
-}
-
-.writing-row-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  padding: 4px 12px;
-  border: 1px solid var(--coral);
-  border-radius: var(--radius-chip);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--coral);
-}
-
-.writing-row-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-}
-
-.writing-row-title {
-  display: inline-block;
-  font-family: var(--font-fraunces), serif;
-  font-weight: 600;
-  font-size: clamp(1.5rem, 1.9vw, 2rem);
-  line-height: 1.3;
-  color: var(--ink);
-  transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.writing-row:hover .writing-row-title {
-  color: var(--coral);
-  transform: translateX(8px);
-}
-
-.writing-row-title-mark {
-  display: inline-block;
-  margin-left: 8px;
-  color: var(--coral);
-  font-family: var(--font-fraunces), serif;
-  opacity: 0;
-  transform: rotate(-12deg) translateX(-4px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.writing-row:hover .writing-row-title-mark {
-  opacity: 1;
-  transform: rotate(-12deg) translateX(0);
-}
-
-.writing-row-excerpt {
-  font-family: var(--font-montserrat), sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--muted);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  transition: color 0.25s ease;
-}
-
-.writing-row:hover .writing-row-excerpt {
-  color: var(--body);
-}
-
-.writing-row-cta {
-  justify-self: end;
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-  transition: color 0.25s ease, transform 0.25s ease;
-}
-
-.writing-row:hover .writing-row-cta {
-  color: var(--coral);
-  transform: translateX(4px);
-}
-
-@media (max-width: 900px) {
-  .writing-row {
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas:
-      "index meta cta"
-      "body body body";
-    row-gap: 16px;
-    column-gap: 16px;
-    padding: 28px 4px;
-  }
-  .writing-row-index { grid-area: index; font-size: 1.75rem; }
-  .writing-row-date { font-size: 1.75rem; }
-  .writing-row-cta { grid-area: cta; }
-  .writing-row-meta { grid-area: meta; flex-direction: row; align-items: center; gap: 14px; }
-  .writing-row-body { grid-area: body; }
-}
-
-@media (max-width: 600px) {
-  .writing-row {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "index"
-      "meta"
-      "body"
-      "cta";
-    padding: 26px 2px;
-  }
-  .writing-row-cta { justify-self: start; }
-}
-
-.writing-cta-arrow {
-  display: inline-block;
-  transition: transform 0.2s ease;
-}
-
-.btn-ghost:hover .writing-cta-arrow {
-  transform: translateX(4px);
-}
-
 .text-ramp {
   color: var(--coral);
   background: linear-gradient(90deg, var(--ink) 0%, var(--coral) 100%);
@@ -2221,4 +2030,191 @@ html {
     0%, 100% { transform: translate(0, 0); }
     12%, 24% { transform: translate(-1.2px, -1.2px); }
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BY THE NUMBERS — the board
+   Replaces the old six-even-rows list. Everything is prefixed bnum- and
+   nothing here is a bare element selector, so the block cannot reach any
+   other page — the .svc-body collision on /services was the lesson.
+   ═════════════════════════════════════════════════════════════════════════ */
+.bnum-grid {
+  display: grid;
+  grid-template-columns: 35% 65%;
+  align-items: start;
+}
+.bnum-left { padding-right: 4rem; }
+
+.bnum-h2 {
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(2.625rem, 5vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.75rem;
+}
+.bnum-h2 span { display: block; color: #22332C; }
+.bnum-h2-coral { color: var(--coral) !important; }
+
+/* Career line. Motive and Soch have no logo asset, so they carry their name
+   at a weight that holds its own beside the three that do. */
+.bnum-tl { position: relative; margin-bottom: 2rem; }
+.bnum-tl-track {
+  position: absolute; left: 11px; top: 12px; bottom: 12px; width: 2px;
+  background: linear-gradient(to bottom, #C17A5A 0%, rgba(193,122,90,0.12) 100%);
+}
+.bnum-tl-row {
+  display: flex; align-items: center; gap: 0.875rem;
+  margin-bottom: 1.15rem; opacity: 0;
+}
+.bnum-tl-row:last-child { margin-bottom: 0; }
+.bnum[data-seen="true"] .bnum-tl-row {
+  animation: bnum-slide 0.5s ease forwards;
+}
+.bnum[data-seen="true"] .bnum-tl-row:nth-child(2) { animation-delay: 0.15s; }
+.bnum[data-seen="true"] .bnum-tl-row:nth-child(3) { animation-delay: 0.27s; }
+.bnum[data-seen="true"] .bnum-tl-row:nth-child(4) { animation-delay: 0.39s; }
+.bnum[data-seen="true"] .bnum-tl-row:nth-child(5) { animation-delay: 0.51s; }
+.bnum[data-seen="true"] .bnum-tl-row:nth-child(6) { animation-delay: 0.63s; }
+@keyframes bnum-slide {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.bnum-tl-node {
+  width: 24px; height: 24px; border-radius: 50%; flex: 0 0 auto;
+  border: 2px solid #C17A5A; background: var(--cream);
+  position: relative; z-index: 1;
+}
+.bnum-tl-node.is-live {
+  border-color: var(--coral); background: var(--coral);
+  animation: bnum-pulse 2.2s ease-in-out infinite;
+}
+@keyframes bnum-pulse {
+  0%, 100% { box-shadow: 0 0 0 5px rgba(255,92,53,0.18); }
+  50%      { box-shadow: 0 0 0 11px rgba(255,92,53,0.06); }
+}
+.bnum-tl-logo { height: 44px; max-width: 104px; width: auto; object-fit: contain; }
+.bnum-tl-name {
+  font-family: var(--font-inter-tight), sans-serif;
+  font-size: 20px; font-weight: 600; letter-spacing: -0.015em; color: #22332C;
+}
+.bnum-tl-year {
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.875rem; font-weight: 500; color: #5C5750; margin-left: 0.45rem;
+}
+.bnum-lede {
+  font-family: var(--font-fraunces), serif;
+  font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  color: #4A5868; line-height: 1.7; max-width: 300px; margin: 0;
+}
+
+/* ── The board ───────────────────────────────────────────────────────── */
+.bnum-head,
+.bnum-row {
+  display: grid;
+  grid-template-columns: 78px 116px minmax(0, 1fr) 84px minmax(150px, 172px);
+  align-items: center;
+  gap: 0;
+}
+.bnum-head {
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid #22332C;
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint);
+}
+.bnum-head > span,
+.bnum-row > span { padding: 0 14px; }
+.bnum-head > span:first-child,
+.bnum-row > span:first-child { padding-left: 0; }
+.bnum-head > span + span,
+.bnum-row > span + span { border-left: 1px solid var(--line-2); }
+.bnum-r { text-align: right; }
+
+.bnum-row {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line-2);
+  opacity: 0; transform: translateY(8px);
+  transition: background 0.25s ease;
+}
+.bnum[data-seen="true"] .bnum-row {
+  animation: bnum-rise 0.45s cubic-bezier(.22,.7,.3,1) forwards var(--d);
+}
+@keyframes bnum-rise { to { opacity: 1; transform: none; } }
+.bnum-row:hover { background: #F0E8DC; }
+.bnum-row > span { align-self: stretch; display: flex; align-items: center; }
+
+.bnum-when {
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 13px; color: #22332C; white-space: nowrap;
+}
+.bnum-where {
+  font-family: var(--font-inter-tight), sans-serif;
+  font-size: 15px; font-weight: 600; color: #22332C; letter-spacing: -0.01em;
+}
+.bnum-what {
+  font-family: var(--font-dm-sans), sans-serif;
+  font-size: 14.5px; line-height: 1.45; color: #22332C;
+}
+.bnum-status { justify-content: flex-start; }
+.bnum-chip {
+  display: inline-block; padding: 5px 9px; border-radius: 4px;
+  border: 1px solid var(--line-2); color: var(--faint);
+  font-family: var(--font-dm-mono), monospace;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  line-height: 1.2; white-space: nowrap;
+}
+.bnum-chip[data-kind="ongoing"] { border-color: var(--coral); color: var(--coral); }
+.bnum-chip[data-kind="shipped"] { border-color: #4E8C6A; color: #3E7355; }
+/* The reading never wraps: the two longest values set the column width, and
+   the breakpoints shrink the type rather than break either over two lines. */
+.bnum-read {
+  justify-content: flex-end; text-align: right; white-space: nowrap;
+  font-family: var(--font-playfair), serif;
+  font-size: 32px; font-weight: 600; line-height: 1; letter-spacing: -0.025em;
+  color: var(--coral); font-variant-numeric: tabular-nums lining-nums;
+}
+
+@media (max-width: 1279px) {
+  .bnum-head, .bnum-row {
+    grid-template-columns: 70px 104px minmax(0, 1fr) 78px minmax(126px, 140px);
+  }
+  .bnum-head > span, .bnum-row > span { padding: 0 10px; }
+  .bnum-read { font-size: 25px; }
+}
+
+@media (max-width: 1023px) {
+  .bnum-grid { grid-template-columns: 1fr; gap: 40px; }
+  .bnum-left { padding-right: 0; }
+  .bnum-head, .bnum-row {
+    grid-template-columns: 78px 116px minmax(0, 1fr) 84px minmax(150px, 172px);
+  }
+  .bnum-read { font-size: 30px; }
+}
+
+/* Five columns cannot survive a phone, and a horizontally scrolling table
+   would be worse than admitting that — the row becomes a stacked record. */
+@media (max-width: 767px) {
+  .bnum-head { display: none; }
+  .bnum-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 6px; padding: 20px 0;
+  }
+  .bnum-row > span,
+  .bnum-row > span + span { border-left: 0; padding: 0; }
+  .bnum-when { grid-row: 1; font-size: 12px; color: var(--faint); }
+  .bnum-where { grid-row: 1; justify-content: flex-end; }
+  .bnum-what { grid-row: 2; grid-column: 1 / 3; }
+  .bnum-status { grid-row: 3; }
+  .bnum-read { grid-row: 3; font-size: 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bnum[data-seen="true"] .bnum-row,
+  .bnum[data-seen="true"] .bnum-tl-row {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .bnum-tl-node.is-live { animation: none; }
 }
