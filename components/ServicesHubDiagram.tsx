@@ -11,7 +11,7 @@ const NR = 62;           // node circle radius
 // Node positions in the initial SVG viewport
 // Consulting  -90° (top),  Projects +30° (bottom-right),  Workshops +150° (bottom-left)
 const NODES = [
-  { id: "consulting", cx: 294,                                          cy: CY - OR,       fill: "#EA6A47", num: "01", label: "CONSULTING" },
+  { id: "consulting", cx: 294,                                          cy: CY - OR,       fill: "#ff5c35", num: "01", label: "CONSULTING" },
   { id: "projects",   cx: Math.round(CX + OR * Math.cos(Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(Math.PI / 6)),  fill: "#22332C", num: "02", label: "PROJECTS"   },
   { id: "workshops",  cx: Math.round(CX + OR * Math.cos(5 * Math.PI / 6)), cy: Math.round(CY + OR * Math.sin(5 * Math.PI / 6)), fill: "#D79A36", num: "03", label: "WORKSHOPS"  },
 ] as const;
@@ -60,9 +60,9 @@ export default function ServicesHubDiagram() {
       {/* ── center circle - pulse only, does NOT rotate ───────────── */}
       <g style={{ transformOrigin: `${CX}px ${CY}px`, animation: "svc-pulse 3s ease-in-out infinite" } as React.CSSProperties}>
         <circle cx={CX} cy={CY} r={CR} fill="#22332C" />
-        <text x={CX} y={CY - 20} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.72)" letterSpacing="0.03em">The clearest</text>
-        <text x={CX} y={CY + 2}  textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.72)">ops in</text>
-        <text x={CX} y={CY + 24} textAnchor="middle" fontFamily="DM Sans, sans-serif" fontSize="14.5" fill="rgba(255,255,255,0.72)">your space</text>
+        <text x={CX} y={CY - 20} textAnchor="middle" fontSize="14.5" fill="rgba(255,255,255,0.72)" letterSpacing="0.03em" style={{ fontFamily: "var(--font-body), sans-serif" }}>The clearest</text>
+        <text x={CX} y={CY + 2}  textAnchor="middle" fontSize="14.5" fill="rgba(255,255,255,0.72)" style={{ fontFamily: "var(--font-body), sans-serif" }}>ops in</text>
+        <text x={CX} y={CY + 24} textAnchor="middle" fontSize="14.5" fill="rgba(255,255,255,0.72)" style={{ fontFamily: "var(--font-body), sans-serif" }}>your space</text>
       </g>
 
       {/* ── orbiting nodes ────────────────────────────────────────── */}
@@ -100,18 +100,17 @@ export default function ServicesHubDiagram() {
                     style={{ transition: "stroke-width 0.2s ease" }}
                   />
 
-                  {/* number - Playfair, centered in circle */}
+                  {/* number - display face, centered in circle */}
                   <text
                     x={n.cx} y={n.cy - 11}
                     textAnchor="middle" dominantBaseline="auto"
-                    fontFamily="Playfair Display, serif"
-                    fontSize="28" fontWeight="700" fill="#fff"
-                    style={{ pointerEvents: "none" } as React.CSSProperties}
+                    fontSize="28" fontWeight="500" fill="#fff"
+                    style={{ pointerEvents: "none", fontFamily: "var(--font-display), sans-serif", letterSpacing: "-0.012em" } as React.CSSProperties}
                   >
                     {n.num}
                   </text>
 
-                  {/* label - DM Mono, below number, stays inside circle */}
+                  {/* label - mono, below number, stays inside circle */}
                   <text
                     x={n.cx} y={n.cy + 18}
                     textAnchor="middle" dominantBaseline="auto"

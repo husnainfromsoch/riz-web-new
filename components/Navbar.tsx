@@ -121,7 +121,7 @@ export default function Navbar() {
               width: 7,
               height: 7,
               borderRadius: "50%",
-              background: "#EA6A47",
+              background: "#ff5c35",
               display: "inline-block",
               marginTop: 2,
             }}
@@ -129,7 +129,7 @@ export default function Navbar() {
           <span
             style={{
               fontFamily: "var(--font-playfair), serif",
-              fontWeight: 700,
+              fontWeight: 600,
               fontSize: "1.5rem",
               color: logoColor,
               letterSpacing: "-0.02em",

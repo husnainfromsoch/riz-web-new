@@ -250,7 +250,7 @@ function wfNode(
         gap: "0.4rem",
         flexShrink: 0,
         boxShadow: isActive
-          ? "0 0 0 3px rgba(234,106,71,0.18), 0 0 14px rgba(234,106,71,0.35)"
+          ? "0 0 0 3px rgba(255,92,53,0.18), 0 0 14px rgba(255,92,53,0.35)"
           : "none",
         transition: "border-color 0.4s ease, box-shadow 0.4s ease",
       }}
@@ -265,7 +265,7 @@ function wfNode(
             height: 7,
             borderRadius: "50%",
             background: "var(--coral)",
-            boxShadow: "0 0 6px rgba(234,106,71,0.85)",
+            boxShadow: "0 0 6px rgba(255,92,53,0.85)",
           }}
         />
       )}
@@ -357,7 +357,7 @@ function ProjectsMockup() {
         <div className="wf-flow">
           {/* row 1 */}
           <div className="wf-flow-row">
-            {wfNode("▶", "New Lead", "rgba(234,106,71,0.22)", "rgba(234,106,71,0.4)", "rgba(255,255,255,0.9)", "var(--coral)", isStep(0))}
+            {wfNode("▶", "New Lead", "rgba(255,92,53,0.22)", "rgba(255,92,53,0.4)", "rgba(255,255,255,0.9)", "var(--coral)", isStep(0))}
             {wfArrow}
             {wfNode("⋯", "Tag Filter", "rgba(255,255,255,0.07)", "rgba(255,255,255,0.1)", "rgba(255,255,255,0.72)", "rgba(255,255,255,0.72)", isStep(1))}
             {wfArrow}
@@ -467,7 +467,7 @@ function WorkshopsMockup() {
           style={{
             fontFamily: "var(--font-playfair), serif",
             fontSize: "1.375rem",
-            fontWeight: 700,
+            fontWeight: 600,
             color: "var(--ink)",
             lineHeight: 1.2,
             marginTop: "0.4rem",

@@ -47,7 +47,7 @@ const CASE_IMAGES: Record<string, string> = {
 };
 
 const ACCENT_PALETTE = [
-  "#C24629", // coral (brand-derived, darkened for AA contrast)
+  "#e8431b", // coral (brand-derived, darkened for AA contrast)
   "#B8562F", // rust
   "#5E7145", // olive / sage
   "#C2410C", // deep coral / burnt orange
@@ -705,34 +705,34 @@ function CaseStudiesContent() {
           text-decoration: none;
         }
         .proof-row:hover {
-          background-color: var(--row-accent-bg-hover, rgba(234,106,71,0.02));
-          border-left-color: var(--row-accent, #EA6A47);
+          background-color: var(--row-accent-bg-hover, rgba(255,92,53,0.02));
+          border-left-color: var(--row-accent, #ff5c35);
           padding-left: 20px;
         }
         .proof-row.active {
-          background-color: var(--row-accent-bg-active, rgba(234,106,71,0.06));
-          border-left-color: var(--row-accent, #EA6A47);
+          background-color: var(--row-accent-bg-active, rgba(255,92,53,0.06));
+          border-left-color: var(--row-accent, #ff5c35);
           border-left-width: 4px;
           padding-left: 20px;
         }
         .proof-row-num {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 14px;
-          color: var(--row-accent, #EA6A47);
+          color: var(--row-accent, #ff5c35);
           letter-spacing: 0.1em;
         }
         .proof-row-tag {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 1rem;
           font-weight: 600;
-          color: var(--row-accent, #E8603C);
+          color: var(--row-accent, #ff5c35);
           letter-spacing: 0.08em;
           line-height: 1.4;
           text-transform: uppercase;
         }
         .proof-row-title {
           font-size: 20px;
-          font-weight: 800;
+          font-weight: 600;
           color: #22332C;
           font-family: var(--font-fraunces), serif;
         }
@@ -748,10 +748,10 @@ function CaseStudiesContent() {
           justify-self: end;
         }
         .proof-row:hover .proof-row-arrow {
-          color: var(--row-accent, #EA6A47);
+          color: var(--row-accent, #ff5c35);
         }
         .proof-row.active .proof-row-arrow {
-          color: var(--row-accent, #EA6A47);
+          color: var(--row-accent, #ff5c35);
           transform: rotate(180deg);
         }
 
@@ -786,8 +786,8 @@ function CaseStudiesContent() {
         }
         .filter-tab.active {
           color: #22332C;
-          font-weight: 700;
-          border-bottom: 2px solid #EA6A47;
+          font-weight: 600;
+          border-bottom: 2px solid #ff5c35;
         }
 
         /* hero section */
@@ -811,10 +811,11 @@ function CaseStudiesContent() {
         }
         .case-hero-heading {
           font-family: inherit;
-          font-size: 56px;
-          font-weight: 900;
+          font-size: clamp(2.4rem, 1.5rem + 3vw, 3.7rem);
+          line-height: 1.02;
+          letter-spacing: -0.018em;
+          font-weight: 500;
           color: #22332C;
-          line-height: 1.05;
           margin-bottom: 20px;
         }
         .case-hero-heading .outline-num {
@@ -838,15 +839,15 @@ function CaseStudiesContent() {
         }
         .case-hero-inline-stat-number {
           font-size: 28px;
-          font-weight: 900;
-          color: #EA6A47;
+          font-weight: 500;
+          color: #ff5c35;
           font-family: inherit;
         }
         .case-hero-inline-stat-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 1rem;
           font-weight: 600;
-          color: #E8603C;
+          color: #ff5c35;
           letter-spacing: 0.08em;
           text-transform: uppercase;
         }
@@ -865,23 +866,23 @@ function CaseStudiesContent() {
         }
         .case-stat-card:hover {
           transform: translateY(-5px);
-          border-color: #EA6A47;
-          box-shadow: 0 8px 32px rgba(234,106,71,0.1);
+          border-color: #ff5c35;
+          box-shadow: 0 8px 32px rgba(255,92,53,0.1);
         }
         .case-stat-card-label {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 1rem;
           font-weight: 600;
-          color: #E8603C;
+          color: #ff5c35;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           margin-bottom: 8px;
         }
         .case-stat-card-number {
           font-size: 40px;
-          font-weight: 900;
+          font-weight: 500;
           line-height: 1;
-          background: linear-gradient(135deg, #22332C 0%, #EA6A47 100%);
+          background: linear-gradient(135deg, #22332C 0%, #ff5c35 100%);
           background-size: 200% auto;
           -webkit-background-clip: text;
           background-clip: text;
@@ -895,7 +896,7 @@ function CaseStudiesContent() {
         .case-stat-card-divider {
           width: 24px;
           height: 2px;
-          background: #EA6A47;
+          background: #ff5c35;
           border-radius: 2px;
           margin: 8px 0;
         }
@@ -915,9 +916,6 @@ function CaseStudiesContent() {
           .case-hero-grid {
             grid-template-columns: 1fr;
             gap: 40px;
-          }
-          .case-hero-heading {
-            font-size: 40px;
           }
         }
 
@@ -959,7 +957,7 @@ function CaseStudiesContent() {
           max-height: 900px;
           opacity: 1;
           border-color: var(--line);
-          box-shadow: inset 0 3px 0 0 var(--row-accent, #EA6A47);
+          box-shadow: inset 0 3px 0 0 var(--row-accent, #ff5c35);
         }
         .case-panel-header {
           background: #22332C;
@@ -970,7 +968,7 @@ function CaseStudiesContent() {
         }
         .case-panel-header-title {
           font-size: 16px;
-          font-weight: 700;
+          font-weight: 600;
           color: var(--cream);
           font-family: var(--font-fraunces), serif;
         }
@@ -1009,7 +1007,7 @@ function CaseStudiesContent() {
         .case-panel-image-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, rgba(234,106,71,0.3) 0%, transparent 60%);
+          background: linear-gradient(135deg, rgba(255,92,53,0.3) 0%, transparent 60%);
         }
         .case-panel-col-ba {
           padding: 32px 28px;
@@ -1019,12 +1017,12 @@ function CaseStudiesContent() {
           font-family: var(--font-geist-mono), 'Geist Mono', monospace;
           font-size: 1rem;
           font-weight: 600;
-          color: #E8603C;
+          color: #ff5c35;
           letter-spacing: 0.08em;
           margin-bottom: 12px;
         }
         .case-panel-label-sm.after {
-          color: #E8603C;
+          color: #ff5c35;
         }
         .case-panel-list-v2 {
           list-style: none;
@@ -1043,22 +1041,22 @@ function CaseStudiesContent() {
         }
         .case-panel-divider-v2 {
           height: 1px;
-          background: linear-gradient(90deg, #EA6A47, var(--line));
+          background: linear-gradient(90deg, #ff5c35, var(--line));
           margin: 16px 0;
         }
         .case-panel-col-outcomes {
           padding: 32px 28px;
         }
         .case-stat-v2 {
-          border-left: 3px solid #EA6A47;
+          border-left: 3px solid #ff5c35;
           padding-left: 14px;
           margin-bottom: 20px;
         }
         .case-stat-v2-number {
           font-size: 26px;
-          font-weight: 900;
+          font-weight: 500;
           color: #22332C;
-          background: linear-gradient(90deg, #22332C, #EA6A47);
+          background: linear-gradient(90deg, #22332C, #ff5c35);
           background-size: 200% auto;
           -webkit-background-clip: text;
           background-clip: text;
@@ -1091,7 +1089,7 @@ function CaseStudiesContent() {
         }
         .case-delivered-v2-value {
           font-size: 16px;
-          font-weight: 700;
+          font-weight: 600;
           color: #22332C;
         }
         @media (max-width: 768px) {
@@ -1240,7 +1238,7 @@ function CaseStudiesContent() {
                       <ul className="case-panel-list-v2 after">
                         {row.details.after.map((item, i) => (
                           <li key={i}>
-                            <span style={{ color: "#EA6A47" }}>→ </span>
+                            <span style={{ color: "#ff5c35" }}>→ </span>
                             {item}
                           </li>
                         ))}

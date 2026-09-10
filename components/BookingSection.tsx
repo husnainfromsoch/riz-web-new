@@ -44,7 +44,7 @@ export default function BookingSection() {
             style={{
               fontFamily: "var(--font-dm-sans), sans-serif",
               fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontWeight: 700,
+              fontWeight: 600,
               color: "var(--ink)",
               lineHeight: 1.15,
               marginBottom: "0.75rem",
@@ -200,7 +200,7 @@ export default function BookingSection() {
                   style={{
                     fontFamily: "var(--font-playfair), serif",
                     fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                    fontWeight: 700,
+                    fontWeight: 600,
                     color: "var(--ink)",
                     lineHeight: 1.1,
                   }}

@@ -69,7 +69,7 @@ export default function SpeakingPage() {
                   fontSize: "clamp(3rem, 5vw, 4.25rem)",
                   lineHeight: 1.2,
                   color: "var(--ink)",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   marginBottom: "1.25rem",
                 }}
               >
@@ -172,7 +172,7 @@ export default function SpeakingPage() {
         }
         .format-row:hover,
         .format-row.active {
-          background-color: rgba(234, 106, 71, 0.05);
+          background-color: rgba(255,92,53, 0.05);
         }
         .format-row-label {
           font-family: var(--font-playfair), serif;
@@ -229,7 +229,7 @@ export default function SpeakingPage() {
                   fontFamily: "var(--font-playfair), serif",
                   fontSize: "clamp(1.5rem, 2.5vw, 1.875rem)",
                   color: "var(--ink)",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   marginBottom: "2rem",
                 }}
               >
@@ -280,7 +280,7 @@ export default function SpeakingPage() {
                   fontFamily: "var(--font-playfair), serif",
                   fontSize: "clamp(1.5rem, 2.5vw, 1.875rem)",
                   color: "var(--ink)",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   marginBottom: "2rem",
                 }}
               >

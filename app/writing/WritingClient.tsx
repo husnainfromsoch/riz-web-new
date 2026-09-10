@@ -148,7 +148,7 @@ export default function WritingClient({ posts }: { posts: Post[] }) {
                       style={{
                         fontFamily: "var(--font-playfair), serif",
                         fontSize: "1.125rem",
-                        fontWeight: 700,
+                        fontWeight: 600,
                         color: "var(--ink)",
                         lineHeight: 1.4,
                         flex: 1,

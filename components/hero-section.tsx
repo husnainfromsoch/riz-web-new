@@ -16,7 +16,7 @@ export default function HeroSection() {
           --hz-cream: var(--cream);
           --hz-forest: #22332C;
           --hz-black: #0E0E0D;
-          --hz-coral: #EA6A47;
+          --hz-coral: #ff5c35;
           --hz-amber: #D79A36;
           --hz-muted: #5E594E;
           --hz-line: var(--line);
@@ -104,8 +104,8 @@ export default function HeroSection() {
         }
         .hz-intro-name {
           font-style: italic;
-          font-weight: 800;
-          background: linear-gradient(110deg, #EA6A47, #D79A36, #E8527A, #EA6A47);
+          font-weight: 600;
+          background: linear-gradient(110deg, #ff5c35, #D79A36, #E8527A, #ff5c35);
           background-size: 300% auto;
           -webkit-background-clip: text;
           background-clip: text;
@@ -114,16 +114,16 @@ export default function HeroSection() {
         }
 
         .hz-headline {
-          font-size: clamp(3rem, 4vw, 4.25rem);
-          font-weight: 800;
-          line-height: 1.05;
-          letter-spacing: -3px;
+          font-size: clamp(2.6rem, 1.5rem + 3.9vw, 4.35rem);
+          font-weight: 500;
+          line-height: 1.02;
+          letter-spacing: -0.018em;
           margin-bottom: 0;
           color: var(--hz-forest);
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
         }
         .hz-accent {
-          background: linear-gradient(90deg, #9B59B6, #EA6A47, #E8527A, #D79A36, #9B59B6);
+          background: linear-gradient(90deg, #9B59B6, #ff5c35, #E8527A, #D79A36, #9B59B6);
           background-size: 250% auto;
           -webkit-background-clip: text;
           background-clip: text;
@@ -134,7 +134,7 @@ export default function HeroSection() {
         .hz-rule {
           width: 52px;
           height: 3px;
-          background: #EA6A47;
+          background: #ff5c35;
           border-radius: 4px;
           margin: 22px 0 20px;
         }
@@ -166,9 +166,9 @@ export default function HeroSection() {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
         }
         .hz-role-list li:first-child { border-top: 1px solid var(--hz-line); }
-        .hz-role-list li:hover { color: #EA6A47; }
+        .hz-role-list li:hover { color: #ff5c35; }
         .hz-role-arrow {
-          color: #EA6A47;
+          color: #ff5c35;
           transition: transform 0.2s;
           flex-shrink: 0;
         }
@@ -198,7 +198,7 @@ export default function HeroSection() {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
         }
         .hz-btn-primary:hover {
-          background: #EA6A47;
+          background: #ff5c35;
           transform: translateY(-2px);
         }
         .hz-btn-secondary {
@@ -217,8 +217,8 @@ export default function HeroSection() {
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
         }
         .hz-btn-secondary:hover {
-          border-color: #EA6A47;
-          color: #EA6A47;
+          border-color: #ff5c35;
+          color: #ff5c35;
         }
 
         .hz-ops-heading {
@@ -229,8 +229,8 @@ export default function HeroSection() {
         }
         .hz-ops-num {
           font-size: 42px;
-          font-weight: 900;
-          letter-spacing: -2px;
+          font-weight: 500;
+          letter-spacing: -0.020em;
           color: var(--hz-forest);
           line-height: 1;
           font-family: var(--font-inter-tight), 'Inter Tight', sans-serif;
@@ -244,7 +244,7 @@ export default function HeroSection() {
         }
         .hz-ops-static { color: var(--hz-muted); }
         .hz-ops-animated {
-          background: linear-gradient(90deg, #9B59B6, #EA6A47, #E8527A, #D79A36, #9B59B6);
+          background: linear-gradient(90deg, #9B59B6, #ff5c35, #E8527A, #D79A36, #9B59B6);
           background-size: 250% auto;
           -webkit-background-clip: text;
           background-clip: text;
@@ -314,7 +314,7 @@ export default function HeroSection() {
         @media (max-width: 960px) {
           .hz-wrap { padding-left: 24px; padding-right: 24px; }
           .hz-grid { grid-template-columns: 1fr; gap: 36px; }
-          .hz-headline { font-size: clamp(30px, 8.5vw, 40px); letter-spacing: -1.5px; }
+          .hz-headline { font-size: clamp(2.15rem, 1.2rem + 3.4vw, 2.75rem); }
           /* min-height must be killed here: with aspect-ratio it transfers
              a 560px min-width and blows the grid track past the viewport */
           .hz-photo-card { aspect-ratio: 4 / 5; min-height: 0; height: auto; }
@@ -335,7 +335,7 @@ export default function HeroSection() {
             flex-wrap: wrap;
             gap: 10px 24px;
           }
-          .hz-ops-num { font-size: 32px; letter-spacing: -1.5px; }
+          .hz-ops-num { font-size: 32px; }
           .hz-ops-label { font-size: 14px; max-width: 190px; }
           .hz-trust-row { flex-wrap: wrap; }
           .hz-logo-row { gap: 16px; flex-wrap: wrap; }
