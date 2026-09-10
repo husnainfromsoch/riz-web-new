@@ -2112,7 +2112,7 @@ html {
 .bnum-head,
 .bnum-row {
   display: grid;
-  grid-template-columns: 78px 116px minmax(0, 1fr) 84px minmax(150px, 172px);
+  grid-template-columns: 78px 116px minmax(0, 1fr) auto minmax(150px, 172px);
   align-items: center;
   gap: 0;
 }
@@ -2158,11 +2158,11 @@ html {
 }
 .bnum-status { justify-content: flex-start; }
 .bnum-chip {
-  display: inline-block; padding: 5px 9px; border-radius: 4px;
+  display: inline-block; padding: 5px 8px 5px 9px; border-radius: 4px;
   border: 1px solid var(--line-2); color: var(--faint);
   font-family: var(--font-dm-mono), monospace;
   font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-  line-height: 1.2; white-space: nowrap;
+  line-height: 1.3; white-space: nowrap;
 }
 .bnum-chip[data-kind="ongoing"] { border-color: var(--coral); color: var(--coral); }
 .bnum-chip[data-kind="shipped"] { border-color: #4E8C6A; color: #3E7355; }
@@ -2177,7 +2177,7 @@ html {
 
 @media (max-width: 1279px) {
   .bnum-head, .bnum-row {
-    grid-template-columns: 70px 104px minmax(0, 1fr) 78px minmax(126px, 140px);
+    grid-template-columns: 70px 104px minmax(0, 1fr) auto minmax(126px, 140px);
   }
   .bnum-head > span, .bnum-row > span { padding: 0 10px; }
   .bnum-read { font-size: 25px; }
@@ -2187,7 +2187,7 @@ html {
   .bnum-grid { grid-template-columns: 1fr; gap: 40px; }
   .bnum-left { padding-right: 0; }
   .bnum-head, .bnum-row {
-    grid-template-columns: 78px 116px minmax(0, 1fr) 84px minmax(150px, 172px);
+    grid-template-columns: 78px 116px minmax(0, 1fr) auto minmax(150px, 172px);
   }
   .bnum-read { font-size: 30px; }
 }

@@ -29,8 +29,19 @@ type Row = {
 /* From the September 2026 CV, one entry per company, earliest first.
    Figures are lifted verbatim; nothing here is inferred. Motive and
    Shaping Wealth carry a non-numeric reading because the CV records no
-   metric for them, which is better than inventing one. */
+   metric for them, which is better than inventing one.
+
+   S&P Global's two roles (Associate then Analyst, Insurance) are one row:
+   2,000+ cases is the larger of its two figures — the other is ~20
+   projects assisted on the product-operations side. */
 const ROWS: Row[] = [
+  {
+    when: "2017–19",
+    company: "S&P Global",
+    moved: "Insurance client cases, with Product, Support and Content",
+    status: "Shipped",
+    reading: "2,000+",
+  },
   {
     when: "2019–20",
     company: "Careem",
@@ -79,6 +90,10 @@ const ROWS: Row[] = [
    alongside Soch rather than after it, so it is not a stop of its own. */
 const STOPS = ROWS.filter((r) => r.company !== "Shaping Wealth");
 
+/* A company with a logo shows it; one without falls back to its name set
+   at a weight that holds its own beside the marks. Motive, Soch and
+   Shaping Wealth have no asset in public/logos, and neither does S&P
+   Global yet — drop the file in and add the line here, nothing else. */
 const LOGOS: Record<string, string> = {
   Careem: "/logos/careem.png",
   Bolt: "/logos/bolt.png",
