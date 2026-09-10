@@ -79,3 +79,56 @@ export function playPopSound() {
 export function playToggleSound() {
   playTones([{ from: 520, to: 880, glide: 0.08, gain: 0.15, decay: 0.12 }]);
 }
+/* ---------------------------------------------------------------------------
+   Service card tones.
+
+   One per card, and each is shaped like its icon's movement rather than being
+   six arbitrary pitches: the scanner sweeps down, the dial glides up and
+   settles, the payload leaves and arrives, the agent ticks three times, the
+   deal steps up twice, the room resolves into a chord.
+
+   Quieter than the click sounds (peak 0.05-0.09 against the CTA's 0.16)
+   because a hover is not a decision — these should sit under the page, not
+   announce themselves.
+--------------------------------------------------------------------------- */
+const SERVICE_TONES: Tone[][] = [
+  // 0 · diagnosis — a scanner passing down over the page
+  [{ from: 760, to: 360, glide: 0.22, gain: 0.06, decay: 0.26 }],
+  // 1 · readiness — a needle sweeping up and settling
+  [{ from: 340, to: 680, glide: 0.16, gain: 0.06, decay: 0.24 }],
+  // 2 · automation — departure, then arrival at the far node
+  [
+    { from: 560, gain: 0.055, decay: 0.09 },
+    { from: 940, gain: 0.05, decay: 0.11, delay: 0.13 },
+  ],
+  // 3 · agents — three ticks, the same rhythm as the typing dots
+  [
+    { from: 880, gain: 0.04, decay: 0.05 },
+    { from: 880, gain: 0.04, decay: 0.05, delay: 0.08 },
+    { from: 880, gain: 0.04, decay: 0.06, delay: 0.16 },
+  ],
+  // 4 · pipeline — a deal stepping one stage up
+  [
+    { from: 480, gain: 0.055, decay: 0.08 },
+    { from: 720, gain: 0.055, decay: 0.14, delay: 0.09 },
+  ],
+  // 5 · workshops — a warm open fifth, the room together
+  [
+    { from: 440, gain: 0.05, decay: 0.3 },
+    { from: 660, gain: 0.038, decay: 0.3, delay: 0.02 },
+  ],
+];
+
+/**
+ * Rate-limited: sweeping the pointer across the grid would otherwise fire
+ * six overlapping tones in half a second, which is the difference between a
+ * detail and an irritation.
+ */
+let lastToneAt = 0;
+
+export function playServiceTone(index: number) {
+  const now = typeof performance !== "undefined" ? performance.now() : Date.now();
+  if (now - lastToneAt < 220) return;
+  lastToneAt = now;
+  playTones(SERVICE_TONES[index % SERVICE_TONES.length]);
+}
